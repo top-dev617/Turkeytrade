@@ -1,0 +1,34 @@
+.modalContentContainer {
+  padding-top: 40px;
+  padding-right: 40px;
+  padding-left: 40px;
+  padding-bottom: 91px;
+}
+
+.modalHeader {
+  border: unset;
+}
+.modalHeader h1 {
+  color: #222;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.48px;
+}
+
+.modalHeader button {
+  background: url("../newAssests/crossIcon.png");
+  background-repeat: no-repeat;
+  background-size: 46px;
+  background-position: center;
+}
+
+.bodyContainer p {
+  color: rgba(34, 34, 34, 0.8);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.36px;
+}

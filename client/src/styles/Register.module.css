@@ -1,0 +1,29 @@
+.selectInput {
+  outline: unset !important;
+  border: unset !important;
+  background-color: #f6f6f6;
+  padding: 18px;
+}
+
+.agreementText {
+  color: #94959b;
+  font-size: 14px !important;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 128.571% */
+  letter-spacing: 0.28px;
+  /* margin-bottom: unset; */
+}
+
+.agreementText a {
+  font-size: 14px !important;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.28px;
+  text-decoration-line: underline !important;
+}
+
+.registerFormSecondContainer label {
+  margin-bottom: 5px !important;
+}

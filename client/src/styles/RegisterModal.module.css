@@ -1,0 +1,119 @@
+.modalContainer {
+  padding: 40px;
+}
+
+.otpInputContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.otpInput input {
+  width: 71px;
+  height: 56px;
+  border: unset !important;
+  outline: unset !important;
+  border-radius: 8px;
+  background: #f6f6f6;
+  padding: 10px 25px;
+
+  color: #222;
+
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.48px;
+
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.otpInput input::-webkit-inner-spin-button,
+.otpInput input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.resendButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.resendButtonContainer button {
+  border: unset;
+  background: unset;
+  color: #222;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.36px;
+
+}
+
+.completeButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.completeButtonContainer button {
+  outline: unset;
+  border: unset;
+
+  border-radius: 8px;
+  background: #037d41;
+  color: #fff;
+  padding: 16px 24px;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.36px;
+  cursor: pointer;
+}
+
+.title {
+  color: #222;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.48px;
+}
+
+.title span {
+  color: #222;
+  font-size: 29px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.58px;
+}
+
+.otpSuccessContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.otpSuccessContainer img {
+  margin-bottom: 36px;
+}
+
+.otpSuccessContainer h3 {
+  margin-bottom: 59px;
+}
+
+.otpSuccessContainer button {
+  border: unset;
+  border-radius: 8px;
+  background: #037d41;
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.36px;
+  padding: 16px 24px;
+}
