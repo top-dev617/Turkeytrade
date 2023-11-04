@@ -16,18 +16,31 @@ import {
   PopoverContent,
   PopoverHandler,
 } from "@material-tailwind/react";
+import {
+  handleClearConversations,
+  setOnline_users,
+} from "@/redux/features/conversation/conversationSlice";
+import { socket_url } from "@/utils/auth/global";
+import { io } from "socket.io-client";
 
 const Header = () => {
   const { user, signOut, setMsgOpen, msgOpen } = useContext(AuthContext);
   const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
   const dispatch = useDispatch();
   const router = useRouter();
+  const socket = useRef();
   const { pathname } = router;
   const [open, setOpen] = useState(false);
   const [openPopover, setOpenPopover] = useState(false);
   const triggers = {
     onMouseEnter: () => setOpenPopover(true),
     onMouseLeave: () => setOpenPopover(false),
+  };
+
+  const handleSignout = () => {
+    signOut();
+    dispatch(handleClearConversations());
+    router.reload();
   };
 
   useEffect(() => {
@@ -43,6 +56,15 @@ const Header = () => {
     }
   };
 
+  const [sellerReg, setSellerReg] = useState(false);
+  useEffect(() => {
+    if (user?.role === "Seller" && data?.status && !data?.data?._id) {
+      setTimeout(() => {
+        setSellerReg(true);
+      }, 1500);
+    }
+  }, [user, data?.data]);
+
   let navberRef = useRef();
   useEffect(() => {
     let handler = (e) => {
@@ -55,7 +77,18 @@ const Header = () => {
       document.removeEventListener("mousedown", handler);
     };
   });
-  // console.log(user)
+
+  useEffect(() => {
+    socket.current = io(socket_url);
+    if (user?._id) {
+      socket.current.emit("addUser", user?._id);
+      socket.current.on("getUsers", (users) => {
+        dispatch(setOnline_users(users));
+      });
+    }
+    return () => {};
+  }, [user]);
+
   return (
     <nav ref={navberRef} className="bg-white py-2 uppercase border-b ">
       <div className="relative cursor-pointer flex justify-between items-center gap-6 lg:gap-10 h-14 px-4 max-w-primary mx-auto container">
@@ -64,7 +97,7 @@ const Header = () => {
             <img src={logo.src} alt="" />
           </Link>
         </div>
-        {user?._id && (
+        {user?._id && data?.status === true && (
           <>
             {data?.data ? (
               <div
@@ -85,15 +118,18 @@ const Header = () => {
               </div>
             ) : (
               <>
-                {user?.role === "Seller" && (
-                  <div
-                    style={{ color: "#E61C2B", fontWeight: "600" }}
-                    className="flex items-center gap-1"
-                    onClick={() => handleNavigate()}
-                  >
-                    Start Selling
-                  </div>
-                )}
+                {user?.role === "Seller" &&
+                  data?.status &&
+                  !data?.data?._id &&
+                  sellerReg && (
+                    <div
+                      style={{ color: "#E61C2B", fontWeight: "600" }}
+                      className="flex items-center gap-1"
+                      onClick={() => handleNavigate()}
+                    >
+                      Start Selling
+                    </div>
+                  )}
               </>
             )}
           </>
@@ -129,11 +165,13 @@ const Header = () => {
               </PopoverHandler>
               <PopoverContent className="w-44 p-2">
                 <div className="max-w-[200px] text-center grid grid-cols-1 gap-2">
-                  <Link href="/profile">
-                    <Button className="w-full py-0 h-8 rounded shadow-none bg-pm hover:bg-pmd">
-                      Profile
-                    </Button>
-                  </Link>
+                  {data?.data && (
+                    <Link href="/profile">
+                      <Button className="w-full py-0 h-8 rounded shadow-none bg-pm hover:bg-pmd">
+                        Profile
+                      </Button>
+                    </Link>
+                  )}
                   <Link href="/inbox">
                     <Button className="w-full py-0 h-8 rounded shadow-none bg-pm hover:bg-pmd">
                       Inbox
@@ -155,7 +193,7 @@ const Header = () => {
                     </Button>
                   </Link>
                   <Button
-                    onClick={() => signOut()}
+                    onClick={() => handleSignout()}
                     className="w-full py-0 h-8 rounded shadow-none bg-red-600 hover:bg-red-700 mt-2"
                   >
                     Sign Out

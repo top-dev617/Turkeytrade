@@ -4,11 +4,11 @@ const productSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
+      required: false,
     },
     images: {
       type: [String],
-      required: true,
+      required: false,
       validate: {
         validator: function (value) {
           return value.length <= 6;
@@ -19,34 +19,52 @@ const productSchema = new mongoose.Schema(
     store: {
       type: String,
       ref: "Store",
-      required: true,
+      required: false,
     },
     price: {
-      type: [Object],
-      quantity: {
+      type: Object,
+      price_type: {
+        type: String,
+        enum: ["ladder_price", "one_price"],
+      },
+      ladder_price: {
+        type: [Object],
+        quantity: {
+          from: {
+            type: String,
+            required: false,
+          },
+          to: {
+            type: String,
+            required: false,
+          },
+        },
+        euro: {
+          type: String,
+          required: false,
+        },
+      },
+      one_price: {
+        type: Object,
         from: {
           type: String,
-          required: true,
+          required: false,
         },
         to: {
           type: String,
-          required: true,
+          required: false,
         },
       },
-      euro: {
-        type: String,
-        required: true,
-      },
-      required: true,
+      required: false,
     },
     category: {
       type: String,
       ref: "Category",
-      required: true,
+      required: false,
     },
     description: {
       type: String,
-      required: true,
+      required: false,
     },
     features: {
       type: [String],
@@ -55,7 +73,7 @@ const productSchema = new mongoose.Schema(
 
     keyword: {
       type: [String],
-      required: true,
+      required: false,
     },
     model: {
       type: String,
@@ -64,31 +82,37 @@ const productSchema = new mongoose.Schema(
     group: {
       type: String,
       ref: "ProductGroup",
-      required: true,
+      required: false,
     },
     unit: {
-      type: String,
-      required: true,
+      type: Object,
+      singular: String,
+      plural: String,
+      required: false,
     },
     moq: {
       type: String,
-      required: true,
+      required: false,
     },
     lead_time: {
       type: Object,
       from: {
         type: String,
-        required: true,
+        required: false,
       },
       to: {
         type: String,
-        required: true,
+        required: false,
       },
       time: {
         type: String,
-        required: true,
+        required: false,
       },
-      required: true,
+      required: false,
+    },
+    video: {
+      type: String,
+      required: false,
     },
     status: {
       type: String,

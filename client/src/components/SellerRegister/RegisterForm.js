@@ -1,18 +1,15 @@
 import RegistrationSuccess from "@/utils/modals/RegistrationSuccess";
 import Link from "next/link";
 import React, { useContext, useRef, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
 import { useForm } from "react-hook-form";
 import { usePostStoreRequestMutation } from "@/redux/features/stores/storeApi";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import LoadingBtn from "../commons/buttons/LoadingBtn";
 import { Spinner } from "@material-tailwind/react";
 import { countries } from "@/utils/datas/countries";
 
-const RegisterForm = () => {
+const RegisterForm = ({ user, store }) => {
   const { register, handleSubmit } = useForm()
-  const { user } = useContext(AuthContext);
   const closeModalRef = useRef(null);
   const router = useRouter()
 
@@ -82,6 +79,8 @@ const RegisterForm = () => {
   }
 
 
+  console.log(user);
+
   return (
     <div className="sr_form">
       <div className="container">
@@ -97,20 +96,20 @@ const RegisterForm = () => {
                     Country <span>*</span>
                   </label>
                   <select
-                {...register("country", { required: true })}
-                className="px-2 block input py-4"
-                aria-label="Default select example"
-                name="country"
-              >
-                <option value="" style={{ color: "#94959B" }}>
-                  Country Name
-                </option>
-                {
-                  countries?.map((country) => <option value={country?.label}>{country?.label}</option>)
-                }
-              </select>
-                  {/* <input {...register("country", { required: true })}
-                    className="px-2" type="text" placeholder="Country" /> */}
+                    {...register("country", { required: true })}
+                    className="px-2 block input py-4"
+                    aria-label="Default select example"
+                    name="country"
+                  >
+                    <option value="" style={{ color: "#94959B" }}>
+                      Country Name
+                    </option>
+                    {
+                      countries?.map((country) => <option value={country?.label}
+                        selected={user?.country === country?.label}
+                      >{country?.label}</option>)
+                    }
+                  </select>
                 </div>
               </div>
               <div className="col-12 col-md-6">
@@ -118,7 +117,12 @@ const RegisterForm = () => {
                   <label>
                     Province <span>*</span>
                   </label>
-                  <input {...register("province", { required: true })} className="px-2" type="text" placeholder="Province" />
+                  <input {...register("province", { required: true })}
+                    className="px-2"
+                    type="text"
+                    placeholder="Province"
+                    defaultValue={user?.province}
+                  />
                 </div>
               </div>
               <div className="col-12 col-md-6">
@@ -126,7 +130,12 @@ const RegisterForm = () => {
                   <label>
                     City <span>*</span>
                   </label>
-                  <input {...register("city", { required: true })} className="px-2" type="text" placeholder="City" />
+                  <input {...register("city", { required: true })}
+                    className="px-2"
+                    type="text"
+                    placeholder="City"
+                    defaultValue={user?.city}
+                  />
                 </div>
               </div>
               <div className="col-12 col-md-6">
@@ -134,7 +143,12 @@ const RegisterForm = () => {
                   <label>
                     Address <span>*</span>
                   </label>
-                  <input {...register("address", { required: true })} className="px-2" type="text" placeholder="Address" />
+                  <input {...register("address", { required: true })}
+                    className="px-2"
+                    type="text"
+                    placeholder="Address"
+                    defaultValue={user?.companyAddress}
+                  />
                 </div>
               </div>
               <div className="col-12">
@@ -146,6 +160,7 @@ const RegisterForm = () => {
                     className="px-2"
                     type="text"
                     placeholder="Postal Code"
+                    defaultValue={user?.zipCode}
                   />
                 </div>
               </div>
@@ -160,7 +175,12 @@ const RegisterForm = () => {
                   <label>
                     Business name <span>*</span>
                   </label>
-                  <input {...register("store_name", { required: true })} className="px-2" type="text" placeholder="Business Name" />
+                  <input {...register("store_name", { required: true })}
+                    className="px-2"
+                    type="text"
+                    placeholder="Business Name"
+                    defaultValue={user?.company_name}
+                  />
                 </div>
               </div>
               <div className="col-12 col-md-6">
@@ -235,17 +255,19 @@ const RegisterForm = () => {
               </p>
             </div>
           </div>
-          <div className="text-center">
+          {
+            !store && <div className="text-center">
 
-            <button
-              className=" submit_btn flex justify-center items-center"
-              type="submit"
-              disabled={isLoading || loading}
-            >
-              {isLoading || loading ? <Spinner color="white" /> : "Submit"}
-            </button>
+              <button
+                className=" submit_btn flex justify-center items-center"
+                type="submit"
+                disabled={isLoading || loading}
+              >
+                {isLoading || loading ? <Spinner color="white" /> : "Submit"}
+              </button>
 
-          </div>
+            </div>
+          }
         </form>
 
         {/* <!-- Modal --> */}

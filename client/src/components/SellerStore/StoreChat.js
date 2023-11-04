@@ -1,19 +1,14 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
 import {
-  useGetChatDataQuery,
   useGetMessagesQuery,
-  useGetSingleChatQuery,
-  usePostNewChatMutation,
   usePostNewMessageMutation,
 } from "@/redux/features/conversation/conversationApi";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
-import MessageArea from "../chatting/conversation-conponets/MessageArea";
 import SendMessageBox from "../chatting/conversation-conponets/SendMessageBox";
-import SingleMessage from "../chatting/conversation-conponets/SingleMessage";
 import { useState } from "react";
 import Loading from "../commons/Loading";
+import StoreSingleMessage from "../chatting/conversation-conponets/store-ui/StoreSingleMessage";
 
 const StoreChat = ({ store, chatId }) => {
   const { user } = useContext(AuthContext);
@@ -50,22 +45,32 @@ const StoreChat = ({ store, chatId }) => {
 
         {chatId ? (
           <>
-            <div class="flex items-center justify-between border-b p-2">
+            <div className="flex items-center justify-between border-b p-2">
               <div className="flex items-center gap-2">
-                <div class="flex items-center">
+                <div className="flex items-center">
                   <button className="flex items-center justify-center min-w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px]">
                     <span>
                       {receiverData?.name?.slice(0, 1) ||
                         receiverData?.store_name?.slice(0, 1)}{" "}
                     </span>
                   </button>
-                  <div class="pl-2">
-                    <div class="font-semibold">
-                      <p class="hover:underline">
+                  <div className="pl-2">
+                    <div className="font-semibold">
+                      <p className="hidden md:block">
                         {receiverData?.name || receiverData?.store_name}
                       </p>
+                      <p className="md:hidden">
+                        {" "}
+                        {(receiverData?.name || receiverData?.store_name)
+                          ?.length > 12
+                          ? (
+                              receiverData?.name || receiverData?.store_name
+                            ).slice(0, 12) + "..."
+                          : receiverData?.name || receiverData?.store_name}
+                      </p>
                     </div>
-                    <div class="text-xs text-gray-600">Online</div>
+                    <div className="text-xs text-gray-600">.</div>
+                    {/* <div className="text-xs text-gray-600">Online</div> */}
                   </div>
                 </div>
               </div>
@@ -73,11 +78,11 @@ const StoreChat = ({ store, chatId }) => {
               <div>
                 <button
                   onClick={() => setFullScreen(!fullScreen)}
-                  class="inline-flex hover:bg-indigo-50 rounded-full p-2"
+                  className="inline-flex hover:bg-indigo-50 rounded-full p-2"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
+                    className="h-6 w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -98,7 +103,12 @@ const StoreChat = ({ store, chatId }) => {
                         ${fullScreen ? "h-[70%]" : "min-h-[400px]"}`}
             >
               {messages?.map((message, i) => (
-                <SingleMessage key={i} message={message} auth={user} />
+                <StoreSingleMessage
+                  key={i}
+                  message={message}
+                  auth={user}
+                  receiverData={receiverData}
+                />
               ))}
             </div>
 

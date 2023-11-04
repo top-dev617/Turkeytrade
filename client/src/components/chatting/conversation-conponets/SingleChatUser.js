@@ -3,19 +3,22 @@ import {
   setOpenHelpCenter,
   setReceiverData,
 } from "@/redux/features/conversation/conversationSlice";
+import { socket_url } from "@/utils/auth/global";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { io } from "socket.io-client";
 
 const SingleChatUser = ({ chatData, type }) => {
   const { chatId } = useSelector((state) => state.conversation);
   const [receiverUser, setReceiverUser] = useState(null);
+  const [lastMessage, setLastMessage] = useState(chatData?.lastMessage);
   const dispatch = useDispatch();
-
+  const socket = useRef();
   const query =
-    type === "User"
-      ? `${chatData?.memberOne?.member_type}/${chatData?.memberOne?.id}`
-      : `${chatData?.memberTwo?.member_type}/${chatData?.memberTwo?.id}`;
+    type === "Store"
+      ? `Store/${chatData?.memberOne?.id}`
+      : `User/${chatData?.memberTwo?.id}`;
 
   useEffect(() => {
     fetch(`https://turkey-tm-server-v2.onrender.com/api/v2/chats/info/${query}`)
@@ -23,7 +26,7 @@ const SingleChatUser = ({ chatData, type }) => {
       .then((data) => {
         setReceiverUser(data?.data);
       });
-  }, [chatData?.memberOne, query]);
+  }, [chatData, query]);
 
   const handleSetData = () => {
     dispatch(setOpenHelpCenter(false));
@@ -32,6 +35,14 @@ const SingleChatUser = ({ chatData, type }) => {
   };
 
   const name = receiverUser?.name || receiverUser?.store_name;
+
+  socket.current = io(socket_url);
+  socket.current.on("getMessage", (receiveMessage) => {
+    console.log(receiveMessage);
+    setLastMessage(receiveMessage?.text);
+    // refetch();
+  });
+
   return (
     <button
       onClick={() => handleSetData()}
@@ -55,7 +66,7 @@ const SingleChatUser = ({ chatData, type }) => {
           </span>
         </div>
         <span className="block ml-2 text-sm text-gray-600 text-left">
-          {chatData?.lastMessage}
+          {lastMessage}
         </span>
       </div>
     </button>

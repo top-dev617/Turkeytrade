@@ -75,11 +75,12 @@ const ForgotPassword = () => {
   };
 
   const handlePassword = async (data) => {
+    console.log(data);
     const options = {
       data: { email: email, password: data.password },
     };
     const result = await postForgotPassword(options);
-    if (result.data.status) {
+    if (result.data.success) {
       setMessage("");
       toast.success("Successfully Changed Password!");
       router.push("/");
@@ -170,7 +171,10 @@ const ForgotPassword = () => {
           </h1>
           <div className="relative mb-2">
             <Input
-              {...register("password", { required: "Password is Required" })}
+              {...register("password", {
+                pattern:
+                  /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]).+$/,
+              })}
               type={isVisible ? "text" : "password"}
               name="password"
               error={errors.password ? true : false}
@@ -223,6 +227,12 @@ const ForgotPassword = () => {
                 </button>
               }
             />
+            {errors.password && (
+              <small className="text-red-600">
+                Password must contain at least one number, one uppercase letter,
+                one lowercase letter, and one special character
+              </small>
+            )}
           </div>
 
           {message && (

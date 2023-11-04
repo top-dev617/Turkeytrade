@@ -9,6 +9,8 @@ const SingleMessage = ({ message, auth }) => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
 
+  // console.log(receiverData);
+
   return (
     <>
       {message?.members[1] === auth?._id ? (

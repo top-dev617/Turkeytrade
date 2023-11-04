@@ -193,7 +193,7 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
 
             <div className="">
               <label for="exampleInputEmail1" className="form-label mb-1">
-                Country Name<span>*</span>
+                Country<span>*</span>
               </label>
               <select
                 onClick={(e) => handleSetCountry(e.target.value)}
@@ -205,7 +205,7 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
                 name="country"
               >
                 <option value="" style={{ color: "#94959B" }}>
-                  Country Name
+                  Country
                 </option>
                 {countries?.map((country, index) => (
                   <option key={index} value={country?.label}>

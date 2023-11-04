@@ -13,12 +13,16 @@ import {
 import Link from "next/link";
 import moment from "moment";
 import Loading from "@/components/commons/Loading";
+import { io } from "socket.io-client";
+import { useRef } from "react";
+import { socket_url } from "@/utils/auth/global";
 
 const MessageArea = ({ auth, messageClassName }) => {
   const { receiverData, chatId } = useSelector((state) => state.conversation);
   const { data: messages, refetch, isLoading } = useGetMessagesQuery(chatId);
   const [postNewMessage] = usePostNewMessageMutation();
   const dispatch = useDispatch();
+  const socket = useRef();
 
   const sendMessage = async (message) => {
     const newMessage = {
@@ -34,6 +38,21 @@ const MessageArea = ({ auth, messageClassName }) => {
       data: newMessage,
     };
     const result = await postNewMessage(options);
+    if (result) {
+      const sendMessage = {
+        senderId: auth?._id,
+        receiverId: receiverData?._id,
+        text: message,
+      };
+      socket.current = io(socket_url);
+      socket.current.emit("sendMessage", sendMessage);
+
+      // receive message
+      socket.current.on("getMessage", (receiveMessage) => {
+        console.log(receiveMessage);
+        refetch();
+      });
+    }
   };
 
   const handleBack = () => {
@@ -78,12 +97,30 @@ const MessageArea = ({ auth, messageClassName }) => {
                 </button>
                 <div class="pl-2">
                   <div class="font-semibold">
-                    <Link
-                      href={`/store/${receiverData?._id || receiverData?._id}`}
-                      class="hover:underline"
-                    >
-                      {receiverData?.name || receiverData?.store_name}
-                    </Link>
+                    {receiverData?.name ? (
+                      <p>
+                        {(receiverData?.name || receiverData?.store_name)
+                          ?.length > 12
+                          ? (
+                              receiverData?.name || receiverData?.store_name
+                            ).slice(0, 12) + "..."
+                          : receiverData?.name || receiverData?.store_name}
+                      </p>
+                    ) : (
+                      <Link
+                        href={`/store/${
+                          receiverData?._id || receiverData?._id
+                        }`}
+                        class="hover:underline"
+                      >
+                        {(receiverData?.name || receiverData?.store_name)
+                          ?.length > 12
+                          ? (
+                              receiverData?.name || receiverData?.store_name
+                            ).slice(0, 12) + "..."
+                          : receiverData?.name || receiverData?.store_name}
+                      </Link>
+                    )}
                   </div>
                   <div class="text-xs text-gray-600">
                     {moment(lastMessage?.createdAt).fromNow()}

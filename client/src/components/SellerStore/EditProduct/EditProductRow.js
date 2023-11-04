@@ -24,8 +24,9 @@ const EditProductRow = ({
   const isExist = selectedItems.find((p) => p._id === product._id);
 
   const updateStatus = async () => {
+    const status = product?.status === "Publish" ? "Draft" : "Publish";
     const options = {
-      data: { status: product?.status === "Publish" ? "Draft" : "Publish" },
+      data: { status: JSON.stringify(status) },
       id: product?._id,
     };
     await patchProduct(options);
@@ -87,20 +88,33 @@ const EditProductRow = ({
         </div>
       </td>
       <td class="px-2 text-center">
-        <div className="max-h-[250px] w-fit overflow-y-auto grid grid-cols-1 mx-auto">
-          {product?.price?.length > 0 &&
-            product?.price?.map(({ euro, quantity }) => (
-              <p className="font-bold text-black text-start">
-                € {euro} - ({quantity?.from} - {quantity?.to}) /{" "}
-                <span className="text-black">
-                  {getPluralUnit(product?.unit)}
-                </span>
-              </p>
-            ))}
-        </div>
+        {product?.price?.price_type === "ladder_price" ? (
+          <div className="max-h-[250px] w-fit overflow-y-auto grid grid-cols-1 mx-auto">
+            {product?.price?.ladder_price?.length > 0 &&
+              product?.price?.ladder_price?.map(({ euro, quantity }) => (
+                <p className="font-bold text-black text-start">
+                  € {euro} - ({quantity?.from} - {quantity?.to}) /{" "}
+                  <span className="text-black">{product?.unit?.plural}</span>
+                </p>
+              ))}
+          </div>
+        ) : (
+          <p className="font-bold text-black text-center">
+            € ({product?.price?.one_price?.from} -{" "}
+            {product?.price?.one_price?.to})
+            <span className="text-black">
+              {" "}
+              euro/
+              {product?.unit?.singular.toLowerCase()}
+            </span>
+          </p>
+        )}
       </td>
       <td class="px-2 text-center">
-        {product?.moq} {getPluralUnit(product?.unit)} (MOQ)
+        {product?.moq > 1
+          ? `${product?.moq} ${product?.unit?.plural}`
+          : `${product?.moq} ${product?.unit.singular}`}{" "}
+        (MOQ)
       </td>
       <td class="px-2 text-center">
         <Popover placement="bottom">

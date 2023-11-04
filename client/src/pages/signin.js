@@ -14,21 +14,45 @@ const Login = () => {
   const router = useRouter();
   const [checkIcon, setCheckIcon] = useState(false);
   const { signIn, setUser } = useContext(AuthContext);
-  const [postLogin, { isLoading }] = usePostLoginMutation()
+  const [postLogin, { isLoading }] = usePostLoginMutation();
 
-  const { register, handleSubmit } = useForm()
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm();
 
   const handleLogin = async (data) => {
-    const options = { data: data }
-    const result = await postLogin(options)
-    if (result?.data?.status) {
-      localStorage.setItem("turkey-trade-market", result?.data?.accessToken)
-      toast.success("User Login Successful")
-      setUser(result?.data?.user)
+    const options = { data: data };
+    const result = await postLogin(options);
+    if (result?.data?.success) {
+      localStorage.setItem("turkey-trade-market", result?.data?.accessToken);
+      toast.success("User Login Successful");
+      setUser(result?.data?.user);
       router.push("/");
+    }
+    if (
+      result?.error?.data?.success === false &&
+      result?.error?.data?.type === "email"
+    ) {
+      setError("email", {
+        type: "manual",
+        message: result?.error?.data?.message,
+      });
+    }
+    if (
+      result?.error?.data?.success === false &&
+      result?.error?.data?.type === "password"
+    ) {
+      setError("password", {
+        type: "manual",
+        message: result?.error?.data?.message,
+      });
     }
   };
 
+  console.log(errors);
 
   return (
     <div className="login">
@@ -61,32 +85,45 @@ const Login = () => {
                   </div>
                 </span>
               </div>
-              <div>
+              <div className="mt-2">
                 <label for="exampleInputEmail1" className="form-label">
                   Email<span>*</span>
                 </label>
                 <input
-                  {...register("email", { required: true })}
+                  {...register("email", { required: "Email is Required" })}
                   type="email"
                   placeholder="Email "
                   name="email"
-                  required />
+                  className={`mb-0 ${errors.email && "!border !border-red-600"
+                    }`}
+                />
+                {errors.email && (
+                  <small className="text-red-600">{errors.email.message}</small>
+                )}
               </div>
-              <div>
+              <div className="mt-2">
                 <label for="exampleInputPassword1" className="form-label">
                   Password<span>*</span>
                 </label>
                 <input
-                  {...register("password", { required: true })}
+                  {...register("password", {
+                    required: "Password is Required",
+                  })}
                   type="password"
                   placeholder="Password"
                   name="password"
-                  required
+                  className={`mb-0 ${errors.password && "!border !border-red-600"
+                    }`}
                 />
+                {errors.password && (
+                  <small className="text-red-600">
+                    {errors.password.message}
+                  </small>
+                )}
               </div>
               <div
                 style={{ marginBottom: "30px" }}
-                className="d-flex align-items-center justify-content-between"
+                className="d-flex align-items-center justify-content-between mt-2"
               >
                 <div>
                   <div
@@ -105,7 +142,8 @@ const Login = () => {
                 </div>
                 <Link href="/forgot-password">Forgot Password?</Link>
               </div>
-              <button type="submit"
+              <button
+                type="submit"
                 disabled={isLoading}
                 className="flex justify-center items-center"
               >

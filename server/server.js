@@ -2,9 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const PORT = process.env.PORT || 8000;
-
-const http = require("http");
-const socketIo = require("socket.io");
+const path = require("path");
 
 const userRoutes = require("./routes/userRoutes");
 const storeRoutes = require("./modules/store/store.route");
@@ -18,7 +16,14 @@ const groupRoutes = require("./modules/productGroup/productGroup.route");
 const chatRoutes = require("./modules/conversation/chat/chat.route");
 const messageRoutes = require("./modules/conversation/message/message.route");
 
+// conversations
+const helpCenterChatRoutes = require("./modules/help-center/help-center-chat/helpCenterChat.route");
+// const messageRoutes = require("./modules/conversation/message/message.route");
+
 const app = express();
+const http = require("http");
+const Server = http.createServer(app);
+const socketIo = require("socket.io");
 
 // middleware
 app.use(cors());
@@ -35,54 +40,75 @@ app.use("/api/v2/store-info", storeInfoRoutes);
 app.use("/api/v2/token", tokenRoutes);
 app.use("/api/v2/product-groups", groupRoutes);
 
+// static file serving
+app.use("/api/v2/uploads", express.static(path.join(__dirname, "/")));
+
 // conversation
 app.use("/api/v2/chats/", chatRoutes);
 app.use("/api/v2/messages/", messageRoutes);
 
-const server = http.createServer(app);
-const io = socketIo(server);
+// Help Center
+app.use("/api/v2/help-center/", helpCenterChatRoutes);
+// app.use("/api/v2/messages/", messageRoutes);
 
-// Store user-specific messages
-const userMessages = {};
+// -----------------socket server-----------------
+const io = socketIo(Server, {
+  cors: {
+    origin: process.env.CLIENT_URL,
+  },
+});
+
+let users = [];
+
+const addUser = (userId, socketId) => {
+  !users.some((user) => user.userId === userId) &&
+    users.push({ userId, socketId });
+};
+
+const removeUser = (socketId) => {
+  users = users.filter((user) => user.socketId !== socketId);
+};
+
+const getUser = (userId) => {
+  return users.find((user) => user.userId === userId);
+};
 
 io.on("connection", (socket) => {
-  socket.on("join", (userId) => {
-    socket.join(userId);
+  console.log("a user connected.");
 
-    // Check if there are messages for this user
-    const messages = userMessages[userId] || [];
-    messages.forEach((message) => {
-      socket.emit("message", { from: message.from, message: message.message });
+  //take userId and socketId from user
+  socket.on("addUser", (userId) => {
+    addUser(userId, socket.id);
+    io.emit("getUsers", users);
+  });
+
+  //send and get message
+  socket.on("sendMessage", ({ senderId, receiverId, text }) => {
+    console.log("user send Message!: ", senderId, receiverId, text);
+
+    const user = getUser(receiverId);
+    io.emit("getMessage", {
+      senderId,
+      receiverId,
+      text,
     });
-    delete userMessages[userId];
   });
 
-  socket.on("message", ({ to, message }) => {
-    if (!userMessages[to]) {
-      userMessages[to] = [];
-    }
-    userMessages[to].push({ from: socket.id, message });
-
-    // Check if the recipient is online
-    const recipientSocketId = io.sockets.adapter.rooms.get(to);
-    if (recipientSocketId) {
-      io.to(to).emit("message", { from: socket.id, message });
-    }
-  });
-
+  //when disconnect
   socket.on("disconnect", () => {
-    const rooms = Array.from(socket.rooms);
-    rooms.forEach((room) => {
-      socket.leave(room);
-    });
+    console.log("a user disconnected!");
+    removeUser(socket.id);
+    io.emit("getUsers", users);
   });
 });
+
+// -----------------socket server-----------------
 
 // testing api
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on ${PORT}`);
+Server.listen(PORT, () => {
+  console.log(`Server is Running PORT: ${PORT}`);
 });

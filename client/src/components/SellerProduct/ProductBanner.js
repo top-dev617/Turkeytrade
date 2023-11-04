@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import sms from "../../../public/assets/smsicon.png";
-import ProductSlider from "./ProductSlider";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { setSaveProducts } from "@/redux/features/products/productSlice";
@@ -77,7 +76,6 @@ const ProductBanner = ({ product }) => {
     };
 
     const result = await postNewChat(options);
-    console.log(result);
     if (result?.data?.access) {
       dispatch(setChatId(result?.data?.data?._id));
       dispatch(setReceiverData(product?.store));
@@ -105,18 +103,31 @@ const ProductBanner = ({ product }) => {
               <h4>{product?.title}</h4>
             )}
             <h4></h4>
-            <div className="flex justify-start flex-wrap md:gap-10">
-              {product?.price?.length > 0 &&
-                product?.price?.map(({ quantity, euro }, i) => (
-                  <div className="flex flex-col gap-1">
-                    <h1 className="text-gray-700 font-thin">
-                      {quantity?.from} - {quantity?.to}{" "}
-                      {getPluralUnit(product?.unit)}
-                    </h1>
-                    <h1 className="font-bold text-black text-2xl">€ {euro}</h1>
-                  </div>
-                ))}
-            </div>
+            {product?.price?.price_type === "ladder_price" ? (
+              <div className="flex justify-start flex-wrap md:gap-10">
+                {product?.price?.ladder_price?.length > 0 &&
+                  product?.price?.ladder_price?.map(({ quantity, euro }, i) => (
+                    <div className="flex flex-col gap-1">
+                      <h1 className="text-gray-700 font-thin">
+                        {quantity?.from} - {quantity?.to}{" "}
+                        {product?.unit?.plural}
+                      </h1>
+                      <h1 className="font-bold text-black text-2xl">
+                        € {euro}
+                      </h1>
+                    </div>
+                  ))}
+              </div>
+            ) : (
+              <h1 className="label-list">
+                <span className="!text-3xl !font-bold">
+                  {product?.price?.one_price?.from} -{" "}
+                  {product?.price?.one_price?.to}
+                </span>{" "}
+                euro/
+                {product?.unit?.singular.toLowerCase()}
+              </h1>
+            )}
             <br />
             <div className="d-flex gap-3">
               <div>
@@ -136,12 +147,14 @@ const ProductBanner = ({ product }) => {
                 <Link
                   style={{ marginBottom: "18px" }}
                   href={`/store/${product.store._id}`}
-                  className="text-primary fw-bold text-decoration-none d-block"
+                  className="text-pm hover:text-pmd fw-bold text-decoration-none d-block"
                 >
                   {product?.store?.store_name}{" "}
                 </Link>
                 <p style={{ fontWeight: "400" }}>
-                  {product?.moq} {getPluralUnit(product?.unit)}
+                  {product?.moq > 1
+                    ? `${product?.moq} ${product?.unit?.plural}`
+                    : `${product?.moq} ${product?.unit.singular}`}
                 </p>
 
                 {product?.model && (

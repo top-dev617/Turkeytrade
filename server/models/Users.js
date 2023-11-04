@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema(
     },
     company_name: {
       type: String,
-      required: false,
+      required: true,
     },
     companyAddress: {
       type: String,
@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema(
       required: false,
     },
     zipCode: {
-      type: Number,
+      type: String,
       required: false,
     },
     province: {
@@ -59,23 +59,27 @@ const userSchema = new mongoose.Schema(
     },
     number_of_employees: {
       type: String,
-      required: false
+      required: false,
     },
     business_type: {
       type: String,
-      required: false
+      required: false,
     },
     year_established: {
       type: String,
-      required: false
+      required: false,
+    },
+    website: {
+      type: String,
+      required: false,
     },
     social: {
       type: Object,
       facebook: String,
       instagram: String,
       twitter: String,
-      required: false
-    }
+      required: false,
+    },
   },
   {
     timestamps: false,

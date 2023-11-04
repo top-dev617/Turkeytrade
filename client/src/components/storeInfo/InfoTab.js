@@ -12,6 +12,7 @@ import { setPublicTab } from "@/redux/features/stores/storeSlice";
 import Chatting from "../chatting/Chatting";
 import StoreChat from "../SellerStore/StoreChat";
 import { usePostNewChatMutation } from "@/redux/features/conversation/conversationApi";
+import { useRouter } from "next/router";
 
 const tabs = [
   { name: "Products" },
@@ -26,10 +27,15 @@ const InfoTab = ({ store }) => {
   const [postNewChat] = usePostNewChatMutation();
   const dispatch = useDispatch();
   const [chatId, setChatId] = useState("");
+  const router = useRouter();
 
   const handleTab = async (index) => {
     dispatch(setPublicTab(index));
     if (index === 3) {
+      if (!user?._id) {
+        router.push("/signin");
+        return;
+      }
       const chatData = {
         memberOne: {
           member_type: "Store",
@@ -49,9 +55,6 @@ const InfoTab = ({ store }) => {
       }
     }
   };
-
-  console.log(store?.user?._id);
-  console.log(user?._id);
 
   return (
     <div className="store_tab">

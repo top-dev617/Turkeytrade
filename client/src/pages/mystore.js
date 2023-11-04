@@ -8,17 +8,20 @@ import React, { useContext, useEffect, useRef } from "react";
 import wait from "../assets/icons/wait.json"
 import AuthRoute from "@/privete-routes/AuthRoute";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const sellerStore = () => {
   const { user } = useContext(AuthContext)
   const { data } = useGetStoreInfoBySellerIdQuery(user?._id)
+  const router = useRouter()
 
 
   const openModalRef = useRef(null);
   const [isWelcomeModal, setOpenModalRef] = useState(null);
   useEffect(() => {
+
     const storeModal = localStorage.getItem("storeModal");
-    if (storeModal) {
+    if (storeModal && data?.data?.status === "accept") {
       setOpenModalRef(JSON.parse(storeModal));
       openModalRef.current.click();
 
@@ -27,6 +30,9 @@ const sellerStore = () => {
       }, 5000);
     }
   }, [data, user]);
+
+
+
 
   return (
     <AuthRoute>
@@ -39,45 +45,49 @@ const sellerStore = () => {
           )
             :
             <>
-              <StoreBanner store={data?.data} />
-              <CompanyForm store={data?.data} />
-              <StoreTab store={data?.data} />
+              {
+                data && data?.data?.status === "accept" && <>
+                  <StoreBanner store={data?.data} />
+                  <CompanyForm store={data?.data} />
+                  <StoreTab store={data?.data} />
 
-              {/* <!-- Button trigger modal --> */}
-              <button
-                ref={openModalRef}
-                type="button"
-                className="d-none btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
-                Launch demo modal
-              </button>
+                  {/* <!-- Button trigger modal --> */}
+                  <button
+                    ref={openModalRef}
+                    type="button"
+                    className="d-none btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    Launch demo modal
+                  </button>
 
-              {/* <!-- Modal --> */}
-              <div
-                className="modal fade"
-                id="exampleModal"
-                tabIndex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-              >
-                <div className="modal-dialog modal-lg">
-                  <div className="modal-content">
-                    <div className="modal-body">
-                      {" "}
-                      <button
-                        style={{ position: "absolute", right: "40px" }}
-                        type="button"
-                        className="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
-                      <SellerStoreModal />
+                  {/* <!-- Modal --> */}
+                  <div
+                    className="modal fade"
+                    id="exampleModal"
+                    tabIndex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div className="modal-dialog modal-lg">
+                      <div className="modal-content">
+                        <div className="modal-body">
+                          {" "}
+                          <button
+                            style={{ position: "absolute", right: "40px" }}
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                          <SellerStoreModal />
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                </>
+              }
             </>
         }
 

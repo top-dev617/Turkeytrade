@@ -21,6 +21,9 @@ import { Popover, PopoverHandler, Spinner } from "@material-tailwind/react";
 import { getPluralUnit } from "@/utils/helpers/getPluralUnit";
 import { useGetProductGroupByStoreIdQuery } from "@/redux/features/product-group/productGroupApi";
 import AddGroup from "./AddGroup";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { base_url } from "@/utils/auth/global";
 
 const remove = (
   <svg
@@ -38,6 +41,29 @@ const remove = (
     />
   </svg>
 );
+
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    ["bold", "italic", "underline", "strike"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["link", "image", "video"],
+    ["clean"],
+  ],
+};
+
+const formats = [
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "list",
+  "bullet",
+  "link",
+  "image",
+  "video",
+];
 
 const UploadProduct = ({ store }) => {
   const { editProduct } = useSelector((state) => state.product);
@@ -66,6 +92,12 @@ const UploadProduct = ({ store }) => {
     new Blob([video], { type: "application/octet-stream" })
   );
 
+  const viewVideo = (video) => {
+    return URL.createObjectURL(
+      new Blob([video], { type: "application/octet-stream" })
+    );
+  };
+
   const viewImg = (img) => {
     if (img instanceof File && img.type.startsWith("image/")) {
       return URL.createObjectURL(
@@ -79,27 +111,59 @@ const UploadProduct = ({ store }) => {
   const [category, setCategory] = useState(
     editProduct ? editProduct?.category?._id : data?.data[0]?._id
   );
-  const [unit, setUnit] = useState(editProduct ? editProduct?.unit : "Piece");
+  const [unit, setUnit] = useState(
+    editProduct
+      ? editProduct?.unit
+      : {
+          singular: "Piece",
+          plural: "Pieces",
+        }
+  );
   const [time, setTime] = useState(
     editProduct ? editProduct?.lead_time?.time : "days"
   );
   const [selectedCheckbox, setSelectedCheckbox] = useState(
-    editProduct && editProduct?.price?.length > 1 ? "ladder" : "onePrice"
+    editProduct && editProduct?.price?.price_type === "ladder_price"
+      ? "ladder"
+      : "onePrice"
   );
 
-  const [priceFields, setPriceFields] = useState(
-    editProduct && editProduct?.price
-      ? editProduct?.price
-      : [{ quantity: { from: "", to: "" }, euro: "" }]
+  const priceStore =
+    editProduct && editProduct?.price?.price_type === "ladder_price"
+      ? editProduct?.price?.ladder_price
+      : editProduct?.price?.one_price;
+
+  const ladderFields = [
+    {
+      quantity: {
+        from: "",
+        to: "",
+      },
+      euro: "",
+    },
+  ];
+  const oneFields = {
+    one_price: {
+      from: "",
+      to: "",
+    },
+  };
+
+  const [ladderPriceFields, setLadderPriceFields] = useState(
+    editProduct && editProduct?.price?.price_type === "ladder_price"
+      ? editProduct?.price?.ladder_price
+      : ladderFields
   );
-
-  // useEffect(() => {
-  //   if (editProduct && editProduct?.price) {
-  //     setPriceFields(editProduct?.price);
-  //   }
-  // }, [editProduct]);
-
-  // console.log(priceFields[0]["euro"]);
+  const [onePriceFields, setOnePriceFields] = useState(
+    editProduct && editProduct?.price?.price_type === "one_price"
+      ? {
+          one_price: {
+            from: editProduct?.price?.one_price?.from,
+            to: editProduct?.price?.one_price?.to,
+          },
+        }
+      : oneFields
+  );
 
   const [keywordInput, setKeywordInput] = useState("");
   const [keywords, setKeywords] = useState(
@@ -120,6 +184,11 @@ const UploadProduct = ({ store }) => {
       updatedKeywords.splice(index, 1);
       return updatedKeywords;
     });
+  };
+
+  const handleSetUnit = async (inputUnit) => {
+    const result = units.find((u) => u?.singular === inputUnit);
+    setUnit(result);
   };
 
   // product images
@@ -178,17 +247,17 @@ const UploadProduct = ({ store }) => {
   // --------- multi price ---------
   const addPriceFields = () => {
     let priceNewfield = { quantity: { from: "", to: "" }, euro: "" };
-    setPriceFields([...priceFields, priceNewfield]);
+    setLadderPriceFields([...ladderPriceFields, priceNewfield]);
   };
 
   const removePrice = (index) => {
-    const data = [...priceFields];
+    const data = [...ladderPriceFields];
     data.splice(index, 1);
-    setPriceFields(data);
+    setLadderPriceFields(data);
   };
 
-  const changePrice = (index, event) => {
-    setPriceFields((prevPriceFields) => {
+  const changeLadderPrice = (index, event) => {
+    setLadderPriceFields((prevPriceFields) => {
       const data = JSON.parse(JSON.stringify(prevPriceFields));
       if (event.target.name === "from" || event.target.name === "to") {
         data[index].quantity[event.target.name] = event.target.value;
@@ -202,7 +271,6 @@ const UploadProduct = ({ store }) => {
   // --------- multi price ---------
   const handleCheckboxChange = (checkboxId) => {
     if (checkboxId === "onePrice") {
-      setPriceFields([{ quantity: { from: "", to: "" }, euro: "" }]);
       setSelectedCheckbox(checkboxId);
     } else {
       setSelectedCheckbox(checkboxId);
@@ -234,6 +302,22 @@ const UploadProduct = ({ store }) => {
       setDraftLoading(true);
     }
 
+    let price = {
+      price_type: selectedCheckbox === "ladder" ? "ladder_price" : "one_price",
+      ladder_price:
+        selectedCheckbox === "ladder" ? ladderPriceFields : ladderFields,
+      one_price:
+        selectedCheckbox === "ladder"
+          ? {
+              from: "",
+              to: "",
+            }
+          : {
+              from: onePriceFields?.one_price.from,
+              to: onePriceFields?.one_price.to,
+            },
+    };
+
     const imagesData = await uploadImg(productImages);
     const images = imagesData.filter(Boolean);
 
@@ -243,12 +327,17 @@ const UploadProduct = ({ store }) => {
       return;
     }
 
+    const formVideo = video
+      ? video
+      : editProduct?._id
+      ? editProduct?.video
+      : "";
+
     const productData = {
       title: data?.title,
       category: category,
       store: store?._id,
       images: images,
-      price: data?.price,
       description: content,
       keyword: keywords,
       model: data?.model ? data?.model : "",
@@ -256,27 +345,38 @@ const UploadProduct = ({ store }) => {
       moq: data?.moq,
       unit: unit,
       lead_time: { from: data?.from, to: data?.to, time: time },
-      price: priceFields,
+      price: price,
+      video: formVideo,
     };
 
-    console.log(productData);
+    const formDataObject = new FormData();
+    for (const key in productData) {
+      if (key === "video") {
+        formDataObject.append(key, productData[key]);
+      } else {
+        formDataObject.append(key, JSON.stringify(productData[key]));
+      }
+    }
 
     // -------------first part-------------
     if (editProduct && editProduct?._id) {
       setLoading(false);
       const options = {
-        data: productData,
+        data: formDataObject,
         id: editProduct?._id,
       };
       const result = await patchProduct(options);
+      console.log(result);
       if (result?.data?.status === true) {
         toast.success("Product Update Successfully");
         reset();
         setKeywords([]);
         setProductImages([]);
-        setPriceFields([{ quantity: { from: "", to: "" }, euro: "" }]);
+        setLadderPriceFields(ladderFields);
+        setOnePriceFields(oneFields);
         setLoading(false);
         dispatch(setEditProduct(null));
+        setVideo(null);
       } else {
         toast.error("Product Update unsuccessfully");
         setLoading(false);
@@ -285,14 +385,14 @@ const UploadProduct = ({ store }) => {
       // -------------second part-------------
 
       if (saveDraft) {
-        productData["status"] = "Draft";
+        formDataObject.append("status", JSON.stringify("Draft"));
         setDraftLoading(true);
       } else {
-        productData["status"] = "Publish";
+        formDataObject.append("status", JSON.stringify("Publish"));
       }
 
       const options = {
-        data: productData,
+        data: formDataObject,
       };
       const result = await postProduct(options);
       console.log(result);
@@ -303,16 +403,16 @@ const UploadProduct = ({ store }) => {
         reset();
         setKeywords([]);
         setProductImages([]);
-        setPriceFields([{ quantity: { from: "", to: "" }, euro: "" }]);
+        setLadderPriceFields(ladderFields);
+        setOnePriceFields(oneFields);
         setLoading(false);
+        setVideo(null);
       } else {
         toast.error("Product Add unsuccessfully");
         setLoading(false);
       }
     }
   };
-
-  console.log(saveDraft);
 
   return (
     <div className="upload_product md:px-8">
@@ -474,6 +574,8 @@ const UploadProduct = ({ store }) => {
                     <input
                       type="file"
                       name="image1"
+                      accept=".png, .jpg, .jpeg"
+                      multiple={false}
                       required={
                         (editProduct && editProduct?.images?.length > 0) ||
                         saveDraft
@@ -506,6 +608,8 @@ const UploadProduct = ({ store }) => {
                     <input
                       type="file"
                       name="image2"
+                      accept=".png, .jpg, .jpeg"
+                      multiple={false}
                       required={
                         (editProduct && editProduct?.images?.length > 1) ||
                         saveDraft
@@ -537,6 +641,8 @@ const UploadProduct = ({ store }) => {
                     <input
                       type="file"
                       name="image3"
+                      accept=".png, .jpg, .jpeg"
+                      multiple={false}
                       required={
                         (editProduct && editProduct?.images?.length > 2) ||
                         saveDraft
@@ -579,6 +685,8 @@ const UploadProduct = ({ store }) => {
                         <input
                           type="file"
                           name="image4"
+                          accept=".png, .jpg, .jpeg"
+                          multiple={false}
                           onChange={(e) =>
                             editImageHandle(3, e.target.files[0])
                           }
@@ -618,6 +726,8 @@ const UploadProduct = ({ store }) => {
                         <input
                           type="file"
                           name="image5"
+                          accept=".png, .jpg, .jpeg"
+                          multiple={false}
                           onChange={(e) =>
                             editImageHandle(4, e.target.files[0])
                           }
@@ -676,18 +786,35 @@ const UploadProduct = ({ store }) => {
             <div className="col-12 mb-5">
               <label>Upload Product video</label>
               <div
-                className="input_box"
+                className="input_box cursor-pointer"
                 onClick={(e) => videoInputRef?.current?.click()}
               >
                 <div className="input_inner">
                   {video ? (
                     <video controls loop autoPlay muted className="w-100 h-100">
-                      <source src={videoUrl} type="video/mp4" />
+                      <source src={viewVideo(video)} type="video/mp4" />
                     </video>
                   ) : (
                     <>
-                      <img src={videoIcon.src} alt="" />
-                      <p>Drop your video here or browse</p>
+                      {editProduct?._id ? (
+                        <video
+                          controls
+                          loop
+                          autoPlay
+                          muted
+                          className="w-100 h-100"
+                        >
+                          <source
+                            src={`${base_url}/uploads/${editProduct?.video}`}
+                            type="video/mp4"
+                          />
+                        </video>
+                      ) : (
+                        <>
+                          <img src={videoIcon.src} alt="" />
+                          <p>Drop your video here or browse</p>
+                        </>
+                      )}
                     </>
                   )}
                 </div>
@@ -696,7 +823,7 @@ const UploadProduct = ({ store }) => {
                   type="file"
                   name="video"
                   className="d-none"
-                  accept="video/mp4,video/x-m4v,video/*"
+                  accept=".mp4"
                   ref={videoInputRef}
                   onChange={(e) => setVideo(e.target.files[0])}
                 />
@@ -705,15 +832,24 @@ const UploadProduct = ({ store }) => {
 
             <div className="col-12 col-lg-6 ">
               <div>
-                <label>Unit </label>
-                <select onChange={(e) => setUnit(e.target.value)} required>
+                <label>Unit *</label>
+                <select
+                  onChange={(e) => handleSetUnit(e.target.value)}
+                  required
+                >
                   {units.map((value, index) => (
                     <option
                       key={index}
-                      selected={value.singular === unit}
+                      selected={value.singular === unit?.singular}
                       value={value.singular}
                     >
-                      {value.singular}
+                      {
+                        value[
+                          selectedCheckbox === "onePrice"
+                            ? "singular"
+                            : "plural"
+                        ]
+                      }
                     </option>
                   ))}
                 </select>
@@ -755,81 +891,134 @@ const UploadProduct = ({ store }) => {
                 </div>
               </div>
 
-              <div style={{ maxWidth: "1000px" }}>
-                {priceFields?.map((input, index) => {
-                  return (
-                    <>
-                      <div
-                        key={index}
-                        className="d-flex flex-col md:flex-row align-items-center gap-5 mb-3 w-full"
-                      >
-                        <div className="flex flex-col-reverse items-start md:flex-row gap-2 md:items-center">
-                          <input
-                            className="mb-0 md:min-w-[120px] w-full"
-                            type="number"
-                            min={0}
-                            name="from"
-                            placeholder="From"
-                            defaultValue={input?.quantity?.from}
-                            required={saveDraft ? false : true}
-                            onChange={(event) => changePrice(index, event)}
-                          />
-                          <span>-</span>
-                          <input
-                            className="mb-0 md:min-w-[120px] w-full"
-                            type="number"
-                            min={0}
-                            name="to"
-                            placeholder="To"
-                            defaultValue={input?.quantity?.to}
-                            required={saveDraft ? false : true}
-                            onChange={(event) => changePrice(index, event)}
-                          />
-                          <span className="lowerCase">
-                            {getPluralUnit(unit)}
-                          </span>
-                        </div>
-                        <div className="flex flex-col-reverse items-start md:flex-row gap-2 md:items-center">
-                          <input
-                            className="mb-0 md:min-w-[120px] w-full"
-                            type="number"
-                            min={0}
-                            name="euro"
-                            placeholder="Euro"
-                            defaultValue={input.euro}
-                            required={saveDraft ? false : true}
-                            onChange={(event) => changePrice(index, event)}
-                          />
-                          <div className="d-flex gap-2 align-items-center">
-                            <span
-                              className="lowercase"
-                              style={{ whiteSpace: "nowrap" }}
-                            >
-                              euro/ {unit}{" "}
+              {selectedCheckbox === "ladder" ? (
+                <div style={{ maxWidth: "1000px" }}>
+                  {ladderPriceFields?.map((input, index) => {
+                    return (
+                      <>
+                        <div
+                          key={index}
+                          className="d-flex flex-col md:flex-row align-items-center gap-5 mb-3 w-full"
+                        >
+                          <div className="flex flex-col-reverse items-start md:flex-row gap-2 md:items-center">
+                            <input
+                              className="mb-0 md:min-w-[120px] w-full"
+                              type="number"
+                              min={0}
+                              name="from"
+                              placeholder="From"
+                              defaultValue={input?.quantity?.from}
+                              required={saveDraft ? false : true}
+                              onChange={(event) =>
+                                changeLadderPrice(index, event)
+                              }
+                            />
+                            <span>-</span>
+                            <input
+                              className="mb-0 md:min-w-[120px] w-full"
+                              type="number"
+                              min={0}
+                              name="to"
+                              placeholder="To"
+                              defaultValue={input?.quantity?.to}
+                              required={saveDraft ? false : true}
+                              onChange={(event) =>
+                                changeLadderPrice(index, event)
+                              }
+                            />
+                            <span className="lowerCase flex items-center w-full gap-1">
+                              {unit?.plural}
                             </span>
-                            {priceFields?.length > 1 && (
-                              <div
-                                onClick={() => removePrice(index)}
-                                className="w-5 text-red-600 hover:text-pmd cursor-pointer"
+                          </div>
+                          <div className="flex flex-col-reverse items-start md:flex-row gap-2 md:items-center">
+                            <input
+                              className="mb-0 md:min-w-[120px] w-full"
+                              type="number"
+                              min={0}
+                              name="euro"
+                              placeholder="Euro"
+                              defaultValue={input.euro}
+                              required={saveDraft ? false : true}
+                              onChange={(event) =>
+                                changeLadderPrice(index, event)
+                              }
+                            />
+                            <div className="d-flex gap-2 align-items-center">
+                              <span
+                                className="lowercase"
+                                style={{ whiteSpace: "nowrap" }}
                               >
-                                {remove}
-                              </div>
-                            )}
+                                euro/ {unit?.singular}{" "}
+                              </span>
+                              {ladderPriceFields?.length > 1 && (
+                                <div
+                                  onClick={() => removePrice(index)}
+                                  className="w-5 text-red-600 hover:text-pmd cursor-pointer"
+                                >
+                                  {remove}
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </>
-                  );
-                })}
-                {selectedCheckbox === "ladder" && (
+                      </>
+                    );
+                  })}
                   <div
                     onClick={addPriceFields}
                     className="add_btn cursor-pointer flex justify-center items-center"
                   >
                     Add more
                   </div>
-                )}
-              </div>
+                </div>
+              ) : (
+                <div style={{ maxWidth: "1000px" }}>
+                  <>
+                    <div className="d-flex flex-col md:flex-row align-items-center gap-5 mb-3 w-full">
+                      <div className="flex flex-col-reverse items-start md:flex-row gap-2 md:items-center">
+                        <input
+                          className="mb-0 md:min-w-[120px] w-full"
+                          type="number"
+                          min={0}
+                          name="from"
+                          placeholder="From"
+                          defaultValue={onePriceFields?.one_price?.from}
+                          required={saveDraft ? false : true}
+                          onChange={(event) =>
+                            setOnePriceFields({
+                              one_price: {
+                                from: event?.target.value,
+                                to: onePriceFields?.one_price.to,
+                              },
+                            })
+                          }
+                        />
+                        <span>-</span>
+                        <input
+                          className="mb-0 md:min-w-[120px] w-full"
+                          type="number"
+                          min={0}
+                          name="to"
+                          placeholder="To"
+                          defaultValue={onePriceFields?.one_price?.to}
+                          required={saveDraft ? false : true}
+                          onChange={(event) =>
+                            setOnePriceFields({
+                              one_price: {
+                                from: onePriceFields?.one_price.from,
+                                to: event?.target.value,
+                              },
+                            })
+                          }
+                        />
+                        <span className="lowerCase flex items-center w-full gap-1">
+                          euro/{unit?.singular?.toLowerCase()}
+                        </span>
+                      </div>
+                    </div>
+                  </>
+                </div>
+              )}
 
               <div>
                 <label>
@@ -895,12 +1084,21 @@ const UploadProduct = ({ store }) => {
                   Product details{" "}
                   <span>(Write a detailed description of your product)</span>{" "}
                 </label>
-                <JoditEditor
+                <ReactQuill
+                  theme="snow"
+                  style={{ minHeight: "400px" }}
+                  value={content}
+                  placeholder="Enter Your Description....."
+                  onChange={(newContent) => setContent(newContent)}
+                  modules={modules}
+                  formats={formats}
+                />
+                {/* <JoditEditor
                   ref={editor}
                   value={content}
                   onBlur={(newContent) => setContent(newContent)}
                   className="min-h-[400px]"
-                />
+                /> */}
               </div>
             </div>
 

@@ -8,18 +8,16 @@ import { usePathname } from "next/navigation";
 import { Provider } from "react-redux";
 import store from "@/redux/store";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "@material-tailwind/react";
-import "../styles/globals.css"
+import "../styles/globals.css";
 import ChatMain from "@/components/chatting/ChatMain";
 
 export default function App({ Component, pageProps }) {
   // const getLayout = Component.getLayout || ((page) => page);
   const pathname = usePathname();
 
-  const customTheme = {
-
-  }
+  const customTheme = {};
 
   return (
     <>
@@ -37,8 +35,7 @@ export default function App({ Component, pageProps }) {
             pauseOnHover
             theme="light"
           />
-          <ThemeProvider value={customTheme} >
-
+          <ThemeProvider value={customTheme}>
             {pathname !== "/signin" && pathname !== "/register" && <Header />}
             <Component {...pageProps} />
             {pathname !== "/signin" && pathname !== "/register" && <Footer />}

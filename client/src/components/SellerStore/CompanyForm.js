@@ -18,6 +18,7 @@ import {
 import { useDropzone } from "react-dropzone";
 import { Spinner } from "@material-tailwind/react";
 import { trash } from "@/utils/datas/icons";
+import { base_url } from "@/utils/auth/global";
 
 const CompanyForm = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -31,9 +32,10 @@ const CompanyForm = () => {
     );
   };
 
+  console.log(store);
+
   const [logo, setLogo] = useState(null);
   const [video, setVideo] = useState(null);
-  console.log(video);
 
   const [isEdit, setIsEdit] = useState(false);
 
@@ -77,19 +79,27 @@ const CompanyForm = () => {
 
   const handleRegister = async (data) => {
     const imagesData = await uploadImagesToImageBB(certificates);
-    const logoImage = await uploadImagesToImageBB([logo]);
+    if (logo) {
+      var logoImage = await uploadImagesToImageBB([logo]);
+    }
     const images = imagesData.filter(Boolean);
 
     const companyInfo = {
       store_info: data?.store_info ? data?.store_info : store?.data?.store_info,
       certificates:
         images.length > 0 ? [...saveCertificates, ...images] : saveCertificates,
-      store_presentation_video: "https://youtu.be/G6OM4ECF3D8",
-      logo: logoImage?.length ? logoImage[0] : store?.data?.logo,
+      store_presentation_video: video
+        ? video
+        : store?.data?.store_presentation_video,
+      logo: logoImage ? logoImage[0] : store?.data?.logo,
     };
+    const formDataObject = new FormData();
+    for (const key in companyInfo) {
+      formDataObject.append(key, companyInfo[key]);
+    }
 
     const options = {
-      data: companyInfo,
+      data: formDataObject,
       id: store?.data?._id,
     };
     const result = await patchStoreInfoById(options);
@@ -127,8 +137,7 @@ const CompanyForm = () => {
   } = useDropzone({
     onDrop,
   });
-
-  const isVideo = store?.data?.store_presentation_video || video;
+  console.log(isEdit, video);
   return (
     <div className="company_form">
       <div className="container">
@@ -318,8 +327,11 @@ const CompanyForm = () => {
             <div className="w-full">
               <label>Upload a video presentation of your company</label>
               <div className="input_box relative">
-                {isVideo && (
-                  <div className="absolute -top-2 -right-2 z-50 rounded-full bg-white text-red-600 p-1 w-8">
+                {isEdit && video && (
+                  <div
+                    onClick={() => setVideo(null)}
+                    className="absolute -top-2 -right-2 z-50 rounded-full bg-white text-red-600 p-1 w-8"
+                  >
                     {" "}
                     {trash}{" "}
                   </div>
@@ -328,7 +340,7 @@ const CompanyForm = () => {
                 {store?.data?.store_presentation_video && !video ? (
                   <video controls loop autoPlay muted className="w-100 h-100">
                     <source
-                      src={store?.data?.store_presentation_video}
+                      src={`${base_url}/uploads/${store?.data?.store_presentation_video}`}
                       type="video/mp4"
                     />
                   </video>
@@ -356,8 +368,9 @@ const CompanyForm = () => {
                   {...register("store_presentation_video")}
                   type="file"
                   name="store_presentation_video"
-                  className="absolute top-0 right-0 bottom-0 left-0 w-full h-full opacity-0"
-                  accept="video/mp4,video/x-m4v,video/*"
+                  multiple={false}
+                  className="absolute top-0 right-0 bottom-0 left-0 w-full h-full opacity-0 cursor-pointer"
+                  accept=".mp4"
                   disabled={isEdit ? false : true}
                   onChange={(e) => setVideo(e.target.files[0])}
                 />

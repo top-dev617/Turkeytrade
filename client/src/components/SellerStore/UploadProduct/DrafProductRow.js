@@ -23,23 +23,27 @@ const DrafProductRow = ({
   const isExist = selectedItems.find((p) => p._id === product._id);
 
   const updateStatus = async () => {
+    const status = product?.status === "Publish" ? "Draft" : "Publish";
     const options = {
-      data: { status: product?.status === "Publish" ? "Draft" : "Publish" },
+      data: { status: JSON.stringify(status) },
       id: product?._id,
     };
     await patchProduct(options);
   };
 
   const isFulfilled =
-    product?.title &&
-    product?.category &&
-    product?.images?.length > 2 &&
-    product?.price &&
-    product?.keyword &&
-    product?.moq &&
-    product?.lead_time &&
-    product?.lead_time.from;
-  console.log(isFulfilled);
+    (product?.title &&
+      product?.category &&
+      product?.images?.length > 2 &&
+      product?.price?.ladder_price[0]?.euro &&
+      product?.price?.ladder_price[0]?.quantity?.from &&
+      product?.price?.ladder_price[0]?.quantity?.to) ||
+    (product?.price?.one_price?.from &&
+      product?.price?.one_price?.to &&
+      product?.keyword &&
+      product?.moq &&
+      product?.lead_time &&
+      product?.lead_time.from);
 
   return (
     <tr class="bg-white border-b hover:bg-pm hover:bg-opacity-50">
@@ -103,15 +107,48 @@ const DrafProductRow = ({
       </td>
       <td class="px-2 text-center">
         <div className="max-h-[250px] w-fit overflow-y-auto grid grid-cols-1 mx-auto">
-          {product?.price?.length > 0 &&
-          product?.price[0]?.quantity?.from &&
-          product?.price[0]?.quantity?.to ? (
-            product?.price?.map(({ euro, quantity }) => (
-              <p className="font-bold text-black text-start">
-                € {euro}-({quantity?.from}-{quantity?.to})/{" "}
-                <span className="text-black">{product?.unit}</span>
-              </p>
-            ))
+          {product?.price ? (
+            <>
+              {product?.price?.price_type === "ladder_price" ? (
+                <>
+                  {product?.price?.ladder_price?.euro ||
+                  product?.price?.ladder_price?.quantity?.from ||
+                  product?.price?.ladder_price?.quantity?.to ? (
+                    <div className="max-h-[250px] w-fit overflow-y-auto grid grid-cols-1 mx-auto">
+                      {product?.price?.ladder_price?.map(
+                        ({ euro, quantity }) => (
+                          <p className="font-bold text-black text-start">
+                            € {euro} - ({quantity?.from} - {quantity?.to}) /{" "}
+                            <span className="text-black">
+                              {product?.unit?.plural}
+                            </span>
+                          </p>
+                        )
+                      )}
+                    </div>
+                  ) : (
+                    <p>-</p>
+                  )}
+                </>
+              ) : (
+                <>
+                  {product?.price?.one_price?.from ||
+                  product?.price?.one_price?.to ? (
+                    <p className="font-bold text-black text-center">
+                      € ({product?.price?.one_price?.from} -{" "}
+                      {product?.price?.one_price?.to})
+                      <span className="text-black">
+                        {" "}
+                        euro/
+                        {product?.unit?.singular.toLowerCase()}
+                      </span>
+                    </p>
+                  ) : (
+                    <p>-</p>
+                  )}
+                </>
+              )}
+            </>
           ) : (
             <p>-</p>
           )}
@@ -120,7 +157,10 @@ const DrafProductRow = ({
       <td class="px-2 text-center">
         {product?.moq ? (
           <>
-            {product?.moq} {product?.unit} (MOQ)
+            {product?.moq > 1
+              ? `${product?.moq} ${product?.unit?.plural}`
+              : `${product?.moq} ${product?.unit.singular}`}{" "}
+            (MOQ)
           </>
         ) : (
           <p>-</p>

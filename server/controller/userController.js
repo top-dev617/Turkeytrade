@@ -6,6 +6,7 @@ const Store = require("../modules/store/store.model");
 const Product = require("../modules/product/product.model");
 
 const registerUser = async (req, res) => {
+  console.log(req.body);
   try {
     const isExist = await User.findOne({ email: req.body.email });
 
@@ -36,6 +37,7 @@ const registerUser = async (req, res) => {
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
+        company_name: req.body.companyName,
         password: bcrcypt.hashSync(req.body.password),
         otp,
         companyAddress: req.body.companyAddress,
@@ -44,7 +46,7 @@ const registerUser = async (req, res) => {
         province: req.body.province,
         country: req.body.country,
         phoneNumber: req.body.phoneNumber,
-        role: req.body.role
+        role: req.body.role,
       });
 
       const user = await newUser.save();
@@ -68,11 +70,10 @@ const registerUser = async (req, res) => {
   }
 };
 
-
 // get user info by token verified => email
 const getUserInfo = async (req, res) => {
   try {
-    console.log(req.user)
+    console.log(req.user);
     const user = await User.findOne({ email: req?.user?.email });
     res.send(user);
   } catch (err) {
@@ -120,10 +121,19 @@ const emailVerification = async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(401).send({
+        success: false,
+        type: "email",
+        message: "User not found",
+      });
+    }
 
     if (user?.isVerified === false) {
       return res.status(401).send({
-        message: "Please Verify you email.",
+        success: false,
+        type: "email",
+        message: "Email is not Verified",
       });
     }
     if (
@@ -133,6 +143,7 @@ const loginUser = async (req, res) => {
     ) {
       const accessToken = await generateToken(user);
       return res.send({
+        success: true,
         message: "Logged in successfully",
         status: 200,
         user,
@@ -140,6 +151,8 @@ const loginUser = async (req, res) => {
       });
     } else {
       res.status(401).send({
+        success: false,
+        type: "password",
         message: "Invalid user or password",
         status: 401,
       });
@@ -202,19 +215,19 @@ const getUser = async (req, res) => {
   }
 };
 
-
-
 const forgetPassword = async (req, res) => {
   try {
-    const isExist = await User.findOne({ email: req.body.email })
-    if (req.body.email && !req.body.otp) {
+    const isExist = await User.findOne({ email: req.body.email });
+    if (req.body.email && !req.body.otp && !req.body.password) {
       if (isExist && isExist.isVerified === true) {
         const otp = randomstring.generate({ length: 5, charset: "numeric" });
         isExist.otp = otp;
         const updatedUser = await isExist.save();
-        await sendVerificationCode(updatedUser, otp);
+        const data = await sendVerificationCode(updatedUser, otp);
+        console.log(data);
         res.status(200).send({
-          message: "We have sent you verification code. Please check your email!",
+          message:
+            "We have sent you verification code. Please check your email!",
           status: true,
         });
       } else if (isExist) {
@@ -240,17 +253,19 @@ const forgetPassword = async (req, res) => {
           status: false,
         });
       }
-
-    } else if (req.body.password) {
-      isExist.password = bcrcypt.hashSync(req.body.password)
-      await isExist.save();
-
-      const token = await generateToken(isExist);
+    } else if (req.body.email && req.body.password) {
+      const newPassword = bcrcypt.hashSync(req.body.password);
+      const result = await User.findByIdAndUpdate(
+        { _id: isExist?._id },
+        { password: newPassword },
+        {
+          new: true,
+        }
+      );
       res.send({
         message: "Password Changed successfully",
-        isExist,
-        accessToken: token,
-        status: 200,
+        data: result,
+        success: true,
       });
     }
   } catch (error) {
@@ -258,9 +273,7 @@ const forgetPassword = async (req, res) => {
       message: error.message,
     });
   }
-}
-
-
+};
 
 const changePassword = async (req, res) => {
   const { old_password, new_password } = req.body;
@@ -268,33 +281,33 @@ const changePassword = async (req, res) => {
     const user = await User.findById({ _id: req.user._id });
 
     if (!user) {
-      res.status(404).json({ message: 'User not found.' });
+      res.status(404).json({ message: "User not found." });
     }
-    const isPasswordMatch = await bcrcypt.compareSync(old_password, user.password)
+    const isPasswordMatch = await bcrcypt.compareSync(
+      old_password,
+      user.password
+    );
     if (!isPasswordMatch) {
       res.status(401).json({
         success: false,
-        message: 'Incorrect old password.'
+        message: "Incorrect old password.",
       });
     } else {
-      user.password = bcrcypt.hashSync(new_password)
+      user.password = bcrcypt.hashSync(new_password);
       await user.save();
 
       res.status(200).json({
         success: true,
-        message: 'Password updated successfully.',
+        message: "Password updated successfully.",
       });
     }
-
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message
+      message: error.message,
     });
   }
 };
-
-
 
 const deleteUserAndCollections = async (req, res) => {
   const userId = req.user._id;
@@ -309,13 +322,12 @@ const deleteUserAndCollections = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "User account and associated collections deleted successfully."
+      message: "User account and associated collections deleted successfully.",
     });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error." });
   }
 };
-
 
 const checkIsExistEmail = async (req, res) => {
   try {
@@ -323,23 +335,21 @@ const checkIsExistEmail = async (req, res) => {
     if (isExist) {
       res.status(201).json({
         success: false,
-        message: "Email Already in use"
+        message: "Email Already in use",
       });
     } else {
       res.status(200).json({
         success: true,
-        message: "Email is Unique"
+        message: "Email is Unique",
       });
     }
   } catch (error) {
     res.status(200).json({
       success: false,
-      message: error.message
+      message: error.message,
     });
   }
-}
-
-
+};
 
 const updateUserInfo = async (req, res) => {
   try {
@@ -371,12 +381,6 @@ const updateUserInfo = async (req, res) => {
   }
 };
 
-
-
-
-
-
-
 module.exports = {
   registerUser,
   loginUser,
@@ -389,5 +393,5 @@ module.exports = {
   changePassword,
   deleteUserAndCollections,
   checkIsExistEmail,
-  updateUserInfo
+  updateUserInfo,
 };

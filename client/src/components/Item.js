@@ -12,8 +12,6 @@ const Item = ({ items }) => {
     setIsLoading(false);
   }, 2000);
 
-  console.log(items);
-
   return (
     <div className="item_parent pt-0">
       <div className="label">
@@ -52,18 +50,26 @@ const Item = ({ items }) => {
                   {pathname !== "/" && (
                     <>
                       <div className="flex items-center flex-wrap gap-1">
-                        <h1 className="font-bold text-black text-2xl">
-                          € {item.minPrice} - {item.maxPrice}
-                        </h1>
-                        {/* <h1 className="label">
-                          {item?.price[0]?.quantity?.from} -{" "}
-                          {item?.price[0]?.quantity?.to}{" "}
-                          {getPluralUnit(item?.unit)}
-                        </h1> */}
+                        {item?.price?.price_type === "ladder_price" ? (
+                          <h1 className="font-bold text-black text-2xl">
+                            € {item.minPrice} - {item.maxPrice}
+                          </h1>
+                        ) : (
+                          <h1 className="label-list">
+                            <span className="!text-3xl !font-bold">
+                              {item?.price?.one_price?.from} -{" "}
+                              {item?.price?.one_price?.to}
+                            </span>{" "}
+                            euro/
+                            {item?.unit?.singular.toLowerCase()}
+                          </h1>
+                        )}
                       </div>
 
                       <p className="amount label">
-                        {item?.moq} {getPluralUnit(item?.unit)} (MOQ)
+                        {item?.moq > 1
+                          ? `${item?.moq} ${item?.unit?.plural} (MOQ)`
+                          : `${item?.moq} ${item?.unit.singular} (MOQ)`}
                       </p>
                     </>
                   )}

@@ -1,6 +1,4 @@
-import CompanyForm from "@/components/SellerStore/CompanyForm";
 import StoreBanner from "@/components/SellerStore/StoreBanner";
-import StoreTab from "@/components/SellerStore/StoreTab";
 import Loading from "@/components/commons/Loading";
 import CompanyInfo from "@/components/storeInfo/CompanyInfo";
 import InfoTab from "@/components/storeInfo/InfoTab";
@@ -9,30 +7,24 @@ import { useRouter } from "next/router";
 import React from "react";
 
 const sellerStoreInfo = () => {
-  const router = useRouter()
-  const { storeId } = router.query
-  const { data, isLoading } = useGetStoreInfoQuery(storeId)
+  const router = useRouter();
+  const { storeId } = router.query;
+  const { data, isLoading } = useGetStoreInfoQuery(storeId);
 
   return (
     <div className="pt-8">
-      {
-        isLoading ? <Loading /> :
-          <>
-            <StoreBanner store={data?.data} />
-            <CompanyInfo store={data?.data} />
-          </>
-      }
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <StoreBanner store={data?.data} />
+          <CompanyInfo store={data?.data} />
+        </>
+      )}
 
       <InfoTab store={data?.data} />
     </div>
-    // <div>
-    //   <StoreBanner />
-    //   <CompanyInfo />
-    //   <InfoTab />
-    //   <InfoTab />
-    // </div>
   );
 };
-
 
 export default sellerStoreInfo;

@@ -20,13 +20,13 @@ const sendVerificationCode = async (user, otp) => {
   const transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {
-      user: "mohisilva1@gmail.com",
-      pass: "peqprjkgjiikugvk",
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS,
     },
   });
 
   const mailOptions = {
-    from: "mohisilva1@gmail.com",
+    from: process.env.GMAIL_USER,
     to: user?.email,
     subject: "Email Verification",
     html: `
@@ -286,7 +286,7 @@ const sendVerificationCode = async (user, otp) => {
                                 <div style="font-size: 14px; color: #003399; line-height: 160%; text-align: center; word-wrap: break-word;">
                                   <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 20px; line-height: 32px;"><strong>Get in touch</strong></span></p>
                                   <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px; color: #000000;">+11 111 333 4444</span></p>
-                                  <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px; color: #000000;">Info@turkeytrademarket.com</span></p>
+                                  <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px; color: #000000;">noreply@turkeytrademarket.com</span></p>
                                 </div>
     
                               </td>

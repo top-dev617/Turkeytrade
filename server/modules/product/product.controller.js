@@ -2,7 +2,14 @@ const Product = require("./product.model");
 
 const createProduct = async (req, res) => {
   try {
-    const newProduct = new Product(req.body);
+    let productData = {};
+    for (const key in req.body) {
+      productData = { ...productData, [key]: JSON.parse(req.body[key]) };
+    }
+    if (req.file) {
+      productData["video"] = req.file?.path;
+    }
+    const newProduct = new Product(productData);
     const result = await newProduct.save();
     res.status(200).json({
       status: true,
@@ -49,15 +56,21 @@ const getProductsByCateId = async (req, res) => {
       .populate("group");
 
     const productsWithMinMaxPrices = await Promise.all(
-      products.map(async (product) => {
-        const prices = product.price.map((price) => price.euro);
-        const minPrice = Math.min(...prices);
-        const maxPrice = Math.max(...prices);
-        return {
-          ...product.toObject(),
-          minPrice,
-          maxPrice,
-        };
+      result.map(async (product) => {
+        if (product?.price?.price_type === "ladder_price") {
+          const prices = product?.price?.ladder_price?.map(
+            (price) => price.euro
+          );
+          const minPrice = Math.min(...prices);
+          const maxPrice = Math.max(...prices);
+          return {
+            ...product.toObject(),
+            minPrice,
+            maxPrice,
+          };
+        } else {
+          return { ...product.toObject() };
+        }
       })
     );
 
@@ -86,15 +99,21 @@ const getProductsByGroupId = async (req, res) => {
       .populate("group");
 
     const productsWithMinMaxPrices = await Promise.all(
-      products.map(async (product) => {
-        const prices = product.price.map((price) => price.euro);
-        const minPrice = Math.min(...prices);
-        const maxPrice = Math.max(...prices);
-        return {
-          ...product.toObject(),
-          minPrice,
-          maxPrice,
-        };
+      result.map(async (product) => {
+        if (product?.price?.price_type === "ladder_price") {
+          const prices = product?.price?.ladder_price?.map(
+            (price) => price.euro
+          );
+          const minPrice = Math.min(...prices);
+          const maxPrice = Math.max(...prices);
+          return {
+            ...product.toObject(),
+            minPrice,
+            maxPrice,
+          };
+        } else {
+          return { ...product.toObject() };
+        }
       })
     );
 
@@ -134,14 +153,20 @@ const getProductsByStoreId = async (req, res) => {
 
     const productsWithMinMaxPrices = await Promise.all(
       result.map(async (product) => {
-        const prices = product.price.map((price) => price.euro);
-        const minPrice = Math.min(...prices);
-        const maxPrice = Math.max(...prices);
-        return {
-          ...product.toObject(),
-          minPrice,
-          maxPrice,
-        };
+        if (product?.price?.price_type === "ladder_price") {
+          const prices = product?.price?.ladder_price?.map(
+            (price) => price.euro
+          );
+          const minPrice = Math.min(...prices);
+          const maxPrice = Math.max(...prices);
+          return {
+            ...product.toObject(),
+            minPrice,
+            maxPrice,
+          };
+        } else {
+          return { ...product.toObject() };
+        }
       })
     );
 
@@ -179,7 +204,7 @@ const getDraftProductsByStoreId = async (req, res) => {
     })
       .sort({ _id: -1 })
       .populate("category")
-      .populate("group")
+      // .populate("group")
       .skip((page - 1) * pageSize)
       .limit(pageSize);
 
@@ -257,11 +282,18 @@ const getShowProducts = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
+    let productData = {};
+    for (const key in req.body) {
+      productData = { ...productData, [key]: JSON.parse(req.body[key]) };
+    }
+    if (req.file) {
+      productData["video"] = req.file?.path;
+    }
     const isExist = await Product.findOne({ _id: req.params.id });
     if (isExist) {
       const result = await Product.findByIdAndUpdate(
         { _id: req.params.id },
-        req.body,
+        productData,
         {
           new: true,
         }
@@ -280,7 +312,7 @@ const updateProduct = async (req, res) => {
   } catch (error) {
     res.status(201).json({
       status: false,
-      message: "Product update unsuccessful",
+      message: error?.message,
     });
   }
 };

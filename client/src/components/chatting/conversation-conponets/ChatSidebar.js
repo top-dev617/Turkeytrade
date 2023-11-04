@@ -9,8 +9,10 @@ import {
   setReceiverData,
 } from "@/redux/features/conversation/conversationSlice";
 
-const ChatSidebar = ({ chatData, isLoading, type }) => {
+const ChatSidebar = ({ chatData, isLoading }) => {
   const dispatch = useDispatch();
+
+  // console.log(chatData);
   return (
     <div className="w-full bg-white h-screen">
       {isLoading ? (
@@ -64,7 +66,7 @@ const ChatSidebar = ({ chatData, isLoading, type }) => {
               </button>
               {chatData &&
                 chatData?.map((chatId) => (
-                  <SingleChatUser chatData={chatId} type={type} />
+                  <SingleChatUser chatData={chatId} type={chatId?.type} />
                 ))}
             </li>
           </ul>

@@ -6,9 +6,7 @@ import Chatting from "./Chatting";
 import { useRouter } from "next/router";
 
 const ChatMain = () => {
-  const { user } = useContext(AuthContext);
-  const { msgOpen, setMsgOpen } = useContext(AuthContext);
-
+  const { user, msgOpen, setMsgOpen } = useContext(AuthContext);
   const router = useRouter();
   const handleMsg = () => {
     if (!user?._id) {
@@ -18,22 +16,16 @@ const ChatMain = () => {
     setMsgOpen(!msgOpen);
   };
 
-  console.log(router);
-
   return (
-    <>
-      {!router?.asPath.includes("/inbox") && (
-        <div>
-          {msgOpen && <Chatting />}
+    <div>
+      {msgOpen && <Chatting user={user} setMsgOpen={setMsgOpen} />}
 
-          <div className="sms_btn text-end mt-4 mt-lg-0">
-            <button onClick={() => handleMsg()}>
-              <img src={sms.src} alt="" /> Messages
-            </button>
-          </div>
-        </div>
-      )}
-    </>
+      <div className="sms_btn text-end mt-4 mt-lg-0">
+        <button onClick={() => handleMsg()}>
+          <img src={sms.src} alt="" /> Messages
+        </button>
+      </div>
+    </div>
   );
 };
 
