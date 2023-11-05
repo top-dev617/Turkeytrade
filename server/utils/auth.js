@@ -18,15 +18,17 @@ const generateToken = async (user) => {
 
 const sendVerificationCode = async (user, otp) => {
   const transporter = nodemailer.createTransport({
-    service: "Gmail",
+    host: "mail.turkeytrademarket.com",
+    port: 465,
+    secure: true,
     auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASS,
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS,
     },
   });
 
   const mailOptions = {
-    from: process.env.GMAIL_USER,
+    from: process.env.MAIL_USER,
     to: user?.email,
     subject: "Email Verification",
     html: `
