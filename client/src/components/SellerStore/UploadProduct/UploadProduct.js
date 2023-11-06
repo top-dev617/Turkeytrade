@@ -11,36 +11,18 @@ import {
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { units } from "@/utils/datas/unites";
-import JoditEditor from "jodit-react";
 import { useContext } from "react";
 import { AuthContext } from "@/components/context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { setEditProduct } from "@/redux/features/products/productSlice";
 import { Popover, PopoverHandler, Spinner } from "@material-tailwind/react";
-import { getPluralUnit } from "@/utils/helpers/getPluralUnit";
 import { useGetProductGroupByStoreIdQuery } from "@/redux/features/product-group/productGroupApi";
 import AddGroup from "./AddGroup";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { base_url } from "@/utils/auth/global";
-
-const remove = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke-width="1.5"
-    stroke="currentColor"
-    className="w-full h-full"
-  >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-    />
-  </svg>
-);
+import VideoPlayer from "@/components/commons/video-player/VideoPlayer";
+import { trash } from "@/utils/datas/icons";
 
 const modules = {
   toolbar: [
@@ -70,7 +52,7 @@ const UploadProduct = ({ store }) => {
   const { uploadImg } = useContext(AuthContext);
   const { data } = useGetCategoriesQuery();
   const { data: productGroups } = useGetProductGroupByStoreIdQuery(store?._id);
-  const [postProduct, { isLoading }] = usePostProductMutation();
+  const [postProduct] = usePostProductMutation();
   const [patchProduct] = usePatchProductMutation();
 
   const { handleSubmit, register, reset } = useForm();
@@ -79,13 +61,13 @@ const UploadProduct = ({ store }) => {
   const [saveDraft, setSaveDraft] = useState(false);
 
   const dispatch = useDispatch();
-
-  const editor = useRef(null);
   const [content, setContent] = useState(
     editProduct ? editProduct?.description : ""
   );
+  const videoRef = useRef();
 
   const [video, setVideo] = useState(null);
+  const [videoError, setVideoError] = useState(false);
   const keywordRef = useRef();
 
   const viewFile = (file) => {
@@ -95,7 +77,18 @@ const UploadProduct = ({ store }) => {
   };
 
   const handleVideo = (file) => {
-    setVideo(file);
+    if (file) {
+      if (file.size > 25 * 1024 * 1024) {
+        toast.error("File size must be 25 MB or less.");
+        videoRef.current.value = null;
+        return;
+      } else {
+        setVideo(file);
+      }
+    } else {
+      videoRef.current.value = null;
+      return;
+    }
   };
 
   const viewImg = (img) => {
@@ -426,7 +419,7 @@ const UploadProduct = ({ store }) => {
   };
 
   return (
-    <div className="upload_product md:px-8">
+    <div className="upload_product md:px-8 cursor-pointer">
       <div className="container">
         <form
           onKeyDown={checkKeyDown}
@@ -679,7 +672,7 @@ const UploadProduct = ({ store }) => {
                             onClick={() => removeImage(3)}
                             className="absolute -top-2 -right-2 z-50 rounded-full bg-white text-red-600 p-1 w-8"
                           >
-                            {remove}
+                            {trash}
                           </div>
                         )}
                         <div className="input_inner">
@@ -720,7 +713,7 @@ const UploadProduct = ({ store }) => {
                             onClick={() => removeImage(4)}
                             className="absolute -top-2 -right-2 z-50 rounded-full bg-white text-red-600 p-1 w-8"
                           >
-                            {remove}
+                            {trash}
                           </div>
                         )}
                         <div className="input_inner">
@@ -761,7 +754,7 @@ const UploadProduct = ({ store }) => {
                             onClick={() => removeImage(5)}
                             className="cursor-pointer absolute -top-2 -right-2 z-50 rounded-full bg-white text-red-600 p-1 w-8"
                           >
-                            {remove}
+                            {trash}
                           </div>
                         )}
                         <div className="input_inner">
@@ -799,24 +792,17 @@ const UploadProduct = ({ store }) => {
               <div className="input_box cursor-pointer relative">
                 <div className="input_inner">
                   {video ? (
-                    <video controls loop autoPlay muted className="w-100 h-100">
-                      <source src={viewFile(video)} type="video/mp4" />
-                    </video>
+                    <VideoPlayer
+                      url={viewFile(video)}
+                      className="object-contain w-100 h-100"
+                    />
                   ) : (
                     <>
                       {editProduct?._id ? (
-                        <video
-                          controls
-                          loop
-                          autoPlay
-                          muted
-                          className="w-100 h-100"
-                        >
-                          <source
-                            src={`${base_url}/uploads/${editProduct?.video}`}
-                            type="video/mp4"
-                          />
-                        </video>
+                        <VideoPlayer
+                          url={`${base_url}/uploads/${editProduct?.video}`}
+                          className="object-contain w-100 h-100"
+                        />
                       ) : (
                         <>
                           <img src={videoIcon.src} alt="" />
@@ -828,10 +814,11 @@ const UploadProduct = ({ store }) => {
                 </div>
 
                 <input
+                  ref={videoRef}
                   type="file"
                   name="video"
                   className="absolute w-full h-full top-0 bottom-0 opacity-0 cursor-pointer"
-                  accept=".mp4"
+                  accept=".mp4, .mkv"
                   onChange={(e) => handleVideo(e.target.files[0])}
                 />
               </div>
@@ -962,7 +949,7 @@ const UploadProduct = ({ store }) => {
                                   onClick={() => removePrice(index)}
                                   className="w-5 text-red-600 hover:text-pmd cursor-pointer"
                                 >
-                                  {remove}
+                                  {trash}
                                 </div>
                               )}
                             </div>

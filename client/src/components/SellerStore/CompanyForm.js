@@ -19,6 +19,8 @@ import { useDropzone } from "react-dropzone";
 import { Spinner } from "@material-tailwind/react";
 import { trash } from "@/utils/datas/icons";
 import { base_url } from "@/utils/auth/global";
+import ReactPlayer from "react-player";
+import VideoPlayer from "../commons/video-player/VideoPlayer";
 
 const CompanyForm = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -32,16 +34,30 @@ const CompanyForm = () => {
     );
   };
 
-  console.log(store);
-
   const [logo, setLogo] = useState(null);
   const [video, setVideo] = useState(null);
+  const videoRef = useRef();
 
   const [isEdit, setIsEdit] = useState(false);
 
   // Certificates functions
   const [certificates, setCertificates] = useState([]);
   const [saveCertificates, setSaveCertificates] = useState([]);
+
+  const handleVideo = (file) => {
+    if (file) {
+      if (file.size > 25 * 1024 * 1024) {
+        toast.error("File size must be 25 MB or less.");
+        videoRef.current.value = null;
+        return;
+      } else {
+        setVideo(file);
+      }
+    } else {
+      videoRef.current.value = null;
+      return;
+    }
+  };
 
   useEffect(() => {
     setSaveCertificates(store?.data?.certificates);
@@ -338,24 +354,17 @@ const CompanyForm = () => {
                 )}
 
                 {store?.data?.store_presentation_video && !video ? (
-                  <video controls loop autoPlay muted className="w-100 h-100">
-                    <source
-                      src={`${base_url}/uploads/${store?.data?.store_presentation_video}`}
-                      type="video/mp4"
-                    />
-                  </video>
+                  <VideoPlayer
+                    url={`${base_url}/uploads/${store?.data?.store_presentation_video}`}
+                    className="object-contain w-100 h-100"
+                  />
                 ) : (
                   <>
                     {video ? (
-                      <video
-                        controls
-                        loop
-                        autoPlay
-                        muted
-                        className="w-100 h-100"
-                      >
-                        <source src={viewFile(video)} type="video/mp4" />
-                      </video>
+                      <VideoPlayer
+                        url={viewFile(video)}
+                        className="object-contain w-100 h-100"
+                      />
                     ) : (
                       <div className="input_inner">
                         <img src={videoIcon.src} alt="" />
@@ -365,14 +374,13 @@ const CompanyForm = () => {
                   </>
                 )}
                 <input
-                  {...register("store_presentation_video")}
+                  ref={videoRef}
                   type="file"
-                  name="store_presentation_video"
                   multiple={false}
                   className="absolute top-0 right-0 bottom-0 left-0 w-full h-full opacity-0 cursor-pointer"
-                  accept=".mp4"
+                  accept=".mp4, .mkv"
                   disabled={isEdit ? false : true}
-                  onChange={(e) => setVideo(e.target.files[0])}
+                  onChange={(e) => handleVideo(e.target.files[0])}
                 />
               </div>
             </div>
