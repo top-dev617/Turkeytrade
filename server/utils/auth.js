@@ -16,20 +16,17 @@ const generateToken = async (user) => {
   );
 };
 
-// GMAIL service won't be used. Were using our smtp server.
 const sendVerificationCode = async (user, otp) => {
   const transporter = nodemailer.createTransport({
-    host: "mail.turkeytrademarket.com",
-    port: 465, // STARTTLS port
-    secure: true, // will use SSL auth otherwise which doesn't work
+    service: "Gmail",
     auth: {
-      user: process.env.MAIL_USER, // GMAIL_USER -> MAIL_USER
-      pass: process.env.MAIL_PASS, // GMAIL_PASS -> MAIL_PASS
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS,
     },
   });
 
   const mailOptions = {
-    from: process.env.MAIL_USER,
+    from: process.env.GMAIL_USER,
     to: user?.email,
     subject: "Email Verification",
     html: `
