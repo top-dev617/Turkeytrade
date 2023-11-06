@@ -69,8 +69,8 @@ const EditProduct = ({ store }) => {
       {editProduct?._id ? (
         <UploadProduct store={store} />
       ) : (
-        <div class="relative overflow-x-auto sm:rounded-lg">
-          <table class="w-full text-sm text-left text-gray-500">
+        <div className="relative overflow-x-auto sm:rounded-lg">
+          <table className="w-full text-sm text-left text-gray-500">
             {data?.data?.length < 1 && (
               <div className="mt-6 flex justify-center items-center w-full">
                 <span>No Data</span>
@@ -78,11 +78,11 @@ const EditProduct = ({ store }) => {
             )}
             {isLoading && <Loading />}
             {data?.data?.length > 0 && (
-              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700">
                 <tr>
                   <th
                     scope="col"
-                    class="px-2 py-2 text-sm font-bold text-center"
+                    className="px-2 py-2 text-sm font-bold text-center"
                   >
                     <div
                       onClick={() =>
@@ -90,7 +90,7 @@ const EditProduct = ({ store }) => {
                           selectedItems?.length > 0 ? [] : data?.data
                         )
                       }
-                      class="flex items-center"
+                      className="flex items-center"
                     >
                       <input
                         type="checkbox"
@@ -99,13 +99,13 @@ const EditProduct = ({ store }) => {
                             ? true
                             : false
                         }
-                        class="w-4 h-4 text-p bg-gray-100 border-gray-300 rounded focus:ring-pm cursor-pointer"
+                        className="w-4 h-4 text-p bg-gray-100 border-gray-300 rounded focus:ring-pm cursor-pointer"
                       />
                     </div>
                   </th>
                   <th
                     scope="col"
-                    class="px-2 py-2 text-sm font-bold text-center"
+                    className="px-2 py-2 text-sm font-bold text-center"
                   >
                     <div className="w-8 text-red-600 mx-auto">
                       <Popover placement="bottom">
@@ -139,31 +139,31 @@ const EditProduct = ({ store }) => {
                   </th>
                   <th
                     scope="col"
-                    class="px-2 py-2 text-sm font-bold text-center"
+                    className="px-2 py-2 text-sm font-bold text-center"
                   >
                     Photo
                   </th>
                   <th
                     scope="col"
-                    class="px-2 py-2 text-sm font-bold text-center"
+                    className="px-2 py-2 text-sm font-bold text-center"
                   >
                     Product name
                   </th>
                   <th
                     scope="col"
-                    class="px-2 py-2 text-sm font-bold text-center"
+                    className="px-2 py-2 text-sm font-bold text-center"
                   >
                     Current Price
                   </th>
                   <th
                     scope="col"
-                    class="px-2 py-2 text-sm font-bold text-center"
+                    className="px-2 py-2 text-sm font-bold text-center"
                   >
                     MOQ
                   </th>
                   <th
                     scope="col"
-                    class="px-2 py-2 text-sm font-bold text-center"
+                    className="px-2 py-2 text-sm font-bold text-center"
                   >
                     Status
                   </th>
@@ -179,6 +179,7 @@ const EditProduct = ({ store }) => {
                   setSelectedItems={handleSelect}
                   handleDelete={handleDelete}
                   deleteLoading={deleteLoading}
+                  fillRule="evenodd"
                 />
               ))}
             </tbody>

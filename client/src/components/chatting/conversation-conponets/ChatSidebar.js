@@ -65,8 +65,12 @@ const ChatSidebar = ({ chatData, isLoading }) => {
                 </div>
               </button>
               {chatData &&
-                chatData?.map((chatId) => (
-                  <SingleChatUser chatData={chatId} type={chatId?.type} />
+                chatData?.map((chatId, index) => (
+                  <SingleChatUser
+                    key={index}
+                    chatData={chatId}
+                    type={chatId?.type}
+                  />
                 ))}
             </li>
           </ul>

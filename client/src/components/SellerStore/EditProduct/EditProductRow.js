@@ -13,6 +13,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 const EditProductRow = ({
+  index,
   product,
   selectedItems,
   setSelectedItems,
@@ -32,22 +33,25 @@ const EditProductRow = ({
     await patchProduct(options);
   };
   return (
-    <tr class="bg-white border-b hover:bg-pm hover:bg-opacity-50">
-      <td class="w-4 px-2 text-center">
+    <tr
+      key={index}
+      className="bg-white border-b hover:bg-pm hover:bg-opacity-50"
+    >
+      <td className="w-4 px-2 text-center">
         <div
           onClick={() => setSelectedItems(product)}
-          class="flex items-center"
+          className="flex items-center"
         >
           <input
             type="checkbox"
             checked={isExist && isExist?._id ? true : false}
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-pm cursor-pointer"
+            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-pm cursor-pointer"
           />
         </div>
       </td>
       <th
         scope="row"
-        class="px-2 text-center font-medium text-gray-900 whitespace-nowrap"
+        className="px-2 text-center font-medium text-gray-900 whitespace-nowrap"
       >
         <div className="flex justify-center items-center gap-4 cursor-pointer">
           <h1
@@ -79,15 +83,15 @@ const EditProductRow = ({
           </Popover>
         </div>
       </th>
-      <td class="px-2 text-center">
+      <td className="px-2 text-center">
         <img className="w-20 mx-auto" loading="lazy" src={product?.images[0]} />
       </td>
-      <td class="px-2 text-center">
+      <td className="px-2 text-center">
         <div className="max-w-[300px] whitespace-normal break-words mx-auto">
           {product?.title}
         </div>
       </td>
-      <td class="px-2 text-center">
+      <td className="px-2 text-center">
         {product?.price?.price_type === "ladder_price" ? (
           <div className="max-h-[250px] w-fit overflow-y-auto grid grid-cols-1 mx-auto">
             {product?.price?.ladder_price?.length > 0 &&
@@ -110,13 +114,13 @@ const EditProductRow = ({
           </p>
         )}
       </td>
-      <td class="px-2 text-center">
+      <td className="px-2 text-center">
         {product?.moq > 1
           ? `${product?.moq} ${product?.unit?.plural}`
           : `${product?.moq} ${product?.unit.singular}`}{" "}
         (MOQ)
       </td>
-      <td class="px-2 text-center">
+      <td className="px-2 text-center">
         <Popover placement="bottom">
           <PopoverHandler>
             <Button className="hover:text-pmd bg-pm py-2 rounded text-center">

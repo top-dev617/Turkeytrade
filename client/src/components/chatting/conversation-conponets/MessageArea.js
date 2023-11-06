@@ -18,7 +18,9 @@ import { useRef } from "react";
 import { socket_url } from "@/utils/auth/global";
 
 const MessageArea = ({ auth, messageClassName }) => {
-  const { receiverData, chatId } = useSelector((state) => state.conversation);
+  const { receiverData, chatId, online_users } = useSelector(
+    (state) => state.conversation
+  );
   const { data: messages, refetch, isLoading } = useGetMessagesQuery(chatId);
   const [postNewMessage] = usePostNewMessageMutation();
   const dispatch = useDispatch();
@@ -42,15 +44,20 @@ const MessageArea = ({ auth, messageClassName }) => {
       const sendMessage = {
         senderId: auth?._id,
         receiverId: receiverData?._id,
+        chatId: chatId,
         text: message,
       };
-      socket.current = io(socket_url);
+      socket.current = io(socket_url, {
+        credentials: true,
+      });
       socket.current.emit("sendMessage", sendMessage);
 
       // receive message
       socket.current.on("getMessage", (receiveMessage) => {
+        if (receiveMessage?.chatId === chatId) {
+          refetch(chatId);
+        }
         console.log(receiveMessage);
-        refetch();
       });
     }
   };
@@ -61,16 +68,18 @@ const MessageArea = ({ auth, messageClassName }) => {
   };
 
   const lastMessage = messages?.length > 0 && messages[messages?.length - 1];
-
+  const isOnline = online_users.some(
+    (user) => user?.userId === receiverData?._id
+  );
   return (
     <>
       {chatId && !isLoading ? (
         <>
-          <div class="flex items-center justify-between border-b p-2">
+          <div className="flex items-center justify-between border-b p-2">
             <div className="flex items-center gap-2">
               <button
                 onClick={() => handleBack()}
-                class="inline-flex hover:bg-indigo-50 rounded-full p-2"
+                className="inline-flex hover:bg-indigo-50 rounded-full p-2"
                 type="button"
               >
                 <svg
@@ -79,7 +88,7 @@ const MessageArea = ({ auth, messageClassName }) => {
                   viewBox="0 0 24 24"
                   stroke-width="2.5"
                   stroke="currentColor"
-                  class="w-5 h-5 hover:text-pm"
+                  className="w-5 h-5 hover:text-pm"
                 >
                   <path
                     stroke-linecap="round"
@@ -88,15 +97,15 @@ const MessageArea = ({ auth, messageClassName }) => {
                   />
                 </svg>
               </button>
-              <div class="flex items-center">
+              <div className="flex items-center">
                 <button className="flex items-center justify-center min-w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px]">
                   <span>
                     {receiverData?.name?.slice(0, 1) ||
                       receiverData?.store_name?.slice(0, 1)}{" "}
                   </span>
                 </button>
-                <div class="pl-2">
-                  <div class="font-semibold">
+                <div className="pl-2">
+                  <div className="font-semibold">
                     {receiverData?.name ? (
                       <p>
                         {(receiverData?.name || receiverData?.store_name)
@@ -111,7 +120,7 @@ const MessageArea = ({ auth, messageClassName }) => {
                         href={`/store/${
                           receiverData?._id || receiverData?._id
                         }`}
-                        class="hover:underline"
+                        className="hover:underline"
                       >
                         {(receiverData?.name || receiverData?.store_name)
                           ?.length > 12
@@ -122,18 +131,22 @@ const MessageArea = ({ auth, messageClassName }) => {
                       </Link>
                     )}
                   </div>
-                  <div class="text-xs text-gray-600">
-                    {moment(lastMessage?.createdAt).fromNow()}
-                  </div>
+                  {isOnline ? (
+                    <span className="text-pm text-xs">online</span>
+                  ) : (
+                    <div className="text-xs text-gray-600">
+                      {moment(lastMessage?.createdAt).fromNow()}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
 
             <div>
-              <button class="inline-flex hover:bg-indigo-50 rounded-full p-2">
+              <button className="inline-flex hover:bg-indigo-50 rounded-full p-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
+                  className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"

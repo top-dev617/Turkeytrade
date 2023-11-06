@@ -20,8 +20,6 @@ const Chatting = () => {
     refetch();
   }, [user]);
 
-  console.log(online_users);
-
   return (
     <div className="chatting shadow">
       <h4

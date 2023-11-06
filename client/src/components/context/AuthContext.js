@@ -1,3 +1,4 @@
+import { base_url } from "@/utils/auth/global";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
@@ -7,33 +8,32 @@ export function AuthProvider({ children }) {
   const [sellerStatus, setSellerStatus] = useState(true);
   const [msgOpen, setMsgOpen] = useState(false);
 
-  const [user, setUser] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const isLoggedIn = () => {
     const isLog = localStorage.getItem("isSignedIn", true);
     return isLog;
   };
-  const url = `https://turkey-tm-server-v2.onrender.com/api/v2/users/user-info/me`
+  const url = `${base_url}/users/user-info/me`;
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     fetch(url, {
       headers: {
-        "authorization": `Bearer ${localStorage.getItem("turkey-trade-market")}`
-      }
+        authorization: `Bearer ${localStorage.getItem("turkey-trade-market")}`,
+      },
     })
-      .then(res => res.json())
-      .then(data => {
-        setUser(data)
-        setIsLoading(false)
-      })
-  }, [])
-
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data);
+        setIsLoading(false);
+      });
+  }, []);
 
   const signOut = () => {
     localStorage.removeItem("turkey-trade-market");
-    setUser(null)
+    setUser(null);
   };
 
   const sellerStatusAdd = () => {
@@ -41,11 +41,10 @@ export function AuthProvider({ children }) {
     localStorage.setItem("sellerStatus", false);
   };
 
-
   const uploadImg = async (files) => {
     let images = [];
     for (const file of files) {
-      if (file instanceof File && file.type.startsWith('image/')) {
+      if (file instanceof File && file.type.startsWith("image/")) {
         const formData = new FormData();
         formData.append("image", file);
         const response = await fetch(
@@ -76,7 +75,8 @@ export function AuthProvider({ children }) {
     isLoading,
     setIsLoading,
     uploadImg,
-    msgOpen, setMsgOpen
+    msgOpen,
+    setMsgOpen,
   };
 
   return (

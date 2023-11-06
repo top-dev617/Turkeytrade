@@ -44,11 +44,11 @@ const HelpCenterMessageArea = ({ auth }) => {
 
   return (
     <div className="w-full h-full flex flex-col justify-between">
-      <div class="flex items-center justify-between border-b p-2">
+      <div className="flex items-center justify-between border-b p-2">
         <div className="flex items-center gap-2">
           <button
             onClick={() => handleBack()}
-            class="inline-flex hover:bg-indigo-50 rounded-full p-2"
+            className="inline-flex hover:bg-indigo-50 rounded-full p-2"
             type="button"
           >
             <svg
@@ -57,7 +57,7 @@ const HelpCenterMessageArea = ({ auth }) => {
               viewBox="0 0 24 24"
               stroke-width="2.5"
               stroke="currentColor"
-              class="w-5 h-5 hover:text-pm"
+              className="w-5 h-5 hover:text-pm"
             >
               <path
                 stroke-linecap="round"
@@ -66,15 +66,15 @@ const HelpCenterMessageArea = ({ auth }) => {
               />
             </svg>
           </button>
-          <div class="flex items-center">
+          <div className="flex items-center">
             <button className="flex items-center justify-center min-w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px]">
               <span>H</span>
             </button>
-            <div class="pl-2">
-              <div class="font-semibold">
-                <p class="">Help Center</p>
+            <div className="pl-2">
+              <div className="font-semibold">
+                <p className="">Help Center</p>
               </div>
-              <div class="text-xs text-gray-600">
+              <div className="text-xs text-gray-600">
                 {/* {moment(lastMessage?.createdAt).fromNow()} */}....
               </div>
             </div>
@@ -82,10 +82,10 @@ const HelpCenterMessageArea = ({ auth }) => {
         </div>
 
         <div>
-          <button class="inline-flex hover:bg-indigo-50 rounded-full p-2">
+          <button className="inline-flex hover:bg-indigo-50 rounded-full p-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
+              className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

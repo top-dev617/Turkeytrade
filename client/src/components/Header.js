@@ -79,15 +79,29 @@ const Header = () => {
   });
 
   useEffect(() => {
-    socket.current = io(socket_url);
+    socket.current = io(socket_url, {
+      credentials: true,
+    });
     if (user?._id) {
       socket.current.emit("addUser", user?._id);
       socket.current.on("getUsers", (users) => {
         dispatch(setOnline_users(users));
       });
     }
+    if (user?._id) {
+      socket.current.emit("addUser", user?._id);
+      socket.current.on("getUsers", (users) => {
+        dispatch(setOnline_users(users));
+      });
+    }
+    if (data?.data) {
+      socket.current.emit("addUser", data?.data?._id);
+      socket.current.on("getUsers", (users) => {
+        dispatch(setOnline_users(users));
+      });
+    }
     return () => {};
-  }, [user]);
+  }, [user, data]);
 
   return (
     <nav ref={navberRef} className="bg-white py-2 uppercase border-b ">

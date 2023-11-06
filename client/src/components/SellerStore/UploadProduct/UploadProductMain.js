@@ -95,8 +95,8 @@ const UploadProductMain = ({ store, selectDrop }) => {
       {selectDrop === "Upload New Product" || editProduct ? (
         <UploadProduct store={store} />
       ) : (
-        <div class="relative overflow-x-auto sm:rounded-lg">
-          <table class="w-full text-sm text-left text-gray-500">
+        <div className="relative overflow-x-auto sm:rounded-lg">
+          <table className="w-full text-sm text-left text-gray-500">
             {data?.data?.length < 1 && (
               <div className="mt-6 flex justify-center items-center w-full">
                 <span>No Data</span>
@@ -104,11 +104,11 @@ const UploadProductMain = ({ store, selectDrop }) => {
             )}
             {isLoading && <Loading />}
             {data?.data?.length > 0 && (
-              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700">
                 <tr>
                   <th
                     scope="col"
-                    class="px-2 py-2 text-sm font-bold text-center"
+                    className="px-2 py-2 text-sm font-bold text-center"
                   >
                     <div
                       onClick={() =>
@@ -116,7 +116,7 @@ const UploadProductMain = ({ store, selectDrop }) => {
                           selectedItems?.length > 0 ? [] : data?.data
                         )
                       }
-                      class="flex items-center"
+                      className="flex items-center"
                     >
                       <input
                         type="checkbox"
@@ -131,7 +131,7 @@ const UploadProductMain = ({ store, selectDrop }) => {
                   </th>
                   <th
                     scope="col"
-                    class="px-2 py-2 text-sm font-bold text-center"
+                    className="px-2 py-2 text-sm font-bold text-center"
                   >
                     <div className="w-8 text-red-600 mx-auto">
                       <Popover placement="bottom">
@@ -165,31 +165,31 @@ const UploadProductMain = ({ store, selectDrop }) => {
                   </th>
                   <th
                     scope="col"
-                    class="px-2 py-2 text-sm font-bold text-center"
+                    className="px-2 py-2 text-sm font-bold text-center"
                   >
                     Photo
                   </th>
                   <th
                     scope="col"
-                    class="px-2 py-2 text-sm font-bold text-center"
+                    className="px-2 py-2 text-sm font-bold text-center"
                   >
                     Product name
                   </th>
                   <th
                     scope="col"
-                    class="px-2 py-2 text-sm font-bold text-center"
+                    className="px-2 py-2 text-sm font-bold text-center"
                   >
                     Current Price
                   </th>
                   <th
                     scope="col"
-                    class="px-2 py-2 text-sm font-bold text-center"
+                    className="px-2 py-2 text-sm font-bold text-center"
                   >
                     MOQ
                   </th>
                   <th
                     scope="col"
-                    class="px-2 py-2 text-sm font-bold text-center"
+                    className="px-2 py-2 text-sm font-bold text-center"
                   >
                     Status
                   </th>

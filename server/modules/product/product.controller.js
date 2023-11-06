@@ -2,10 +2,7 @@ const Product = require("./product.model");
 
 const createProduct = async (req, res) => {
   try {
-    let productData = {};
-    for (const key in req.body) {
-      productData = { ...productData, [key]: JSON.parse(req.body[key]) };
-    }
+    const productData = JSON.parse(req.body?.productData);
     if (req.file) {
       productData["video"] = req.file?.path;
     }
@@ -248,9 +245,10 @@ const getProducts = async (req, res) => {
 const getLatestProducts = async (req, res) => {
   try {
     const result = await Product.find({ status: "Publish" })
-      .populate("category")
       .sort({ _id: -1 })
-      .limit(9);
+      .limit(9)
+      .select("title images")
+      .lean();
     res.status(200).json({
       status: true,
       message: "Products get successfully",
@@ -282,10 +280,7 @@ const getShowProducts = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    let productData = {};
-    for (const key in req.body) {
-      productData = { ...productData, [key]: JSON.parse(req.body[key]) };
-    }
+    const productData = JSON.parse(req.body?.productData);
     if (req.file) {
       productData["video"] = req.file?.path;
     }

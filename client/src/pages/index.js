@@ -8,7 +8,6 @@ import { useGetLatestProductsQuery } from "@/redux/features/products/productApi"
 
 export default function Home({ categories }) {
   const { data, isLoading } = useGetLatestProductsQuery();
-  // console.log(data);
   const welcomeModal = useRef(null);
   const [isWelcomeModal, setIsWelcomeModal] = useState(null);
 

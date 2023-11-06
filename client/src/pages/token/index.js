@@ -2,6 +2,7 @@ import LoadingBtn from "@/components/commons/buttons/LoadingBtn";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CryptoJS from "crypto-js";
+import { base_url } from "@/utils/auth/global";
 
 const Token = () => {
   const { register, handleSubmit } = useForm();
@@ -24,7 +25,7 @@ const Token = () => {
   };
 
   const handleGet = () => {
-    fetch("https://turkey-tm-server-v2.onrender.com/api/v2/token")
+    fetch(`${base_url}/token`)
       .then((res) => res.json())
       .then((data) => {
         setTokens(data?.data);
@@ -39,7 +40,7 @@ const Token = () => {
     setIsLoading(true);
     const token = await encryptData(data?.token);
 
-    fetch("https://turkey-tm-server-v2.onrender.com/api/v2/token", {
+    fetch(`${base_url}/token`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

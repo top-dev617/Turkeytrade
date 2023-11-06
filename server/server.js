@@ -55,6 +55,7 @@ app.use("/api/v2/help-center/", helpCenterChatRoutes);
 const io = socketIo(Server, {
   cors: {
     origin: process.env.CLIENT_URL,
+    credentials: true,
   },
 });
 
@@ -83,13 +84,12 @@ io.on("connection", (socket) => {
   });
 
   //send and get message
-  socket.on("sendMessage", ({ senderId, receiverId, text }) => {
-    console.log("user send Message!: ", senderId, receiverId, text);
-
-    const user = getUser(receiverId);
+  socket.on("sendMessage", ({ senderId, receiverId, chatId, text }) => {
+    // console.log("user send Message!: ", senderId, receiverId, chatId, text);
     io.emit("getMessage", {
       senderId,
       receiverId,
+      chatId,
       text,
     });
   });

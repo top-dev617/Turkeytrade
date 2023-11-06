@@ -32,7 +32,7 @@ const remove = (
     viewBox="0 0 24 24"
     stroke-width="1.5"
     stroke="currentColor"
-    class="w-full h-full"
+    className="w-full h-full"
   >
     <path
       stroke-linecap="round"
@@ -86,16 +86,16 @@ const UploadProduct = ({ store }) => {
   );
 
   const [video, setVideo] = useState(null);
-  const videoInputRef = useRef();
   const keywordRef = useRef();
-  const videoUrl = URL.createObjectURL(
-    new Blob([video], { type: "application/octet-stream" })
-  );
 
-  const viewVideo = (video) => {
+  const viewFile = (file) => {
     return URL.createObjectURL(
-      new Blob([video], { type: "application/octet-stream" })
+      new Blob([file], { type: "application/octet-stream" })
     );
+  };
+
+  const handleVideo = (file) => {
+    setVideo(file);
   };
 
   const viewImg = (img) => {
@@ -346,31 +346,29 @@ const UploadProduct = ({ store }) => {
       unit: unit,
       lead_time: { from: data?.from, to: data?.to, time: time },
       price: price,
-      video: formVideo,
     };
 
-    const formDataObject = new FormData();
-    for (const key in productData) {
-      if (key === "video") {
-        formDataObject.append(key, productData[key]);
-      } else {
-        formDataObject.append(key, JSON.stringify(productData[key]));
-      }
+    const newProduct = new FormData();
+    if (video) {
+      newProduct.append("video", formVideo);
     }
 
     // -------------first part-------------
     if (editProduct && editProduct?._id) {
-      setLoading(false);
+      newProduct.append("productData", JSON.stringify(productData));
+
       const options = {
-        data: formDataObject,
+        data: newProduct,
         id: editProduct?._id,
       };
       const result = await patchProduct(options);
       console.log(result);
+      setLoading(false);
       if (result?.data?.status === true) {
         toast.success("Product Update Successfully");
         reset();
         setKeywords([]);
+        setContent("");
         setProductImages([]);
         setLadderPriceFields(ladderFields);
         setOnePriceFields(oneFields);
@@ -385,14 +383,26 @@ const UploadProduct = ({ store }) => {
       // -------------second part-------------
 
       if (saveDraft) {
-        formDataObject.append("status", JSON.stringify("Draft"));
         setDraftLoading(true);
+        newProduct.append(
+          "productData",
+          JSON.stringify({
+            ...productData,
+            status: "Draft",
+          })
+        );
       } else {
-        formDataObject.append("status", JSON.stringify("Publish"));
+        newProduct.append(
+          "productData",
+          JSON.stringify({
+            ...productData,
+            status: "Publish",
+          })
+        );
       }
 
       const options = {
-        data: formDataObject,
+        data: newProduct,
       };
       const result = await postProduct(options);
       console.log(result);
@@ -402,6 +412,7 @@ const UploadProduct = ({ store }) => {
         toast.success("Product Add Successfully");
         reset();
         setKeywords([]);
+        setContent("");
         setProductImages([]);
         setLadderPriceFields(ladderFields);
         setOnePriceFields(oneFields);
@@ -458,9 +469,9 @@ const UploadProduct = ({ store }) => {
                 <label>
                   Keyword <img src={question} alt="" />
                 </label>
-                <div class="d-flex justify-items-center flex-wrap ">
+                <div className="d-flex justify-items-center flex-wrap ">
                   {keywords?.map((keyword, index) => (
-                    <div class="border d-flex me-2 mb-2" key={index}>
+                    <div className="border d-flex me-2 mb-2" key={index}>
                       <span className="px-1">{keyword}</span>
                       <div
                         onClick={() => handleRemoveKeyword(index)}
@@ -472,7 +483,7 @@ const UploadProduct = ({ store }) => {
                           viewBox="0 0 24 24"
                           stroke-width="1.5"
                           stroke="#E61C2B"
-                          class="w-6 h-6"
+                          className="w-6 h-6"
                           width={20}
                         >
                           <path
@@ -785,14 +796,11 @@ const UploadProduct = ({ store }) => {
 
             <div className="col-12 mb-5">
               <label>Upload Product video</label>
-              <div
-                className="input_box cursor-pointer"
-                onClick={(e) => videoInputRef?.current?.click()}
-              >
+              <div className="input_box cursor-pointer relative">
                 <div className="input_inner">
                   {video ? (
                     <video controls loop autoPlay muted className="w-100 h-100">
-                      <source src={viewVideo(video)} type="video/mp4" />
+                      <source src={viewFile(video)} type="video/mp4" />
                     </video>
                   ) : (
                     <>
@@ -822,10 +830,9 @@ const UploadProduct = ({ store }) => {
                 <input
                   type="file"
                   name="video"
-                  className="d-none"
+                  className="absolute w-full h-full top-0 bottom-0 opacity-0 cursor-pointer"
                   accept=".mp4"
-                  ref={videoInputRef}
-                  onChange={(e) => setVideo(e.target.files[0])}
+                  onChange={(e) => handleVideo(e.target.files[0])}
                 />
               </div>
             </div>
@@ -1104,7 +1111,9 @@ const UploadProduct = ({ store }) => {
 
             <div className="d-flex gap-2 justify-content-between align-items-center">
               <button
-                onClick={() => setSaveDraft(false)}
+                onClick={() =>
+                  setSaveDraft(editProduct?.status === "Draft" ? true : false)
+                }
                 disabled={loading && !saveDraft}
                 className="submit_btn hover:bg-pmd duration-150 flex justify-center items-center"
               >

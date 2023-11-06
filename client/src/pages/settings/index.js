@@ -11,12 +11,12 @@ const SettingsPage = () => {
   return (
     <AuthRoute>
       <div className="container my-8">
-        <div class="mx-4 max-w-screen-xl sm:mx-8 xl:mx-auto">
-          <h1 class="border-b py-6 text-4xl font-semibold">Profile</h1>
-          <div class="grid grid-cols-[250px_auto] gap-4 w-full">
+        <div className="mx-4 max-w-screen-xl sm:mx-8 xl:mx-auto">
+          <h1 className="border-b py-6 text-4xl font-semibold">Profile</h1>
+          <div className="grid grid-cols-[250px_auto] gap-4 w-full">
             <ProfileSidebar setTab={setTab} open={tab} />
 
-            <div class="overflow-hidden rounded-xl min-h-screen">
+            <div className="overflow-hidden rounded-xl min-h-screen">
               {tab === 0 && <ChangePassword />}
               {tab === 1 && <PaymentCard />}
               {tab === 2 && <DeleteAccount />}

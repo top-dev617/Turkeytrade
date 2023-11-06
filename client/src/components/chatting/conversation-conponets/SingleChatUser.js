@@ -3,14 +3,14 @@ import {
   setOpenHelpCenter,
   setReceiverData,
 } from "@/redux/features/conversation/conversationSlice";
-import { socket_url } from "@/utils/auth/global";
+import { base_url, socket_url } from "@/utils/auth/global";
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 
 const SingleChatUser = ({ chatData, type }) => {
-  const { chatId } = useSelector((state) => state.conversation);
+  const { chatId, online_users } = useSelector((state) => state.conversation);
   const [receiverUser, setReceiverUser] = useState(null);
   const [lastMessage, setLastMessage] = useState(chatData?.lastMessage);
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const SingleChatUser = ({ chatData, type }) => {
       : `User/${chatData?.memberTwo?.id}`;
 
   useEffect(() => {
-    fetch(`https://turkey-tm-server-v2.onrender.com/api/v2/chats/info/${query}`)
+    fetch(`${base_url}/chats/info/${query}`)
       .then((res) => res.json())
       .then((data) => {
         setReceiverUser(data?.data);
@@ -34,14 +34,21 @@ const SingleChatUser = ({ chatData, type }) => {
     dispatch(setReceiverData(receiverUser));
   };
 
+  const isOnline = online_users.some(
+    (user) => user?.userId === receiverUser?._id
+  );
   const name = receiverUser?.name || receiverUser?.store_name;
 
-  socket.current = io(socket_url);
-  socket.current.on("getMessage", (receiveMessage) => {
-    console.log(receiveMessage);
-    setLastMessage(receiveMessage?.text);
-    // refetch();
-  });
+  useEffect(() => {
+    socket.current = io(socket_url, {
+      credentials: true,
+    });
+    socket.current.on("getMessage", (receiveMessage) => {
+      setLastMessage(receiveMessage?.text);
+      // refetch();
+    });
+    return () => {};
+  }, []);
 
   return (
     <button
@@ -49,11 +56,14 @@ const SingleChatUser = ({ chatData, type }) => {
       className={`w-full flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer
             ${chatData?._id === chatId ? "bg-gray-200" : "hover:bg-gray-100"}`}
     >
-      <button className="flex items-center justify-center min-w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px]">
+      <button className="flex items-center justify-center min-w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px] relative">
         <span>
           {receiverUser?.store_name?.slice(0, 1) ||
             receiverUser?.name?.slice(0, 1)}{" "}
         </span>
+        {isOnline && (
+          <div className="h-3 w-3 rounded-full bg-green-600 absolute right-0 bottom-1"></div>
+        )}
       </button>
 
       <div className="w-full flex flex-col">
