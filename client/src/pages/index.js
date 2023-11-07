@@ -5,6 +5,7 @@ import Category from "@/components/Category";
 import { useEffect, useRef, useState } from "react";
 import WelcomeModal from "@/utils/modals/WelcomeModal";
 import { useGetLatestProductsQuery } from "@/redux/features/products/productApi";
+import { base_url } from "@/utils/auth/global";
 
 export default function Home({ categories }) {
   const { data, isLoading } = useGetLatestProductsQuery();
@@ -55,9 +56,7 @@ export default function Home({ categories }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(
-    `${process.env.REACT_APP_SERVER_URI}/categories/show/cate`
-  );
+  const res = await fetch(`${base_url}/categories/show/cate`);
   const categories = await res.json();
   return {
     props: {

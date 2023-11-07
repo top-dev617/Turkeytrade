@@ -53,7 +53,7 @@ const getProductsByCateId = async (req, res) => {
       .populate("group");
 
     const productsWithMinMaxPrices = await Promise.all(
-      result.map(async (product) => {
+      products.map(async (product) => {
         if (product?.price?.price_type === "ladder_price") {
           const prices = product?.price?.ladder_price?.map(
             (price) => price.euro
@@ -96,7 +96,7 @@ const getProductsByGroupId = async (req, res) => {
       .populate("group");
 
     const productsWithMinMaxPrices = await Promise.all(
-      result.map(async (product) => {
+      products.map(async (product) => {
         if (product?.price?.price_type === "ladder_price") {
           const prices = product?.price?.ladder_price?.map(
             (price) => price.euro
@@ -146,7 +146,8 @@ const getProductsByStoreId = async (req, res) => {
       .populate("category")
       .populate("group")
       .skip((page - 1) * pageSize)
-      .limit(pageSize);
+      .limit(pageSize)
+      .lean();
 
     const productsWithMinMaxPrices = await Promise.all(
       result.map(async (product) => {
@@ -228,7 +229,8 @@ const getProducts = async (req, res) => {
     const result = await Product.find({ status: "Publish" })
       .sort({ _id: -1 })
       .populate("store")
-      .populate("group");
+      .populate("group")
+      .lean();
     res.status(200).json({
       status: true,
       message: "Products get successfully",

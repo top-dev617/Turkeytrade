@@ -44,8 +44,9 @@ const SingleChatUser = ({ chatData, type }) => {
       credentials: true,
     });
     socket.current.on("getMessage", (receiveMessage) => {
-      setLastMessage(receiveMessage?.text);
-      // refetch();
+      if (receiveMessage?.chatId === chatData?._id) {
+        setLastMessage(receiveMessage?.text);
+      }
     });
     return () => {};
   }, []);

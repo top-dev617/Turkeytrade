@@ -1,5 +1,6 @@
 import Item from "@/components/Item";
 import AuthRoute from "@/privete-routes/AuthRoute";
+import { base_url } from "@/utils/auth/global";
 import React, { useEffect } from "react";
 
 const Category = ({ products }) => {
@@ -20,9 +21,7 @@ export async function getServerSideProps(context) {
   const { params } = context;
   const { groupId } = params;
 
-  const response = await fetch(
-    `${process.env.REACT_APP_SERVER_URI}/products/group/${groupId}`
-  );
+  const response = await fetch(`${base_url}/products/group/${groupId}`);
   const data = await response.json();
   return {
     props: {

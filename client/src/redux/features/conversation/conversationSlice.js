@@ -24,6 +24,7 @@ const conversationSlice = createSlice({
     setOnline_users: (state, action) => {
       state.online_users = action.payload;
     },
+
     setChatId: (state, action) => {
       state.chatId = action.payload;
     },
