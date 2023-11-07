@@ -74,7 +74,7 @@ const Item = ({ items, isLoading: loading }) => {
                           <p className="amount label">
                             {item?.moq > 1
                               ? `${item?.moq} ${item?.unit?.plural} (MOQ)`
-                              : `${item?.moq} ${item?.unit.singular} (MOQ)`}
+                              : `${item?.moq} ${item?.unit?.singular} (MOQ)`}
                           </p>
                         </>
                       )}

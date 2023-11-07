@@ -61,12 +61,12 @@ const getProductsByCateId = async (req, res) => {
           const minPrice = Math.min(...prices);
           const maxPrice = Math.max(...prices);
           return {
-            ...product.toObject(),
+            ...product?.toObject(),
             minPrice,
             maxPrice,
           };
         } else {
-          return { ...product.toObject() };
+          return { ...product?.toObject() };
         }
       })
     );
@@ -104,12 +104,12 @@ const getProductsByGroupId = async (req, res) => {
           const minPrice = Math.min(...prices);
           const maxPrice = Math.max(...prices);
           return {
-            ...product.toObject(),
+            ...product?.toObject(),
             minPrice,
             maxPrice,
           };
         } else {
-          return { ...product.toObject() };
+          return { ...product?.toObject() };
         }
       })
     );
@@ -146,8 +146,7 @@ const getProductsByStoreId = async (req, res) => {
       .populate("category")
       .populate("group")
       .skip((page - 1) * pageSize)
-      .limit(pageSize)
-      .lean();
+      .limit(pageSize);
 
     const productsWithMinMaxPrices = await Promise.all(
       result.map(async (product) => {
@@ -158,12 +157,12 @@ const getProductsByStoreId = async (req, res) => {
           const minPrice = Math.min(...prices);
           const maxPrice = Math.max(...prices);
           return {
-            ...product.toObject(),
+            ...product?.toObject(),
             minPrice,
             maxPrice,
           };
         } else {
-          return { ...product.toObject() };
+          return { ...product?.toObject() };
         }
       })
     );
@@ -229,8 +228,7 @@ const getProducts = async (req, res) => {
     const result = await Product.find({ status: "Publish" })
       .sort({ _id: -1 })
       .populate("store")
-      .populate("group")
-      .lean();
+      .populate("group");
     res.status(200).json({
       status: true,
       message: "Products get successfully",
@@ -249,8 +247,7 @@ const getLatestProducts = async (req, res) => {
     const result = await Product.find({ status: "Publish" })
       .sort({ _id: -1 })
       .limit(9)
-      .select("title images")
-      .lean();
+      .select("title images");
     res.status(200).json({
       status: true,
       message: "Products get successfully",

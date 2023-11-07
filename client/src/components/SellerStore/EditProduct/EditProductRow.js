@@ -25,9 +25,11 @@ const EditProductRow = ({
   const isExist = selectedItems.find((p) => p._id === product._id);
 
   const updateStatus = async () => {
-    const status = product?.status === "Publish" ? "Draft" : "Publish";
+    const status = {
+      status: product?.status === "Publish" ? "Draft" : "Publish",
+    };
     const options = {
-      data: { status: JSON.stringify(status) },
+      data: { productData: JSON.stringify(status) },
       id: product?._id,
     };
     await patchProduct(options);

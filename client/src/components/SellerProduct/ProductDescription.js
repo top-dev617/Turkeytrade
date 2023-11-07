@@ -24,7 +24,9 @@ const ProductDescription = ({ product }) => {
 
             <ReactPlayer
               url={`${base_url}/uploads/${product?.video}`}
-              className="object-contain max-h-[350px]"
+              className="object-contain max-h-[350px] w-fit"
+              width="fit-content"
+              height="fit-content"
               playing={true}
               loop
               controls={true}
