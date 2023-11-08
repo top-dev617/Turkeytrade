@@ -144,7 +144,6 @@ const getProductsByStoreId = async (req, res) => {
     })
       .sort({ _id: -1 })
       .populate("category")
-      .populate("group")
       .skip((page - 1) * pageSize)
       .limit(pageSize);
 
