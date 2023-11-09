@@ -4,8 +4,5 @@
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
   "/product/[id]": "pages/product/[id].js",
-  "/mystore": "pages/mystore.js",
-  "/404": "pages/404.js",
-  "/store/[storeId]": "pages/store/[storeId].js",
-  "/signin": "pages/signin.js"
+  "/mystore": "pages/mystore.js"
 }
