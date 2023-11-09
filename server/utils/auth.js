@@ -19,7 +19,6 @@ const generateToken = async (user) => {
 // GMAIL service won't be used. Were using our smtp server.
 const sendVerificationCode = async (user, otp) => {
   const transporter = nodemailer.createTransport({
-    service: "Gmail",
     host: "mail.turkeytrademarket.com",
     port: 465, // STARTTLS port
     secure: true,
