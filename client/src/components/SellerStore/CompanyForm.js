@@ -109,13 +109,14 @@ const CompanyForm = () => {
         : store?.data?.store_presentation_video,
       logo: logoImage ? logoImage[0] : store?.data?.logo,
     };
-    const formDataObject = new FormData();
-    for (const key in companyInfo) {
-      formDataObject.append(key, companyInfo[key]);
-    }
 
+    const newStoreInfo = new FormData();
+    if (video) {
+      newStoreInfo.append("store_presentation_video", video);
+    }
+    newStoreInfo.append("storeData", JSON.stringify(companyInfo));
     const options = {
-      data: formDataObject,
+      data: newStoreInfo,
       id: store?.data?._id,
     };
     const result = await patchStoreInfoById(options);
@@ -153,7 +154,7 @@ const CompanyForm = () => {
   } = useDropzone({
     onDrop,
   });
-  console.log(isEdit, video);
+  // console.log(isEdit, video);
   return (
     <div className="company_form">
       <div className="container">
@@ -176,11 +177,12 @@ const CompanyForm = () => {
               <label>Logo</label>
               <div className="input_box relative">
                 {store?.data?.logo && !logo ? (
-                  <div className="input_inner">
+                  <div className="flex justify-center items-center">
                     <img
-                      className="max-w-[300px] object-cover"
+                      className="w-full h-full max-w-[200px] max-h-[150px] object-contain"
+                      loading="lazy"
                       src={store?.data?.logo}
-                      alt=""
+                      alt="store logo"
                     />
                   </div>
                 ) : (

@@ -1,6 +1,9 @@
+import { base_url } from "@/utils/auth/global";
 import React from "react";
+import VideoPlayer from "../commons/video-player/VideoPlayer";
 
 const CompanyInfo = ({ store }) => {
+  // console.log(store?.certificates);
   return (
     <div className="info">
       <div className="container grid md:grid-cols-2 gap-8">
@@ -37,19 +40,10 @@ const CompanyInfo = ({ store }) => {
         </div>
 
         <div className="h-[320px] max-h-[320px]">
-          <video
-            controls
-            loop
-            autoPlay
-            muted
-            className="w-100 h-100 block relative"
-          >
-            <source
-              src={store?.store_presentation_video}
-              type="video/mp4"
-              className="relative"
-            />
-          </video>
+          <VideoPlayer
+            url={`${base_url}/uploads/${store?.store_presentation_video}`}
+            className="object-contain w-100 h-100 block relative"
+          />
         </div>
       </div>
     </div>

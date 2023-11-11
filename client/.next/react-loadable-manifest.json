@@ -76,17 +76,5 @@
     "files": [
       "static/chunks/reactPlayerYouTube.js"
     ]
-  },
-  "..\\components\\SellerStore\\StoreTab.js -> ./EditProduct/EditProduct": {
-    "id": "..\\components\\SellerStore\\StoreTab.js -> ./EditProduct/EditProduct",
-    "files": [
-      "static/chunks/src_components_SellerStore_EditProduct_EditProduct_js.js"
-    ]
-  },
-  "..\\components\\SellerStore\\StoreTab.js -> ./UploadProduct/UploadProductMain": {
-    "id": "..\\components\\SellerStore\\StoreTab.js -> ./UploadProduct/UploadProductMain",
-    "files": [
-      "static/chunks/src_components_SellerStore_UploadProduct_UploadProductMain_js.js"
-    ]
   }
 }

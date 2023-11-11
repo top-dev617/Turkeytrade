@@ -355,7 +355,7 @@ const UploadProduct = ({ store }) => {
         id: editProduct?._id,
       };
       const result = await patchProduct(options);
-      console.log(result);
+      // console.log(result);
       setLoading(false);
       if (result?.data?.status === true) {
         toast.success("Product Update Successfully");

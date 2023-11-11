@@ -59,14 +59,15 @@ const getStoreByUserId = async (req, res) => {
 
 const updateStore = async (req, res) => {
   try {
+    const storeData = JSON.parse(req.body?.storeData);
     if (req.file) {
-      req.body["store_presentation_video"] = req.file?.path;
+      storeData["store_presentation_video"] = req.file?.path;
     }
     const isExist = await Store.findOne({ _id: req.params.id });
     if (isExist) {
       const result = await Store.findByIdAndUpdate(
         { _id: req.params.id },
-        req.body,
+        storeData,
         {
           new: true,
         }

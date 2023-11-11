@@ -113,9 +113,9 @@ const DrafProductRow = ({
             <>
               {product?.price?.price_type === "ladder_price" ? (
                 <>
-                  {product?.price?.ladder_price?.euro ||
-                  product?.price?.ladder_price?.quantity?.from ||
-                  product?.price?.ladder_price?.quantity?.to ? (
+                  {product?.price?.ladder_price[0]?.euro ||
+                  product?.price?.ladder_price[0]?.quantity?.from ||
+                  product?.price?.ladder_price[0]?.quantity?.to ? (
                     <div className="max-h-[250px] w-fit overflow-y-auto grid grid-cols-1 mx-auto">
                       {product?.price?.ladder_price?.map(
                         ({ euro, quantity }) => (
