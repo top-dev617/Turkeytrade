@@ -92,7 +92,7 @@ const ProductBanner = ({ product }) => {
             <Carousel
               images={images}
               playIcon={false}
-              className="bg-transparent object-contain"
+              className="bg-transparent object-contain max-h-[500px]"
             />
           </div>
 

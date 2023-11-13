@@ -1,6 +1,7 @@
 import Item from "@/components/Item";
 import Loading from "@/components/commons/Loading";
 import { base_url } from "@/utils/auth/global";
+import { noProducts } from "@/utils/icons/icons";
 import React, { useEffect, useState } from "react";
 
 const Search = ({ products }) => {
@@ -16,14 +17,8 @@ const Search = ({ products }) => {
           {products?.length > 0 ? (
             <Item items={products} />
           ) : (
-            <div
-              className="d-flex"
-              style={{
-                minHeight: "400px",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+            <div className="flex flex-col items-center justify-center">
+              <div className="w-60 mx-auto">{noProducts}</div>
               <h4 className="label" style={{ color: "rgb(3,125,65)" }}>
                 No Products
               </h4>

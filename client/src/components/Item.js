@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Loading from "./commons/Loading";
+import { noProducts } from "@/utils/icons/icons";
 
 const Item = ({ items, isLoading: loading }) => {
   const pathname = usePathname();
@@ -18,7 +19,7 @@ const Item = ({ items, isLoading: loading }) => {
           <Loading />
         ) : (
           <>
-            {items?.length && (
+            {items?.length > 0 ? (
               <div
                 style={{ gap: "49px" }}
                 className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full"
@@ -81,6 +82,13 @@ const Item = ({ items, isLoading: loading }) => {
                     </div>
                   </Link>
                 ))}
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center">
+                <div className="w-60 mx-auto">{noProducts}</div>
+                <h4 className="label" style={{ color: "rgb(3,125,65)" }}>
+                  No Products
+                </h4>
               </div>
             )}
           </>

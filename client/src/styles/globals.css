@@ -1154,3 +1154,8 @@ section.loaders .loader {
 .ql-editor {
   min-height: 350px !important;
 }
+
+/* global styles */
+._t1897 {
+  object-fit: contain !important;
+}

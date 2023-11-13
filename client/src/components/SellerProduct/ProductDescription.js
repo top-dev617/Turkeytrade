@@ -3,6 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import ReactPlayer from "react-player/lazy";
+import VideoPlayer from "../commons/video-player/VideoPlayer";
 
 const ProductDescription = ({ product }) => {
   const [isClient, setIsClient] = useState(false);
@@ -22,26 +23,9 @@ const ProductDescription = ({ product }) => {
           <div>
             <h6>Product Video:</h6>
 
-            <ReactPlayer
+            <VideoPlayer
               url={`${base_url}/uploads/${product?.video}`}
-              className="object-contain max-h-[350px] w-fit"
-              width="fit-content"
-              height="fit-content"
-              playing={true}
-              loop
-              controls={true}
-              volume={0.8}
-              muted
-              playbackRate={1.5}
-              progressInterval={1000}
-              playsinline
-              pip
-              stopOnUnmount={false}
-              config={{
-                youtube: {
-                  playerVars: { showinfo: 1, controls: 1 },
-                },
-              }}
+              className="object-contain max-h-fit"
             />
           </div>
         )}
