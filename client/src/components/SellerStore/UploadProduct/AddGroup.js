@@ -10,17 +10,20 @@ const AddGroup = ({ groups, storeId }) => {
   const groupRef = useRef();
 
   const handleAddNewGroup = async () => {
-    const options = {
-      data: { title: groupTitle, store: storeId },
-    };
-    const result = await postProductGroup(options);
-    if (result) {
-      groupRef.current.value = "";
+    if (groupTitle) {
+      const options = {
+        data: { title: groupTitle, store: storeId },
+      };
+      const result = await postProductGroup(options);
+      if (result) {
+        setGroupTitle("");
+        groupRef.current.value = "";
+      }
     }
   };
 
   return (
-    <PopoverContent className="w-72 p-2">
+    <PopoverContent className="w-72 p-2 z-50">
       <div className="max-w-[400px]">
         <label>New group</label>
         <input
@@ -32,16 +35,19 @@ const AddGroup = ({ groups, storeId }) => {
         />
         <Button
           onClick={() => handleAddNewGroup()}
-          disabled={isLoading}
-          className="bg-pm hover:bg-pmd text-white mt-2 w-full "
+          disabled={isLoading || !groupTitle}
+          className="bg-pm hover:bg-pmd text-white mt-2 w-full flex justify-center items-center"
         >
           {isLoading ? <Spinner color="white" /> : "Create"}
         </Button>
 
-        <div className="grid grid-cols-1 gap-1 mt-2 bg-green-100 p-1 text-gray-900 cursor-pointer">
-          {groups?.length > 0 &&
-            groups.map((g, i) => <small className="text-sm">{g?.title}</small>)}
-        </div>
+        {groups?.length > 0 && (
+          <div className="grid grid-cols-1 gap-1 mt-2 bg-green-100 p-1 text-gray-900 cursor-pointer">
+            {groups.map((g, i) => (
+              <small className="text-sm">{g?.title}</small>
+            ))}
+          </div>
+        )}
       </div>
     </PopoverContent>
   );

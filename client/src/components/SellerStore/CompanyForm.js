@@ -165,6 +165,7 @@ const CompanyForm = () => {
               <textarea
                 {...register("store_info")}
                 rows="7"
+                className={`${!isEdit && "!bg-white"}`}
                 name="store_info"
                 disabled={isEdit ? false : true}
                 defaultValue={
@@ -175,7 +176,7 @@ const CompanyForm = () => {
 
             <div className="w-full">
               <label>Logo</label>
-              <div className="input_box relative">
+              <div className={`input_box relative ${!isEdit && "!bg-white"}`}>
                 {store?.data?.logo && !logo ? (
                   <div className="flex justify-center items-center">
                     <img
@@ -344,7 +345,7 @@ const CompanyForm = () => {
 
             <div className="w-full">
               <label>Upload a video presentation of your company</label>
-              <div className="input_box relative">
+              <div className={`input_box relative ${!isEdit && "!bg-white"}`}>
                 {isEdit && video && (
                   <div
                     onClick={() => setVideo(null)}

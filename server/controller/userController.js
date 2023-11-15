@@ -6,7 +6,7 @@ const Store = require("../modules/store/store.model");
 const Product = require("../modules/product/product.model");
 
 const registerUser = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const isExist = await User.findOne({ email: req.body.email });
 
@@ -50,13 +50,6 @@ const registerUser = async (req, res) => {
       });
 
       const user = await newUser.save();
-
-      // const token = generateToken(user);
-      // res.send({
-      //   user,
-      //   accessToken: token,
-      //   status: 200,
-      // });
       await sendVerificationCode(user, otp);
       res.status(200).send({
         message: "We have sent you verification code. Please check your email!",
@@ -73,7 +66,6 @@ const registerUser = async (req, res) => {
 // get user info by token verified => email
 const getUserInfo = async (req, res) => {
   try {
-    console.log(req.user);
     const user = await User.findOne({ email: req?.user?.email });
     res.send(user);
   } catch (err) {
@@ -85,7 +77,6 @@ const emailVerification = async (req, res) => {
   try {
     const { email, otp } = req.body;
     const user = await User.findOne({ email });
-
     if (!user) {
       return res.status(400).send({
         message: "User not found!",

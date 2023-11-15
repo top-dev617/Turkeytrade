@@ -22,6 +22,7 @@ import {
 } from "@/redux/features/conversation/conversationSlice";
 import { socket_url } from "@/utils/auth/global";
 import { io } from "socket.io-client";
+import { setStoreInfo } from "@/redux/features/stores/storeSlice";
 
 const Header = () => {
   const { user, signOut, setMsgOpen, msgOpen } = useContext(AuthContext);
@@ -40,6 +41,7 @@ const Header = () => {
   const handleSignout = () => {
     signOut();
     dispatch(handleClearConversations());
+    setStoreInfo(null);
     router.reload();
   };
 
@@ -95,6 +97,7 @@ const Header = () => {
       });
     }
     if (data?.data) {
+      dispatch(setStoreInfo(data?.data));
       socket.current.emit("addUser", data?.data?._id);
       socket.current.on("getUsers", (users) => {
         dispatch(setOnline_users(users));

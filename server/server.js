@@ -11,6 +11,7 @@ const productRoutes = require("./modules/product/product.route");
 const storeInfoRoutes = require("./modules/storeInfo/storeInfo.route");
 const tokenRoutes = require("./modules/token/token.route");
 const groupRoutes = require("./modules/productGroup/productGroup.route");
+const saveProductRoutes = require("./modules/saveProduct/saveProductRoute");
 
 // conversations
 const chatRoutes = require("./modules/conversation/chat/chat.route");
@@ -42,6 +43,7 @@ app.use("/api/v2/products", productRoutes);
 app.use("/api/v2/store-info", storeInfoRoutes);
 app.use("/api/v2/token", tokenRoutes);
 app.use("/api/v2/product-groups", groupRoutes);
+app.use("/api/v2/save-products", saveProductRoutes);
 
 // static file serving
 app.use("/api/v2/uploads", express.static(path.join(__dirname, "/")));
@@ -78,7 +80,7 @@ const getUser = (userId) => {
 };
 
 io.on("connection", (socket) => {
-  console.log("a user connected.");
+  console.log("connected. 🟢");
 
   //take userId and socketId from user
   socket.on("addUser", (userId) => {
@@ -88,18 +90,19 @@ io.on("connection", (socket) => {
 
   //send and get message
   socket.on("sendMessage", ({ senderId, receiverId, chatId, text }) => {
-    // console.log("user send Message!: ", senderId, receiverId, chatId, text);
     io.emit("getMessage", {
       senderId,
       receiverId,
       chatId,
       text,
+      createdAt: Date.now(),
+      members: [receiverId, senderId],
     });
   });
 
   //when disconnect
   socket.on("disconnect", () => {
-    console.log("a user disconnected!");
+    console.log("disconnected! 🔴");
     removeUser(socket.id);
     io.emit("getUsers", users);
   });

@@ -1,4 +1,3 @@
-
 import Banner from "@/components/SellerRegister/Banner";
 import RegisterForm from "@/components/SellerRegister/RegisterForm";
 import { AuthContext } from "@/components/context/AuthContext";
@@ -11,21 +10,21 @@ import { useContext } from "react";
 const SellerRegister = () => {
   const { user } = useContext(AuthContext);
   const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
-  const router = useRouter()
+  const router = useRouter();
 
-  useEffect(() => {
-    if (data && data?.data) {
-      router.back()
-    }
-  }, [data?.data])
+  // useEffect(() => {
+  //   if (data && data?.data) {
+  //     router.back()
+  //   }
+  // }, [data?.data])
   return (
     <div>
-      {
-        user && <>
+      {user && (
+        <div>
           <Banner />
           <RegisterForm user={user} store={data?.data} />
-        </>
-      }
+        </div>
+      )}
     </div>
   );
 };

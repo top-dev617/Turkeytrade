@@ -8,7 +8,7 @@ import {
   usePatchProductMutation,
   usePostProductMutation,
 } from "@/redux/features/products/productApi";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { units } from "@/utils/datas/unites";
 import { useContext } from "react";
@@ -55,7 +55,7 @@ const UploadProduct = ({ store }) => {
   const [postProduct] = usePostProductMutation();
   const [patchProduct] = usePatchProductMutation();
 
-  const { handleSubmit, register, reset } = useForm();
+  const { handleSubmit, control, register, reset } = useForm();
   const [loading, setLoading] = useState(false);
   const [draftLoading, setDraftLoading] = useState(false);
   const [saveDraft, setSaveDraft] = useState(false);
@@ -65,6 +65,8 @@ const UploadProduct = ({ store }) => {
     editProduct ? editProduct?.description : ""
   );
   const videoRef = useRef();
+  const descriptionRef = useRef();
+  const [descriptionError, setDescriptionError] = useState(false);
 
   const [video, setVideo] = useState(null);
   const [videoError, setVideoError] = useState(false);
@@ -290,6 +292,11 @@ const UploadProduct = ({ store }) => {
       toast.warning("Please Add Keywords");
       return;
     }
+    if (!content || content?.length < 101) {
+      setDescriptionError(true);
+      descriptionRef.current.focus();
+      return;
+    }
     setLoading(true);
     if (saveDraft && !saveDraft) {
       setDraftLoading(true);
@@ -398,7 +405,7 @@ const UploadProduct = ({ store }) => {
         data: newProduct,
       };
       const result = await postProduct(options);
-      console.log(result);
+      // console.log(result);
       setSaveDraft(false);
       setDraftLoading(false);
       if (result?.data?.status === true) {
@@ -419,7 +426,7 @@ const UploadProduct = ({ store }) => {
   };
 
   return (
-    <div className="upload_product md:px-8 cursor-pointer">
+    <div className="upload_product md:px-8">
       <div className="container">
         <form
           onKeyDown={checkKeyDown}
@@ -497,13 +504,13 @@ const UploadProduct = ({ store }) => {
                     onChange={(e) => setKeywordInput(e.target.value)}
                     required={keywords?.length > 0 || saveDraft ? false : true}
                   />
-                  <button
+                  <div
                     onClick={handleAddKeyword}
                     style={{ width: "100px" }}
                     className="add_btn pointer"
                   >
                     Add
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -528,8 +535,7 @@ const UploadProduct = ({ store }) => {
                     {...register("group", {
                       required: saveDraft ? false : true,
                     })}
-                    required
-                    className="w-full h-full flex-grow"
+                    className="w-full h-full flex-grow cursor-pointer"
                   >
                     {productGroups?.data?.map((value, index) => (
                       <option
@@ -587,7 +593,7 @@ const UploadProduct = ({ store }) => {
                           : true
                       }
                       onChange={(e) => editImageHandle(0, e.target.files[0])}
-                      className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0"
+                      className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
                     />
                   </div>
                   <p className="primary d-flex align-items-center justify-content-center gap-1">
@@ -621,7 +627,7 @@ const UploadProduct = ({ store }) => {
                           : true
                       }
                       onChange={(e) => editImageHandle(1, e.target.files[0])}
-                      className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0"
+                      className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
                     />
                   </div>
                   <div className="d-flex justify-content-center">
@@ -654,7 +660,7 @@ const UploadProduct = ({ store }) => {
                           : true
                       }
                       onChange={(e) => editImageHandle(2, e.target.files[0])}
-                      className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0"
+                      className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
                     />
                   </div>
                   <div className="d-flex justify-content-center">
@@ -670,7 +676,7 @@ const UploadProduct = ({ store }) => {
                         {productImages.length > 3 && (
                           <div
                             onClick={() => removeImage(3)}
-                            className="absolute -top-2 -right-2 z-50 rounded-full bg-white text-red-600 p-1 w-8"
+                            className="absolute -top-2 -right-2 z-40 rounded-full bg-white text-red-600 p-1 w-8 cursor-pointer"
                           >
                             {trash}
                           </div>
@@ -694,7 +700,7 @@ const UploadProduct = ({ store }) => {
                           onChange={(e) =>
                             editImageHandle(3, e.target.files[0])
                           }
-                          className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0"
+                          className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
                         />
                       </div>
                       <div className="d-flex justify-content-center">
@@ -711,7 +717,7 @@ const UploadProduct = ({ store }) => {
                         {productImages.length > 4 && (
                           <div
                             onClick={() => removeImage(4)}
-                            className="absolute -top-2 -right-2 z-50 rounded-full bg-white text-red-600 p-1 w-8"
+                            className="absolute -top-2 -right-2 z-40 rounded-full bg-white text-red-600 p-1 w-8 cursor-pointer"
                           >
                             {trash}
                           </div>
@@ -735,7 +741,7 @@ const UploadProduct = ({ store }) => {
                           onChange={(e) =>
                             editImageHandle(4, e.target.files[0])
                           }
-                          className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0"
+                          className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
                         />
                       </div>
                       <div className="d-flex justify-content-center">
@@ -752,7 +758,7 @@ const UploadProduct = ({ store }) => {
                         {productImages.length > 5 && (
                           <div
                             onClick={() => removeImage(5)}
-                            className="cursor-pointer absolute -top-2 -right-2 z-50 rounded-full bg-white text-red-600 p-1 w-8"
+                            className="cursor-pointer absolute -top-2 -right-2 z-40 rounded-full bg-white text-red-600 p-1 w-8"
                           >
                             {trash}
                           </div>
@@ -774,7 +780,7 @@ const UploadProduct = ({ store }) => {
                           onChange={(e) =>
                             editImageHandle(5, e.target.files[0])
                           }
-                          className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0"
+                          className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
                         />
                       </div>
                       <div className="d-flex justify-content-center">
@@ -869,6 +875,7 @@ const UploadProduct = ({ store }) => {
               <div className="d-flex align-items-center gap-5 mb-5">
                 <div className="d-flex gap-2 align-items-center">
                   <input
+                    className="cursor-pointer"
                     type="checkbox"
                     checked={selectedCheckbox === "ladder"}
                     onChange={() => handleCheckboxChange("ladder")}
@@ -877,6 +884,7 @@ const UploadProduct = ({ store }) => {
                 </div>
                 <div className="d-flex gap-2 align-items-center">
                   <input
+                    className="cursor-pointer"
                     type="checkbox"
                     checked={selectedCheckbox === "onePrice"}
                     onChange={() => handleCheckboxChange("onePrice")}
@@ -892,7 +900,7 @@ const UploadProduct = ({ store }) => {
                       <>
                         <div
                           key={index}
-                          className="d-flex flex-col md:flex-row align-items-center gap-5 mb-3 w-full"
+                          className="d-flex flex-col md:flex-row align-items-center gap-5 mb-3 w-full cursor-default"
                         >
                           <div className="flex flex-col-reverse items-start md:flex-row gap-2 md:items-center">
                             <input
@@ -1053,7 +1061,7 @@ const UploadProduct = ({ store }) => {
                   <div className="flex flex-col md:flex-row gap-4 align-items-center w-full md:w-fit">
                     <select
                       onChange={(e) => setTime(e.target.value)}
-                      className="mb-0 w-full"
+                      className="mb-0 w-full cursor-pointer"
                     >
                       {["days", "weeks"].map((value, index) => (
                         <option
@@ -1074,9 +1082,17 @@ const UploadProduct = ({ store }) => {
 
             <div className="col-12 mb-5 pb-3">
               <div>
-                <label>
+                <label ref={descriptionRef} tabIndex={0}>
                   Product details{" "}
-                  <span>(Write a detailed description of your product)</span>{" "}
+                  <span>
+                    (Write a detailed description of your product
+                    {descriptionError && content.length < 101 && (
+                      <span className="!text-red-600">
+                        . Minimum 100 Characters
+                      </span>
+                    )}
+                    )
+                  </span>{" "}
                 </label>
                 <ReactQuill
                   theme="snow"
@@ -1086,13 +1102,12 @@ const UploadProduct = ({ store }) => {
                   onChange={(newContent) => setContent(newContent)}
                   modules={modules}
                   formats={formats}
+                  className={`${
+                    descriptionError &&
+                    content.length < 101 &&
+                    "border !border-red-600"
+                  }`}
                 />
-                {/* <JoditEditor
-                  ref={editor}
-                  value={content}
-                  onBlur={(newContent) => setContent(newContent)}
-                  className="min-h-[400px]"
-                /> */}
               </div>
             </div>
 

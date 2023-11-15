@@ -110,7 +110,9 @@ const EditProduct = ({ store }) => {
                     <div className="w-8 text-red-600 mx-auto">
                       <Popover placement="bottom">
                         <PopoverHandler>
-                          <div className="w-5 hover:text-pmd">{trash}</div>
+                          <div className="w-5 hover:text-pmd cursor-pointer">
+                            {trash}
+                          </div>
                         </PopoverHandler>
                         <PopoverContent className="w-44">
                           <div className="max-w-[200px] text-center">

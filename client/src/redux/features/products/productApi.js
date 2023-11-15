@@ -104,6 +104,32 @@ const productApi = api.injectEndpoints({
       }),
       invalidatesTags: ["draft-products"],
     }),
+
+    // create save product
+    createSaveProduct: builder.mutation({
+      query: ({ data }) => ({
+        url: `/save-products`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+
+    // get save products by userId
+    getSaveProductsByUserId: builder.query({
+      query: () => `/save-products`,
+    }),
+    // get save products by userId
+    getSingleSaveProductById: builder.query({
+      query: (id) => `/save-products/single/${id}`,
+    }),
+
+    // delete save product
+    removeSaveProduct: builder.mutation({
+      query: ({ id }) => ({
+        url: `/save-products/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -126,4 +152,10 @@ export const {
   usePostDraftProductMutation,
   useGetDraftProductsByStoreQuery,
   usePatchDraftProductMutation,
+
+  // save product part
+  useCreateSaveProductMutation,
+  useGetSaveProductsByUserIdQuery,
+  useGetSingleSaveProductByIdQuery,
+  useRemoveSaveProductMutation,
 } = productApi;

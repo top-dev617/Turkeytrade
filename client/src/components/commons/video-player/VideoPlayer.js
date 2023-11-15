@@ -1,11 +1,13 @@
 import React from "react";
 import ReactPlayer from "react-player/lazy";
 
-const VideoPlayer = ({ url, className }) => {
+const VideoPlayer = ({ url, className, width, height }) => {
   return (
     <ReactPlayer
       url={url}
       className={className}
+      width={width || "100%"}
+      height={height || "100%"}
       playing={true}
       loop
       controls={true}

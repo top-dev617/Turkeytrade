@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import sms from "../../../public/assets/smsicon.png";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { setSaveProducts } from "@/redux/features/products/productSlice";
 import { toast } from "react-toastify";
 import Carousel from "react-gallery-carousel";
 import "react-gallery-carousel/dist/index.css";
@@ -11,44 +10,51 @@ import { AuthContext } from "../context/AuthContext";
 import { usePostNewChatMutation } from "@/redux/features/conversation/conversationApi";
 import { star } from "@/utils/icons/icons";
 import { useRouter } from "next/router";
-import { getPluralUnit } from "@/utils/helpers/getPluralUnit";
 import {
   setChatId,
   setReceiverData,
 } from "@/redux/features/conversation/conversationSlice";
+import {
+  useCreateSaveProductMutation,
+  useGetSingleSaveProductByIdQuery,
+  useRemoveSaveProductMutation,
+} from "@/redux/features/products/productApi";
+import { Spinner } from "@material-tailwind/react";
+import { useGetStoreInfoBySellerIdQuery } from "@/redux/features/stores/storeApi";
 
 const ProductBanner = ({ product }) => {
   const { user, msgOpen, setMsgOpen } = useContext(AuthContext);
+  const { data: store, isLoading: storeLoading } =
+    useGetStoreInfoBySellerIdQuery(user?._id);
+  const { storeInfo } = useSelector((state) => state.store);
   const dispatch = useDispatch();
   const router = useRouter();
-  const { saveProducts } = useSelector((state) => state.product);
+  const { id } = router.query;
+  const [createSaveProduct, { isLoading }] = useCreateSaveProductMutation();
+  const [removeSaveProduct, { isLoading: isRemoveLoading }] =
+    useRemoveSaveProductMutation();
+  const { data, refetch } = useGetSingleSaveProductByIdQuery(id);
   const [postNewChat] = usePostNewChatMutation();
 
-  const handleSaveProduct = () => {
-    const products = localStorage.getItem("save-products") || [];
-
-    let oldProducts = [];
-    if (products.length) {
-      oldProducts = JSON.parse(products);
-    }
-
-    const isExit = oldProducts.find((pro) => pro?._id === product?._id);
-    if (isExit) {
-      const allProducts = oldProducts.filter(
-        (pro) => pro?._id !== product?._id
-      );
-      localStorage.setItem("save-products", JSON.stringify(allProducts));
-      dispatch(setSaveProducts(allProducts));
-      toast.success("Save Product Removed");
+  const handleSaveProduct = async (id) => {
+    if (data?.data) {
+      const options = { id: id };
+      const result = await removeSaveProduct(options);
+      if (result?.data?.success) {
+        refetch();
+        toast.success("Product Remove Successful");
+      } else {
+        toast.error("Product Remove unSuccessful");
+      }
     } else {
-      localStorage.setItem(
-        "save-products",
-        JSON.stringify([...oldProducts, product])
-      );
-      const newProducts =
-        JSON.parse(localStorage.getItem("save-products")) || [];
-      dispatch(setSaveProducts(newProducts));
-      toast.success("Product Save Successful");
+      const options = { data: { product: id } };
+      const result = await createSaveProduct(options);
+      if (result?.data?.success) {
+        refetch();
+        toast.success("Product Saved Successful");
+      } else {
+        toast.error("Product Saved unSuccessful");
+      }
     }
   };
 
@@ -83,7 +89,8 @@ const ProductBanner = ({ product }) => {
     }
   };
 
-  const isSaved = saveProducts.find((p) => p?._id === product?._id);
+  console.log(storeInfo);
+
   return (
     <div className="product_banner p-2 mt-8">
       <div className="product_inner md:p-10">
@@ -92,7 +99,7 @@ const ProductBanner = ({ product }) => {
             <Carousel
               images={images}
               playIcon={false}
-              className="bg-transparent object-contain max-h-[500px]"
+              className="bg-transparent object-contain max-h-[500px] mx-auto"
             />
           </div>
 
@@ -166,26 +173,37 @@ const ProductBanner = ({ product }) => {
                 </p>
               </div>
             </div>
-            <div className="d-flex gap-4 justify-content-between align-items-center">
-              <button
-                onClick={() => handleChat()}
-                className="submit_btn flex items-center gap-2"
-              >
-                <img src={sms.src} alt="" /> Contact Seller
-              </button>
+            {!storeLoading && (
+              <>
+                {product?.store?._id !== store?.data?._id && (
+                  <div className="d-flex gap-4 justify-content-between align-items-center">
+                    <button
+                      onClick={() => handleChat()}
+                      className="submit_btn flex items-center gap-2"
+                    >
+                      <img src={sms.src} alt="" /> Contact Seller
+                    </button>
 
-              <button
-                onClick={() => handleSaveProduct(product)}
-                className={`savePro_btn border-[1px] ${
-                  isSaved
-                    ? "bg-yellow-900 text-white border-yellow-900"
-                    : "bg-white text-pm border-pm"
-                }`}
-              >
-                <div className="w-8"> {star}</div>
-                {isSaved ? "Remove Product" : "Save product"}
-              </button>
-            </div>
+                    <button
+                      onClick={() => handleSaveProduct(product?._id)}
+                      disabled={isLoading || isRemoveLoading}
+                      className={`savePro_btn border-[1px] ${
+                        data?.data
+                          ? "bg-yellow-900 text-white border-yellow-900"
+                          : "bg-white text-pm border-pm"
+                      }`}
+                    >
+                      <div className="w-8"> {star}</div>
+                      {isLoading || isRemoveLoading ? (
+                        <Spinner color="white" />
+                      ) : (
+                        <>{data?.data ? "Remove Product" : "Save product"}</>
+                      )}
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>

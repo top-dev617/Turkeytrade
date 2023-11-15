@@ -25,7 +25,7 @@ const ProductDescription = ({ product }) => {
 
             <VideoPlayer
               url={`${base_url}/uploads/${product?.video}`}
-              className="object-contain max-h-fit"
+              className="object-contain h-fit max-w-[400px]"
             />
           </div>
         )}

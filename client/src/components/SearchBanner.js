@@ -14,9 +14,10 @@ const SearchBanner = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (search) {
-      router.replace(`/search/${search}`);
+      router.push(`/search/${search}`);
+    } else {
+      return;
     }
-    return;
   };
 
   const handleNavigate = (path) => {

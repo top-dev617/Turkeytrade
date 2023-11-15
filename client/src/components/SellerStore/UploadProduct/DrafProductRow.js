@@ -65,17 +65,17 @@ const DrafProductRow = ({
         scope="row"
         className="px-2 text-center font-medium text-gray-900 whitespace-nowrap"
       >
-        <div className="flex justify-center items-center gap-4 cursor-pointer">
+        <div className="flex justify-center items-center gap-4">
           <h1
             onClick={() => dispatch(setEditProduct(product))}
-            className="text-sm hover:text-pmd"
+            className="text-sm hover:text-pmd cursor-pointer"
           >
             Edit
           </h1>
 
           <Popover placement="bottom">
             <PopoverHandler>
-              <div className="w-5 hover:text-pmd">{trash}</div>
+              <div className="w-5 hover:text-pmd cursor-pointer">{trash}</div>
             </PopoverHandler>
             <PopoverContent className="w-44">
               <div className="max-w-[200px] text-center">

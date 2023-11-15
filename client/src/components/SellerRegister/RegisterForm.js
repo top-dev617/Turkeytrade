@@ -9,13 +9,14 @@ import { Spinner } from "@material-tailwind/react";
 import { countries } from "@/utils/datas/countries";
 
 const RegisterForm = ({ user, store }) => {
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit } = useForm();
   const closeModalRef = useRef(null);
-  const router = useRouter()
+  const router = useRouter();
 
-  const [postStoreRequest, { isLoading }] = usePostStoreRequestMutation()
+  const [postStoreRequest, { isLoading }] = usePostStoreRequestMutation();
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [agree, setAgree] = useState(false);
 
   const uploadImagesToImageBB = async (files) => {
     let images = [];
@@ -35,11 +36,12 @@ const RegisterForm = ({ user, store }) => {
     return images;
   };
 
-
   const handleRegister = async (data) => {
-    setLoading(true)
-    const image1 = await uploadImagesToImageBB(data?.business_registration_certificate)
-    const image2 = await uploadImagesToImageBB(data?.kdv_certificate)
+    setLoading(true);
+    const image1 = await uploadImagesToImageBB(
+      data?.business_registration_certificate
+    );
+    const image2 = await uploadImagesToImageBB(data?.kdv_certificate);
 
     const registerData = {
       user: user?._id,
@@ -60,32 +62,28 @@ const RegisterForm = ({ user, store }) => {
         kdv_number: data?.kdv_number,
         kdv_certificate: image2[0],
       },
-    }
-
+    };
 
     const options = {
-      data: registerData
-    }
-    const result = await postStoreRequest(options)
+      data: registerData,
+    };
+    const result = await postStoreRequest(options);
     // console.log(result)
-    setLoading(false)
+    setLoading(false);
     if (result?.data?.status === true) {
       localStorage.setItem("storeModal", JSON.stringify("on"));
-      toast.success("Selling Request Successfully")
-      router.push("/mystore")
+      toast.success("Selling Request Successfully");
+      router.push("/mystore");
     } else {
-      toast.error("Selling Request unsuccessfully")
+      toast.error("Selling Request unsuccessfully");
     }
-  }
-
-
-  console.log(user);
+  };
 
   return (
     <div className="sr_form">
       <div className="container">
         <p className="title">Please fill in this form</p>
-        <form onSubmit={...handleSubmit(handleRegister)}>
+        <form onSubmit={handleSubmit(handleRegister)}>
           {/* Company Address part */}
           <div className="form_gap">
             <p className="subtitle">Company Address</p>
@@ -104,11 +102,14 @@ const RegisterForm = ({ user, store }) => {
                     <option value="" style={{ color: "#94959B" }}>
                       Country Name
                     </option>
-                    {
-                      countries?.map((country) => <option value={country?.label}
+                    {countries?.map((country) => (
+                      <option
+                        value={country?.label}
                         selected={user?.country === country?.label}
-                      >{country?.label}</option>)
-                    }
+                      >
+                        {country?.label}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -117,7 +118,8 @@ const RegisterForm = ({ user, store }) => {
                   <label>
                     Province <span>*</span>
                   </label>
-                  <input {...register("province", { required: true })}
+                  <input
+                    {...register("province", { required: true })}
                     className="px-2"
                     type="text"
                     placeholder="Province"
@@ -130,7 +132,8 @@ const RegisterForm = ({ user, store }) => {
                   <label>
                     City <span>*</span>
                   </label>
-                  <input {...register("city", { required: true })}
+                  <input
+                    {...register("city", { required: true })}
                     className="px-2"
                     type="text"
                     placeholder="City"
@@ -143,7 +146,8 @@ const RegisterForm = ({ user, store }) => {
                   <label>
                     Address <span>*</span>
                   </label>
-                  <input {...register("address", { required: true })}
+                  <input
+                    {...register("address", { required: true })}
                     className="px-2"
                     type="text"
                     placeholder="Address"
@@ -156,7 +160,8 @@ const RegisterForm = ({ user, store }) => {
                   <label>
                     Postal Code <span>*</span>
                   </label>
-                  <input {...register("postal_code", { required: true })}
+                  <input
+                    {...register("postal_code", { required: true })}
                     className="px-2"
                     type="text"
                     placeholder="Postal Code"
@@ -175,7 +180,8 @@ const RegisterForm = ({ user, store }) => {
                   <label>
                     Business name <span>*</span>
                   </label>
-                  <input {...register("store_name", { required: true })}
+                  <input
+                    {...register("store_name", { required: true })}
                     className="px-2"
                     type="text"
                     placeholder="Business Name"
@@ -188,8 +194,13 @@ const RegisterForm = ({ user, store }) => {
                   <label>
                     Business registration Certificate <span>*</span>
                   </label>
-                  <input {...register("business_registration_certificate", { required: true })}
-                    className="px-2" type="file" />
+                  <input
+                    {...register("business_registration_certificate", {
+                      required: true,
+                    })}
+                    className="px-2"
+                    type="file"
+                  />
                 </div>
               </div>
               <div className="col-12 col-md-6">
@@ -197,7 +208,10 @@ const RegisterForm = ({ user, store }) => {
                   <label>
                     Business certificate Number <span>*</span>
                   </label>
-                  <input {...register("business_certificate_number", { required: true })}
+                  <input
+                    {...register("business_certificate_number", {
+                      required: true,
+                    })}
                     className="px-2"
                     type="text"
                     placeholder="Business certificate number"
@@ -206,10 +220,9 @@ const RegisterForm = ({ user, store }) => {
               </div>
               <div className="col-12">
                 <div>
-                  <label>
-                    Company website
-                  </label>
-                  <input {...register("company_website", { required: false })}
+                  <label>Company website</label>
+                  <input
+                    {...register("company_website", { required: false })}
                     className="px-2"
                     type="text"
                     placeholder="Company website"
@@ -227,7 +240,8 @@ const RegisterForm = ({ user, store }) => {
                   <label>
                     KDV Number <span>*</span>
                   </label>
-                  <input {...register("kdv_number", { required: true })}
+                  <input
+                    {...register("kdv_number", { required: true })}
                     className="px-2"
                     type="number"
                     placeholder="KDV Number"
@@ -239,35 +253,51 @@ const RegisterForm = ({ user, store }) => {
                   <label>
                     KDV certificate <span>*</span>
                   </label>
-                  <input {...register("kdv_certificate", { required: true })} className="px-2" type="file" />
+                  <input
+                    {...register("kdv_certificate", { required: true })}
+                    className="px-2"
+                    type="file"
+                  />
                 </div>
               </div>
             </div>
             <div className="d-flex gap-1 align-items-center">
               <input
+                onClick={() => setAgree(!agree)}
                 style={{ width: "unset" }}
                 type="checkbox"
-                className="mb-0"
+                checked={agree}
+                className="mb-0 cursor-pointer"
               />
-              <p className="agree">
+              <p
+                onClick={() => setAgree(!agree)}
+                className="agree cursor-pointer"
+              >
                 I agree to Turkeytrademarket{" "}
                 <Link href="#"> Terms and conditions</Link>{" "}
               </p>
             </div>
           </div>
-          {
-            !store && <div className="text-center">
-
-              <button
-                className=" submit_btn flex justify-center items-center"
-                type="submit"
-                disabled={isLoading || loading}
-              >
-                {isLoading || loading ? <Spinner color="white" /> : "Submit"}
-              </button>
-
+          {store && (
+            <div className="text-center">
+              {agree ? (
+                <button
+                  className=" submit_btn flex justify-center items-center"
+                  type="submit"
+                  disabled={isLoading || loading}
+                >
+                  {isLoading || loading ? <Spinner color="white" /> : "Submit"}
+                </button>
+              ) : (
+                <button
+                  className=" submit_btn flex justify-center items-center !bg-blue-gray-300"
+                  disabled
+                >
+                  Submit
+                </button>
+              )}
             </div>
-          }
+          )}
         </form>
 
         {/* <!-- Modal --> */}

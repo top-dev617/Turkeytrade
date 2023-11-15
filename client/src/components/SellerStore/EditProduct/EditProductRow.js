@@ -55,16 +55,18 @@ const EditProductRow = ({
         scope="row"
         className="px-2 text-center font-medium text-gray-900 whitespace-nowrap"
       >
-        <div className="flex justify-center items-center gap-4 cursor-pointer">
+        <div className="flex justify-center items-center gap-4 ">
           <h1
             onClick={() => dispatch(setEditProduct(product))}
-            className="text-sm hover:text-pmd"
+            className="text-sm hover:text-pmd cursor-pointer"
           >
             Edit
           </h1>
           <Popover placement="bottom">
             <PopoverHandler>
-              <div className="w-5 text-red-600 hover:text-pmd">{trash}</div>
+              <div className="w-5 text-red-600 hover:text-pmd cursor-pointer">
+                {trash}
+              </div>
             </PopoverHandler>
             <PopoverContent className="w-44">
               <div className="max-w-[200px] text-center">
@@ -126,7 +128,7 @@ const EditProductRow = ({
         <Popover placement="bottom">
           <PopoverHandler>
             <Button className="hover:text-pmd bg-pm py-2 rounded text-center">
-              {product.status}
+              {product?.status === "Publish" ? "Published" : "Draft"}
             </Button>
           </PopoverHandler>
           <PopoverContent className="w-44 mx-auto">
