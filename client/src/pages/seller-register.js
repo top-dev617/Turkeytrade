@@ -12,14 +12,14 @@ const SellerRegister = () => {
   const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (data && data?.data) {
-  //     router.back()
-  //   }
-  // }, [data?.data])
+  useEffect(() => {
+    if (data && data?.data) {
+      router.back();
+    }
+  }, [data?.data]);
   return (
     <div>
-      {user && (
+      {user && user?._id && (
         <div>
           <Banner />
           <RegisterForm user={user} store={data?.data} />

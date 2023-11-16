@@ -261,43 +261,49 @@ const RegisterForm = ({ user, store }) => {
                 </div>
               </div>
             </div>
-            <div className="d-flex gap-1 align-items-center">
-              <input
-                onClick={() => setAgree(!agree)}
-                style={{ width: "unset" }}
-                type="checkbox"
-                checked={agree}
-                className="mb-0 cursor-pointer"
-              />
-              <p
-                onClick={() => setAgree(!agree)}
-                className="agree cursor-pointer"
-              >
-                I agree to Turkeytrademarket{" "}
-                <Link href="#"> Terms and conditions</Link>{" "}
-              </p>
-            </div>
+            {!store && (
+              <div className="d-flex gap-1 align-items-center">
+                <input
+                  onClick={() => setAgree(!agree)}
+                  style={{ width: "unset" }}
+                  type="checkbox"
+                  checked={agree}
+                  className="mb-0 cursor-pointer"
+                />
+                <p
+                  onClick={() => setAgree(!agree)}
+                  className="agree cursor-pointer"
+                >
+                  I agree to Turkeytrademarket{" "}
+                  <Link href="#"> Terms and conditions</Link>{" "}
+                </p>
+              </div>
+            )}
+            {!store && (
+              <div className="text-center mt-4">
+                {agree ? (
+                  <button
+                    className=" submit_btn flex justify-center items-center"
+                    type="submit"
+                    disabled={isLoading || loading}
+                  >
+                    {isLoading || loading ? (
+                      <Spinner color="white" />
+                    ) : (
+                      "Submit"
+                    )}
+                  </button>
+                ) : (
+                  <button
+                    className=" submit_btn flex justify-center items-center !bg-blue-gray-300"
+                    disabled
+                  >
+                    Submit
+                  </button>
+                )}
+              </div>
+            )}
           </div>
-          {store && (
-            <div className="text-center">
-              {agree ? (
-                <button
-                  className=" submit_btn flex justify-center items-center"
-                  type="submit"
-                  disabled={isLoading || loading}
-                >
-                  {isLoading || loading ? <Spinner color="white" /> : "Submit"}
-                </button>
-              ) : (
-                <button
-                  className=" submit_btn flex justify-center items-center !bg-blue-gray-300"
-                  disabled
-                >
-                  Submit
-                </button>
-              )}
-            </div>
-          )}
         </form>
 
         {/* <!-- Modal --> */}

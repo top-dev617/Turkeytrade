@@ -2,8 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/mystore": "pages/mystore.js",
-  "/product/[id]": "pages/product/[id].js",
   "/": "pages/index.js",
-  "/404": "pages/404.js"
+  "/signin": "pages/signin.js",
+  "/seller-register": "pages/seller-register.js"
 }
