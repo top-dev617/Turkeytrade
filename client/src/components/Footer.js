@@ -6,10 +6,12 @@ import linkedin from "../../public/assets/linkedin.png";
 import youtube from "../../public/assets/youtube.png";
 import instagram from "../../public/assets/instagram.png";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Footer = () => {
+  const router = useRouter();
   return (
-    <footer>
+    <footer className={`${router.pathname.includes("/dashboard") && "hidden"}`}>
       <div className="container">
         <div>
           <Link href="/">
@@ -41,7 +43,6 @@ const Footer = () => {
           </div> */}
         </div>
       </div>
-
     </footer>
   );
 };

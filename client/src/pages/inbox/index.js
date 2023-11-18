@@ -43,7 +43,7 @@ const InboxPage = () => {
               <InboxMessageArea
                 chatId={inboxChatId}
                 auth={user}
-                messageClassName="min-h-[500px]"
+                messageClassName="max-h-[500px]"
               />
             )}
           </>

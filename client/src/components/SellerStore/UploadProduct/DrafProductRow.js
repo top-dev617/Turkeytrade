@@ -94,7 +94,7 @@ const DrafProductRow = ({
       <td className="px-2 text-center">
         {product?.images?.length > 0 ? (
           <img
-            className="w-20 mx-auto"
+            className="w-20 h-16 mx-auto"
             loading="lazy"
             src={product?.images[0]}
           />

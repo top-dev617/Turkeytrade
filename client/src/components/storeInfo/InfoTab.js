@@ -57,24 +57,26 @@ const InfoTab = ({ store }) => {
   };
 
   return (
-    <div className="store_tab">
-      <div className="container mx-auto">
-        <div className="tab_container">
-          <div>
-            {tabs.map((tab, index) => (
-              <button
-                className={`${publicTab === index && "active"} tab w-full ${
-                  tab?.name === "Chat Now" &&
-                  store?.user?._id === user?._id &&
-                  "hidden"
-                }`}
-                key={index}
-                onClick={() => handleTab(index)}
-              >
-                {tab.name}
-              </button>
-            ))}
-          </div>
+    <div className="container store_tab mb-4">
+      <div className="tab_container">
+        <div className="flex justify-between items-center !w-full overflow-x-auto">
+          {tabs.map((tab, index) => (
+            <button
+              className={`${
+                publicTab === index && "active"
+              } tab !mb-0 !w-full relative min-w-[200px] ${
+                tab?.name === "Chat Now" &&
+                store?.user?._id === user?._id &&
+                "hidden"
+              }`}
+              key={index}
+              onClick={() => handleTab(index)}
+            >
+              {tab.name}
+            </button>
+          ))}
+        </div>
+        <div className="py-3">
           {publicTab === 0 && <StoreOverview store={store} />}
           {publicTab === 1 && <StoreCategories store={store} />}
           {publicTab === 2 && <ContactInfo store={store} />}

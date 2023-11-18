@@ -3,10 +3,12 @@ import Link from "next/link";
 import arrow from "../../../public/assets/arrow.png";
 import React from "react";
 import Loading from "../commons/Loading";
-import { useGetProductGroupByStoreIdQuery } from "@/redux/features/product-group/productGroupApi";
+import { useGetUniqueProductGroupByStoreIdQuery } from "@/redux/features/product-group/productGroupApi";
 
 const StoreCategories = ({ store }) => {
-  const { data, isLoading } = useGetProductGroupByStoreIdQuery(store?._id);
+  const { data, isLoading } = useGetUniqueProductGroupByStoreIdQuery(
+    store?._id
+  );
   return (
     <div className="md:px-8 pb-8">
       {isLoading ? (

@@ -2,36 +2,36 @@ import { Comment } from "react-loader-spinner";
 import img from "../../../../../public/assets/help-center.png";
 import { useDispatch } from "react-redux";
 import {
-    handelClosePopup,
-    setInboxChatId,
-    setOpenHelpCenter,
-    setInboxReceiverData,
+  handelClosePopup,
+  setInboxChatId,
+  setOpenHelpCenter,
+  setInboxReceiverData,
 } from "@/redux/features/conversation/conversationSlice";
 import InboxSingleChat from "./InboxSingleChat";
 
 const InboxChatSidebar = ({ chatData, isLoading, type }) => {
-    const dispatch = useDispatch();
-    return (
-        <div className="w-full bg-white h-screen">
-            {isLoading ? (
-                <div className="flex justify-center items-center h-full">
-                    <Comment
-                        visible={true}
-                        height="60"
-                        width="60"
-                        ariaLabel="comment-loading"
-                        wrapperStyle={{}}
-                        wrapperClass="comment-wrapper"
-                        color="#fff"
-                        backgroundColor="#037d41"
-                    />
-                </div>
-            ) : (
-                <>
-                    <ul className="overflow-auto h-[32rem]">
-                        <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600">Chats</h2>
-                        <li>
-                            <button
+  const dispatch = useDispatch();
+  return (
+    <div className="w-full bg-white h-screen">
+      {isLoading ? (
+        <div className="flex justify-center items-center h-full">
+          <Comment
+            visible={true}
+            height="60"
+            width="60"
+            ariaLabel="comment-loading"
+            wrapperStyle={{}}
+            wrapperClass="comment-wrapper"
+            color="#fff"
+            backgroundColor="#037d41"
+          />
+        </div>
+      ) : (
+        <>
+          <ul className="overflow-auto h-[32rem]">
+            <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600">Chats</h2>
+            <li>
+              {/* <button
                                 onClick={() => {
                                     dispatch(setOpenHelpCenter(true));
                                     dispatch(setInboxChatId(""));
@@ -54,24 +54,24 @@ const InboxChatSidebar = ({ chatData, isLoading, type }) => {
                                             Help Center
                                         </span>
                                         <span className="block ml-2 text-sm text-white">
-                                            {/* {moment(chatData?.lastConversationTime).fromNow()} */}
+                                            {moment(chatData?.lastConversationTime).fromNow()}
                                         </span>
                                     </div>
                                     <span className="block ml-2 text-sm text-white text-left">
-                                        {/* {chatData?.lastMessage} */}...
+                                        {chatData?.lastMessage}...
                                     </span>
                                 </div>
-                            </button>
-                            {chatData &&
-                                chatData?.map((chatId) => (
-                                    <InboxSingleChat chatData={chatId} type={type} />
-                                ))}
-                        </li>
-                    </ul>
-                </>
-            )}
-        </div>
-    );
+                            </button> */}
+              {chatData &&
+                chatData?.map((chatId) => (
+                  <InboxSingleChat chatData={chatId} type={type} />
+                ))}
+            </li>
+          </ul>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default InboxChatSidebar;

@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "@material-tailwind/react";
 import "../styles/globals.css";
 import ChatMain from "@/components/chatting/ChatMain";
+import BottomBar from "@/components/shared/BottomBar";
 
 export default function App({ Component, pageProps }) {
   // const getLayout = Component.getLayout || ((page) => page);
@@ -40,6 +41,7 @@ export default function App({ Component, pageProps }) {
             <Component {...pageProps} />
             {pathname !== "/signin" && pathname !== "/register" && <Footer />}
             <ChatMain />
+            <BottomBar />
           </ThemeProvider>
           <ToastContainer />
         </Provider>

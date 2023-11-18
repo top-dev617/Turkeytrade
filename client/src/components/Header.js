@@ -107,7 +107,12 @@ const Header = () => {
   }, [user, data]);
 
   return (
-    <nav ref={navberRef} className="bg-white py-2 uppercase border-b ">
+    <nav
+      ref={navberRef}
+      className={`bg-white py-2 uppercase border-b ${
+        router.pathname.includes("/dashboard") && "hidden"
+      }`}
+    >
       <div className="relative cursor-pointer flex justify-between items-center gap-6 lg:gap-10 h-14 px-4 max-w-primary mx-auto container">
         <div className="flex-grow uppercase font-bold">
           <Link href="/">
@@ -119,7 +124,7 @@ const Header = () => {
             {data?.data ? (
               <div
                 style={{ color: "#E61C2B", fontWeight: "600" }}
-                className="flex items-center gap-1"
+                className="md:flex items-center gap-1 hidden md:block"
                 onClick={() => handleNavigate()}
               >
                 {data?.data?.status !== "accept" && (
@@ -173,7 +178,7 @@ const Header = () => {
         </div>
 
         {user?._id && (
-          <>
+          <div className="hidden md:block">
             <Popover placement="bottom">
               <PopoverHandler>
                 <Button className="bg-[#037D41] flex justify-center items-center gap-2 outline-none shadow-none">
@@ -182,13 +187,16 @@ const Header = () => {
               </PopoverHandler>
               <PopoverContent className="w-44 p-2">
                 <div className="max-w-[200px] text-center grid grid-cols-1 gap-2">
-                  {data?.data && (
-                    <Link href="/profile">
-                      <Button className="w-full py-0 h-8 rounded shadow-none bg-pm hover:bg-pmd">
-                        Profile
-                      </Button>
-                    </Link>
-                  )}
+                  <Link href="/profile">
+                    <Button className="w-full py-0 h-8 rounded shadow-none bg-pm hover:bg-pmd">
+                      Profile
+                    </Button>
+                  </Link>
+                  <Link href="/dashboard">
+                    <Button className="w-full py-0 h-8 rounded shadow-none bg-pm hover:bg-pmd">
+                      Dashboard
+                    </Button>
+                  </Link>
                   <Link href="/inbox">
                     <Button className="w-full py-0 h-8 rounded shadow-none bg-pm hover:bg-pmd">
                       Inbox
@@ -218,7 +226,7 @@ const Header = () => {
                 </div>
               </PopoverContent>
             </Popover>
-          </>
+          </div>
         )}
         {!user?._id && (
           <Popover open={openPopover} handler={setOpenPopover}>
@@ -245,7 +253,7 @@ const Header = () => {
 
         <div
           onClick={() => setOpen(!open)}
-          className="w-10 lg:hidden text-blue-600"
+          className="w-10 lg:hidden text-pm hover:text-pmd"
         >
           {open ? (
             <span>
@@ -286,30 +294,53 @@ const Header = () => {
       </div>
 
       <div
-        className={`absolute z-50 duration-300 mt-[12px] lg:hidden flex flex-col items-center gap-4 w-full min-h-screen bg-white px-4 py-4
+        className={`fixed top-0 z-[9999999] duration-300 md:hidden w-full min-h-screen h-full overflow-y-hidden bg-white
             ${open ? "left-0" : "-left-full"}`}
       >
-        <div className="lg:hidden flex justify-center items-center px-2 text-center">
-          <Link
-            href="/save-products"
-            className={`hover:text-pm duration-100 font-semibold text-sm flex items-center gap-2
+        <div className="flex justify-end w-full p-2">
+          <Button
+            onClick={() => setOpen(false)}
+            className="p-0 w-10 h-10 bg-white shadow-none text-red-600 font-bold"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </Button>
+        </div>
+        <div className="flex flex-col items-center gap-4 w-full  px-4 py-4">
+          <div className="lg:hidden flex justify-center items-center px-2 text-center">
+            <Link
+              href="/save-products"
+              className={`hover:text-pm duration-100 font-semibold text-sm flex items-center gap-2
             ${
               pathname.includes("/save-products") ? "text-pm" : "text-gray-900"
             }`}
+            >
+              <img src={star.src} alt="" /> Saved
+            </Link>
+          </div>
+          <div
+            onClick={() => setMsgOpen(!msgOpen)}
+            className="lg:hidden flex justify-center items-center px-2 text-center"
           >
-            <img src={star.src} alt="" /> Saved
-          </Link>
-        </div>
-        <div
-          onClick={() => setMsgOpen(!msgOpen)}
-          className="lg:hidden flex justify-center items-center px-2 text-center"
-        >
-          <p
-            className={`hover:text-pm duration-100 font-semibold text-sm flex items-center gap-2
+            <p
+              className={`hover:text-pm duration-100 font-semibold text-sm flex items-center gap-2
             ${msgOpen ? "text-pm" : "text-gray-900"}`}
-          >
-            <img src={message.src} alt="" /> Messages
-          </p>
+            >
+              <img src={message.src} alt="" /> Messages
+            </p>
+          </div>
         </div>
       </div>
     </nav>

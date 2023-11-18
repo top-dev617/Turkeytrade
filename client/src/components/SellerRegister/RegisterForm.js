@@ -224,7 +224,7 @@ const RegisterForm = ({ user, store }) => {
                   <input
                     {...register("company_website", { required: false })}
                     className="px-2"
-                    type="text"
+                    type="url"
                     placeholder="Company website"
                   />
                 </div>

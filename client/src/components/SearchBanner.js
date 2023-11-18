@@ -5,6 +5,7 @@ import { Button } from "@material-tailwind/react";
 import Link from "next/link";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import { iSearch } from "@/utils/icons/icons";
 
 const SearchBanner = () => {
   const { user } = useContext(AuthContext);
@@ -23,8 +24,8 @@ const SearchBanner = () => {
   const handleNavigate = (path) => {
     if (path === "FAQ") {
       router.push("/faq");
-    } else if (path === "Support") {
-      router.push("/support");
+    } else if (path === "Contact") {
+      router.push("/contact-us");
     } else if (path === "Start Selling") {
       router.push("/seller-register");
     }
@@ -39,9 +40,8 @@ const SearchBanner = () => {
             className="form-select max-w-[90px]"
             aria-label="Default select example"
           >
-            <option selected>Help</option>
             <option value="FAQ">FAQ</option>
-            <option value="Support">Support</option>
+            <option value="Contact">Contact us</option>
             {user && user?.role === "Buyer" && (
               <option value="Start Selling">Start Selling</option>
             )}
@@ -65,7 +65,8 @@ const SearchBanner = () => {
             placeholder="What do you need?"
           />
           <Button type="submit">
-            <img src={search.src} alt="" /> Search
+            <span className="hidden md:block">Search</span>
+            <span className="md:hidden">{iSearch}</span>
           </Button>
         </form>
       </div>

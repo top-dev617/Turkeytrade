@@ -1,3 +1,4 @@
+const Product = require("../product/product.model");
 const ProductGroup = require("./productGroup.model");
 
 const createPGroup = async (req, res) => {
@@ -36,7 +37,28 @@ const getPGroupById = async (req, res) => {
 
 const getPGroupsByStoreId = async (req, res) => {
   try {
-    const result = await ProductGroup.find({ store: req.params.storeId });
+    const result = await ProductGroup.find({ store: req.params.storeId }).sort({
+      _id: -1,
+    });
+    res.status(200).json({
+      status: true,
+      message: "Group get successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(201).json({
+      status: false,
+      message: "Group get unsuccessful",
+    });
+  }
+};
+
+const getUniquePGroupsByStoreId = async (req, res) => {
+  try {
+    const uniqueGroups = await Product.distinct("group", {
+      store: req.params.storeId,
+    });
+    const result = await ProductGroup.find({ _id: { $in: uniqueGroups } });
     res.status(200).json({
       status: true,
       message: "Group get successfully",
@@ -149,4 +171,5 @@ module.exports = {
   updatePGroup,
   deletePGroupById,
   getPGroupsByStoreId,
+  getUniquePGroupsByStoreId,
 };

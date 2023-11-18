@@ -12,9 +12,12 @@ const sellerStoreInfo = () => {
   const { data, isLoading } = useGetStoreInfoQuery(storeId);
 
   return (
-    <div className="pt-8">
+    <div className="">
       {isLoading ? (
-        <Loading />
+        <div className="pt-8">
+          {" "}
+          <Loading />
+        </div>
       ) : (
         <>
           <StoreBanner store={data?.data} />

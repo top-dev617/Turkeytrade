@@ -47,9 +47,8 @@ const ContactInfo = ({ store }) => {
       toast.error("info add unsuccessfully");
     }
   };
-  // console.log(user?._id !== storeData?.user?._id && storeData?.user?.social);
   return (
-    <div className="contact_info mx-auto">
+    <div className="contact_info !px-0 md:!px-4">
       <div className="w-full">
         <SteelManufacturer
           store={storeData}

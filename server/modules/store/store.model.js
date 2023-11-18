@@ -11,50 +11,62 @@ const storeSchema = new Schema(
       type: Object,
       country: {
         type: String,
-        required: true
+        required: true,
       },
       province: {
         type: String,
-        required: true
+        required: true,
       },
       city: {
         type: String,
-        required: true
+        required: true,
       },
       address: {
         type: String,
-        required: true
+        required: true,
       },
       postal_code: {
         type: String,
-        required: true
+        required: true,
       },
     },
     business_information: {
       type: Object,
       business_registration_certificate: {
         type: String,
-        required: true
+        required: true,
       },
       business_certificate_number: {
         type: String,
-        required: true
+        required: true,
       },
       company_website: {
         type: String,
-        required: true
+        required: true,
+      },
+      business_type: {
+        type: String,
+        required: false,
+      },
+      number_of_employees: {
+        type: String,
+        required: false,
+      },
+      year_established: {
+        type: String,
+        required: false,
       },
     },
     tax_information: {
       type: Object,
       kdv_number: {
         type: String,
-        required: true
+        required: true,
       },
       kdv_certificate: {
         type: String,
-        required: true
-      }
+        required: true,
+      },
     },
     user: {
       type: String,
@@ -79,7 +91,7 @@ const storeSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["accept", "pending"],
+      enum: ["accept", "pending", "decline"],
       default: "pending",
     },
     joined_date: {

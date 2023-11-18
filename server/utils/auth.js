@@ -31,7 +31,7 @@ const sendVerificationCode = async (user, otp) => {
   const mailOptions = {
     from: process.env.MAIL_USER,
     to: user?.email,
-    subject: "Email Verification",
+    subject: "Welcome to Turkeytrademarket – ",
     html: `
     <!doctype html>
     <html ⚡4email data-css-strict>

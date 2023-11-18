@@ -6,6 +6,9 @@ const {
   updateStore,
   getStoreByUserId,
   getStoreCategoriesByStore,
+  updateStoreStatus,
+  getStores,
+  updateStoreInfo,
 } = require("./store.controller");
 const { upload, handleMulterError } = require("../../config/multerConfig");
 
@@ -13,6 +16,7 @@ const router = express.Router();
 
 router.post("/", createStore);
 router.get("/:id", getStoreById);
+router.get("/", getStores);
 router.get("/user/:userId", getStoreByUserId);
 router.patch(
   "/:id",
@@ -20,6 +24,8 @@ router.patch(
   handleMulterError,
   updateStore
 );
+router.patch("/status/:id", updateStoreStatus);
+router.patch("/info/:id", updateStoreInfo);
 router.get("/store/:storeId/categories", getStoreCategoriesByStore);
 
 module.exports = router;

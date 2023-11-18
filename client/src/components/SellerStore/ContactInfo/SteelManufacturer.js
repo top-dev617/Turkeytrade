@@ -43,15 +43,17 @@ const SteelManufacturer = ({ store, isAuthor }) => {
 
       <div className="h-fit w-full">
         <div className="flex flex-col gap-2 label-list mt-4 max-w-[400px]">
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid md:grid-cols-2 gap-2">
             <h1>Joined Turkeytrademarket</h1>
             <h1 className="font-bold">
               : {moment(store?.joined_date).format("MM/DD/YYYY")}
             </h1>
           </div>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid md:grid-cols-2 gap-2">
             <h1>Account holder name</h1>
-            <h1 className="font-bold">: {store?.user?.name}</h1>
+            <h1 className="font-bold break-all md:break-normal">
+              : {store?.user?.name}
+            </h1>
           </div>
         </div>
       </div>

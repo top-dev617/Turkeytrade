@@ -24,9 +24,9 @@ const CompanyInfo = ({ store }) => {
         </div>
 
         <div className="h-fit md:h-[320px]">
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 w-full">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full">
             {store?.certificates.map((ctr, index) => (
-              <div className="w-full h-[140px] p-2 flex justify-center items-center border rounded-md">
+              <div className="w-full max-h-[140px] p-2 flex justify-center items-center">
                 <img
                   key={index}
                   loading="lazy"

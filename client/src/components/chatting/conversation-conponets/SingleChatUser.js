@@ -57,11 +57,20 @@ const SingleChatUser = ({ chatData, type }) => {
       className={`w-full flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer
             ${chatData?._id === chatId ? "bg-gray-200" : "hover:bg-gray-100"}`}
     >
-      <button className="flex items-center justify-center min-w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px] relative">
-        <span>
-          {receiverUser?.store_name?.slice(0, 1) ||
-            receiverUser?.name?.slice(0, 1)}{" "}
-        </span>
+      <button className="flex items-center justify-center min-w-[40px] !w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px] relative">
+        {receiverUser?.logo || receiverUser?.image ? (
+          <img
+            className="w-full h-full rounded-full bg-white object-cover"
+            src={receiverUser?.logo || receiverUser?.image}
+            alt=""
+          />
+        ) : (
+          <span>
+            {receiverUser?.store_name?.slice(0, 1) ||
+              receiverUser?.name?.slice(0, 1)}{" "}
+          </span>
+        )}
+
         {isOnline && (
           <div className="h-3 w-3 rounded-full bg-green-600 absolute right-0 bottom-1"></div>
         )}
@@ -73,7 +82,7 @@ const SingleChatUser = ({ chatData, type }) => {
             {name?.length > 15 ? name?.slice(0, 15) + "..." : name}
           </span>
           <span className="block ml-2 text-sm text-gray-600">
-            {moment(chatData?.lastConversationTime).fromNow()}
+            {lastMessage && moment(chatData?.lastConversationTime).fromNow()}
           </span>
         </div>
         <span className="block ml-2 text-sm text-gray-600 text-left">

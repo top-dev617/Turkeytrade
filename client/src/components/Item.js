@@ -20,10 +20,7 @@ const Item = ({ items, isLoading: loading }) => {
         ) : (
           <>
             {items?.length > 0 ? (
-              <div
-                style={{ gap: "49px" }}
-                className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full"
-              >
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 md:!gap-4 lg:!gap-6 w-full">
                 {items?.map((item, index) => (
                   <Link
                     href={`/product/${item._id}`}
@@ -33,36 +30,38 @@ const Item = ({ items, isLoading: loading }) => {
                   >
                     <div className="overflow-hidden">
                       <img
-                        className="img-fluid h-[150px] md:h-[180px] w-full object-cover hover:scale-125 duration-300 rounded-md"
+                        className="img-fluid h-[80px] sm:h-[120px] md:h-[150px] lg:h-[180px] w-full hover:scale-125 duration-300 rounded-md"
                         src={item?.images?.length && item?.images[0]}
                         loading="lazy"
                         alt=""
                       />
                     </div>
-                    <div style={{ padding: "10px 18px" }}>
+                    <div className="p-2 md:p-3">
                       <p
                         className={`${
                           pathname === "/" && "text-center"
-                        } name mb-2`}
+                        } name !text-sm mb-2`}
                       >
                         {item?.title?.length > 37 ? (
-                          <h6 className="md:text-2xl label">
+                          <h6 className="!text-sm lg:!text-2xl label">
                             {item?.title?.slice(0, 37)}...
                           </h6>
                         ) : (
-                          <h6 className="md:text-2xl label">{item?.title}</h6>
+                          <h6 className="!text-sm lg:!text-2xl label">
+                            {item?.title}
+                          </h6>
                         )}
                       </p>
                       {pathname !== "/" && (
                         <>
                           <div className="flex items-center flex-wrap gap-1">
                             {item?.price?.price_type === "ladder_price" ? (
-                              <h1 className="font-bold text-black text-2xl">
+                              <h1 className="font-bold text-black text-sm md:text-2xl">
                                 € {item.minPrice} - {item.maxPrice}
                               </h1>
                             ) : (
                               <h1 className="label-list">
-                                <span className="!text-3xl !font-bold">
+                                <span className="text-sm md:!text-3xl !font-bold">
                                   {item?.price?.one_price?.from} -{" "}
                                   {item?.price?.one_price?.to}
                                 </span>{" "}
@@ -72,7 +71,7 @@ const Item = ({ items, isLoading: loading }) => {
                             )}
                           </div>
 
-                          <p className="amount label">
+                          <p className="!text-sm amount label">
                             {item?.moq > 1
                               ? `${item?.moq} ${item?.unit?.plural} (MOQ)`
                               : `${item?.moq} ${item?.unit?.singular} (MOQ)`}

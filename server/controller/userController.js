@@ -4,6 +4,10 @@ const randomstring = require("randomstring");
 const { generateToken, sendVerificationCode } = require("../utils/auth");
 const Store = require("../modules/store/store.model");
 const Product = require("../modules/product/product.model");
+const {
+  sendForgotOTPMail,
+  sendWelcomeMail,
+} = require("../utils/sendEmailHelpers");
 
 const registerUser = async (req, res) => {
   // console.log(req.body);
@@ -93,14 +97,22 @@ const emailVerification = async (req, res) => {
     } else {
       user.isVerified = true;
       await user.save();
-
+      const result = await sendWelcomeMail(user);
       const token = await generateToken(user);
-      res.send({
-        message: "User Verified successfully",
-        user,
-        accessToken: token,
-        status: 200,
-      });
+      if (result) {
+        res.send({
+          message: "User Verified successfully",
+          user,
+          accessToken: token,
+          status: 200,
+        });
+      } else {
+        res.send({
+          success: false,
+          message: "Something went wrong",
+          status: 200,
+        });
+      }
     }
   } catch (err) {
     res.status(500).send({
@@ -214,7 +226,7 @@ const forgetPassword = async (req, res) => {
         const otp = randomstring.generate({ length: 5, charset: "numeric" });
         isExist.otp = otp;
         const updatedUser = await isExist.save();
-        const data = await sendVerificationCode(updatedUser, otp);
+        const data = await sendForgotOTPMail(updatedUser, otp);
         console.log(data);
         res.status(200).send({
           message:
@@ -355,7 +367,7 @@ const updateUserInfo = async (req, res) => {
       );
       res.status(200).json({
         status: true,
-        message: "Company Info Update successfully",
+        message: "User Info Update successfully",
         data: result,
       });
     } else {

@@ -88,7 +88,11 @@ const EditProductRow = ({
         </div>
       </th>
       <td className="px-2 text-center">
-        <img className="w-20 mx-auto" loading="lazy" src={product?.images[0]} />
+        <img
+          className="w-20 h-16 mx-auto"
+          loading="lazy"
+          src={product?.images[0]}
+        />
       </td>
       <td className="px-2 text-center">
         <div className="max-w-[300px] whitespace-normal break-words mx-auto">

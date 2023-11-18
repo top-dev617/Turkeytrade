@@ -15,7 +15,12 @@ import { useContext } from "react";
 import { AuthContext } from "@/components/context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { setEditProduct } from "@/redux/features/products/productSlice";
-import { Popover, PopoverHandler, Spinner } from "@material-tailwind/react";
+import {
+  Popover,
+  PopoverHandler,
+  Spinner,
+  Tooltip,
+} from "@material-tailwind/react";
 import { useGetProductGroupByStoreIdQuery } from "@/redux/features/product-group/productGroupApi";
 import AddGroup from "./AddGroup";
 import ReactQuill from "react-quill";
@@ -55,7 +60,13 @@ const UploadProduct = ({ store }) => {
   const [postProduct] = usePostProductMutation();
   const [patchProduct] = usePatchProductMutation();
 
-  const { handleSubmit, control, register, reset } = useForm();
+  const {
+    handleSubmit,
+    control,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm();
   const [loading, setLoading] = useState(false);
   const [draftLoading, setDraftLoading] = useState(false);
   const [saveDraft, setSaveDraft] = useState(false);
@@ -203,7 +214,26 @@ const UploadProduct = ({ store }) => {
     setProductImages(data);
   };
 
+  // ref list
+  const img0Ref = useRef();
+  const img1Ref = useRef();
+  const img2Ref = useRef();
+  const img3Ref = useRef();
+  const img4Ref = useRef();
+  const img5Ref = useRef();
+
+  const imageRefs = [img0Ref, img1Ref, img2Ref, img3Ref, img4Ref, img5Ref];
   const editImageHandle = (index, img) => {
+    if (img) {
+      if (img.size > 2 * 1024 * 1024) {
+        toast.error("Image size must be 2 MB or less.");
+        imageRefs[index].current.value = null;
+        return;
+      }
+    } else {
+      imageRefs[index].current.value = null;
+      return;
+    }
     if (productImages.length > 0 && index === 0) {
       changeImage(index, img);
     } else if (productImages.length < 1 && index === 0) {
@@ -434,16 +464,28 @@ const UploadProduct = ({ store }) => {
         >
           <div className="row">
             <div className="col-12 col-lg-6 ">
-              <div>
+              <div className="mb-4">
                 <label>
-                  Product name <img src={question} alt="" />
+                  Product name{" "}
+                  <span className="text-sm">(max 100 characters)</span>
                 </label>
                 <input
-                  {...register("title", { required: true })}
+                  {...register("title", {
+                    required: true,
+                    maxLength: {
+                      value: 100,
+                      message: "Title must be less than 100 characters",
+                    },
+                  })}
+                  // maxLength={100}
+                  className="mb-1"
                   type="text"
                   placeholder="Product name"
                   defaultValue={editProduct?.title}
                 />
+                {errors.title && (
+                  <p className="text-red-600 text-xs">{errors.title.message}</p>
+                )}
               </div>
             </div>
 
@@ -501,6 +543,10 @@ const UploadProduct = ({ store }) => {
                     ref={keywordRef}
                     type="text"
                     placeholder="Enter a new task"
+                    className={`!rounded-e-none ${
+                      keywords?.length === 0 &&
+                      "border focus:border !border-red-600 focus:border-red-600 !bg-red-50"
+                    }`}
                     onChange={(e) => setKeywordInput(e.target.value)}
                     required={keywords?.length > 0 || saveDraft ? false : true}
                   />
@@ -529,7 +575,7 @@ const UploadProduct = ({ store }) => {
 
             <div className="col-12 col-lg-6 ">
               <div>
-                <label>Product group </label>
+                <label>Custom Category </label>
                 <div className="flex justify-between items-start h-full w-full gap-x-1">
                   <select
                     {...register("group", {
@@ -549,8 +595,11 @@ const UploadProduct = ({ store }) => {
                   </select>
                   <Popover placement="bottom">
                     <PopoverHandler>
-                      <div className="rounded-xl w-32 h-14 mx-auto text-white cursor-pointer bg-pm flex justify-center items-center">
-                        <span className="text-white">New Group</span>
+                      <div className="rounded-md w-36 h-14 mx-auto text-white cursor-pointer bg-pm flex justify-center items-center">
+                        <span className="text-white hidden md:block">
+                          New Category
+                        </span>
+                        <span className="text-white md:hidden">Add</span>
                       </div>
                     </PopoverHandler>
                     <AddGroup
@@ -582,6 +631,7 @@ const UploadProduct = ({ store }) => {
                       )}
                     </div>
                     <input
+                      ref={img0Ref}
                       type="file"
                       name="image1"
                       accept=".png, .jpg, .jpeg"
@@ -616,16 +666,11 @@ const UploadProduct = ({ store }) => {
                       )}
                     </div>
                     <input
+                      ref={img1Ref}
                       type="file"
                       name="image2"
                       accept=".png, .jpg, .jpeg"
                       multiple={false}
-                      required={
-                        (editProduct && editProduct?.images?.length > 1) ||
-                        saveDraft
-                          ? false
-                          : true
-                      }
                       onChange={(e) => editImageHandle(1, e.target.files[0])}
                       className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
                     />
@@ -649,16 +694,11 @@ const UploadProduct = ({ store }) => {
                       )}
                     </div>
                     <input
+                      ref={img2Ref}
                       type="file"
                       name="image3"
                       accept=".png, .jpg, .jpeg"
                       multiple={false}
-                      required={
-                        (editProduct && editProduct?.images?.length > 2) ||
-                        saveDraft
-                          ? false
-                          : true
-                      }
                       onChange={(e) => editImageHandle(2, e.target.files[0])}
                       className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
                     />
@@ -693,6 +733,7 @@ const UploadProduct = ({ store }) => {
                           )}
                         </div>
                         <input
+                          ref={img3Ref}
                           type="file"
                           name="image4"
                           accept=".png, .jpg, .jpeg"
@@ -734,6 +775,7 @@ const UploadProduct = ({ store }) => {
                           )}
                         </div>
                         <input
+                          ref={img4Ref}
                           type="file"
                           name="image5"
                           accept=".png, .jpg, .jpeg"
@@ -775,6 +817,7 @@ const UploadProduct = ({ store }) => {
                           )}
                         </div>
                         <input
+                          ref={img5Ref}
                           type="file"
                           name="image6"
                           onChange={(e) =>
@@ -966,12 +1009,23 @@ const UploadProduct = ({ store }) => {
                       </>
                     );
                   })}
-                  <div
-                    onClick={addPriceFields}
-                    className="add_btn cursor-pointer flex justify-center items-center"
-                  >
-                    Add more
-                  </div>
+                  {ladderPriceFields.length >= 8 ? (
+                    <Tooltip content="You can enter a maximum of 8 prices">
+                      <div
+                        disabled
+                        className="add_btn cursor-pointer flex justify-center items-center !bg-red-600 !text-white"
+                      >
+                        Add more
+                      </div>
+                    </Tooltip>
+                  ) : (
+                    <div
+                      onClick={addPriceFields}
+                      className="add_btn cursor-pointer flex justify-center items-center"
+                    >
+                      Add more
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div style={{ maxWidth: "1000px" }}>
@@ -1117,7 +1171,7 @@ const UploadProduct = ({ store }) => {
                   setSaveDraft(editProduct?.status === "Draft" ? true : false)
                 }
                 disabled={loading && !saveDraft}
-                className="submit_btn hover:bg-pmd duration-150 flex justify-center items-center"
+                className="submit_btn !text-sm md:!text-[18px] hover:bg-pmd duration-150 flex justify-center items-center"
               >
                 {loading && !saveDraft ? (
                   <Spinner />
@@ -1128,7 +1182,7 @@ const UploadProduct = ({ store }) => {
               {!editProduct && (
                 <button
                   onClick={() => setSaveDraft(true)}
-                  className="save_btn flex justify-center items-center hover:bg-gray-400"
+                  className="save_btn !text-sm md:!text-[18px] flex justify-center items-center hover:bg-gray-400"
                 >
                   {draftLoading ? <Spinner /> : "Save as Draft"}
                 </button>

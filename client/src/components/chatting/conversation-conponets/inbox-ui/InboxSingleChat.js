@@ -43,11 +43,19 @@ const InboxSingleChat = ({ chatData, type }) => {
                   : "hover:bg-gray-100"
               }`}
     >
-      <button className="flex items-center justify-center min-w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px]">
-        <span>
-          {receiverUser?.store_name?.slice(0, 1) ||
-            receiverUser?.name?.slice(0, 1)}{" "}
-        </span>
+      <button className="flex items-center justify-center min-w-[40px] !w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px] relative">
+        {receiverUser?.logo || receiverUser?.image ? (
+          <img
+            className="w-full h-full rounded-full bg-white object-cover"
+            src={receiverUser?.logo || receiverUser?.image}
+            alt=""
+          />
+        ) : (
+          <span>
+            {receiverUser?.store_name?.slice(0, 1) ||
+              receiverUser?.name?.slice(0, 1)}{" "}
+          </span>
+        )}
       </button>
 
       <div className="w-full flex flex-col">
@@ -56,7 +64,8 @@ const InboxSingleChat = ({ chatData, type }) => {
             {name?.length > 15 ? name?.slice(0, 15) + "..." : name}
           </span>
           <span className="block ml-2 text-sm text-gray-600">
-            {moment(chatData?.lastConversationTime).fromNow()}
+            {chatData?.lastMessage &&
+              moment(chatData?.lastConversationTime).fromNow()}
           </span>
         </div>
         <span className="block ml-2 text-sm text-gray-600 text-left">

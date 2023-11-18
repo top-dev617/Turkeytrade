@@ -14,10 +14,18 @@ const StoreSingleMessage = ({ message, auth, receiverData }) => {
           className="flex items-center flex-row-reverse justify-start gap-2 mb-4"
         >
           <div className="flex-none flex flex-col items-center justify-center space-y-1">
-            <button className="flex items-center justify-center min-w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px]">
-              <span>
-                {auth?.name?.slice(0, 1) || auth?.store_name?.slice(0, 1)}
-              </span>
+            <button className="flex items-center justify-center min-w-[40px] !w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px]">
+              {auth?.logo || auth?.image ? (
+                <img
+                  className="w-full h-full rounded-full bg-white object-cover"
+                  src={auth?.logo || auth?.image}
+                  alt=""
+                />
+              ) : (
+                <span>
+                  {auth?.name?.slice(0, 1) || auth?.store_name?.slice(0, 1)}
+                </span>
+              )}
             </button>
           </div>
           <div className="w-fit max-w-[70%] h-fit  bg-indigo-400 text-white p-2 rounded-lg relative">
@@ -36,11 +44,19 @@ const StoreSingleMessage = ({ message, auth, receiverData }) => {
       ) : (
         <div ref={scroll} className="flex items-center gap-2 mb-4">
           <div className="flex-none flex flex-col items-center justify-center space-y-1">
-            <button className="flex items-center justify-center min-w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px]">
-              <span>
-                {receiverData?.name?.slice(0, 1) ||
-                  receiverData?.store_name?.slice(0, 1)}{" "}
-              </span>
+            <button className="flex items-center justify-center min-w-[40px] !w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px]">
+              {receiverData?.logo || receiverData?.image ? (
+                <img
+                  className="w-full h-full rounded-full bg-white object-cover"
+                  src={receiverData?.logo || receiverData?.image}
+                  alt=""
+                />
+              ) : (
+                <span>
+                  {receiverData?.name?.slice(0, 1) ||
+                    receiverData?.store_name?.slice(0, 1)}
+                </span>
+              )}
             </button>
           </div>
 

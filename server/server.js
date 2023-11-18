@@ -4,6 +4,9 @@ const connectDB = require("./config/db");
 const PORT = process.env.PORT || 8000;
 const path = require("path");
 
+// helpers
+const helperRoutes = require("./modules/helper/helper.route");
+
 const userRoutes = require("./routes/userRoutes");
 const storeRoutes = require("./modules/store/store.route");
 const categoryRoutes = require("./modules/category/category.route");
@@ -34,6 +37,9 @@ app.use(
 );
 
 connectDB();
+
+// helpers
+app.use("/api/v2/helpers", helperRoutes);
 
 // routes
 app.use("/api/v2/users", userRoutes);

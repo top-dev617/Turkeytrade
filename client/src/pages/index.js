@@ -37,6 +37,7 @@ export default function Home({ categories }) {
         <SearchBanner />
         <Category categories={categories} />
         <div className="container mt-8">
+          <h1 className="label mb-3">Recently Listed</h1>
           <Item items={data?.data} isLoading={isLoading} />
         </div>
 

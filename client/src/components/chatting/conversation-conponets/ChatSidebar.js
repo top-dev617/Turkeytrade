@@ -33,7 +33,7 @@ const ChatSidebar = ({ chatData, isLoading }) => {
           <ul className="overflow-auto h-[32rem]">
             <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600">Chats</h2>
             <li>
-              <button
+              {/* <button
                 onClick={() => {
                   dispatch(setOpenHelpCenter(true));
                   dispatch(setChatId(""));
@@ -56,14 +56,14 @@ const ChatSidebar = ({ chatData, isLoading }) => {
                       Help Center
                     </span>
                     <span className="block ml-2 text-sm text-white">
-                      {/* {moment(chatData?.lastConversationTime).fromNow()} */}
+                      {moment(chatData?.lastConversationTime).fromNow()}
                     </span>
                   </div>
                   <span className="block ml-2 text-sm text-white text-left">
-                    {/* {chatData?.lastMessage} */}...
+                    {chatData?.lastMessage}...
                   </span>
                 </div>
-              </button>
+              </button> */}
               {chatData &&
                 chatData?.map((chatId, index) => (
                   <SingleChatUser

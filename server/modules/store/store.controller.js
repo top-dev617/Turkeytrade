@@ -1,3 +1,7 @@
+const {
+  sendStoreApprovedMail,
+  sendStoreDeclineMail,
+} = require("../../utils/sendEmailHelpers");
 const Category = require("../category/category.model");
 const Product = require("../product/product.model");
 const Store = require("./store.model");
@@ -38,12 +42,29 @@ const getStoreById = async (req, res) => {
     });
   }
 };
+const getStores = async (req, res) => {
+  try {
+    const result = await Store.find({}).populate("user").sort({ _id: -1 });
+    res.status(200).json({
+      status: true,
+      message: "Stores get successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(201).json({
+      status: false,
+      message: "Stores get Not Successful",
+    });
+  }
+};
 
 const getStoreByUserId = async (req, res) => {
   try {
-    const result = await Store.findOne({ user: req.params.userId }).populate(
-      "user"
-    );
+    const result = await Store.findOne({
+      user: req.params.userId,
+      $or: [{ status: "accept" }, { status: "pending" }],
+    }).populate("user");
+
     res.status(200).json({
       status: true,
       message: "Store Info get successfully",
@@ -81,6 +102,71 @@ const updateStore = async (req, res) => {
       res.status(201).json({
         status: false,
         message: "Info Update unsuccessful",
+      });
+    }
+  } catch (error) {
+    res.status(201).json({
+      status: false,
+      message: "Info Add Not Successful",
+    });
+  }
+};
+
+const updateStoreInfo = async (req, res) => {
+  try {
+    const isExist = await Store.findOne({ _id: req.params.id });
+    if (isExist) {
+      const result = await Store.findByIdAndUpdate(
+        { _id: req.params.id },
+        req.body,
+        {
+          new: true,
+        }
+      );
+      res.status(200).json({
+        status: true,
+        message: "Store Info Update successfully",
+        data: result,
+      });
+    } else {
+      res.status(201).json({
+        status: false,
+        message: "Info Update unsuccessful",
+      });
+    }
+  } catch (error) {
+    res.status(201).json({
+      status: false,
+      message: "Info Add Not Successful",
+    });
+  }
+};
+
+const updateStoreStatus = async (req, res) => {
+  try {
+    const isExist = await Store.findOne({ _id: req.params.id });
+    if (isExist) {
+      const result = await Store.findByIdAndUpdate(
+        { _id: req.params.id },
+        req.body,
+        {
+          new: true,
+        }
+      ).populate("user");
+      if (result?.status === "accept") {
+        await sendStoreApprovedMail(result?.user?.email, result);
+      } else if (result?.status === "decline") {
+        await sendStoreDeclineMail(result?.user?.email, result);
+      }
+      res.status(200).json({
+        status: true,
+        message: "Store status Update successful",
+        data: result,
+      });
+    } else {
+      res.status(201).json({
+        status: false,
+        message: "Something went wrong",
       });
     }
   } catch (error) {
@@ -133,8 +219,11 @@ const getStoreCategoriesByStore = async (req, res) => {
 
 module.exports = {
   createStore,
+  getStores,
   getStoreById,
   updateStore,
   getStoreByUserId,
   getStoreCategoriesByStore,
+  updateStoreStatus,
+  updateStoreInfo,
 };

@@ -16,8 +16,15 @@ const productGroupApi = api.injectEndpoints({
       query: (storeId) => `/product-groups/store/${storeId}`,
       providesTags: ["product-groups"],
     }),
+    getUniqueProductGroupByStoreId: builder.query({
+      query: (storeId) => `/product-groups/unique/store/${storeId}`,
+      providesTags: ["product-groups"],
+    }),
   }),
 });
 
-export const { usePostProductGroupMutation, useGetProductGroupByStoreIdQuery } =
-  productGroupApi;
+export const {
+  usePostProductGroupMutation,
+  useGetProductGroupByStoreIdQuery,
+  useGetUniqueProductGroupByStoreIdQuery,
+} = productGroupApi;

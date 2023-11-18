@@ -89,7 +89,7 @@ const ProductBanner = ({ product }) => {
     }
   };
 
-  console.log(storeInfo);
+  // console.log(storeInfo);
 
   return (
     <div className="product_banner p-2 mt-8">
@@ -104,8 +104,8 @@ const ProductBanner = ({ product }) => {
           </div>
 
           <div className="col-12 col-lg-6">
-            {product?.title?.length > 50 ? (
-              <h4>{product?.title?.slice(0, 50)}...</h4>
+            {product?.title?.length > 80 ? (
+              <h4>{product?.title?.slice(0, 80)}...</h4>
             ) : (
               <h4>{product?.title}</h4>
             )}

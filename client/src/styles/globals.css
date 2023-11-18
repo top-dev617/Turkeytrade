@@ -52,7 +52,6 @@ input[type="number"] {
   padding: 15px 0px;
   margin-bottom: 30px;
   border: none;
-  outline: none;
   width: 100% !important;
 }
 
@@ -83,7 +82,9 @@ body {
 }
 
 .container {
-  max-width: 1320px;
+  max-width: 1480px !important;
+  margin: 0 auto;
+  padding: 0 8px !important;
 }
 
 /* commons */
@@ -105,7 +106,7 @@ textarea:focus-visible {
 
 input:focus {
   background: var(--text-white-grey, #f6f6f6) !important;
-  border: none !important;
+  border: none;
   box-shadow: none !important;
 }
 
@@ -1008,11 +1009,12 @@ footer .social_media a {
 
 .chatting {
   position: fixed;
-  bottom: 60px;
+  bottom: 50px;
   z-index: 9999;
   right: 5px;
   height: 600px;
-  width: 380px;
+  max-width: 380px;
+  width: 100%;
   border-radius: 15px;
   display: flex;
   flex-direction: column;

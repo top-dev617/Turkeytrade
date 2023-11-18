@@ -4,6 +4,12 @@ import ContactInfo from "./ContactInfo/ContactInfo";
 import dynamic from "next/dynamic";
 import { useDispatch } from "react-redux";
 import { setEditProduct } from "@/redux/features/products/productSlice";
+import {
+  Button,
+  Popover,
+  PopoverContent,
+  PopoverHandler,
+} from "@material-tailwind/react";
 
 const UploadProductMain = dynamic(
   () => import("./UploadProduct/UploadProductMain"),
@@ -61,24 +67,30 @@ const StoreTab = ({ store }) => {
   ];
 
   return (
-    <div className="store_tab">
-      <div className="container">
-        <div className="tab_container">
-          <div>
-            {tabs.map((tab, index) => (
-              <button
-                className={`${step === index && "active"} tab relative`}
-                key={index}
-                onClick={() => handleStep(index)}
+    <div className="container store_tab ">
+      <div className="tab_container">
+        <div className="flex justify-between items-center !w-full overflow-x-auto">
+          {tabs.map((tab, index) => (
+            <Popover open={tab?.dropdowns && open} placement="bottom">
+              <PopoverHandler onClick={() => handleStep(index)}>
+                <button
+                  className={`${
+                    step === index && "active"
+                  } tab !mb-0 !w-full relative min-w-[200px]`}
+                  key={index}
+                >
+                  {tab.name}
+                </button>
+              </PopoverHandler>
+              <PopoverContent
+                className={`p-0 ${tab?.dropdowns && open ? "" : "opacity-0"}`}
               >
-                {tab.name}
-
                 {tab?.dropdowns && open && (
-                  <div className="grid grid-cols-1 max-w-full absolute top-16 right-0 left-0 bg-white h-fit">
+                  <div className="p-0 min-w-[200px] max-w-[200px] grid grid-cols-1 bg-white">
                     {tab?.dropdowns.map((v, i) => (
                       <button
                         key={i}
-                        className={`${
+                        className={`cursor-pointer tab ${
                           v === selectDrop
                             ? "bg-pm text-white"
                             : "bg-gray-100 text-gray-900"
@@ -90,10 +102,12 @@ const StoreTab = ({ store }) => {
                     ))}
                   </div>
                 )}
-              </button>
-            ))}
-          </div>
+              </PopoverContent>
+            </Popover>
+          ))}
+        </div>
 
+        <div className="py-3">
           {step === 0 && <StoreOverview store={store} />}
           {step === 1 && (
             <UploadProductMain store={store} selectDrop={selectDrop} />

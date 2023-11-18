@@ -13,9 +13,17 @@ const BrowseCategory = ({ categories }) => {
             className="flex items-center justify-between hover:bg-gray-300/70 rounded duration-150 gap-5 h-14 px-1 hover:text-gray-800"
             key={index}
           >
-            <div className="flex items-center gap-5">
-              <img className="rounded" src={category?.image} alt="" style={{ width: "50px" }} />
-              <p className="" dangerouslySetInnerHTML={{ __html: category?.cate_name }} />
+            <div className="flex items-center gap-2 md:gap-5">
+              <img
+                className="rounded"
+                src={category?.image}
+                alt=""
+                style={{ width: "50px" }}
+              />
+              <p
+                className="break-all md:break-normal"
+                dangerouslySetInnerHTML={{ __html: category?.cate_name }}
+              />
             </div>
             <img src={arrow.src} alt="" />
           </Link>
