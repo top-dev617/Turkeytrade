@@ -23,27 +23,25 @@ const DeleteAccount = () => {
     <div className="">
       <>
         <div className="py-20 px-2">
-          <div className="max-w-md mx-auto rounded-lg overflow-hidden md:max-w-xl">
-            <div className="md:flex">
-              <div className="w-full p-3">
-                <div className="relative border-dotted h-48 rounded-lg border-dashed border-2 border-blue-700 bg-gray-50 flex justify-center items-center">
-                  <div className="flex flex-col items-center p-4">
-                    <i className="fa fa-folder-open fa-4x text-blue-700"></i>
-                    <h4 className="label mb-4 mt-2">Deleting account</h4>
-                    <span className="block text-gray-400 label-list">
-                      Deleting your account will remove all of your information
-                      from our database. This cannot be undone.
-                    </span>
-                  </div>
+          <div className="w-full mx-auto rounded-lg overflow-hidden md:max-w-xl">
+            <div className="w-full md:p-3">
+              <div className="relative border-dotted h-fit md:h-48 rounded-lg border-dashed border-2 border-blue-700 bg-gray-50 flex justify-center items-center">
+                <div className="flex flex-col items-center p-2 md:p-4">
+                  <i className="fa fa-folder-open fa-4x text-blue-700"></i>
+                  <h4 className="label mb-4 mt-2">Deleting account</h4>
+                  <span className="block text-gray-400 label-list">
+                    Deleting your account will remove all of your information
+                    from our database. This cannot be undone.
+                  </span>
                 </div>
-                <Button
-                  onClick={() => setOpen(true)}
-                  className="w-full mt-4"
-                  color="red"
-                >
-                  Yes Delete
-                </Button>
               </div>
+              <Button
+                onClick={() => setOpen(true)}
+                className="w-full mt-4"
+                color="red"
+              >
+                Yes Delete
+              </Button>
             </div>
           </div>
         </div>

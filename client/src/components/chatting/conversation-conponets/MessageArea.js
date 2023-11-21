@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SendMessageBox from "./SendMessageBox";
 import SingleMessage from "./SingleMessage";
 import {
   setChatId,
+  setImage,
+  setMessages,
+  setMessagesPush,
+  setNotifications,
   setReceiverData,
+  setTotalNotifications,
 } from "@/redux/features/conversation/conversationSlice";
 import {
+  useGetGlobalChatMessagesQuery,
   useGetMessagesQuery,
   usePostNewMessageMutation,
 } from "@/redux/features/conversation/conversationApi";
@@ -15,25 +21,47 @@ import moment from "moment";
 import Loading from "@/components/commons/Loading";
 import { io } from "socket.io-client";
 import { useRef } from "react";
-import { socket_url } from "@/utils/auth/global";
+import { base_url, socket_url } from "@/utils/auth/global";
+import { useEffect } from "react";
+import { AuthContext } from "@/components/context/AuthContext";
 
 const MessageArea = ({ auth, messageClassName }) => {
-  const { receiverData, chatId, online_users } = useSelector(
-    (state) => state.conversation
-  );
-  const { data: messages, refetch, isLoading } = useGetMessagesQuery(chatId);
+  const { uploadImg } = useContext(AuthContext);
+  const {
+    notifications,
+    totalNotifications,
+    receiverData,
+    chatId,
+    online_users,
+    messages,
+    image,
+  } = useSelector((state) => state.conversation);
+  const { storeInfo } = useSelector((state) => state.store);
+  const { data, refetch, isLoading } = useGetGlobalChatMessagesQuery(chatId);
   const [postNewMessage] = usePostNewMessageMutation();
   const dispatch = useDispatch();
   const socket = useRef();
 
+  useEffect(() => {
+    dispatch(setMessages(data));
+    socket.current = io(socket_url, {
+      credentials: true,
+    });
+    return () => {};
+  }, [data]);
+
   const sendMessage = async (message) => {
+    if (image) {
+      var img = await uploadImg([image]);
+    }
     const newMessage = {
       text: message,
-      storeId: receiverData?._id,
       chatId: chatId,
       senderId: auth?._id,
+      sender_type: receiverData?.store_name ? "User" : "Store",
       members: [receiverData?._id, auth?._id],
       productId: "",
+      images: img?.length > 0 ? img : [],
     };
 
     const options = {
@@ -45,19 +73,20 @@ const MessageArea = ({ auth, messageClassName }) => {
         senderId: auth?._id,
         receiverId: receiverData?._id,
         chatId: chatId,
+        sender_type: receiverData?.store_name ? "User" : "Store",
         text: message,
+        createdAt: Date.now(),
+        images: img?.length > 0 ? img : [],
       };
-      socket.current = io(socket_url, {
-        credentials: true,
-      });
+
       socket.current.emit("sendMessage", sendMessage);
+      dispatch(setImage(null));
 
       // receive message
       socket.current.on("getMessage", (receiveMessage) => {
         if (receiveMessage?.chatId === chatId) {
-          refetch(chatId);
+          dispatch(setMessagesPush(receiveMessage));
         }
-        console.log(receiveMessage);
       });
     }
   };

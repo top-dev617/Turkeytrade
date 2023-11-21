@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  messages: [],
   online_users: [],
   chatId: "",
   receiverData: null,
   chatData: [],
   openHelpCenter: false,
+  image: null,
 
   // inbox for store
   inboxChatId: "",
@@ -15,6 +17,9 @@ const initialState = {
   // store chat for any user
   storeChatId: "",
   storeReceiverData: null,
+
+  notifications: [],
+  totalNotifications: 0,
 };
 
 const conversationSlice = createSlice({
@@ -23,6 +28,19 @@ const conversationSlice = createSlice({
   reducers: {
     setOnline_users: (state, action) => {
       state.online_users = action.payload;
+    },
+    setMessages: (state, action) => {
+      state.messages = action.payload;
+    },
+    setMessagesPush: (state, action) => {
+      const messages = JSON.parse(JSON.stringify(state.messages));
+      const lastItems = messages.slice(-1);
+      const isExist = lastItems.some(
+        (msg) => msg.createdAt === action.payload.createdAt
+      );
+      if (!isExist) {
+        state.messages.push(action.payload);
+      }
     },
 
     setChatId: (state, action) => {
@@ -72,10 +90,22 @@ const conversationSlice = createSlice({
     setStoreReceiverData: (state, action) => {
       state.storeReceiverData = action.payload;
     },
+
+    // notifications
+    setNotifications: (state, action) => {
+      state.notifications = action.payload;
+    },
+    setTotalNotifications: (state, action) => {
+      state.totalNotifications = action.payload;
+    },
+    setImage: (state, action) => {
+      state.image = action.payload;
+    },
   },
 });
 
 export const {
+  setMessages,
   setOnline_users,
   setChatId,
   setReceiverData,
@@ -94,6 +124,12 @@ export const {
   // store chat for any user
   setStoreChatId,
   setStoreReceiverData,
+
+  //setNotifications
+  setNotifications,
+  setTotalNotifications,
+  setImage,
+  setMessagesPush,
 } = conversationSlice.actions;
 
 export default conversationSlice.reducer;

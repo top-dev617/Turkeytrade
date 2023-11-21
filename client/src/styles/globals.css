@@ -1161,3 +1161,12 @@ section.loaders .loader {
 ._t1897 {
   object-fit: contain !important;
 }
+
+.scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}

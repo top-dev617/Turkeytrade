@@ -42,12 +42,12 @@ const Item = ({ items, isLoading: loading }) => {
                           pathname === "/" && "text-center"
                         } name !text-sm mb-2`}
                       >
-                        {item?.title?.length > 37 ? (
-                          <h6 className="!text-sm lg:!text-2xl label">
-                            {item?.title?.slice(0, 37)}...
+                        {item?.title?.length > 20 ? (
+                          <h6 className="!text-sm lg:!text-2xl label break-all">
+                            {item?.title?.slice(0, 20)}...
                           </h6>
                         ) : (
-                          <h6 className="!text-sm lg:!text-2xl label">
+                          <h6 className="!text-sm lg:!text-2xl label break-all">
                             {item?.title}
                           </h6>
                         )}

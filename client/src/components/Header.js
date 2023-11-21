@@ -6,27 +6,44 @@ import message from "../../public/assets/message.png";
 import man from "../../public/assets/profile.png";
 import verification from "../../public/assets/verification.png";
 import { AuthContext } from "./context/AuthContext";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSaveProducts } from "@/redux/features/products/productSlice";
 import { useGetStoreInfoBySellerIdQuery } from "@/redux/features/stores/storeApi";
 import { useRouter } from "next/router";
 import {
+  Badge,
   Button,
+  IconButton,
+  Menu,
+  MenuHandler,
   Popover,
   PopoverContent,
   PopoverHandler,
 } from "@material-tailwind/react";
 import {
   handleClearConversations,
+  setNotifications,
   setOnline_users,
+  setTotalNotifications,
 } from "@/redux/features/conversation/conversationSlice";
 import { socket_url } from "@/utils/auth/global";
 import { io } from "socket.io-client";
 import { setStoreInfo } from "@/redux/features/stores/storeSlice";
+import Notifications from "./shared/Notifications";
+import {
+  useMyNotificationsQuery,
+  useSeenAllNotificationsMutation,
+} from "@/redux/features/conversation/conversationApi";
 
 const Header = () => {
   const { user, signOut, setMsgOpen, msgOpen } = useContext(AuthContext);
   const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
+  const { data: ntfData } = useMyNotificationsQuery();
+  const { totalNotifications, notifications } = useSelector(
+    (state) => state.conversation
+  );
+  const [seenAllNotifications] = useSeenAllNotificationsMutation();
+
   const dispatch = useDispatch();
   const router = useRouter();
   const socket = useRef();
@@ -46,9 +63,21 @@ const Header = () => {
   };
 
   useEffect(() => {
+    dispatch(setNotifications(ntfData?.data?.notifications || []));
+    dispatch(setTotalNotifications(ntfData?.data?.totalUnseen || 0));
+  }, [ntfData]);
+
+  useEffect(() => {
     const newProducts = JSON.parse(localStorage.getItem("save-products")) || [];
     dispatch(setSaveProducts(newProducts));
   }, []);
+
+  const handleSeenNTF = async () => {
+    if (totalNotifications > 0) {
+      dispatch(setTotalNotifications(0));
+      await seenAllNotifications();
+    }
+  };
 
   const handleNavigate = () => {
     if (user?.role === "Seller" && !data?.data) {
@@ -90,12 +119,6 @@ const Header = () => {
         dispatch(setOnline_users(users));
       });
     }
-    if (user?._id) {
-      socket.current.emit("addUser", user?._id);
-      socket.current.on("getUsers", (users) => {
-        dispatch(setOnline_users(users));
-      });
-    }
     if (data?.data) {
       dispatch(setStoreInfo(data?.data));
       socket.current.emit("addUser", data?.data?._id);
@@ -103,7 +126,29 @@ const Header = () => {
         dispatch(setOnline_users(users));
       });
     }
-    return () => {};
+
+    socket.current.on("getMessage", (receiveMessage) => {
+      if (
+        receiveMessage?.receiverId === user?._id ||
+        receiveMessage?.receiverId === data?.data?._id
+      ) {
+        dispatch(setTotalNotifications(totalNotifications + 1));
+        dispatch(
+          setNotifications([
+            {
+              title: `New Message`,
+              chatId: receiveMessage.chatId,
+              sender_type: receiveMessage.sender_type,
+              receiverId: receiveMessage.receiverId,
+              senderId: receiveMessage.senderId,
+              createdAt: receiveMessage?.createdAt,
+              seen: false,
+            },
+            ...notifications,
+          ])
+        );
+      }
+    });
   }, [user, data]);
 
   return (
@@ -116,7 +161,7 @@ const Header = () => {
       <div className="relative cursor-pointer flex justify-between items-center gap-6 lg:gap-10 h-14 px-4 max-w-primary mx-auto container">
         <div className="flex-grow uppercase font-bold">
           <Link href="/">
-            <img src={logo.src} alt="" />
+            <img className="w-16 md:w-28" src={logo.src} alt="" />
           </Link>
         </div>
         {user?._id && data?.status === true && (
@@ -124,7 +169,7 @@ const Header = () => {
             {data?.data ? (
               <div
                 style={{ color: "#E61C2B", fontWeight: "600" }}
-                className="md:flex items-center gap-1 hidden md:block"
+                className="md:flex items-center gap-1 hidden md:block text-xs md:!text-[14px]"
                 onClick={() => handleNavigate()}
               >
                 {data?.data?.status !== "accept" && (
@@ -146,7 +191,7 @@ const Header = () => {
                   sellerReg && (
                     <div
                       style={{ color: "#E61C2B", fontWeight: "600" }}
-                      className="flex items-center gap-1"
+                      className="flex items-center gap-1 text-xs md:!text-[14px]"
                       onClick={() => handleNavigate()}
                     >
                       Start Selling
@@ -176,6 +221,36 @@ const Header = () => {
             <img src={message.src} alt="" /> Messages
           </p>
         </div>
+
+        {user?._id && (
+          <Menu>
+            <MenuHandler className="outline-none border-none">
+              <button>
+                <Badge content={totalNotifications}>
+                  <IconButton
+                    onClick={() => handleSeenNTF()}
+                    color="red"
+                    variant="outlined"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="h-5 w-5"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </IconButton>
+                </Badge>
+              </button>
+            </MenuHandler>
+            <Notifications />
+          </Menu>
+        )}
 
         {user?._id && (
           <div className="hidden md:block">

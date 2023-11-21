@@ -19,6 +19,7 @@ const saveProductRoutes = require("./modules/saveProduct/saveProductRoute");
 // conversations
 const chatRoutes = require("./modules/conversation/chat/chat.route");
 const messageRoutes = require("./modules/conversation/message/message.route");
+const notificationRoutes = require("./modules/conversation/notification/notification.route");
 
 // conversations
 const helpCenterChatRoutes = require("./modules/help-center/help-center-chat/helpCenterChat.route");
@@ -57,6 +58,7 @@ app.use("/api/v2/uploads", express.static(path.join(__dirname, "/")));
 // conversation
 app.use("/api/v2/chats/", chatRoutes);
 app.use("/api/v2/messages/", messageRoutes);
+app.use("/api/v2/notifications", notificationRoutes);
 
 // Help Center
 app.use("/api/v2/help-center/", helpCenterChatRoutes);
@@ -95,16 +97,29 @@ io.on("connection", (socket) => {
   });
 
   //send and get message
-  socket.on("sendMessage", ({ senderId, receiverId, chatId, text }) => {
-    io.emit("getMessage", {
+  socket.on(
+    "sendMessage",
+    ({
       senderId,
       receiverId,
       chatId,
+      sender_type,
       text,
-      createdAt: Date.now(),
-      members: [receiverId, senderId],
-    });
-  });
+      images,
+      createdAt,
+    }) => {
+      io.emit("getMessage", {
+        senderId,
+        receiverId,
+        chatId,
+        sender_type,
+        text,
+        images,
+        createdAt,
+        members: [receiverId, senderId],
+      });
+    }
+  );
 
   //when disconnect
   socket.on("disconnect", () => {

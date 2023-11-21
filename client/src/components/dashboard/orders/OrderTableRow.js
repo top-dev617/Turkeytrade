@@ -76,7 +76,7 @@ const OrderTableRow = () => {
       <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-3 lg:table-cell">
         <div className="flex justify-around items-center gap-4">
           <span className="ml-2 mr-3 whitespace-nowrap rounded-full px-2 py-0.5">
-            Shwo more
+            Show more
           </span>
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -92,8 +92,8 @@ const ProductBanner = ({ product }) => {
   // console.log(storeInfo);
 
   return (
-    <div className="product_banner p-2 mt-8">
-      <div className="product_inner md:p-10">
+    <div className="product_banner md:p-2 md:mt-8">
+      <div className="product_inner p-2 md:!p-10">
         <div className="row  mb-5">
           <div className="col-12 col-lg-6 mb-4">
             <Carousel
@@ -104,12 +104,7 @@ const ProductBanner = ({ product }) => {
           </div>
 
           <div className="col-12 col-lg-6">
-            {product?.title?.length > 80 ? (
-              <h4>{product?.title?.slice(0, 80)}...</h4>
-            ) : (
-              <h4>{product?.title}</h4>
-            )}
-            <h4></h4>
+            <h5 className="break-all">{product?.title}</h5>
             {product?.price?.price_type === "ladder_price" ? (
               <div className="flex justify-start flex-wrap md:gap-10">
                 {product?.price?.ladder_price?.length > 0 &&
@@ -179,15 +174,16 @@ const ProductBanner = ({ product }) => {
                   <div className="d-flex gap-4 justify-content-between align-items-center">
                     <button
                       onClick={() => handleChat()}
-                      className="submit_btn flex items-center gap-2"
+                      className="submit_btn flex items-center gap-2 !text-sm md:!text-[18px]"
                     >
-                      <img src={sms.src} alt="" /> Contact Seller
+                      <img src={sms.src} alt="" /> Contact
+                      <h6 className="hidden md:block">Seller</h6>
                     </button>
 
                     <button
                       onClick={() => handleSaveProduct(product?._id)}
                       disabled={isLoading || isRemoveLoading}
-                      className={`savePro_btn border-[1px] ${
+                      className={`savePro_btn border-[1px] !text-sm md:!text-[18px] ${
                         data?.data
                           ? "bg-yellow-900 text-white border-yellow-900"
                           : "bg-white text-pm border-pm"
@@ -197,7 +193,23 @@ const ProductBanner = ({ product }) => {
                       {isLoading || isRemoveLoading ? (
                         <Spinner color="white" />
                       ) : (
-                        <>{data?.data ? "Remove Product" : "Save product"}</>
+                        <>
+                          {data?.data ? (
+                            <h1>
+                              Remove{" "}
+                              <h6 className="hidden md:inline-block">
+                                Product
+                              </h6>
+                            </h1>
+                          ) : (
+                            <h1>
+                              Save{" "}
+                              <h6 className="hidden md:inline-block">
+                                Product
+                              </h6>
+                            </h1>
+                          )}
+                        </>
                       )}
                     </button>
                   </div>

@@ -112,11 +112,13 @@ const productApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["save-products"],
     }),
 
     // get save products by userId
     getSaveProductsByUserId: builder.query({
       query: () => `/save-products`,
+      providesTags: ["save-products"],
     }),
     // get save products by userId
     getSingleSaveProductById: builder.query({
@@ -129,6 +131,7 @@ const productApi = api.injectEndpoints({
         url: `/save-products/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["save-products"],
     }),
   }),
 });

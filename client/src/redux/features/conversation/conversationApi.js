@@ -1,4 +1,5 @@
 import { api } from "../../api/apiSlice";
+import { setMessages } from "./conversationSlice";
 
 const conversationApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -38,9 +39,33 @@ const conversationApi = api.injectEndpoints({
       query: (chatId) => `/messages/${chatId}`,
       providesTags: ["messages"],
     }),
+    getGlobalChatMessages: builder.query({
+      query: (chatId) => `/messages/${chatId}`,
+    }),
     getReceiverInfo: builder.query({
       query: (type, memberId) => `/chats/info/${type}/${memberId}`,
       providesTags: ["chats"],
+    }),
+
+    // notifications
+    createNotification: builder.mutation({
+      query: ({ data }) => ({
+        url: `/notifications/`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["notifications"],
+    }),
+    seenAllNotifications: builder.mutation({
+      query: () => ({
+        url: `/notifications/seen/all`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["notifications"],
+    }),
+    myNotifications: builder.query({
+      query: () => `/notifications/my-all`,
+      providesTags: ["notifications"],
     }),
   }),
 });
@@ -53,4 +78,10 @@ export const {
   usePostNewMessageMutation,
   useGetMessagesQuery,
   useGetReceiverInfoQuery,
+  useGetGlobalChatMessagesQuery,
+
+  // notifications
+  useCreateNotificationMutation,
+  useSeenAllNotificationsMutation,
+  useMyNotificationsQuery,
 } = conversationApi;

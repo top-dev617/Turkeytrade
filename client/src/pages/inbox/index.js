@@ -9,7 +9,7 @@ import InboxChatSidebar from "@/components/chatting/conversation-conponets/inbox
 import InboxMessageArea from "@/components/chatting/conversation-conponets/inbox-ui/InboxMessageArea";
 
 const InboxPage = () => {
-  const { user, setMsgOpen } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const { data: storeData } = useGetStoreInfoBySellerIdQuery(user?._id);
   const { inboxReceiverData, inboxChatId, openHelpCenter } = useSelector(
     (state) => state.conversation
@@ -25,14 +25,22 @@ const InboxPage = () => {
 
   return (
     <div className="container mx-auto flex justify-between gap-2 h-full max-h-[90%] w-full">
-      <div className="lg:w-[350px] w-full h-full">
+      <div
+        className={`md:w-[350px] w-full h-full ${
+          inboxChatId ? "hidden md:block" : ""
+        }`}
+      >
         <InboxChatSidebar
           chatData={data}
           isLoading={isLoading}
           type={"Store"}
         />
       </div>
-      <div className="flex-grow h-full mt-6 bg-white border rounded-md hidden lg:block">
+      <div
+        className={`flex-grow h-full mt-6 bg-white border rounded-md ${
+          inboxChatId ? "" : "hidden md:block"
+        }`}
+      >
         {openHelpCenter ? (
           <>
             <HelpCenterMessageArea auth={user} />

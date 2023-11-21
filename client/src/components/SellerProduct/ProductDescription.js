@@ -16,8 +16,8 @@ const ProductDescription = ({ product }) => {
     return null;
   }
   return (
-    <div className="product_description p-2">
-      <div className="product_inner mt-0 p-4 !md:p-10">
+    <div className="product_description md:p-2">
+      <div className="product_inner mt-0 p-2 md:!p-10">
         <h4>Product Description </h4>
         {product?.video && (
           <div>

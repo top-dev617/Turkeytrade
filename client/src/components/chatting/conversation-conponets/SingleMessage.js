@@ -9,8 +9,6 @@ const SingleMessage = ({ message, auth }) => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
 
-  // console.log(receiverData);
-
   return (
     <>
       {message?.members[1] === auth?._id ? (
@@ -34,13 +32,15 @@ const SingleMessage = ({ message, auth }) => {
             </button>
           </div>
           <div className="w-fit max-w-[70%] h-fit  bg-indigo-400 text-white p-2 rounded-lg relative">
-            {/* {
-                            message?.productId && (
-                                <div>
-                                    <img className='w-44 h-20 object-cover' src={product?.images[0]} alt="" />
-                                </div>
-                            )
-                        } */}
+            {message?.images?.length > 0 && (
+              <div>
+                <img
+                  className="w-44 h-20 object-cover"
+                  src={message?.images[0]}
+                  alt=""
+                />
+              </div>
+            )}
 
             <div>{message?.text}</div>
             <div className="absolute -right-2 top-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-indigo-400"></div>
@@ -66,13 +66,15 @@ const SingleMessage = ({ message, auth }) => {
           </div>
 
           <div className="w-fit max-w-[70%] h-fit bg-indigo-100 text-gray-800 p-2 rounded-lg relative">
-            {/* {
-                                message?.productId && (
-                                    <div>
-                                        <img className='w-44 h-20 object-cover' src={product?.images[0]} alt="" />
-                                    </div>
-                                )
-                            } */}
+            {message?.images?.length > 0 && (
+              <div>
+                <img
+                  className="w-44 h-20 object-cover"
+                  src={message?.images[0]}
+                  alt=""
+                />
+              </div>
+            )}
 
             <div>{message?.text}</div>
 

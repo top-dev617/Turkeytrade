@@ -5,6 +5,11 @@ import sms from "../../../public/assets/sms.png";
 import Chatting from "./Chatting";
 import { useRouter } from "next/router";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
+import {
+  Popover,
+  PopoverContent,
+  PopoverHandler,
+} from "@material-tailwind/react";
 
 const ChatMain = () => {
   const { user, msgOpen, setMsgOpen } = useContext(AuthContext);
@@ -24,18 +29,23 @@ const ChatMain = () => {
     }
   };
 
-  useOnClickOutside(chatCloseRef, () => handleClose());
-
   return (
-    <div ref={chatCloseRef} className="">
-      {msgOpen && <Chatting user={user} setMsgOpen={setMsgOpen} />}
-
-      <div className="sms_btn text-end mt-4 mt-lg-0 hidden md:block">
-        <button onClick={() => handleMsg()}>
-          <img src={sms.src} alt="" /> Messages
-        </button>
-      </div>
-    </div>
+    <>
+      {!router.pathname.includes("/dashboard") && (
+        <Popover open={msgOpen} handler={() => setMsgOpen(false)}>
+          <PopoverContent className="p-0">
+            {msgOpen && <Chatting user={user} setMsgOpen={setMsgOpen} />}
+          </PopoverContent>
+          <PopoverHandler onClick={() => handleMsg()}>
+            <div className="sms_btn text-end mt-4 mt-lg-0 hidden md:block">
+              <button>
+                <img src={sms.src} alt="" /> Messages
+              </button>
+            </div>
+          </PopoverHandler>
+        </Popover>
+      )}
+    </>
   );
 };
 

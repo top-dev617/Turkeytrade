@@ -4,8 +4,8 @@ import CategorySlider from "./CategorySlider";
 
 const Category = ({ categories }) => {
   return (
-    <div className="category">
-      <div className="container">
+    <div className="category ">
+      <div className="container !mx-auto">
         <div className="row">
           <div className="col-12 col-lg-4">
             <BrowseCategory categories={categories} />

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const BrowseCategory = ({ categories }) => {
   return (
-    <div className="browse">
+    <div className="browse mx-auto">
       <h5>Browse Categories</h5>
       <div className="grid grid-cols-1 gap-1">
         {categories?.map((category, index) => (
