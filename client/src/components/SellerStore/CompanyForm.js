@@ -46,8 +46,8 @@ const CompanyForm = () => {
 
   const handleVideo = (file) => {
     if (file) {
-      if (file.size > 25 * 1024 * 1024) {
-        toast.error("File size must be 25 MB or less.");
+      if (file.size > 150 * 1024 * 1024) {
+        toast.error("File size must be 150 MB or less.");
         videoRef.current.value = null;
         return;
       } else {

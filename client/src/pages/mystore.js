@@ -5,21 +5,27 @@ import { AuthContext } from "@/components/context/AuthContext";
 import { useGetStoreInfoBySellerIdQuery } from "@/redux/features/stores/storeApi";
 import SellerStoreModal from "@/utils/modals/SellerStoreModal";
 import React, { useContext, useEffect, useRef } from "react";
-import wait from "../assets/icons/wait.json"
+import wait from "../assets/icons/wait.json";
 import AuthRoute from "@/privete-routes/AuthRoute";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import useAuth from "@/lib/useAuth";
+import Loading from "@/components/commons/Loading";
 
 const sellerStore = () => {
-  const { user } = useContext(AuthContext)
-  const { data } = useGetStoreInfoBySellerIdQuery(user?._id)
-  const router = useRouter()
-
+  const {
+    user,
+    isLoading,
+    // refetch,
+    // setUser,
+  } = useAuth({
+    redirectTo: "/signin",
+  });
+  const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
 
   const openModalRef = useRef(null);
   const [isWelcomeModal, setOpenModalRef] = useState(null);
   useEffect(() => {
-
     const storeModal = localStorage.getItem("storeModal");
     if (storeModal && data?.data?.status === "accept") {
       setOpenModalRef(JSON.parse(storeModal));
@@ -31,22 +37,27 @@ const sellerStore = () => {
     }
   }, [data, user]);
 
-
-
-
   return (
-    <AuthRoute>
-      <div>
-        {
-          data && data?.data?.status === "pending" ? (
-            <div className="d-flex" style={{ minHeight: "400px", justifyContent: "center", alignItems: "center" }}>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div>
+          {data && data?.data?.status === "pending" ? (
+            <div
+              className="d-flex"
+              style={{
+                minHeight: "400px",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <h4 style={{ color: "rgb(3,125,65)" }}>Wait for Admin Approve</h4>
             </div>
-          )
-            :
+          ) : (
             <>
-              {
-                data && data?.data?.status === "accept" && <>
+              {data && data?.data?.status === "accept" && (
+                <>
                   <StoreBanner store={data?.data} />
                   <CompanyForm store={data?.data} />
                   <StoreTab store={data?.data} />
@@ -87,12 +98,12 @@ const sellerStore = () => {
                     </div>
                   </div>
                 </>
-              }
+              )}
             </>
-        }
-
-      </div>
-    </AuthRoute>
+          )}
+        </div>
+      )}
+    </>
   );
 };
 

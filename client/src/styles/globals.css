@@ -1079,6 +1079,18 @@ footer .social_media a {
   letter-spacing: 0.32px;
 }
 
+.category_title {
+  /* -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1; */
+  font-size: 14px;
+  color: #2d2d2d;
+  line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* catgory products */
 .grid-container {
   display: grid;

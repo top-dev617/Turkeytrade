@@ -8,23 +8,19 @@ const categorySchema = new mongoose.Schema(
     },
     cate_slug: {
       type: String,
-      required: true,
-    },
-    image: {
-      type: String,
+      unique: true,
       required: true,
     },
     status: {
-      type: String,
-      enum: ["Show", "Hide"],
-      default: "Show",
+      type: Boolean,
+      enum: [true, false],
+      default: true,
     },
   },
   {
     timestamps: true,
   }
 );
-
 const Category = mongoose.model("Category", categorySchema);
 
 module.exports = Category;

@@ -1,3 +1,6 @@
+const mongoose = require("mongoose");
+const Product = require("../product/product.model");
+const SubCategory = require("../subCategory/subCategory.model");
 const Category = require("./category.model");
 
 const createCategory = async (req, res) => {
@@ -50,13 +53,58 @@ const getCategories = async (req, res) => {
   }
 };
 
+const getAllCategories = async (req, res) => {
+  try {
+    const uniqueCategories = await Product.find({ status: "Publish" }).distinct(
+      "category"
+    );
+    const categories = await Category.find({
+      _id: { $in: uniqueCategories },
+      status: true,
+    });
+    const categoriesWithSubCategories = await Promise.all(
+      categories.map(async (category) => {
+        const subcategories = await SubCategory.find({
+          parent_cate_id: category._id,
+          status: true,
+        });
+        return { ...category.toObject(), subcategories };
+      })
+    );
+    res.status(200).json({
+      status: true,
+      message: "Unique categories fetched successfully",
+      data: categoriesWithSubCategories,
+    });
+  } catch (error) {
+    res.status(201).json({
+      status: false,
+      message: "categories get unsuccessfuldf",
+      error: error.message,
+    });
+  }
+};
+
 const getShowCategories = async (req, res) => {
   try {
-    const result = await Category.find({ status: "Show" });
+    const result = await Category.find({ status: true }).select("_id");
+    const categories = await Category.find({
+      _id: { $in: result },
+      status: true,
+    });
+    const categoriesWithSubCategories = await Promise.all(
+      categories.map(async (category) => {
+        const subcategories = await SubCategory.find({
+          parent_cate_id: category._id,
+          status: true,
+        });
+        return { ...category.toObject(), subcategories };
+      })
+    );
     res.status(200).json({
       status: true,
       message: "Categories get successfully",
-      data: result,
+      data: categoriesWithSubCategories,
     });
   } catch (error) {
     res.status(201).json({
@@ -132,4 +180,5 @@ module.exports = {
   getShowCategories,
   updateCategory,
   deleteCategoryById,
+  getAllCategories,
 };

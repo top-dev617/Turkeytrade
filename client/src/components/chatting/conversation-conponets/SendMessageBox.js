@@ -5,14 +5,15 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const SendMessageBox = ({ sendMessage }) => {
-  const { handleSubmit, register, reset, setValue } = useForm();
+  const { handleSubmit, register, reset, setValue, watch } = useForm();
   const handleMessage = (data) => {
     sendMessage(data.message);
     reset();
   };
 
   const setNewImoji = (input) => {
-    setValue("message", input);
+    const currentMessage = watch("message");
+    setValue("message", currentMessage + input);
   };
   return (
     <form onSubmit={handleSubmit(handleMessage)} className="chatting_footer">

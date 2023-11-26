@@ -20,7 +20,7 @@ const Item = ({ items, isLoading: loading }) => {
         ) : (
           <>
             {items?.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 md:!gap-4 lg:!gap-6 w-full">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:!gap-6 w-full">
                 {items?.map((item, index) => (
                   <Link
                     href={`/product/${item._id}`}
@@ -30,7 +30,7 @@ const Item = ({ items, isLoading: loading }) => {
                   >
                     <div className="overflow-hidden">
                       <img
-                        className="img-fluid h-[80px] sm:h-[120px] md:h-[150px] lg:h-[180px] w-full hover:scale-125 duration-300 rounded-md"
+                        className="img-fluid h-[80px] sm:h-[120px] md:h-[150px] lg:h-[180px] w-full hover:scale-125 duration-300 rounded-md object-contain"
                         src={item?.images?.length && item?.images[0]}
                         loading="lazy"
                         alt=""

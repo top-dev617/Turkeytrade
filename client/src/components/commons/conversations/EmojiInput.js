@@ -11,6 +11,10 @@ import { useState } from "react";
 
 const EmojiInput = ({ setImoji }) => {
   const [open, setOpen] = useState(false);
+  const handleEmoji = (emoji) => {
+    setImoji(emoji);
+    setOpen(false);
+  };
   return (
     <>
       <Popover open={open} handler={() => setOpen(false)}>
@@ -20,7 +24,7 @@ const EmojiInput = ({ setImoji }) => {
         <PopoverContent className="p-0 z-[9999999999]">
           {open && (
             <EmojiPicker
-              onEmojiClick={(e) => setImoji(e.emoji)}
+              onEmojiClick={(e) => handleEmoji(e.emoji)}
               emojiStyle="facebook"
               style={{ position: "absolute" }}
             />

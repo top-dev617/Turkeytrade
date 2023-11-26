@@ -28,6 +28,7 @@ import "react-quill/dist/quill.snow.css";
 import { base_url } from "@/utils/auth/global";
 import VideoPlayer from "@/components/commons/video-player/VideoPlayer";
 import { trash } from "@/utils/datas/icons";
+import { useEffect } from "react";
 
 const modules = {
   toolbar: [
@@ -71,6 +72,14 @@ const UploadProduct = ({ store }) => {
   const [draftLoading, setDraftLoading] = useState(false);
   const [saveDraft, setSaveDraft] = useState(false);
 
+  // errors states
+  const [categoryError, setCategoryError] = useState(false);
+  const [keywordsError, setKeywordsError] = useState(false);
+  const [productImageError, setProductImageError] = useState(false);
+
+  // use refs
+  const categoryRef = useRef();
+
   const dispatch = useDispatch();
   const [content, setContent] = useState(
     editProduct ? editProduct?.description : ""
@@ -91,8 +100,8 @@ const UploadProduct = ({ store }) => {
 
   const handleVideo = (file) => {
     if (file) {
-      if (file.size > 25 * 1024 * 1024) {
-        toast.error("File size must be 25 MB or less.");
+      if (file.size > 150 * 1024 * 1024) {
+        toast.error("File size must be 150 MB or less.");
         videoRef.current.value = null;
         return;
       } else {
@@ -114,9 +123,34 @@ const UploadProduct = ({ store }) => {
     }
   };
 
+  const [subCategories, setSubCategories] = useState([]);
+  const [subCategory, setSubCategory] = useState(
+    editProduct ? editProduct?.sub_category?._id : subCategories[0]?._id
+  );
   const [category, setCategory] = useState(
     editProduct ? editProduct?.category?._id : data?.data[0]?._id
   );
+
+  useEffect(() => {
+    const isExist = data?.data.find(
+      (cate) => cate?._id === editProduct?.category._id
+    );
+    if (isExist) {
+      setSubCategories(isExist?.subcategories);
+      setSubCategory(editProduct?.sub_category?._id);
+    }
+  }, [editProduct]);
+
+  const handleCategory = (cateId) => {
+    const isExist = data?.data.find((cate) => cate?._id === cateId);
+    if (isExist) {
+      setSubCategory("");
+      setCategory(isExist?._id);
+      setSubCategories(isExist?.subcategories);
+      setSubCategory(isExist?.subcategories[0]?._id);
+    }
+  };
+
   const [unit, setUnit] = useState(
     editProduct
       ? editProduct?.unit
@@ -181,6 +215,7 @@ const UploadProduct = ({ store }) => {
       setKeywords((prevKeywords) => [...prevKeywords, keywordInput]);
       setKeywordInput("");
     }
+    setKeywordsError(false);
     keywordRef.current.value = "";
   };
 
@@ -310,6 +345,17 @@ const UploadProduct = ({ store }) => {
   };
 
   const handleAddProduct = async (data) => {
+    if (!category && !saveDraft) {
+      categoryRef.current.focus();
+      setCategoryError("Category / Sub Category is Required");
+      return;
+    }
+    if (!subCategory && !saveDraft) {
+      categoryRef.current.focus();
+      setCategoryError("Category / Sub Category is Required");
+      return;
+    }
+
     if (!unit && !saveDraft) {
       toast.warning("Unit is Required");
       return;
@@ -319,10 +365,17 @@ const UploadProduct = ({ store }) => {
       return;
     }
     if (!keywords?.length && !saveDraft) {
-      toast.warning("Please Add Keywords");
+      setKeywordsError(true);
       return;
     }
-    if (!content || content?.length < 101) {
+    if (productImages?.length === 0 && !saveDraft) {
+      setProductImageError(true);
+      img0Ref.current.focus();
+      return;
+    }
+    console.log(saveDraft);
+    if ((!content || content?.length < 101) && !saveDraft) {
+      console.log("dfdsf");
       setDescriptionError(true);
       descriptionRef.current.focus();
       return;
@@ -366,6 +419,7 @@ const UploadProduct = ({ store }) => {
     const productData = {
       title: data?.title,
       category: category,
+      sub_category: subCategory,
       store: store?._id,
       images: images,
       description: content,
@@ -455,6 +509,40 @@ const UploadProduct = ({ store }) => {
     }
   };
 
+  const handleError = () => {
+    if (!category && !saveDraft) {
+      categoryRef.current.focus();
+      setCategoryError("Category / Sub Category is Required");
+      return;
+    }
+    if (!subCategory && !saveDraft) {
+      categoryRef.current.focus();
+      setCategoryError("Category / Sub Category is Required");
+      return;
+    }
+    if (!unit && !saveDraft) {
+      toast.warning("Unit is Required");
+      return;
+    }
+    if (!time && !saveDraft) {
+      toast.warning("Lead Time is Required");
+      return;
+    }
+    if (!keywords?.length && !saveDraft) {
+      setKeywordsError(true);
+      return;
+    }
+    if (productImages?.length === 0 && !saveDraft) {
+      setProductImageError(true);
+      img0Ref.current.focus();
+      return;
+    }
+    if ((!content || content?.length < 101) && !saveDraft) {
+      setDescriptionError(true);
+      descriptionRef.current.focus();
+      return;
+    }
+  };
   return (
     <div className="upload_product md:px-8">
       <div className="container">
@@ -471,7 +559,7 @@ const UploadProduct = ({ store }) => {
                 </label>
                 <input
                   {...register("title", {
-                    required: true,
+                    required: "Title is Required",
                     maxLength: {
                       value: 100,
                       message: "Title must be less than 100 characters",
@@ -484,25 +572,58 @@ const UploadProduct = ({ store }) => {
                   defaultValue={editProduct?.title}
                 />
                 {errors.title && (
-                  <p className="text-red-600 text-xs">{errors.title.message}</p>
+                  <p className="text-red-600 text-xs italic">
+                    {errors.title.message}
+                  </p>
                 )}
               </div>
             </div>
 
             <div className="col-12 col-lg-6 ">
-              <div>
-                <label>Product category</label>
-                <select onClick={(e) => setCategory(e.target.value)}>
-                  {data?.data.map((cate, i) => (
-                    <option
-                      key={i}
-                      value={cate?._id}
-                      selected={cate?._id === category}
-                    >
-                      {cate?.cate_name}
-                    </option>
-                  ))}
-                </select>
+              <div ref={categoryRef}>
+                <label>Category / Sub Category</label>
+                <div
+                  className={`h-[62px] w-full grid grid-cols-2 gap-2 ${
+                    categoryError &&
+                    !subCategory &&
+                    "border !border-red-600 rounded-md"
+                  }`}
+                >
+                  <select
+                    onClick={(e) => handleCategory(e.target.value)}
+                    className="cursor-pointer"
+                  >
+                    {data?.data.map((cate, i) => (
+                      <option
+                        key={i}
+                        value={cate?._id}
+                        selected={cate?._id === category}
+                      >
+                        {cate?.cate_name}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    disabled={!subCategories?.length}
+                    onClick={(e) => setSubCategory(e.target.value)}
+                    className="cursor-pointer"
+                  >
+                    {subCategories?.map((subCate, i) => (
+                      <option
+                        key={i}
+                        value={subCate?._id}
+                        selected={subCate?._id === subCategory}
+                      >
+                        {subCate?.sub_cate_name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {categoryError && !subCategory && (
+                  <p className="text-red-600 text-xs italic">
+                    Category / Sub Category is Required
+                  </p>
+                )}
               </div>
             </div>
 
@@ -545,7 +666,8 @@ const UploadProduct = ({ store }) => {
                     placeholder="Enter a new task"
                     className={`!rounded-e-none ${
                       keywords?.length === 0 &&
-                      "border focus:border !border-red-600 focus:border-red-600 !bg-red-50"
+                      keywordsError &&
+                      "border focus:border !border-red-600 focus:border-red-600"
                     }`}
                     onChange={(e) => setKeywordInput(e.target.value)}
                     required={keywords?.length > 0 || saveDraft ? false : true}
@@ -569,6 +691,7 @@ const UploadProduct = ({ store }) => {
                   type="text"
                   placeholder="Model No "
                   defaultValue={editProduct?.model}
+                  required={false}
                 />
               </div>
             </div>
@@ -618,7 +741,13 @@ const UploadProduct = ({ store }) => {
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                 <div className="w-full">
-                  <div className="input_box relative">
+                  <div
+                    className={`input_box relative ${
+                      productImages.length === 0 &&
+                      productImageError &&
+                      "border !border-red-600"
+                    }`}
+                  >
                     <div className="input_inner">
                       {productImages?.length > 0 ? (
                         <img
@@ -905,12 +1034,20 @@ const UploadProduct = ({ store }) => {
                   MOQ <img src={question} alt="" />
                 </label>
                 <input
-                  {...register("moq", { required: saveDraft ? false : true })}
+                  {...register("moq", {
+                    required: saveDraft ? false : "MOQ is Required",
+                  })}
                   type="text"
                   placeholder="MOQ "
                   defaultValue={editProduct?.moq}
+                  className="mb-1"
                 />
               </div>
+              {errors.moq && (
+                <p className="text-red-600 text-xs italic">
+                  {errors.moq.message}
+                </p>
+              )}
             </div>
 
             <div className="col-12 col-lg-6 ">
@@ -1167,9 +1304,10 @@ const UploadProduct = ({ store }) => {
 
             <div className="d-flex gap-2 justify-content-between align-items-center">
               <button
-                onClick={() =>
-                  setSaveDraft(editProduct?.status === "Draft" ? true : false)
-                }
+                onClick={() => {
+                  setSaveDraft(editProduct?.status === "Draft" ? true : false);
+                  handleError();
+                }}
                 disabled={loading && !saveDraft}
                 className="submit_btn !text-sm md:!text-[18px] hover:bg-pmd duration-150 flex justify-center items-center"
               >

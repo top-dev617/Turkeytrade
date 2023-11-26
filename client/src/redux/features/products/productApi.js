@@ -42,7 +42,12 @@ const productApi = api.injectEndpoints({
 
     // get all products by category
     getProductsByCate: builder.query({
-      query: (cateId) => `/products/category/${cateId}`,
+      query: (cateSlug) => `/products/category/${cateSlug}`,
+      providesTags: ["products"],
+    }),
+    getProductsBySubCate: builder.query({
+      query: ({ cateSlug, subCateSlug }) =>
+        `/products/category/${cateSlug}/${subCateSlug}`,
       providesTags: ["products"],
     }),
 
@@ -146,6 +151,7 @@ export const {
   useGetProductsQuery,
   useGetLatestProductsQuery,
   useGetProductsByCateQuery,
+  useGetProductsBySubCateQuery,
   useGetProductsByStoreQuery,
   useGetProductByIdQuery,
 

@@ -70,8 +70,12 @@ const registerUser = async (req, res) => {
 // get user info by token verified => email
 const getUserInfo = async (req, res) => {
   try {
-    const user = await User.findOne({ email: req?.user?.email });
-    res.send(user);
+    const user = await User.findOne({ _id: req?.user?._id });
+    if (user) {
+      res.send(user);
+    } else {
+      res.send("User Not Found");
+    }
   } catch (err) {
     res.status(500).send({ message: err.message });
   }

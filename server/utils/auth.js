@@ -55,21 +55,20 @@ padding: 14px 44px 13px;
 line-height: 120%; margin: 30px auto; background-color: #037d41 ; color:#ffff; border:none;border-radius: 5px;">${otp}</button>
 
 
-    <div
-        style="background-color: #d9eee4; padding:10px; font-size:14px;color:#003399;line-height:160%;text-align:center;word-wrap:break-word">
-        <p style="font-size:14px;line-height:160%"><span style="font-size:20px;line-height:32px"><strong>Get in
-                    touch</strong></span></p>
-        <p style="font-size:14px;line-height:160%"><span style="font-size:16px;line-height:25.6px;color:#000000">+11 111
-                333
-                4444</span></p>
-        <p style="font-size:14px;line-height:160%"><span style="font-size:16px;line-height:25.6px;color:#000000"><a
-                    href="mailto:Info@turkeytrademarket.com" target="_blank">Info@turkeytrademarket.com</a></span></p>
-    </div>
-    <div style="color:#ffff; background-color: #037d41; padding: 1px;">
-        <p style="font-size:14px;line-height:180% ; color:#ffff">Copyrights © Company
-            All
-            Rights Reserved</p>
-    </div>
+<div
+style="background-color: #d9eee4; padding:10px; font-size:14px;color:#003399;line-height:160%;text-align:center;word-wrap:break-word">
+<p style="font-size:14px;line-height:160%"><span style="font-size:20px;line-height:32px"><strong>Get in
+            touch</strong></span></p>
+<p style="font-size:14px;line-height:160%"><span style="font-size:16px;line-height:25.6px;color:#000000"><a
+            href="mailto:support@turkeytrademarket.com"
+            target="_blank">support@turkeytrademarket.com</a></span>
+</p>
+</div>
+<div style="color:#ffff; background-color: #037d41; padding: 1px;">
+<p style="font-size:14px;line-height:180% ; color:#ffff">Copyrights © Turkeytrademarket AB
+    All
+    Rights Reserved</p>
+</div>
 </div>
     `,
   };

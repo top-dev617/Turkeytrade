@@ -62,6 +62,11 @@ const productSchema = new mongoose.Schema(
       ref: "Category",
       required: false,
     },
+    sub_category: {
+      type: String,
+      ref: "SubCategory",
+      required: false,
+    },
     description: {
       type: String,
       required: false,

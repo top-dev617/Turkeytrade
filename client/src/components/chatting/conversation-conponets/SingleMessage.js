@@ -14,7 +14,7 @@ const SingleMessage = ({ message, auth }) => {
       {message?.members[1] === auth?._id ? (
         <div
           ref={scroll}
-          className="flex items-center flex-row-reverse justify-start gap-2 mb-4"
+          className="flex items-end flex-row-reverse justify-start gap-2 mb-4"
         >
           <div className="flex-none flex flex-col items-center justify-center space-y-1">
             <button className="flex items-center justify-center min-w-[40px] !w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px]">
@@ -31,23 +31,26 @@ const SingleMessage = ({ message, auth }) => {
               )}
             </button>
           </div>
-          <div className="w-fit max-w-[70%] h-fit  bg-indigo-400 text-white p-2 rounded-lg relative">
+          <div className="w-fit max-w-[70%] h-fit flex flex-col items-end">
             {message?.images?.length > 0 && (
-              <div>
+              <>
                 <img
-                  className="w-44 h-20 object-cover"
+                  className="w-fit h-fit object-contain"
                   src={message?.images[0]}
                   alt=""
                 />
+              </>
+            )}
+            {message?.text && (
+              <div className="bg-pm text-white p-2 rounded-lg relative w-fit">
+                <div className="label-list text-white">{message?.text}</div>
+                <div className="absolute -right-2 top-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-pm"></div>
               </div>
             )}
-
-            <div>{message?.text}</div>
-            <div className="absolute -right-2 top-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-indigo-400"></div>
           </div>
         </div>
       ) : (
-        <div ref={scroll} className="flex items-center gap-2 mb-4">
+        <div ref={scroll} className="flex items-end gap-2 mb-4">
           <div className="flex-none flex flex-col items-center justify-center space-y-1">
             <button className="flex items-center justify-center min-w-[40px] !w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px]">
               {receiverData?.logo || receiverData?.image ? (
@@ -64,21 +67,22 @@ const SingleMessage = ({ message, auth }) => {
               )}
             </button>
           </div>
-
-          <div className="w-fit max-w-[70%] h-fit bg-indigo-100 text-gray-800 p-2 rounded-lg relative">
+          <div className="w-fit max-w-[70%] h-fit flex flex-col items-start">
             {message?.images?.length > 0 && (
-              <div>
+              <>
                 <img
-                  className="w-44 h-20 object-cover"
+                  className="w-fit h-fit object-contain"
                   src={message?.images[0]}
                   alt=""
                 />
+              </>
+            )}
+            {message?.text && (
+              <div className="bg-[#d9eee4] p-2 rounded-lg relative w-fit">
+                <div className="label-list">{message?.text}</div>
+                <div className="absolute -left-2 top-1/2 transform translate-x-1/2 rotate-45 w-2 h-2 bg-[#d9eee4]"></div>
               </div>
             )}
-
-            <div>{message?.text}</div>
-
-            <div className="absolute -left-2 top-1/2 transform translate-x-1/2 rotate-45 w-2 h-2 bg-indigo-100"></div>
           </div>
         </div>
       )}

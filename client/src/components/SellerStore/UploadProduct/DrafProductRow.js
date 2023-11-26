@@ -8,7 +8,7 @@ import {
   PopoverHandler,
   Spinner,
 } from "@material-tailwind/react";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const DrafProductRow = ({
@@ -21,6 +21,8 @@ const DrafProductRow = ({
   const [patchProduct, { isLoading }] = usePatchProductMutation();
   const dispatch = useDispatch();
   const isExist = selectedItems.find((p) => p._id === product._id);
+  const [statusChange, setStatusChange] = useState("");
+  const [productDelete, setProductDelete] = useState("");
 
   const updateStatus = async () => {
     const status = {
@@ -36,6 +38,7 @@ const DrafProductRow = ({
   const isFulfilled =
     (product?.title &&
       product?.category &&
+      product?.sub_category &&
       product?.images?.length > 2 &&
       product?.price?.ladder_price[0]?.euro &&
       product?.price?.ladder_price[0]?.quantity?.from &&
@@ -73,8 +76,16 @@ const DrafProductRow = ({
             Edit
           </h1>
 
-          <Popover placement="bottom">
-            <PopoverHandler>
+          <Popover
+            open={productDelete === product?._id}
+            handler={() => setProductDelete("")}
+            placement="bottom"
+          >
+            <PopoverHandler
+              onClick={() =>
+                setProductDelete(productDelete ? "" : product?._id)
+              }
+            >
               <div className="w-5 hover:text-pmd cursor-pointer">{trash}</div>
             </PopoverHandler>
             <PopoverContent className="w-44">
@@ -169,8 +180,14 @@ const DrafProductRow = ({
         )}
       </td>
       <td className="px-2 text-center">
-        <Popover placement="bottom">
-          <PopoverHandler>
+        <Popover
+          open={statusChange === product?._id}
+          handler={() => setStatusChange("")}
+          placement="bottom"
+        >
+          <PopoverHandler
+            onClick={() => setStatusChange(statusChange ? "" : product?._id)}
+          >
             <Button
               disabled={isFulfilled ? false : true}
               className="hover:text-pmd bg-pm py-2 rounded text-center"

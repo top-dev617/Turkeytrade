@@ -19,14 +19,15 @@ const ImageInput = ({ sendMessage }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const imgRef = useRef();
-  const { handleSubmit, register, reset, setValue } = useForm();
+  const { handleSubmit, register, reset, setValue, watch } = useForm();
   const handleMessage = (data) => {
     sendMessage(data.message);
     reset();
     setOpen(false);
   };
   const setNewImoji = (input) => {
-    setValue("message", input);
+    const currentMessage = watch("message");
+    setValue("message", currentMessage + input);
   };
   return (
     <>

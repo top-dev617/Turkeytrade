@@ -71,7 +71,11 @@ const StoreTab = ({ store }) => {
       <div className="tab_container">
         <div className="flex justify-between items-center !w-full overflow-x-auto">
           {tabs.map((tab, index) => (
-            <Popover open={tab?.dropdowns && open} placement="bottom">
+            <Popover
+              open={tab?.dropdowns && open}
+              handler={() => setOpen(false)}
+              placement="bottom"
+            >
               <PopoverHandler onClick={() => handleStep(index)}>
                 <button
                   className={`${

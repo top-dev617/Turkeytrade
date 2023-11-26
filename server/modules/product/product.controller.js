@@ -1,3 +1,5 @@
+const Category = require("../category/category.model");
+const SubCategory = require("../subCategory/subCategory.model");
 const Product = require("./product.model");
 
 const createProduct = async (req, res) => {
@@ -27,6 +29,7 @@ const getProductById = async (req, res) => {
     const result = await Product.findOne({ _id: req.params.id })
       .populate("store")
       .populate("category")
+      .populate("sub_category")
       .populate("group");
     res.status(200).json({
       status: true,
@@ -44,38 +47,101 @@ const getProductById = async (req, res) => {
 
 const getProductsByCateId = async (req, res) => {
   try {
-    const products = await Product.find({
-      category: req.params.cateId,
-      status: "Publish",
-    })
-      .sort({ _id: -1 })
-      .populate("category")
-      .populate("group");
-
-    const productsWithMinMaxPrices = await Promise.all(
-      products.map(async (product) => {
-        if (product?.price?.price_type === "ladder_price") {
-          const prices = product?.price?.ladder_price?.map(
-            (price) => price.euro
-          );
-          const minPrice = Math.min(...prices);
-          const maxPrice = Math.max(...prices);
-          return {
-            ...product?.toObject(),
-            minPrice,
-            maxPrice,
-          };
-        } else {
-          return { ...product?.toObject() };
-        }
+    const isExist = await Category.findOne({ cate_slug: req.params.cateSlug });
+    console.log(isExist);
+    if (isExist) {
+      const products = await Product.find({
+        category: isExist._id,
+        status: "Publish",
       })
-    );
+        .sort({ _id: -1 })
+        .populate("category")
+        .populate("sub_category")
+        .populate("group");
 
-    res.status(200).json({
-      status: true,
-      message: "Products fetched successfully",
-      data: productsWithMinMaxPrices,
+      const productsWithMinMaxPrices = await Promise.all(
+        products.map(async (product) => {
+          if (product?.price?.price_type === "ladder_price") {
+            const prices = product?.price?.ladder_price?.map(
+              (price) => price.euro
+            );
+            const minPrice = Math.min(...prices);
+            const maxPrice = Math.max(...prices);
+            return {
+              ...product?.toObject(),
+              minPrice,
+              maxPrice,
+            };
+          } else {
+            return { ...product?.toObject() };
+          }
+        })
+      );
+
+      res.status(200).json({
+        status: true,
+        message: "Products fetched successfully",
+        data: productsWithMinMaxPrices,
+      });
+    } else {
+      res.status(201).json({
+        status: false,
+        message: "Category not found",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      status: false,
+      message: "Products fetch unsuccessful",
+      error_message: error.message,
     });
+  }
+};
+const getProductsBySubCateId = async (req, res) => {
+  try {
+    // const isExist = await Category.findOne({ cate_slug: req.params.cateSlug });
+    const isExistSubCate = await SubCategory.findOne({
+      sub_cate_slug: req.params.subCateSlug,
+    });
+    console.log("sub cate:", isExistSubCate);
+    if (isExistSubCate) {
+      const products = await Product.find({
+        sub_category: isExistSubCate._id,
+        status: "Publish",
+      })
+        .sort({ _id: -1 })
+        .populate("category")
+        .populate("sub_category")
+        .populate("group");
+      const productsWithMinMaxPrices = await Promise.all(
+        products.map(async (product) => {
+          if (product?.price?.price_type === "ladder_price") {
+            const prices = product?.price?.ladder_price?.map(
+              (price) => price.euro
+            );
+            const minPrice = Math.min(...prices);
+            const maxPrice = Math.max(...prices);
+            return {
+              ...product?.toObject(),
+              minPrice,
+              maxPrice,
+            };
+          } else {
+            return { ...product?.toObject() };
+          }
+        })
+      );
+      res.status(200).json({
+        status: true,
+        message: "Products fetched successfully",
+        data: productsWithMinMaxPrices,
+      });
+    } else {
+      res.status(201).json({
+        status: false,
+        message: "Category not found",
+      });
+    }
   } catch (error) {
     res.status(500).json({
       status: false,
@@ -93,6 +159,7 @@ const getProductsByGroupId = async (req, res) => {
     })
       .sort({ _id: -1 })
       .populate("category")
+      .populate("sub_category")
       .populate("group");
 
     const productsWithMinMaxPrices = await Promise.all(
@@ -144,6 +211,7 @@ const getProductsByStoreId = async (req, res) => {
     })
       .sort({ _id: -1 })
       .populate("category")
+      .populate("sub_category")
       .skip((page - 1) * pageSize)
       .limit(pageSize);
 
@@ -200,7 +268,7 @@ const getDraftProductsByStoreId = async (req, res) => {
     })
       .sort({ _id: -1 })
       .populate("category")
-      // .populate("group")
+      .populate("sub_category")
       .skip((page - 1) * pageSize)
       .limit(pageSize);
 
@@ -409,6 +477,7 @@ module.exports = {
   updateProduct,
   deleteProductById,
   getProductsByCateId,
+  getProductsBySubCateId,
   getProductsByStoreId,
   getLatestProducts,
   deleteProductsByIds,

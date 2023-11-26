@@ -1,5 +1,8 @@
 import { usePatchUserInfoByIdMutation } from "@/redux/features/auth/authApi";
-import { usePatchStoreInfoByIdMutation } from "@/redux/features/stores/storeApi";
+import {
+  usePatchStoreInfoByIdMutation,
+  useStoreInfoUpdateMutation,
+} from "@/redux/features/stores/storeApi";
 import { Button, Spinner } from "@material-tailwind/react";
 import React from "react";
 import { useState } from "react";
@@ -9,7 +12,7 @@ import { toast } from "react-toastify";
 const SellerStoreInfo = ({ store, isAuthor }) => {
   const { handleSubmit, register, reset } = useForm();
   const [patchUserInfoById, { isLoading }] = usePatchUserInfoByIdMutation();
-  const [patchStoreInfoById] = usePatchStoreInfoByIdMutation();
+  const [storeInfoUpdate] = useStoreInfoUpdateMutation();
   const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -37,7 +40,7 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
       },
       id: store?._id,
     };
-    const result = await patchStoreInfoById(options);
+    const result = await storeInfoUpdate(options);
     setLoading(false);
     if (result?.data?.status === true) {
       reset();
@@ -92,7 +95,7 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
                   {...register("phoneNumber", { required: false })}
                   name="phoneNumber"
                   type="tel"
-                  placeholder="123456789 "
+                  placeholder="Phone Number"
                   disabled={isEdit ? false : true}
                   readOnly={isEdit ? false : true}
                   defaultValue={store?.user?.phoneNumber}
@@ -106,7 +109,7 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
               {...register("province", { required: false })}
               name="province"
               type="text"
-              placeholder="Kronoberg "
+              placeholder="Province"
               disabled={isEdit ? false : true}
               readOnly={isEdit ? false : true}
               defaultValue={store?.company_address?.province}
@@ -118,7 +121,7 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
               {...register("city", { required: false })}
               name="city"
               type="text"
-              placeholder="Stockholm "
+              placeholder="City"
               disabled={isEdit ? false : true}
               readOnly={isEdit ? false : true}
               defaultValue={store?.company_address?.city}
@@ -130,7 +133,7 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
               {...register("address", { required: false })}
               name="address"
               type="text"
-              placeholder="Storgatan29 "
+              placeholder="Address"
               disabled={isEdit ? false : true}
               readOnly={isEdit ? false : true}
               defaultValue={store?.company_address?.address}
@@ -141,8 +144,8 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
             <input
               {...register("postal_code", { required: false })}
               name="postal_code"
-              type="number"
-              placeholder="36258 "
+              type="text"
+              placeholder="Postal code "
               disabled={isEdit ? false : true}
               readOnly={isEdit ? false : true}
               defaultValue={store?.company_address?.postal_code}

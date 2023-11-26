@@ -56,9 +56,10 @@ export default function Home({ categories }) {
   );
 }
 
-export async function getStaticProps() {
-  const res = await fetch(`${base_url}/categories/show/cate`);
+export async function getServerSideProps() {
+  const res = await fetch(`${base_url}/categories/all/cate`);
   const categories = await res.json();
+
   return {
     props: {
       categories: categories.data,

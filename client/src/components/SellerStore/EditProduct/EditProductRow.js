@@ -9,7 +9,7 @@ import {
   PopoverHandler,
   Spinner,
 } from "@material-tailwind/react";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const EditProductRow = ({
@@ -23,6 +23,8 @@ const EditProductRow = ({
   const [patchProduct, { isLoading }] = usePatchProductMutation();
   const dispatch = useDispatch();
   const isExist = selectedItems.find((p) => p._id === product._id);
+  const [statusChange, setStatusChange] = useState("");
+  const [productDelete, setProductDelete] = useState("");
 
   const updateStatus = async () => {
     const status = {
@@ -34,6 +36,7 @@ const EditProductRow = ({
     };
     await patchProduct(options);
   };
+
   return (
     <tr
       key={index}
@@ -62,8 +65,16 @@ const EditProductRow = ({
           >
             Edit
           </h1>
-          <Popover placement="bottom">
-            <PopoverHandler>
+          <Popover
+            open={productDelete === product?._id}
+            handler={() => setProductDelete("")}
+            placement="bottom"
+          >
+            <PopoverHandler
+              onClick={() =>
+                setProductDelete(productDelete ? "" : product?._id)
+              }
+            >
               <div className="w-5 text-red-600 hover:text-pmd cursor-pointer">
                 {trash}
               </div>
@@ -129,8 +140,14 @@ const EditProductRow = ({
         (MOQ)
       </td>
       <td className="px-2 text-center">
-        <Popover placement="bottom">
-          <PopoverHandler>
+        <Popover
+          open={statusChange === product?._id}
+          placement="bottom"
+          handler={() => setStatusChange("")}
+        >
+          <PopoverHandler
+            onClick={() => setStatusChange(statusChange ? "" : product?._id)}
+          >
             <Button className="hover:text-pmd bg-pm py-2 rounded text-center">
               {product?.status === "Publish" ? "Published" : "Draft"}
             </Button>

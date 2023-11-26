@@ -41,14 +41,14 @@ const StoreInformation = ({ store, isAuthor }) => {
     store?.business_information?.website ||
     store?.business_information?.year_established;
 
-  console.log(store);
+  // console.log(store);
 
-  //   console.log(isTrue ? true : false);
+  //   console.log(isTrue ? true : false);   ${!isAuthor && !isTrue ? "hidden" : "block"}
 
   return (
     <div
       className={`w-full p-3 border rounded-md relative my-4
-      ${!isAuthor && !isTrue ? "hidden" : "block"}
+    
         `}
     >
       {isAuthor && (

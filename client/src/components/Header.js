@@ -34,9 +34,11 @@ import {
   useMyNotificationsQuery,
   useSeenAllNotificationsMutation,
 } from "@/redux/features/conversation/conversationApi";
+import useAuth from "@/lib/useAuth";
 
 const Header = () => {
   const { user, signOut, setMsgOpen, msgOpen } = useContext(AuthContext);
+  const { logout } = useAuth({ redirectTo: false });
   const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
   const { data: ntfData } = useMyNotificationsQuery();
   const { totalNotifications, notifications } = useSelector(
@@ -56,7 +58,7 @@ const Header = () => {
   };
 
   const handleSignout = () => {
-    signOut();
+    logout();
     dispatch(handleClearConversations());
     setStoreInfo(null);
     router.reload();
@@ -222,7 +224,7 @@ const Header = () => {
           </p>
         </div>
 
-        {user?._id && (
+        {/* {user?._id && (
           <Menu>
             <MenuHandler className="outline-none border-none">
               <button>
@@ -250,7 +252,7 @@ const Header = () => {
             </MenuHandler>
             <Notifications />
           </Menu>
-        )}
+        )} */}
 
         {user?._id && (
           <div className="hidden md:block">

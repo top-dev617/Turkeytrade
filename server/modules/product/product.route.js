@@ -15,6 +15,7 @@ const {
   deleteProductsByIds,
   getDraftProductsByStoreId,
   getProductsByGroupId,
+  getProductsBySubCateId,
 } = require("./product.controller");
 const { upload, handleMulterError } = require("../../config/multerConfig");
 
@@ -26,7 +27,8 @@ router.get("/", getProducts);
 router.get("/store/:storeId", getProductsByStoreId);
 router.get("/group/:groupId", getProductsByGroupId);
 router.get("/store/:storeId/draft", getDraftProductsByStoreId);
-router.get("/category/:cateId", getProductsByCateId);
+router.get("/category/:cateSlug", getProductsByCateId);
+router.get("/category/:cateSlug/:subCateSlug", getProductsBySubCateId);
 router.get("/show/products", getShowProducts);
 router.get("/latest/products", getLatestProducts);
 router.patch("/:id", upload.single("video"), handleMulterError, updateProduct);

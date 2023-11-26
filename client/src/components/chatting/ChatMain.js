@@ -6,13 +6,21 @@ import Chatting from "./Chatting";
 import { useRouter } from "next/router";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
 import {
+  Badge,
+  IconButton,
+  Menu,
+  MenuHandler,
   Popover,
   PopoverContent,
   PopoverHandler,
 } from "@material-tailwind/react";
+import { useSelector } from "react-redux";
 
 const ChatMain = () => {
-  const { user, msgOpen, setMsgOpen } = useContext(AuthContext);
+  const { user, msgOpen, setMsgOpen, msgRef } = useContext(AuthContext);
+  const { totalNotifications, notifications } = useSelector(
+    (state) => state.conversation
+  );
   const router = useRouter();
   const chatCloseRef = useRef();
   const handleMsg = () => {
@@ -29,17 +37,27 @@ const ChatMain = () => {
     }
   };
 
+  const hn = () => {
+    setMsgOpen(false);
+  };
+
   return (
     <>
       {!router.pathname.includes("/dashboard") && (
-        <Popover open={msgOpen} handler={() => setMsgOpen(false)}>
+        <Popover open={msgOpen} handler={() => hn()}>
           <PopoverContent className="p-0">
             {msgOpen && <Chatting user={user} setMsgOpen={setMsgOpen} />}
           </PopoverContent>
           <PopoverHandler onClick={() => handleMsg()}>
             <div className="sms_btn text-end mt-4 mt-lg-0 hidden md:block">
               <button>
-                <img src={sms.src} alt="" /> Messages
+                <img src={sms.src} alt="" />
+                <p className="">
+                  Messages{" "}
+                  <span className="text-red-600 font-semibold">
+                    ({totalNotifications})
+                  </span>{" "}
+                </p>
               </button>
             </div>
           </PopoverHandler>
