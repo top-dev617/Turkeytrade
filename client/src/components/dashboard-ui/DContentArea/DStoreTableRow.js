@@ -1,4 +1,5 @@
 import { useStatusUpdateMutation } from "@/redux/features/stores/storeApi";
+import { base_url } from "@/utils/auth/global";
 import {
   Typography,
   Avatar,
@@ -51,7 +52,7 @@ const DStoreTableRow = ({ index, data, refetch }) => {
         <div className="flex items-center gap-3">
           {data?.logo ? (
             <Avatar
-              src={data?.logo}
+              src={`${base_url}/uploads/${data?.logo}`}
               alt=""
               size="md"
               className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain w-12 h-12 rounded-full p-1"
@@ -71,6 +72,11 @@ const DStoreTableRow = ({ index, data, refetch }) => {
       <td className="text-gray-900 px-4 py-1">
         <Typography variant="small" color="blue-gray" className="font-normal">
           {data?.user?.name}
+        </Typography>
+      </td>
+      <td className="text-gray-900 px-4 py-1">
+        <Typography variant="small" color="blue-gray" className="font-normal">
+          {data?.user?.role}
         </Typography>
       </td>
       <td className="text-gray-900 px-4 py-1">

@@ -27,7 +27,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { base_url } from "@/utils/auth/global";
 import VideoPlayer from "@/components/commons/video-player/VideoPlayer";
-import { trash } from "@/utils/datas/icons";
+import { iInfo, trash } from "@/utils/datas/icons";
 import { useEffect } from "react";
 
 const modules = {
@@ -55,7 +55,6 @@ const formats = [
 
 const UploadProduct = ({ store }) => {
   const { editProduct } = useSelector((state) => state.product);
-  const { uploadImg } = useContext(AuthContext);
   const { data } = useGetCategoriesQuery();
   const { data: productGroups } = useGetProductGroupByStoreIdQuery(store?._id);
   const [postProduct] = usePostProductMutation();
@@ -66,6 +65,7 @@ const UploadProduct = ({ store }) => {
     control,
     register,
     reset,
+    watch,
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
@@ -119,7 +119,7 @@ const UploadProduct = ({ store }) => {
         new Blob([img], { type: "application/octet-stream" })
       );
     } else {
-      return img;
+      return `${base_url}/uploads/${img}`;
     }
   };
 
@@ -347,21 +347,19 @@ const UploadProduct = ({ store }) => {
   const handleAddProduct = async (data) => {
     if (!category && !saveDraft) {
       categoryRef.current.focus();
-      setCategoryError("Category / Sub Category is Required");
+      setCategoryError("Category is Required");
       return;
     }
     if (!subCategory && !saveDraft) {
       categoryRef.current.focus();
-      setCategoryError("Category / Sub Category is Required");
+      setCategoryError("Sub Category is Required");
       return;
     }
 
     if (!unit && !saveDraft) {
-      toast.warning("Unit is Required");
       return;
     }
     if (!time && !saveDraft) {
-      toast.warning("Lead Time is Required");
       return;
     }
     if (!keywords?.length && !saveDraft) {
@@ -373,9 +371,8 @@ const UploadProduct = ({ store }) => {
       img0Ref.current.focus();
       return;
     }
-    console.log(saveDraft);
+    // console.log(saveDraft);
     if ((!content || content?.length < 101) && !saveDraft) {
-      console.log("dfdsf");
       setDescriptionError(true);
       descriptionRef.current.focus();
       return;
@@ -401,8 +398,8 @@ const UploadProduct = ({ store }) => {
             },
     };
 
-    const imagesData = await uploadImg(productImages);
-    const images = imagesData.filter(Boolean);
+    // const imagesData = await uploadImg(productImages);
+    const images = productImages.filter(Boolean);
 
     if (!images.length && !saveDraft) {
       toast.warning("Image is Required");
@@ -436,10 +433,21 @@ const UploadProduct = ({ store }) => {
     if (video) {
       newProduct.append("video", formVideo);
     }
+    if (images?.length > 0) {
+      images.forEach((file, index) => {
+        newProduct.append(`images`, file);
+      });
+    }
 
     // -------------first part-------------
     if (editProduct && editProduct?._id) {
-      newProduct.append("productData", JSON.stringify(productData));
+      newProduct.append(
+        "productData",
+        JSON.stringify({
+          ...productData,
+          status: "Publish",
+        })
+      );
 
       const options = {
         data: newProduct,
@@ -493,7 +501,11 @@ const UploadProduct = ({ store }) => {
       setSaveDraft(false);
       setDraftLoading(false);
       if (result?.data?.status === true) {
-        toast.success("Product Add Successfully");
+        toast.success(
+          saveDraft
+            ? "Saved As Draft Successfully"
+            : "Product Publish Successfully"
+        );
         reset();
         setKeywords([]);
         setContent("");
@@ -503,7 +515,11 @@ const UploadProduct = ({ store }) => {
         setLoading(false);
         setVideo(null);
       } else {
-        toast.error("Product Add unsuccessfully");
+        toast.error(
+          saveDraft
+            ? "Saved As Draft unsuccessfully"
+            : "Product Publish unsuccessfully"
+        );
         setLoading(false);
       }
     }
@@ -512,20 +528,18 @@ const UploadProduct = ({ store }) => {
   const handleError = () => {
     if (!category && !saveDraft) {
       categoryRef.current.focus();
-      setCategoryError("Category / Sub Category is Required");
+      setCategoryError("Category is Required");
       return;
     }
     if (!subCategory && !saveDraft) {
       categoryRef.current.focus();
-      setCategoryError("Category / Sub Category is Required");
+      setCategoryError("Sub Category is Required");
       return;
     }
     if (!unit && !saveDraft) {
-      toast.warning("Unit is Required");
       return;
     }
     if (!time && !saveDraft) {
-      toast.warning("Lead Time is Required");
       return;
     }
     if (!keywords?.length && !saveDraft) {
@@ -543,6 +557,7 @@ const UploadProduct = ({ store }) => {
       return;
     }
   };
+
   return (
     <div className="upload_product md:px-8">
       <div className="container">
@@ -554,7 +569,7 @@ const UploadProduct = ({ store }) => {
             <div className="col-12 col-lg-6 ">
               <div className="mb-4">
                 <label>
-                  Product name{" "}
+                  Product name <small className="text-red-600">*</small>
                   <span className="text-sm">(max 100 characters)</span>
                 </label>
                 <input
@@ -566,7 +581,7 @@ const UploadProduct = ({ store }) => {
                     },
                   })}
                   // maxLength={100}
-                  className="mb-1"
+                  className={`mb-1 ${errors.title && "border !border-red-600"}`}
                   type="text"
                   placeholder="Product name"
                   defaultValue={editProduct?.title}
@@ -579,19 +594,25 @@ const UploadProduct = ({ store }) => {
               </div>
             </div>
 
-            <div className="col-12 col-lg-6 ">
-              <div ref={categoryRef}>
-                <label>Category / Sub Category</label>
-                <div
-                  className={`h-[62px] w-full grid grid-cols-2 gap-2 ${
-                    categoryError &&
-                    !subCategory &&
-                    "border !border-red-600 rounded-md"
-                  }`}
-                >
+            <div
+              className="col-12 col-lg-6 mb-4 md:mb-0"
+              ref={categoryRef}
+              tabIndex={0}
+            >
+              <div
+                className={`h-[62px] w-full grid grid-cols-2 gap-2 ${
+                  categoryError && !subCategory && " rounded-md"
+                }`}
+              >
+                <div>
+                  <label>
+                    Main Category <small className="text-red-600">*</small>
+                  </label>
                   <select
                     onClick={(e) => handleCategory(e.target.value)}
-                    className="cursor-pointer"
+                    className={`cursor-pointer mb-1 ${
+                      !category && "border !border-red-600"
+                    }`}
                   >
                     {data?.data.map((cate, i) => (
                       <option
@@ -603,10 +624,22 @@ const UploadProduct = ({ store }) => {
                       </option>
                     ))}
                   </select>
+                  {!category && (
+                    <p className="text-red-600 text-xs italic">
+                      Main Category is Required
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <label>
+                    Sub Category <small className="text-red-600">*</small>
+                  </label>
                   <select
                     disabled={!subCategories?.length}
                     onClick={(e) => setSubCategory(e.target.value)}
-                    className="cursor-pointer"
+                    className={`cursor-pointer mb-1 ${
+                      !subCategory && "border !border-red-600"
+                    }`}
                   >
                     {subCategories?.map((subCate, i) => (
                       <option
@@ -618,19 +651,20 @@ const UploadProduct = ({ store }) => {
                       </option>
                     ))}
                   </select>
+                  {!subCategory && (
+                    <p className="text-red-600 text-xs italic">
+                      Sub Category is Required
+                    </p>
+                  )}
                 </div>
-                {categoryError && !subCategory && (
-                  <p className="text-red-600 text-xs italic">
-                    Category / Sub Category is Required
-                  </p>
-                )}
               </div>
             </div>
 
-            <div className="col-12">
+            <div className="col-12 !mt-8 md:!mt-0">
               <div>
                 <label>
-                  Keyword <img src={question} alt="" />
+                  Keyword <small className="text-red-600">*</small>
+                  <img src={question} alt="" />
                 </label>
                 <div className="d-flex justify-items-center flex-wrap ">
                   {keywords?.map((keyword, index) => (
@@ -680,6 +714,11 @@ const UploadProduct = ({ store }) => {
                     Add
                   </div>
                 </div>
+                {keywords?.length === 0 && keywordsError && (
+                  <p className="text-red-600 text-xs italic">
+                    Keyword is Required
+                  </p>
+                )}
               </div>
             </div>
 
@@ -698,19 +737,23 @@ const UploadProduct = ({ store }) => {
 
             <div className="col-12 col-lg-6 ">
               <div>
-                <label>Custom Category </label>
+                <label>
+                  Custom Category <small className="text-red-600">*</small>
+                </label>
                 <div className="flex justify-between items-start h-full w-full gap-x-1">
                   <select
                     {...register("group", {
                       required: saveDraft ? false : true,
                     })}
-                    className="w-full h-full flex-grow cursor-pointer"
+                    className={`w-full h-full flex-grow cursor-pointer mb-1 
+                    ${errors.group ? "!border-red-600 border" : ""}`}
                   >
+                    <option value="">Select Category</option>
                     {productGroups?.data?.map((value, index) => (
                       <option
                         key={index}
-                        selected={editProduct?.group === value?._id}
                         value={value?._id}
+                        selected={editProduct?.group === value?._id}
                       >
                         {value?.title}
                       </option>
@@ -731,12 +774,18 @@ const UploadProduct = ({ store }) => {
                     />
                   </Popover>
                 </div>
+                {errors.group && (
+                  <p className="text-red-600 text-xs italic">
+                    Custom Category is Required
+                  </p>
+                )}
               </div>
             </div>
 
             <div className="col-12 mb-4">
               <label>
-                Product photos <span>(max 6 photos)</span>{" "}
+                Product photos <small className="text-red-600">*</small>{" "}
+                <span>(max 6 photos)</span>{" "}
               </label>
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -1002,18 +1051,23 @@ const UploadProduct = ({ store }) => {
               </div>
             </div>
 
-            <div className="col-12 col-lg-6 ">
+            <div className="col-12 col-lg-6 mb-4">
               <div>
-                <label>Unit *</label>
+                <label>
+                  Unit <small className="text-red-600">*</small>
+                </label>
                 <select
                   onChange={(e) => handleSetUnit(e.target.value)}
-                  required
+                  className={`mb-1 ${
+                    !unit && !saveDraft && "border !border-red-600"
+                  }`}
                 >
+                  <option value="">Select Unit</option>
                   {units.map((value, index) => (
                     <option
                       key={index}
-                      selected={value.singular === unit?.singular}
                       value={value.singular}
+                      selected={value.singular === unit?.singular}
                     >
                       {
                         value[
@@ -1025,13 +1079,19 @@ const UploadProduct = ({ store }) => {
                     </option>
                   ))}
                 </select>
+                {!unit && !saveDraft && (
+                  <p className="text-red-600 text-xs italic">
+                    Unit is Required
+                  </p>
+                )}
               </div>
             </div>
 
             <div className="col-12 col-lg-6 ">
               <div>
-                <label>
-                  MOQ <img src={question} alt="" />
+                <label className="flex items-center gap-1">
+                  MOQ <small className="text-red-600">*</small>{" "}
+                  <div className="w-4 text-red-600">{iInfo}</div>
                 </label>
                 <input
                   {...register("moq", {
@@ -1040,7 +1100,7 @@ const UploadProduct = ({ store }) => {
                   type="text"
                   placeholder="MOQ "
                   defaultValue={editProduct?.moq}
-                  className="mb-1"
+                  className={`mb-1 ${errors.moq && "border !border-red-600"}`}
                 />
               </div>
               {errors.moq && (
@@ -1051,7 +1111,9 @@ const UploadProduct = ({ store }) => {
             </div>
 
             <div className="col-12 col-lg-6 ">
-              <label>FOB-price</label>
+              <label>
+                FOB-price <small className="text-red-600">*</small>
+              </label>
               <div className="d-flex align-items-center gap-5 mb-5">
                 <div className="d-flex gap-2 align-items-center">
                   <input
@@ -1080,7 +1142,7 @@ const UploadProduct = ({ store }) => {
                       <>
                         <div
                           key={index}
-                          className="d-flex flex-col md:flex-row align-items-center gap-5 mb-3 w-full cursor-default"
+                          className="flex-none md:flex flex-col md:flex-row align-items-center gap-5 mb-3 w-full cursor-default"
                         >
                           <div className="flex flex-col-reverse items-start md:flex-row gap-2 md:items-center">
                             <input
@@ -1167,7 +1229,7 @@ const UploadProduct = ({ store }) => {
               ) : (
                 <div style={{ maxWidth: "1000px" }}>
                   <>
-                    <div className="d-flex flex-col md:flex-row align-items-center gap-5 mb-3 w-full">
+                    <div className="flex-none md:flex flex-col md:flex-row align-items-center gap-5 mb-3 w-full">
                       <div className="flex flex-col-reverse items-start md:flex-row gap-2 md:items-center">
                         <input
                           className="mb-0 md:min-w-[120px] w-full"
@@ -1215,7 +1277,8 @@ const UploadProduct = ({ store }) => {
 
               <div>
                 <label>
-                  Lead time <img src={question} alt="" />
+                  Lead time <small className="text-red-600">*</small>
+                  <img src={question} alt="" />
                 </label>
                 <div className="d-flex flex-wrap items-start md:items-center gap-4 mb-5">
                   <div className="d-flex gap-4 align-items-center">
@@ -1225,7 +1288,9 @@ const UploadProduct = ({ store }) => {
                       })}
                       id="special"
                       name="from"
-                      className="mb-0"
+                      className={`mb-0 ${
+                        errors.from && "border !border-red-600"
+                      }`}
                       type="number"
                       placeholder="From"
                       min={0}
@@ -1241,7 +1306,9 @@ const UploadProduct = ({ store }) => {
                       })}
                       id="special"
                       name="to"
-                      className="mb-0"
+                      className={`mb-0 ${
+                        errors.to && "border !border-red-600"
+                      }`}
                       type="number"
                       min={1}
                       placeholder="To"
@@ -1266,6 +1333,12 @@ const UploadProduct = ({ store }) => {
                     </select>
                   </div>
                 </div>
+                {/* {errors?.from ||
+                  (errors?.to && (
+                    <p className="text-red-600 text-xs italic">
+                      Lead time is Required
+                    </p>
+                  ))} */}
               </div>
             </div>
 
@@ -1274,7 +1347,7 @@ const UploadProduct = ({ store }) => {
             <div className="col-12 mb-5 pb-3">
               <div>
                 <label ref={descriptionRef} tabIndex={0}>
-                  Product details{" "}
+                  Product details <small className="text-red-600">*</small>
                   <span>
                     (Write a detailed description of your product
                     {descriptionError && content.length < 101 && (
@@ -1314,7 +1387,7 @@ const UploadProduct = ({ store }) => {
                 {loading && !saveDraft ? (
                   <Spinner />
                 ) : (
-                  <> {editProduct?._id ? "Update" : "Submit"}</>
+                  <> {editProduct?._id ? "Publish" : "Publish"}</>
                 )}
               </button>
               {!editProduct && (

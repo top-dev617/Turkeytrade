@@ -1182,3 +1182,11 @@ section.loaders .loader {
 .scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
 }
+
+@media (max-width: 720px) {
+  .store_tab .tab_container {
+    border-radius: 0px;
+    background: #fff;
+    box-shadow: none !important;
+  }
+}

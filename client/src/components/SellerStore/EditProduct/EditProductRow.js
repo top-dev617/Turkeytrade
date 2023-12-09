@@ -1,5 +1,6 @@
 import { usePatchProductMutation } from "@/redux/features/products/productApi";
 import { setEditProduct } from "@/redux/features/products/productSlice";
+import { base_url } from "@/utils/auth/global";
 import { trash } from "@/utils/datas/icons";
 import { getPluralUnit } from "@/utils/helpers/getPluralUnit";
 import {
@@ -102,7 +103,7 @@ const EditProductRow = ({
         <img
           className="w-20 h-16 mx-auto"
           loading="lazy"
-          src={product?.images[0]}
+          src={`${base_url}/uploads/${product?.images[0]}`}
         />
       </td>
       <td className="px-2 text-center">

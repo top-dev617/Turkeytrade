@@ -11,7 +11,7 @@ const Search = ({ products }) => {
     setIsLoading(false);
   }, 2000);
   return (
-    <div className="container mx-auto my-8">
+    <div className="container mx-auto !my-8 min-h-screen">
       {!isLoading ? (
         <>
           {products?.length > 0 ? (

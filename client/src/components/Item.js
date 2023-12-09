@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Loading from "./commons/Loading";
 import { noProducts } from "@/utils/icons/icons";
+import { base_url } from "@/utils/auth/global";
 
 const Item = ({ items, isLoading: loading }) => {
   const pathname = usePathname();
@@ -31,7 +32,10 @@ const Item = ({ items, isLoading: loading }) => {
                     <div className="overflow-hidden">
                       <img
                         className="img-fluid h-[80px] sm:h-[120px] md:h-[150px] lg:h-[180px] w-full hover:scale-125 duration-300 rounded-md object-contain"
-                        src={item?.images?.length && item?.images[0]}
+                        src={
+                          item?.images?.length &&
+                          `${base_url}/uploads/${item?.images[0]}`
+                        }
                         loading="lazy"
                         alt=""
                       />
@@ -43,11 +47,11 @@ const Item = ({ items, isLoading: loading }) => {
                         } name !text-sm mb-2`}
                       >
                         {item?.title?.length > 20 ? (
-                          <h6 className="!text-sm lg:!text-2xl label break-all">
+                          <h6 className="!text-sm lg:!text-xl label break-all">
                             {item?.title?.slice(0, 20)}...
                           </h6>
                         ) : (
-                          <h6 className="!text-sm lg:!text-2xl label break-all">
+                          <h6 className="!text-sm lg:!text-xl label break-all">
                             {item?.title}
                           </h6>
                         )}
@@ -56,18 +60,31 @@ const Item = ({ items, isLoading: loading }) => {
                         <>
                           <div className="flex items-center flex-wrap gap-1">
                             {item?.price?.price_type === "ladder_price" ? (
-                              <h1 className="font-bold text-black text-sm md:text-2xl">
+                              <h1 className="font-bold text-black text-sm md:text-xl">
                                 € {item.minPrice} - {item.maxPrice}
                               </h1>
                             ) : (
-                              <h1 className="label-list">
-                                <span className="text-sm md:!text-3xl !font-bold">
-                                  {item?.price?.one_price?.from} -{" "}
-                                  {item?.price?.one_price?.to}
-                                </span>{" "}
-                                euro/
-                                {item?.unit?.singular.toLowerCase()}
-                              </h1>
+                              <>
+                                {parseInt(item?.price?.one_price?.from) ===
+                                parseInt(item?.price?.one_price?.to) ? (
+                                  <h1 className="label-list">
+                                    <span className="text-sm md:!text-2xl !font-bold">
+                                      {item?.price?.one_price?.from}
+                                    </span>{" "}
+                                    euro/
+                                    {item?.unit?.singular.toLowerCase()}
+                                  </h1>
+                                ) : (
+                                  <h1 className="label-list">
+                                    <span className="text-sm md:!text-2xl !font-bold">
+                                      {item?.price?.one_price?.from} -{" "}
+                                      {item?.price?.one_price?.to}
+                                    </span>{" "}
+                                    euro/
+                                    {item?.unit?.singular.toLowerCase()}
+                                  </h1>
+                                )}
+                              </>
                             )}
                           </div>
 

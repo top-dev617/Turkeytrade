@@ -47,7 +47,7 @@ const BrowseCategory = ({ categories }) => {
                 className="!w-full outline-none"
               >
                 <Button
-                  className="outline-none flex items-center justify-between bg-white shadow-none hover:!bg-gray-100 rounded duration-150 gap-5 h-10 w-full px-1 hover:text-gray-800"
+                  className="outline-none flex items-center justify-between bg-white shadow-none hover:!bg-gray-100 rounded duration-150 gap-5 h-10 w-full px-1 hover:text-gray-800 normal-case"
                   key={index}
                 >
                   <p
@@ -73,7 +73,7 @@ const BrowseCategory = ({ categories }) => {
                       className="!w-full outline-none"
                     >
                       <Button
-                        className="outline-none flex items-center justify-between bg-white shadow-none hover:!bg-gray-100 rounded duration-150 gap-5 h-10 w-full px-1 hover:text-gray-800"
+                        className="outline-none flex items-center justify-between bg-white shadow-none hover:!bg-gray-100 rounded duration-150 gap-5 h-10 w-full px-1 hover:text-gray-800 normal-case"
                         key={i}
                       >
                         <p

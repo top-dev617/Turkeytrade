@@ -80,6 +80,15 @@ const DStores = () => {
                 Author
               </Typography>
             </th>
+            <th className="bg-pm py-3 text-left text-white">
+              <Typography
+                variant="small"
+                color="white"
+                className="font-normal leading-none"
+              >
+                Role
+              </Typography>
+            </th>
 
             <th className="bg-pm py-3 text-left text-white">
               <Typography

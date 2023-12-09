@@ -61,7 +61,9 @@ const SingleChatUser = ({ chatData, type }) => {
         {receiverUser?.logo || receiverUser?.image ? (
           <img
             className="w-full h-full rounded-full bg-white object-cover"
-            src={receiverUser?.logo || receiverUser?.image}
+            src={`${base_url}/uploads/${
+              receiverUser?.logo || receiverUser?.image
+            }`}
             alt=""
           />
         ) : (

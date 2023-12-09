@@ -1,104 +1,92 @@
 {
   "..\\..\\node_modules\\react-player\\lazy\\ReactPlayer.js -> ./Preview": {
-    "id": 57284,
+    "id": "..\\..\\node_modules\\react-player\\lazy\\ReactPlayer.js -> ./Preview",
     "files": [
-      "static/chunks/reactPlayerPreview.dc80e84b54ddb38b.js"
+      "static/chunks/reactPlayerPreview.js"
     ]
   },
   "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./DailyMotion": {
-    "id": 65134,
+    "id": "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./DailyMotion",
     "files": [
-      "static/chunks/reactPlayerDailyMotion.05f5777c9da7c423.js"
+      "static/chunks/reactPlayerDailyMotion.js"
     ]
   },
   "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Facebook": {
-    "id": 26429,
+    "id": "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Facebook",
     "files": [
-      "static/chunks/reactPlayerFacebook.10cfea0b434fe5c6.js"
+      "static/chunks/reactPlayerFacebook.js"
     ]
   },
   "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./FilePlayer": {
-    "id": 33364,
+    "id": "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./FilePlayer",
     "files": [
-      "static/chunks/reactPlayerFilePlayer.0e1b22870060d580.js"
+      "static/chunks/reactPlayerFilePlayer.js"
     ]
   },
   "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Kaltura": {
-    "id": 49289,
+    "id": "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Kaltura",
     "files": [
-      "static/chunks/reactPlayerKaltura.88aff2a168ef47a3.js"
+      "static/chunks/reactPlayerKaltura.js"
     ]
   },
   "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Mixcloud": {
-    "id": 99734,
+    "id": "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Mixcloud",
     "files": [
-      "static/chunks/reactPlayerMixcloud.e806ffcc5e8f64e3.js"
+      "static/chunks/reactPlayerMixcloud.js"
     ]
   },
   "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./SoundCloud": {
-    "id": 76655,
+    "id": "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./SoundCloud",
     "files": [
-      "static/chunks/reactPlayerSoundCloud.51dbb2f84ef6ecf5.js"
+      "static/chunks/reactPlayerSoundCloud.js"
     ]
   },
   "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Streamable": {
-    "id": 76479,
+    "id": "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Streamable",
     "files": [
-      "static/chunks/reactPlayerStreamable.6e082ee2be0eb2b4.js"
+      "static/chunks/reactPlayerStreamable.js"
     ]
   },
   "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Twitch": {
-    "id": 89743,
+    "id": "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Twitch",
     "files": [
-      "static/chunks/reactPlayerTwitch.2fabcbf0cbb78bf9.js"
+      "static/chunks/reactPlayerTwitch.js"
     ]
   },
   "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Vidyard": {
-    "id": 27287,
+    "id": "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Vidyard",
     "files": [
-      "static/chunks/reactPlayerVidyard.99e7e154ad1e95e0.js"
+      "static/chunks/reactPlayerVidyard.js"
     ]
   },
   "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Vimeo": {
-    "id": 86746,
+    "id": "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Vimeo",
     "files": [
-      "static/chunks/reactPlayerVimeo.08e080a8fe7df0d3.js"
+      "static/chunks/reactPlayerVimeo.js"
     ]
   },
   "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Wistia": {
-    "id": 13134,
+    "id": "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./Wistia",
     "files": [
-      "static/chunks/reactPlayerWistia.02e5eb4f395287b7.js"
+      "static/chunks/reactPlayerWistia.js"
     ]
   },
   "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./YouTube": {
-    "id": 85034,
+    "id": "..\\..\\node_modules\\react-player\\lazy\\players\\index.js -> ./YouTube",
     "files": [
-      "static/chunks/reactPlayerYouTube.31fb7f27adf2e0d3.js"
+      "static/chunks/reactPlayerYouTube.js"
     ]
   },
-  "..\\components\\SearchBanner.js -> emoji-picker-react": {
-    "id": 63048,
-    "files": []
-  },
   "..\\components\\SellerStore\\StoreTab.js -> ./EditProduct/EditProduct": {
-    "id": 39373,
+    "id": "..\\components\\SellerStore\\StoreTab.js -> ./EditProduct/EditProduct",
     "files": [
-      "static/chunks/eabe11fc.8bf4b08503ac7a4a.js",
-      "static/css/8aee48eb52f4c731.css",
-      "static/chunks/6977.0601a5b1af6461af.js",
-      "static/chunks/1142.93b7399af59e9f34.js",
-      "static/chunks/9373.132c2330a5cfd490.js"
+      "static/chunks/src_components_SellerStore_EditProduct_EditProduct_js.js"
     ]
   },
   "..\\components\\SellerStore\\StoreTab.js -> ./UploadProduct/UploadProductMain": {
-    "id": 52210,
+    "id": "..\\components\\SellerStore\\StoreTab.js -> ./UploadProduct/UploadProductMain",
     "files": [
-      "static/chunks/eabe11fc.8bf4b08503ac7a4a.js",
-      "static/css/8aee48eb52f4c731.css",
-      "static/chunks/6977.0601a5b1af6461af.js",
-      "static/chunks/1142.93b7399af59e9f34.js",
-      "static/chunks/2210.575eb23b0a01b14b.js"
+      "static/chunks/src_components_SellerStore_UploadProduct_UploadProductMain_js.js"
     ]
   }
 }

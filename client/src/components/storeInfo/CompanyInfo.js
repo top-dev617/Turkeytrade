@@ -18,7 +18,7 @@ const CompanyInfo = ({ store }) => {
           <img
             className="max-w-[300px] object-cover"
             loading="lazy"
-            src={store?.logo}
+            src={`${base_url}/uploads/${store?.logo}`}
             alt="store logo"
           />
         </div>
@@ -31,7 +31,7 @@ const CompanyInfo = ({ store }) => {
                   key={index}
                   loading="lazy"
                   className="w-full h-full object-contain"
-                  src={ctr}
+                  src={`${base_url}/uploads/${ctr}`}
                   alt=""
                 />
               </div>

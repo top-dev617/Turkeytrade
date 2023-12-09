@@ -21,7 +21,15 @@ const { upload, handleMulterError } = require("../../config/multerConfig");
 
 const router = express.Router();
 
-router.post("/", upload.single("video"), handleMulterError, createProduct);
+router.post(
+  "/",
+  upload.fields([
+    { name: "video", maxCount: 1 },
+    { name: "images", maxCount: 6 },
+  ]),
+  handleMulterError,
+  createProduct
+);
 router.get("/:id", getProductById);
 router.get("/", getProducts);
 router.get("/store/:storeId", getProductsByStoreId);
@@ -31,7 +39,15 @@ router.get("/category/:cateSlug", getProductsByCateId);
 router.get("/category/:cateSlug/:subCateSlug", getProductsBySubCateId);
 router.get("/show/products", getShowProducts);
 router.get("/latest/products", getLatestProducts);
-router.patch("/:id", upload.single("video"), handleMulterError, updateProduct);
+router.patch(
+  "/:id",
+  upload.fields([
+    { name: "video", maxCount: 1 },
+    { name: "images", maxCount: 6 },
+  ]),
+  handleMulterError,
+  updateProduct
+);
 router.delete("/delete/:id", deleteProductById);
 router.delete("/delete/many/ids", isAuth, deleteProductsByIds);
 router.get("/search/products", getSearchProducts);

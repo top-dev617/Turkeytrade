@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import { base_url } from "@/utils/auth/global";
 
 const UserInfo = () => {
   const { user, setUser, uploadImg } = useContext(AuthContext);
@@ -24,11 +25,14 @@ const UserInfo = () => {
   };
 
   const handleImageUpdate = async () => {
-    const img = await uploadImg([image]);
-    if (img) {
+    const newData = new FormData();
+    if (image) {
+      newData.append(`image`, image);
+    }
+    if (image) {
       const options = {
         id: user?._id,
-        data: { image: img[0] },
+        data: newData,
       };
       const result = await patchUserInfoById(options);
       if (result?.data?.status === true) {
@@ -57,7 +61,7 @@ const UserInfo = () => {
             <>
               {user?.image ? (
                 <img
-                  src={user?.image}
+                  src={`${base_url}/uploads/${user?.image}`}
                   className="w-full h-full object-cover"
                   alt=""
                 />

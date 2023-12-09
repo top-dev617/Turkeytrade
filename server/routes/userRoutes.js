@@ -14,13 +14,14 @@ const {
   updateUserInfo,
 } = require("../controller/userController");
 const { isAuth } = require("../utils/middleware");
+const { upload, handleMulterError } = require("../config/multerConfig");
 
 const router = express.Router();
 
 router.post("/signup", registerUser);
 router.post("/login", loginUser);
 router.post("/verifyEmail", emailVerification);
-router.patch("/:id", updateUserInfo);
+router.patch("/:id", upload.single("image"), handleMulterError, updateUserInfo);
 router.get("/", isAuth, getAllUsers);
 router.delete("/delete/:id", deleteUser);
 router.get("/:id", getUser);

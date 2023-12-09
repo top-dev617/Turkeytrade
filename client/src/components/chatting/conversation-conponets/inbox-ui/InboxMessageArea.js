@@ -12,9 +12,10 @@ import moment from "moment";
 import Loading from "@/components/commons/Loading";
 import SendMessageBox from "../SendMessageBox";
 import InboxSingleMessage from "./InboxSingleMessage";
+import { base_url } from "@/utils/auth/global";
 
 const InboxMessageArea = ({ auth, messageClassName }) => {
-  const { inboxReceiverData, inboxChatId } = useSelector(
+  const { inboxReceiverData, inboxChatId, image } = useSelector(
     (state) => state.conversation
   );
   const {
@@ -34,9 +35,15 @@ const InboxMessageArea = ({ auth, messageClassName }) => {
       members: [inboxReceiverData?._id, auth?._id],
       productId: "",
     };
-
+    const newMessageFormData = new FormData();
+    newMessageFormData.append(`message`, JSON.stringify(newMessage));
+    if (image) {
+      [image].forEach((file, index) => {
+        newMessageFormData.append(`images`, file);
+      });
+    }
     const options = {
-      data: newMessage,
+      data: newMessageFormData,
     };
     const result = await postNewMessage(options);
   };
@@ -79,7 +86,9 @@ const InboxMessageArea = ({ auth, messageClassName }) => {
                   {inboxReceiverData?.logo || inboxReceiverData?.image ? (
                     <img
                       className="w-full h-full rounded-full bg-white object-cover"
-                      src={inboxReceiverData?.logo || inboxReceiverData?.image}
+                      src={`${base_url}/uploads/${
+                        inboxReceiverData?.logo || inboxReceiverData?.image
+                      }`}
                       alt=""
                     />
                   ) : (

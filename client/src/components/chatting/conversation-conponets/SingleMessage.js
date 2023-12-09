@@ -1,3 +1,4 @@
+import { base_url } from "@/utils/auth/global";
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
@@ -21,7 +22,7 @@ const SingleMessage = ({ message, auth }) => {
               {auth?.logo || auth?.image ? (
                 <img
                   className="w-full h-full rounded-full bg-white object-cover"
-                  src={auth?.logo || auth?.image}
+                  src={`${base_url}/uploads/${auth?.logo || auth?.image}`}
                   alt=""
                 />
               ) : (
@@ -36,7 +37,7 @@ const SingleMessage = ({ message, auth }) => {
               <>
                 <img
                   className="w-fit h-fit object-contain"
-                  src={message?.images[0]}
+                  src={`${base_url}/uploads/${message?.images[0]}`}
                   alt=""
                 />
               </>
@@ -56,7 +57,9 @@ const SingleMessage = ({ message, auth }) => {
               {receiverData?.logo || receiverData?.image ? (
                 <img
                   className="w-full h-full rounded-full bg-white object-cover"
-                  src={receiverData?.logo || receiverData?.image}
+                  src={`${base_url}/uploads/${
+                    receiverData?.logo || receiverData?.image
+                  }`}
                   alt=""
                 />
               ) : (
@@ -69,13 +72,11 @@ const SingleMessage = ({ message, auth }) => {
           </div>
           <div className="w-fit max-w-[70%] h-fit flex flex-col items-start">
             {message?.images?.length > 0 && (
-              <>
-                <img
-                  className="w-fit h-fit object-contain"
-                  src={message?.images[0]}
-                  alt=""
-                />
-              </>
+              <img
+                className="w-fit h-fit object-contain"
+                src={`${base_url}/uploads/${message?.images[0]}`}
+                alt=""
+              />
             )}
             {message?.text && (
               <div className="bg-[#d9eee4] p-2 rounded-lg relative w-fit">

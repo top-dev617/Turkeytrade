@@ -19,7 +19,6 @@ import { useDropzone } from "react-dropzone";
 import { Spinner } from "@material-tailwind/react";
 import { trash } from "@/utils/datas/icons";
 import { base_url } from "@/utils/auth/global";
-import ReactPlayer from "react-player";
 import VideoPlayer from "../commons/video-player/VideoPlayer";
 
 const CompanyForm = () => {
@@ -73,47 +72,26 @@ const CompanyForm = () => {
     data.splice(index, 1);
     setSaveCertificates(data);
   };
-  // Certificates functions
-
-  const uploadImagesToImageBB = async (files) => {
-    let images = [];
-    for (const file of files) {
-      const formData = new FormData();
-      formData.append("image", file);
-      const response = await fetch(
-        "https://api.imgbb.com/1/upload?key=932ae96b4af949bccda61ebea8105393",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      const data = await response.json();
-      images.push(data?.data?.url);
-    }
-    return images;
-  };
 
   const handleRegister = async (data) => {
-    const imagesData = await uploadImagesToImageBB(certificates);
-    if (logo) {
-      var logoImage = await uploadImagesToImageBB([logo]);
-    }
-    const images = imagesData.filter(Boolean);
-
     const companyInfo = {
       store_info: data?.store_info ? data?.store_info : store?.data?.store_info,
-      certificates:
-        images.length > 0 ? [...saveCertificates, ...images] : saveCertificates,
-      store_presentation_video: video
-        ? video
-        : store?.data?.store_presentation_video,
-      logo: logoImage ? logoImage[0] : store?.data?.logo,
+      certificates: saveCertificates,
     };
 
     const newStoreInfo = new FormData();
     if (video) {
       newStoreInfo.append("store_presentation_video", video);
     }
+    if (logo) {
+      newStoreInfo.append("logo", logo);
+    }
+    if (certificates?.length > 0) {
+      certificates.forEach((file, index) => {
+        newStoreInfo.append(`certificates`, file);
+      });
+    }
+
     newStoreInfo.append("storeData", JSON.stringify(companyInfo));
     const options = {
       data: newStoreInfo,
@@ -182,7 +160,7 @@ const CompanyForm = () => {
                     <img
                       className="w-full h-full max-w-[200px] max-h-[150px] object-contain"
                       loading="lazy"
-                      src={store?.data?.logo}
+                      src={`${base_url}/uploads/${store?.data?.logo}`}
                       alt="store logo"
                     />
                   </div>
@@ -233,7 +211,7 @@ const CompanyForm = () => {
                         >
                           <img
                             className="w-20 h-20 object-cover"
-                            src={img}
+                            src={`${base_url}/uploads/${img}`}
                             alt=""
                           />
                           {
@@ -313,7 +291,11 @@ const CompanyForm = () => {
                         key={index}
                         className="relative w-full bg-gray-100 p-2 flex justify-start items-center rounded-md border"
                       >
-                        <img className="w-full h-full" src={img} alt="" />
+                        <img
+                          className="w-full h-full"
+                          src={`${base_url}/uploads/${img}`}
+                          alt=""
+                        />
                       </div>
                     ))}
                   </div>

@@ -215,14 +215,14 @@ const Header = () => {
             <img src={star.src} alt="" /> Saved
           </Link>
         </div>
-        <div onClick={() => setMsgOpen(!msgOpen)} className="hidden lg:block">
+        {/* <div onClick={() => setMsgOpen(!msgOpen)} className="hidden lg:block">
           <p
             className={`hover:text-pm duration-100 font-semibold text-sm flex items-center gap-2
             ${msgOpen ? "text-pm" : "text-gray-900"}`}
           >
             <img src={message.src} alt="" /> Messages
           </p>
-        </div>
+        </div> */}
 
         {/* {user?._id && (
           <Menu>
@@ -407,7 +407,7 @@ const Header = () => {
               <img src={star.src} alt="" /> Saved
             </Link>
           </div>
-          <div
+          {/* <div
             onClick={() => setMsgOpen(!msgOpen)}
             className="lg:hidden flex justify-center items-center px-2 text-center"
           >
@@ -417,7 +417,7 @@ const Header = () => {
             >
               <img src={message.src} alt="" /> Messages
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </nav>

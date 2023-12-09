@@ -361,10 +361,14 @@ const checkIsExistEmail = async (req, res) => {
 const updateUserInfo = async (req, res) => {
   try {
     const isExist = await User.findOne({ _id: req.params.id });
+    const newData = req.body;
+    if (req.file) {
+      newData["image"] = req.file.path;
+    }
     if (isExist) {
       const result = await User.findByIdAndUpdate(
         { _id: req.params.id },
-        req.body,
+        newData,
         {
           new: true,
         }

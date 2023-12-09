@@ -262,6 +262,7 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
             <input
               type="checkbox"
               className="mb-0"
+              checked={userAgreement}
               onClick={() => setUserAgreement(!userAgreement)}
             />
             <p className={`mb-0 ${styles.agreementText}`}>
@@ -277,13 +278,22 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
             >
               Back
             </button>
-            <button
-              type="submit"
-              className="bg-pm hover:bg-pmd text-white flex justify-center items-center"
-              disabled={isLoading}
-            >
-              {isLoading ? <Spinner color="white" /> : "Register"}
-            </button>
+            {userAgreement ? (
+              <button
+                type="submit"
+                className="bg-pm hover:bg-pmd text-white flex justify-center items-center"
+                disabled={isLoading}
+              >
+                {isLoading ? <Spinner color="white" /> : "Register"}
+              </button>
+            ) : (
+              <button
+                disabled
+                className="!bg-gray-400  text-white flex justify-center items-center cursor-not-allowed"
+              >
+                Register
+              </button>
+            )}
           </div>
         </div>
       </form>

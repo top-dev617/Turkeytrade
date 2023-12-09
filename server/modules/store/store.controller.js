@@ -8,7 +8,19 @@ const Store = require("./store.model");
 
 const createStore = async (req, res) => {
   try {
-    const newStore = new Store(req.body);
+    const storeData = JSON.parse(req.body?.storeData);
+    if (req.files) {
+      if (req.files.business_registration_certificate) {
+        storeData["business_information"]["business_registration_certificate"] =
+          req.files.business_registration_certificate[0]?.path;
+      }
+      if (req.files.kdv_certificate) {
+        storeData["tax_information"]["kdv_certificate"] =
+          req.files.kdv_certificate[0]?.path;
+      }
+    }
+
+    const newStore = new Store(storeData);
     const result = await newStore.save();
     res.status(200).json({
       status: true,
@@ -81,9 +93,23 @@ const getStoreByUserId = async (req, res) => {
 const updateStore = async (req, res) => {
   try {
     const storeData = JSON.parse(req.body?.storeData);
-    if (req.file) {
-      storeData["store_presentation_video"] = req.file?.path;
+    if (req.files) {
+      if (req?.files?.logo) {
+        storeData["logo"] = req.files.logo[0]?.path;
+      }
+      if (req?.files?.store_presentation_video) {
+        storeData["store_presentation_video"] =
+          req.files.store_presentation_video[0]?.path;
+      }
+      let crImages = [...storeData?.certificates];
+      if (req?.files?.certificates?.length > 0) {
+        for (let i = 0; i < req?.files?.certificates?.length; i++) {
+          crImages.push(req?.files?.certificates[i]?.path);
+        }
+        storeData["certificates"] = crImages;
+      }
     }
+
     const isExist = await Store.findOne({ _id: req.params.id });
     if (isExist) {
       const result = await Store.findByIdAndUpdate(

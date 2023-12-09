@@ -5,8 +5,17 @@ const Product = require("./product.model");
 const createProduct = async (req, res) => {
   try {
     const productData = JSON.parse(req.body?.productData);
-    if (req.file) {
-      productData["video"] = req.file?.path;
+    if (req.files) {
+      if (req.files.video) {
+        productData["video"] = req.files.video[0]?.path;
+      }
+      let images = [];
+      if (req?.files?.images?.length > 0) {
+        for (let i = 0; i < req?.files?.images?.length; i++) {
+          images.push(req?.files?.images[i]?.path);
+        }
+        productData["images"] = images;
+      }
     }
     const newProduct = new Product(productData);
     const result = await newProduct.save();
@@ -347,9 +356,27 @@ const getShowProducts = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const productData = JSON.parse(req.body?.productData);
-    if (req.file) {
-      productData["video"] = req.file?.path;
+    if (req.files) {
+      if (req.files.video) {
+        productData["video"] = req.files.video[0]?.path;
+      }
+      if (req?.files?.images?.length > 0) {
+        let images = [];
+        let index = 0;
+
+        for (let i = 0; i < productData?.images?.length; i++) {
+          const element = productData?.images[i];
+          if (typeof element === "string") {
+            images.push(element);
+          } else if (typeof element === "object") {
+            index = index === 0 ? index : index + 1;
+            images.push(req?.files?.images[index]?.path);
+          }
+        }
+        productData["images"] = images;
+      }
     }
+
     const isExist = await Product.findOne({ _id: req.params.id });
     if (isExist) {
       const result = await Product.findByIdAndUpdate(

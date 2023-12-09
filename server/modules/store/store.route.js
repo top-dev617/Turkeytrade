@@ -14,13 +14,24 @@ const { upload, handleMulterError } = require("../../config/multerConfig");
 
 const router = express.Router();
 
-router.post("/", createStore);
+router.post(
+  "/",
+  upload.fields([
+    { name: "business_registration_certificate", maxCount: 1 },
+    { name: "kdv_certificate", maxCount: 1 },
+  ]),
+  createStore
+);
 router.get("/:id", getStoreById);
 router.get("/", getStores);
 router.get("/user/:userId", getStoreByUserId);
 router.patch(
   "/:id",
-  upload.single("store_presentation_video"),
+  upload.fields([
+    { name: "store_presentation_video", maxCount: 1 },
+    { name: "logo", maxCount: 1 },
+    { name: "certificates", maxCount: 10 },
+  ]),
   handleMulterError,
   updateStore
 );

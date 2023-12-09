@@ -26,17 +26,9 @@ import { useEffect } from "react";
 import { AuthContext } from "@/components/context/AuthContext";
 
 const MessageArea = ({ auth, messageClassName }) => {
-  const { uploadImg } = useContext(AuthContext);
-  const {
-    notifications,
-    totalNotifications,
-    receiverData,
-    chatId,
-    online_users,
-    messages,
-    image,
-  } = useSelector((state) => state.conversation);
-  const { storeInfo } = useSelector((state) => state.store);
+  const { receiverData, chatId, online_users, messages, image } = useSelector(
+    (state) => state.conversation
+  );
   const { data, refetch, isLoading } = useGetGlobalChatMessagesQuery(chatId);
   const [postNewMessage] = usePostNewMessageMutation();
   const dispatch = useDispatch();
@@ -51,9 +43,6 @@ const MessageArea = ({ auth, messageClassName }) => {
   }, [data]);
 
   const sendMessage = async (message) => {
-    if (image) {
-      var img = await uploadImg([image]);
-    }
     const newMessage = {
       text: message,
       chatId: chatId,
@@ -61,13 +50,22 @@ const MessageArea = ({ auth, messageClassName }) => {
       sender_type: receiverData?.store_name ? "User" : "Store",
       members: [receiverData?._id, auth?._id],
       productId: "",
-      images: img?.length > 0 ? img : [],
     };
 
+    const newMessageFormData = new FormData();
+    newMessageFormData.append(`message`, JSON.stringify(newMessage));
+
+    if (image) {
+      [image].forEach((file, index) => {
+        newMessageFormData.append(`images`, file);
+      });
+    }
+
     const options = {
-      data: newMessage,
+      data: newMessageFormData,
     };
     const result = await postNewMessage(options);
+
     if (result) {
       const sendMessage = {
         senderId: auth?._id,
@@ -76,7 +74,7 @@ const MessageArea = ({ auth, messageClassName }) => {
         sender_type: receiverData?.store_name ? "User" : "Store",
         text: message,
         createdAt: Date.now(),
-        images: img?.length > 0 ? img : [],
+        images: result?.data?.images,
       };
 
       socket.current.emit("sendMessage", sendMessage);
@@ -95,6 +93,8 @@ const MessageArea = ({ auth, messageClassName }) => {
     dispatch(setReceiverData(null));
     dispatch(setChatId(""));
   };
+
+  // console.log(messages);
 
   const lastMessage = messages?.length > 0 && messages[messages?.length - 1];
   const isOnline = online_users.some(
@@ -131,7 +131,9 @@ const MessageArea = ({ auth, messageClassName }) => {
                   {receiverData?.logo || receiverData?.image ? (
                     <img
                       className="w-full h-full rounded-full bg-white object-cover"
-                      src={receiverData?.logo || receiverData?.image}
+                      src={`${base_url}/uploads/${
+                        receiverData?.logo || receiverData?.image
+                      }`}
                       alt=""
                     />
                   ) : (

@@ -18,31 +18,8 @@ const RegisterForm = ({ user, store }) => {
   const [loading, setLoading] = useState(false);
   const [agree, setAgree] = useState(false);
 
-  const uploadImagesToImageBB = async (files) => {
-    let images = [];
-    for (const file of files) {
-      const formData = new FormData();
-      formData.append("image", file);
-      const response = await fetch(
-        "https://api.imgbb.com/1/upload?key=932ae96b4af949bccda61ebea8105393",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      const data = await response.json();
-      images.push(data?.data?.url);
-    }
-    return images;
-  };
-
   const handleRegister = async (data) => {
     setLoading(true);
-    const image1 = await uploadImagesToImageBB(
-      data?.business_registration_certificate
-    );
-    const image2 = await uploadImagesToImageBB(data?.kdv_certificate);
-
     const registerData = {
       user: user?._id,
       store_name: data?.store_name,
@@ -54,18 +31,30 @@ const RegisterForm = ({ user, store }) => {
         postal_code: data?.postal_code,
       },
       business_information: {
-        business_registration_certificate: image1[0],
+        business_registration_certificate: "",
         business_certificate_number: data?.business_certificate_number,
         company_website: data?.company_website,
       },
       tax_information: {
         kdv_number: data?.kdv_number,
-        kdv_certificate: image2[0],
+        kdv_certificate: "",
       },
     };
 
+    const newData = new FormData();
+    newData.append("storeData", JSON.stringify(registerData));
+    if (data?.business_registration_certificate) {
+      newData.append(
+        "business_registration_certificate",
+        data?.business_registration_certificate[0]
+      );
+    }
+    if (data?.kdv_certificate) {
+      newData.append("kdv_certificate", data?.kdv_certificate[0]);
+    }
+
     const options = {
-      data: registerData,
+      data: newData,
     };
     const result = await postStoreRequest(options);
     // console.log(result)
@@ -200,6 +189,8 @@ const RegisterForm = ({ user, store }) => {
                     })}
                     className="px-2"
                     type="file"
+                    multiple={false}
+                    accept=".png, .jpg, .jpeg"
                   />
                 </div>
               </div>
@@ -257,6 +248,8 @@ const RegisterForm = ({ user, store }) => {
                     {...register("kdv_certificate", { required: true })}
                     className="px-2"
                     type="file"
+                    multiple={false}
+                    accept=".png, .jpg, .jpeg"
                   />
                 </div>
               </div>

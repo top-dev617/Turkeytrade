@@ -21,6 +21,7 @@ import {
 } from "@/redux/features/products/productApi";
 import { Spinner } from "@material-tailwind/react";
 import { useGetStoreInfoBySellerIdQuery } from "@/redux/features/stores/storeApi";
+import { base_url } from "@/utils/auth/global";
 
 const ProductBanner = ({ product }) => {
   const { user, msgOpen, setMsgOpen } = useContext(AuthContext);
@@ -59,7 +60,7 @@ const ProductBanner = ({ product }) => {
   };
 
   const images = product.images.map((img) => ({
-    src: `${img}`,
+    src: `${base_url}/uploads/${img}`,
   }));
 
   const handleChat = async () => {
@@ -121,14 +122,27 @@ const ProductBanner = ({ product }) => {
                   ))}
               </div>
             ) : (
-              <h1 className="label-list">
-                <span className="!text-3xl !font-bold">
-                  {product?.price?.one_price?.from} -{" "}
-                  {product?.price?.one_price?.to}
-                </span>{" "}
-                euro/
-                {product?.unit?.singular.toLowerCase()}
-              </h1>
+              <>
+                {parseInt(product?.price?.one_price?.from) ===
+                parseInt(product?.price?.one_price?.to) ? (
+                  <h1 className="label-list">
+                    <span className="!text-3xl !font-bold">
+                      {product?.price?.one_price?.from}
+                    </span>{" "}
+                    euro/
+                    {product?.unit?.singular.toLowerCase()}
+                  </h1>
+                ) : (
+                  <h1 className="label-list">
+                    <span className="!text-3xl !font-bold">
+                      {product?.price?.one_price?.from} -{" "}
+                      {product?.price?.one_price?.to}
+                    </span>{" "}
+                    euro/
+                    {product?.unit?.singular.toLowerCase()}
+                  </h1>
+                )}
+              </>
             )}
             <br />
             <div className="d-flex gap-3">

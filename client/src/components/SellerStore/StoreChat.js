@@ -9,10 +9,13 @@ import SendMessageBox from "../chatting/conversation-conponets/SendMessageBox";
 import { useState } from "react";
 import Loading from "../commons/Loading";
 import StoreSingleMessage from "../chatting/conversation-conponets/store-ui/StoreSingleMessage";
+import { base_url } from "@/utils/auth/global";
+import { useSelector } from "react-redux";
 
 const StoreChat = ({ store, chatId }) => {
   const { user } = useContext(AuthContext);
   const receiverData = store;
+  const { image } = useSelector((state) => state.conversation);
   const { data: messages, isLoading } = useGetMessagesQuery(chatId);
   const [postNewMessage] = usePostNewMessageMutation();
   const [fullScreen, setFullScreen] = useState(false);
@@ -26,9 +29,17 @@ const StoreChat = ({ store, chatId }) => {
       members: [receiverData?._id, user?._id],
       productId: "",
     };
+    const newMessageFormData = new FormData();
+    newMessageFormData.append(`message`, JSON.stringify(newMessage));
+
+    if (image) {
+      [image].forEach((file, index) => {
+        newMessageFormData.append(`images`, file);
+      });
+    }
 
     const options = {
-      data: newMessage,
+      data: newMessageFormData,
     };
     const result = await postNewMessage(options);
   };
@@ -44,7 +55,7 @@ const StoreChat = ({ store, chatId }) => {
         {isLoading && <Loading />}
 
         {chatId ? (
-          <>
+          <div className="relative">
             <div className="flex items-center justify-between border-b p-2">
               <div className="flex items-center gap-2">
                 <div className="flex items-center">
@@ -52,7 +63,9 @@ const StoreChat = ({ store, chatId }) => {
                     {receiverData?.logo || receiverData?.image ? (
                       <img
                         className="w-full h-full rounded-full bg-white object-cover"
-                        src={receiverData?.logo || receiverData?.image}
+                        src={`${base_url}/uploads/${
+                          receiverData?.logo || receiverData?.image
+                        }`}
                         alt=""
                       />
                     ) : (
@@ -108,7 +121,9 @@ const StoreChat = ({ store, chatId }) => {
 
             <div
               className={`flex-1 px-4 py-4 scrollBar overflow-y-auto 
-                        ${fullScreen ? "h-[70%]" : "min-h-[400px]"}`}
+                        ${
+                          fullScreen ? "h-[70%]" : "min-h-[400px] max-h-[500px]"
+                        }`}
             >
               {messages?.map((message, i) => (
                 <StoreSingleMessage
@@ -121,7 +136,7 @@ const StoreChat = ({ store, chatId }) => {
             </div>
 
             <SendMessageBox sendMessage={sendMessage} />
-          </>
+          </div>
         ) : (
           <div className="flex justify-center items-center">
             <img

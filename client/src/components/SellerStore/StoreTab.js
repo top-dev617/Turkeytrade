@@ -67,8 +67,8 @@ const StoreTab = ({ store }) => {
   ];
 
   return (
-    <div className="container store_tab ">
-      <div className="tab_container">
+    <div className="container store_tab bg-white md:bg-transparent">
+      <div className="tab_container ">
         <div className="flex justify-between items-center !w-full overflow-x-auto">
           {tabs.map((tab, index) => (
             <Popover

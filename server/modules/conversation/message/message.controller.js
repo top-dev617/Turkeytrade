@@ -3,18 +3,28 @@ const Message = require("./message.model");
 
 const createMessage = async (req, res) => {
   try {
-    const { sender_type, ...other } = req.body;
-    const newNotification = new Notification({
-      title: `New Message`,
-      chatId: req.body.chatId,
-      sender_type: sender_type,
-      receiverId: req.body.members[0],
-      senderId: req.body.members[1],
-      seen: false,
-    });
-    const newMessage = new Message(other);
+    const messageData = JSON.parse(req.body.message);
+    if (req.files) {
+      let images = [];
+      if (req?.files?.images?.length > 0) {
+        for (let i = 0; i < req?.files?.images?.length; i++) {
+          images.push(req?.files?.images[i]?.path);
+        }
+        messageData["images"] = images;
+      }
+    }
+    // const { sender_type, ...other } = messageData;
+    // const newNotification = new Notification({
+    //   title: `New Message`,
+    //   chatId: req.body.chatId,
+    //   sender_type: sender_type,
+    //   receiverId: messageData[0],
+    //   senderId: messageData[1],
+    //   seen: false,
+    // });
+    const newMessage = new Message(messageData);
     const result = await newMessage.save();
-    const nftResult = await newNotification.save();
+    // const nftResult = await newNotification.save();
     res.status(200).send(result);
   } catch (error) {
     res.status(500).send(error);
