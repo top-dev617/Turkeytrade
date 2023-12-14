@@ -163,12 +163,12 @@ const EditProduct = ({ store }) => {
                   >
                     MOQ
                   </th>
-                  <th
+                  {/* <th
                     scope="col"
                     className="px-2 py-2 text-sm font-bold text-center"
                   >
                     Status
-                  </th>
+                  </th> */}
                 </tr>
               </thead>
             )}

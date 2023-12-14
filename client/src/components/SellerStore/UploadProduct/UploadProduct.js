@@ -595,7 +595,9 @@ const UploadProduct = ({ store }) => {
         setSelectedCheckbox(pInfo?.price_type);
       }
       if (pInfo?.one_price) {
-        setOnePriceFields(pInfo?.one_price);
+        setOnePriceFields({
+          one_price: pInfo?.one_price,
+        });
       }
       if (pInfo?.ladder_price?.length) {
         setLadderPriceFields(pInfo?.ladder_price);

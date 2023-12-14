@@ -173,14 +173,14 @@ const DrafProductRow = ({
           <>
             {product?.moq > 1
               ? `${product?.moq} ${product?.unit?.plural}`
-              : `${product?.moq} ${product?.unit.singular}`}{" "}
+              : `${product?.moq} ${product?.unit?.singular}`}{" "}
             (MOQ)
           </>
         ) : (
           <p>-</p>
         )}
       </td>
-      <td className="px-2 text-center">
+      {/* <td className="px-2 text-center">
         <Popover
           open={statusChange === product?._id}
           handler={() => setStatusChange("")}
@@ -212,7 +212,7 @@ const DrafProductRow = ({
             </div>
           </PopoverContent>
         </Popover>
-      </td>
+      </td> */}
     </tr>
   );
 };
