@@ -40,7 +40,7 @@ const DrafProductRow = ({
     (product?.title &&
       product?.category &&
       product?.sub_category &&
-      product?.images?.length > 2 &&
+      product?.images?.length > 0 &&
       product?.price?.ladder_price[0]?.euro &&
       product?.price?.ladder_price[0]?.quantity?.from &&
       product?.price?.ladder_price[0]?.quantity?.to) ||

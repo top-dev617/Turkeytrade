@@ -11,8 +11,6 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { units } from "@/utils/datas/unites";
-import { useContext } from "react";
-import { AuthContext } from "@/components/context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { setEditProduct } from "@/redux/features/products/productSlice";
 import {
@@ -29,6 +27,7 @@ import { base_url } from "@/utils/auth/global";
 import VideoPlayer from "@/components/commons/video-player/VideoPlayer";
 import { iInfo, trash } from "@/utils/datas/icons";
 import { useEffect } from "react";
+import { RotatingSquare } from "react-loader-spinner";
 
 const modules = {
   toolbar: [
@@ -55,7 +54,7 @@ const formats = [
 
 const UploadProduct = ({ store }) => {
   const { editProduct } = useSelector((state) => state.product);
-  const { data } = useGetCategoriesQuery();
+  const { data, isLoading: categoryLoading } = useGetCategoriesQuery();
   const { data: productGroups } = useGetProductGroupByStoreIdQuery(store?._id);
   const [postProduct] = usePostProductMutation();
   const [patchProduct] = usePatchProductMutation();
@@ -66,6 +65,7 @@ const UploadProduct = ({ store }) => {
     register,
     reset,
     watch,
+    setValue,
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
@@ -76,6 +76,9 @@ const UploadProduct = ({ store }) => {
   const [categoryError, setCategoryError] = useState(false);
   const [keywordsError, setKeywordsError] = useState(false);
   const [productImageError, setProductImageError] = useState(false);
+
+  // loader states
+  const [isDataLoading, setIsDataLoading] = useState(true);
 
   // use refs
   const categoryRef = useRef();
@@ -131,16 +134,6 @@ const UploadProduct = ({ store }) => {
     editProduct ? editProduct?.category?._id : data?.data[0]?._id
   );
 
-  useEffect(() => {
-    const isExist = data?.data.find(
-      (cate) => cate?._id === editProduct?.category._id
-    );
-    if (isExist) {
-      setSubCategories(isExist?.subcategories);
-      setSubCategory(editProduct?.sub_category?._id);
-    }
-  }, [editProduct]);
-
   const handleCategory = (cateId) => {
     const isExist = data?.data.find((cate) => cate?._id === cateId);
     if (isExist) {
@@ -150,6 +143,19 @@ const UploadProduct = ({ store }) => {
       setSubCategory(isExist?.subcategories[0]?._id);
     }
   };
+  useEffect(() => {
+    setIsDataLoading(true);
+    if (editProduct) {
+      const isExist = data?.data?.find(
+        (cate) => cate?._id === editProduct?.category._id
+      );
+      if (isExist) {
+        setSubCategories(isExist?.subcategories);
+        setSubCategory(editProduct?.sub_category?._id);
+      }
+    }
+    setIsDataLoading(false);
+  }, [editProduct, data?.data, subCategories]);
 
   const [unit, setUnit] = useState(
     editProduct
@@ -558,12 +564,75 @@ const UploadProduct = ({ store }) => {
     }
   };
 
+  // save product info
+
+  useEffect(() => {
+    setIsDataLoading(true);
+    const pInfo = JSON.parse(localStorage.getItem("productInfo")) || null;
+    if (!editProduct && pInfo) {
+      setIsDataLoading(true);
+      setContent(pInfo?.description);
+      setKeywords(pInfo?.keyword);
+      setValue("title", pInfo?.title);
+      setValue("group", pInfo?.group);
+      setValue("moq", pInfo?.moq);
+      setValue("model", pInfo?.model);
+      setValue("from", pInfo?.from);
+      setValue("to", pInfo?.to);
+      setTime(pInfo?.time);
+      setVideo(pInfo?.video);
+      setUnit(pInfo?.unit);
+      if (pInfo?.category && data?.data) {
+        const isExist = data?.data?.find(
+          (cate) => cate?._id === pInfo?.category
+        );
+        if (isExist) {
+          setSubCategories(isExist?.subcategories);
+          setSubCategory(pInfo?.sub_category);
+        }
+      }
+      if (pInfo?.price_type) {
+        setSelectedCheckbox(pInfo?.price_type);
+      }
+      if (pInfo?.one_price) {
+        setOnePriceFields(pInfo?.one_price);
+      }
+      if (pInfo?.ladder_price?.length) {
+        setLadderPriceFields(pInfo?.ladder_price);
+      }
+      setIsDataLoading(false);
+    }
+  }, [data?.data]);
+
+  const formValues = watch();
+  const saveProductInfo = () => {
+    if (!editProduct) {
+      const productInfo = {
+        ...formValues,
+        description: content,
+        price_type: selectedCheckbox,
+        one_price: {
+          from: onePriceFields?.one_price?.from,
+          to: onePriceFields?.one_price?.to,
+        },
+        ladder_price: ladderPriceFields,
+        category: category,
+        sub_category: subCategory,
+        keyword: keywords,
+        unit: unit,
+        time: time,
+      };
+      localStorage.setItem("productInfo", JSON.stringify(productInfo));
+    }
+  };
+
   return (
-    <div className="upload_product md:px-8">
-      <div className="container">
+    <div className="upload_product md:px-8 relative">
+      <div className="container ">
         <form
           onKeyDown={checkKeyDown}
           onSubmit={handleSubmit(handleAddProduct)}
+          onBlur={saveProductInfo}
         >
           <div className="row">
             <div className="col-12 col-lg-6 ">
@@ -792,7 +861,7 @@ const UploadProduct = ({ store }) => {
                 <div className="w-full">
                   <div
                     className={`input_box relative ${
-                      productImages.length === 0 &&
+                      productImages?.length === 0 &&
                       productImageError &&
                       "border !border-red-600"
                     }`}
@@ -1208,7 +1277,7 @@ const UploadProduct = ({ store }) => {
                       </>
                     );
                   })}
-                  {ladderPriceFields.length >= 8 ? (
+                  {ladderPriceFields?.length >= 8 ? (
                     <Tooltip content="You can enter a maximum of 8 prices">
                       <div
                         disabled
@@ -1243,7 +1312,7 @@ const UploadProduct = ({ store }) => {
                             setOnePriceFields({
                               one_price: {
                                 from: event?.target.value,
-                                to: onePriceFields?.one_price.to,
+                                to: onePriceFields?.one_price?.to,
                               },
                             })
                           }
@@ -1260,7 +1329,7 @@ const UploadProduct = ({ store }) => {
                           onChange={(event) =>
                             setOnePriceFields({
                               one_price: {
-                                from: onePriceFields?.one_price.from,
+                                from: onePriceFields?.one_price?.from,
                                 to: event?.target.value,
                               },
                             })
@@ -1377,18 +1446,11 @@ const UploadProduct = ({ store }) => {
 
             <div className="d-flex gap-2 justify-content-between align-items-center">
               <button
-                onClick={() => {
-                  setSaveDraft(editProduct?.status === "Draft" ? true : false);
-                  handleError();
-                }}
+                onClick={() => handleError()}
                 disabled={loading && !saveDraft}
                 className="submit_btn !text-sm md:!text-[18px] hover:bg-pmd duration-150 flex justify-center items-center"
               >
-                {loading && !saveDraft ? (
-                  <Spinner />
-                ) : (
-                  <> {editProduct?._id ? "Publish" : "Publish"}</>
-                )}
+                {loading && !saveDraft ? <Spinner /> : "Publish"}
               </button>
               {!editProduct && (
                 <button
@@ -1402,6 +1464,22 @@ const UploadProduct = ({ store }) => {
           </div>
         </form>
       </div>
+      {isDataLoading ||
+        (categoryLoading && (
+          <div className="absolute top-0 right-0 bottom-0 left-0 w-full h-full bg-pm bg-opacity-10 flex flex-col justify-start pt-[300px] items-center gap-1">
+            <RotatingSquare
+              height="200"
+              width="200"
+              color="#037d41"
+              ariaLabel="rotating-square-loading"
+              strokeWidth="4"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+            />
+            <h1 className="text-xl text-red-600 font-bold">Data Loading</h1>
+          </div>
+        ))}
     </div>
   );
 };
