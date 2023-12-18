@@ -77,10 +77,6 @@
       "static/chunks/reactPlayerYouTube.js"
     ]
   },
-  "..\\components\\SearchBanner.js -> emoji-picker-react": {
-    "id": "..\\components\\SearchBanner.js -> emoji-picker-react",
-    "files": []
-  },
   "..\\components\\SellerStore\\StoreTab.js -> ./EditProduct/EditProduct": {
     "id": "..\\components\\SellerStore\\StoreTab.js -> ./EditProduct/EditProduct",
     "files": [

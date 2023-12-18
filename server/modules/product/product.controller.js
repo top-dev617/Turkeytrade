@@ -322,7 +322,7 @@ const getLatestProducts = async (req, res) => {
   try {
     const result = await Product.find({ status: "Publish" })
       .sort({ _id: -1 })
-      .limit(9)
+      .limit(40)
       .select("title images");
     res.status(200).json({
       status: true,

@@ -63,9 +63,20 @@ const conversationApi = api.injectEndpoints({
       }),
       invalidatesTags: ["notifications"],
     }),
+    seenAllMessagesByChat: builder.mutation({
+      query: ({ data }) => ({
+        url: `/messages/unseen-to-seen/${data?.chatId}/${data?.receiverId}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["seen_messages"],
+    }),
     myNotifications: builder.query({
       query: () => `/notifications/my-all`,
       providesTags: ["notifications"],
+    }),
+    totalUnseen: builder.query({
+      query: () => `/messages/total-unseen/counts`,
+      providesTags: ["messages", "seen_messages"],
     }),
   }),
 });
@@ -84,4 +95,6 @@ export const {
   useCreateNotificationMutation,
   useSeenAllNotificationsMutation,
   useMyNotificationsQuery,
+  useSeenAllMessagesByChatMutation,
+  useTotalUnseenQuery,
 } = conversationApi;

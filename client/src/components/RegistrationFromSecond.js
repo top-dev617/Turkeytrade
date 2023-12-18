@@ -204,9 +204,6 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
                 aria-label="Default select example"
                 name="country"
               >
-                <option value="" style={{ color: "#94959B" }}>
-                  Country
-                </option>
                 {countries?.map((country, index) => (
                   <option key={index} value={country?.label}>
                     {country?.label}

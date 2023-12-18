@@ -15,10 +15,12 @@ import {
   PopoverHandler,
 } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
+import { useTotalUnseenQuery } from "@/redux/features/conversation/conversationApi";
 
 const ChatMain = () => {
+  const { data } = useTotalUnseenQuery();
   const { user, msgOpen, setMsgOpen, msgRef } = useContext(AuthContext);
-  const { totalNotifications, notifications } = useSelector(
+  const { totalNotifications, notifications, messages } = useSelector(
     (state) => state.conversation
   );
   const router = useRouter();
@@ -41,6 +43,7 @@ const ChatMain = () => {
     setMsgOpen(false);
   };
 
+  // console.log(data);
   return (
     <>
       {!router.pathname.includes("/dashboard") && (
@@ -55,7 +58,7 @@ const ChatMain = () => {
                 <p className="">
                   Messages{" "}
                   <span className="text-red-600 font-semibold">
-                    ({totalNotifications})
+                    ({data || 0})
                   </span>{" "}
                 </p>
               </button>

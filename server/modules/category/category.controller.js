@@ -53,6 +53,38 @@ const getCategories = async (req, res) => {
   }
 };
 
+// const getAllCategories = async (req, res) => {
+//   try {
+//     const uniqueCategories = await Product.find({ status: "Publish" }).distinct(
+//       "category"
+//     );
+//     const categories = await Category.find({
+//       _id: { $in: uniqueCategories },
+//       status: true,
+//     });
+//     const categoriesWithSubCategories = await Promise.all(
+//       categories.map(async (category) => {
+//         const subcategories = await SubCategory.find({
+//           parent_cate_id: category._id,
+//           status: true,
+//         });
+//         return { ...category.toObject(), subcategories };
+//       })
+//     );
+//     res.status(200).json({
+//       status: true,
+//       message: "Unique categories fetched successfully",
+//       data: categoriesWithSubCategories,
+//     });
+//   } catch (error) {
+//     res.status(201).json({
+//       status: false,
+//       message: "categories get unsuccessfuldf",
+//       error: error.message,
+//     });
+//   }
+// };
+
 const getAllCategories = async (req, res) => {
   try {
     const uniqueCategories = await Product.find({ status: "Publish" }).distinct(
@@ -62,24 +94,42 @@ const getAllCategories = async (req, res) => {
       _id: { $in: uniqueCategories },
       status: true,
     });
+
+    // Fetch subcategories for each category
     const categoriesWithSubCategories = await Promise.all(
       categories.map(async (category) => {
         const subcategories = await SubCategory.find({
           parent_cate_id: category._id,
           status: true,
         });
-        return { ...category.toObject(), subcategories };
+        const subcategoriesWithProducts = await Promise.all(
+          subcategories.map(async (subcategory) => {
+            const hasProducts = await Product.exists({
+              category: category._id,
+              sub_category: subcategory._id,
+              status: "Publish",
+            });
+
+            return hasProducts ? subcategory.toObject() : null;
+          })
+        );
+        const filteredSubcategories = subcategoriesWithProducts.filter(Boolean);
+        return {
+          ...category.toObject(),
+          subcategories: filteredSubcategories,
+        };
       })
     );
+
     res.status(200).json({
       status: true,
-      message: "Unique categories fetched successfully",
+      message: "Categories with associated subcategories fetched successfully",
       data: categoriesWithSubCategories,
     });
   } catch (error) {
-    res.status(201).json({
+    res.status(500).json({
       status: false,
-      message: "categories get unsuccessfuldf",
+      message: "Categories retrieval unsuccessful",
       error: error.message,
     });
   }

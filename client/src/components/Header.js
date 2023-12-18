@@ -33,18 +33,16 @@ import Notifications from "./shared/Notifications";
 import {
   useMyNotificationsQuery,
   useSeenAllNotificationsMutation,
+  useTotalUnseenQuery,
 } from "@/redux/features/conversation/conversationApi";
 import useAuth from "@/lib/useAuth";
 
 const Header = () => {
-  const { user, signOut, setMsgOpen, msgOpen } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const { logout } = useAuth({ redirectTo: false });
   const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
-  const { data: ntfData } = useMyNotificationsQuery();
-  const { totalNotifications, notifications } = useSelector(
-    (state) => state.conversation
-  );
-  const [seenAllNotifications] = useSeenAllNotificationsMutation();
+  const { refetch } = useTotalUnseenQuery();
+  const { notifications } = useSelector((state) => state.conversation);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -63,24 +61,10 @@ const Header = () => {
     setStoreInfo(null);
     router.reload();
   };
-
-  useEffect(() => {
-    dispatch(setNotifications(ntfData?.data?.notifications || []));
-    dispatch(setTotalNotifications(ntfData?.data?.totalUnseen || 0));
-  }, [ntfData]);
-
   useEffect(() => {
     const newProducts = JSON.parse(localStorage.getItem("save-products")) || [];
     dispatch(setSaveProducts(newProducts));
   }, []);
-
-  const handleSeenNTF = async () => {
-    if (totalNotifications > 0) {
-      dispatch(setTotalNotifications(0));
-      await seenAllNotifications();
-    }
-  };
-
   const handleNavigate = () => {
     if (user?.role === "Seller" && !data?.data) {
       router.push("/seller-register");
@@ -134,7 +118,7 @@ const Header = () => {
         receiveMessage?.receiverId === user?._id ||
         receiveMessage?.receiverId === data?.data?._id
       ) {
-        dispatch(setTotalNotifications(totalNotifications + 1));
+        refetch();
         dispatch(
           setNotifications([
             {

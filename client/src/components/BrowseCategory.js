@@ -27,11 +27,11 @@ const BrowseCategory = ({ categories }) => {
     };
   }, []);
 
-  console.log(showCategory);
+  // console.log(showCategory);
   return (
     <div className="browse mx-auto">
       <h5>Browse Categories</h5>
-      <div className="grid grid-cols-1 gap-1">
+      <div className="grid grid-cols-1 gap-1 max-h-[585px] overflow-y-auto">
         {categories?.map((category, index) => (
           <Popover
             open={showCategory?._id === category?._id}
@@ -47,7 +47,7 @@ const BrowseCategory = ({ categories }) => {
                 className="!w-full outline-none"
               >
                 <Button
-                  className="outline-none flex items-center justify-between bg-white shadow-none hover:!bg-gray-100 rounded duration-150 gap-5 h-10 w-full px-1 hover:text-gray-800 normal-case"
+                  className="outline-none flex items-center justify-between bg-white shadow-none hover:!bg-gray-100 rounded duration-150 gap-5 h-8 w-full px-1 hover:text-gray-800 normal-case"
                   key={index}
                 >
                   <p
@@ -61,12 +61,12 @@ const BrowseCategory = ({ categories }) => {
             <PopoverContent
               onMouseEnter={() => setShowCategory(category)}
               onMouseLeave={() => setShowCategory(null)}
-              className={`p-0 shadow-none border-none rounded ${
+              className={`px-0 pt-0 pb-1 shadow-none border-none rounded  ${
                 showCategory?.subcategories?.length ? "block" : "hidden"
               }`}
             >
               {showCategory?.subcategories?.length && (
-                <div className="w-full h-full min-w-[250px] md:min-w-[500px] max-w-[500px] min-h-[400px] p-2">
+                <div className="w-full h-full min-w-[250px]  max-w-[400px] max-h-[400px] overflow-y-auto p-2">
                   {showCategory?.subcategories?.map((subCate, i) => (
                     <Link
                       href={`/category/${category?.cate_slug}/${subCate?.sub_cate_slug}`}

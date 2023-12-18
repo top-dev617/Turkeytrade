@@ -15,6 +15,7 @@ import {
   useGetGlobalChatMessagesQuery,
   useGetMessagesQuery,
   usePostNewMessageMutation,
+  useSeenAllMessagesByChatMutation,
 } from "@/redux/features/conversation/conversationApi";
 import Link from "next/link";
 import moment from "moment";
@@ -31,8 +32,26 @@ const MessageArea = ({ auth, messageClassName }) => {
   );
   const { data, refetch, isLoading } = useGetGlobalChatMessagesQuery(chatId);
   const [postNewMessage] = usePostNewMessageMutation();
+  const [seenAllMessagesByChat] = useSeenAllMessagesByChatMutation();
   const dispatch = useDispatch();
   const socket = useRef();
+
+  const handleSeenAll = async () => {
+    const options = {
+      data: { chatId: chatId, receiverId: receiverData?._id },
+    };
+    await seenAllMessagesByChat(options);
+  };
+
+  useEffect(() => {
+    handleSeenAll();
+    return () => {};
+  }, [chatId, receiverData, messages]);
+
+  useEffect(() => {
+    refetch();
+    return () => {};
+  }, [chatId]);
 
   useEffect(() => {
     dispatch(setMessages(data));

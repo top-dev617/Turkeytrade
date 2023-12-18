@@ -13,7 +13,7 @@ const VideoPlayer = ({ url, className, width, height }) => {
       controls={true}
       volume={0.8}
       muted
-      playbackRate={1.5}
+      playbackRate={1.0}
       progressInterval={1000}
       playsinline
       pip

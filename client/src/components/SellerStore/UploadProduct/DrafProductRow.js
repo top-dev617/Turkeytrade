@@ -106,7 +106,7 @@ const DrafProductRow = ({
       <td className="px-2 text-center">
         {product?.images?.length > 0 ? (
           <img
-            className="w-20 h-16 mx-auto"
+            className="w-20 h-16 mx-auto object-contain"
             loading="lazy"
             src={`${base_url}/uploads/${product?.images[0]}`}
           />
@@ -173,7 +173,7 @@ const DrafProductRow = ({
           <>
             {product?.moq > 1
               ? `${product?.moq} ${product?.unit?.plural}`
-              : `${product?.moq} ${product?.unit?.singular}`}{" "}
+              : `${product?.moq} ${product?.unit.singular}`}{" "}
             (MOQ)
           </>
         ) : (

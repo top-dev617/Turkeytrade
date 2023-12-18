@@ -53,6 +53,10 @@ input[type="number"] {
   margin-bottom: 30px;
   border: none;
   width: 100% !important;
+  /* color: #c1c1c1 !important; */
+  color: black !important;
+  font-size: medium;
+  font-weight: normal;
 }
 
 .input:focus {

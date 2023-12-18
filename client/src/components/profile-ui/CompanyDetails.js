@@ -6,10 +6,12 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Button, Spinner } from "@material-tailwind/react";
 import { toast } from "react-toastify";
+import StoreInformation from "../SellerStore/ContactInfo/StoreInformation";
 
 const CompanyDetails = () => {
   const { handleSubmit, register, reset } = useForm();
   const { setUser, user } = useContext(AuthContext);
+  const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
 
   const [patchUserInfoById, { isLoading }] = usePatchUserInfoByIdMutation();
   const [isEdit, setIsEdit] = useState(false);
@@ -145,6 +147,7 @@ const CompanyDetails = () => {
           )}
         </form>
       </div>
+      <StoreInformation store={data?.data} isAuthor={true} />
     </div>
   );
 };

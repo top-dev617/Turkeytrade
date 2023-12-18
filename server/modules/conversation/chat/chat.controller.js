@@ -178,7 +178,7 @@ const findChat = async (req, res) => {
 
 const getInfoByMemberType = async (req, res) => {
   const { memberId, type } = req.params;
-  console.log(memberId, type);
+  // console.log(memberId, type);
   try {
     if (type === "Store") {
       const isStore = await Store.findById({ _id: memberId });
