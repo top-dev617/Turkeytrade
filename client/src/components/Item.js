@@ -47,11 +47,11 @@ const Item = ({ items, isLoading: loading }) => {
                         } name !text-sm mb-2`}
                       >
                         {item?.title?.length > 20 ? (
-                          <h6 className="!text-sm lg:!text-xl label break-all">
+                          <h6 className="!text-sm md:!text-[16px] label break-all">
                             {item?.title?.slice(0, 20)}...
                           </h6>
                         ) : (
-                          <h6 className="!text-sm lg:!text-xl label break-all">
+                          <h6 className="!text-sm md:!text-[16px] label break-all">
                             {item?.title}
                           </h6>
                         )}
@@ -60,7 +60,7 @@ const Item = ({ items, isLoading: loading }) => {
                         <>
                           <div className="flex items-center flex-wrap gap-1">
                             {item?.price?.price_type === "ladder_price" ? (
-                              <h1 className="font-bold text-black text-sm md:text-xl">
+                              <h1 className="font-bold text-black text-sm md:!text-[18px]">
                                 € {item.minPrice} - {item.maxPrice}
                               </h1>
                             ) : (
@@ -68,27 +68,31 @@ const Item = ({ items, isLoading: loading }) => {
                                 {parseInt(item?.price?.one_price?.from) ===
                                 parseInt(item?.price?.one_price?.to) ? (
                                   <h1 className="label-list">
-                                    <span className="text-sm md:!text-2xl !font-bold">
+                                    <span className="text-sm md:!text-[18px] !font-bold">
                                       {item?.price?.one_price?.from}
                                     </span>{" "}
-                                    euro/
-                                    {item?.unit?.singular.toLowerCase()}
+                                    <span className="!text-xs">
+                                      euro/
+                                      {item?.unit?.singular.toLowerCase()}
+                                    </span>
                                   </h1>
                                 ) : (
                                   <h1 className="label-list">
-                                    <span className="text-sm md:!text-2xl !font-bold">
+                                    <span className="text-sm md:!text-[18px] !font-bold">
                                       {item?.price?.one_price?.from} -{" "}
                                       {item?.price?.one_price?.to}
                                     </span>{" "}
-                                    euro/
-                                    {item?.unit?.singular.toLowerCase()}
+                                    <span className="!text-xs">
+                                      euro/
+                                      {item?.unit?.singular.toLowerCase()}
+                                    </span>
                                   </h1>
                                 )}
                               </>
                             )}
                           </div>
 
-                          <p className="!text-sm amount label">
+                          <p className="!text-xs amount label">
                             {item?.moq > 1
                               ? `${item?.moq} ${item?.unit?.plural} (MOQ)`
                               : `${item?.moq} ${item?.unit?.singular} (MOQ)`}

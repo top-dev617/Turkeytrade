@@ -5,11 +5,17 @@ import RegistrationVerificationModal from "@/utils/modals/RegistrationVerificati
 import { countries } from "@/utils/datas/countries";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { usePostRegisterMutation } from "@/redux/features/auth/authApi";
-import { Spinner } from "@material-tailwind/react";
+import {
+  Button,
+  Popover,
+  PopoverContent,
+  PopoverHandler,
+  Spinner,
+} from "@material-tailwind/react";
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -24,10 +30,13 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
   const {
     handleSubmit,
     register,
+    control,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const countryRef = useRef();
 
   const [postRegister, { isLoading }] = usePostRegisterMutation();
 
@@ -191,11 +200,49 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
               )}
             </div>
 
-            <div className="">
+            <div className="w-full">
               <label for="exampleInputEmail1" className="form-label mb-1">
                 Country<span>*</span>
               </label>
-              <select
+              <Controller
+                name="country"
+                control={control}
+                render={({ field }) => (
+                  <Popover placement="bottom-start">
+                    <PopoverHandler ref={countryRef}>
+                      <Button
+                        {...field}
+                        className={`input h-[62px] !text-[#94959B] shadow-none border-none normal-case text-left px-3 mb-1 !w-full !bg-[#f6f6f6] ${
+                          errors.country ? "border !border-red-600" : ""
+                        }`}
+                      >
+                        <span className="!text-[#94959B] font-normal">
+                          {countries?.find(
+                            (group) => group.label === field.value
+                          )?.label || ""}
+                        </span>
+                      </Button>
+                    </PopoverHandler>
+                    <PopoverContent className="grid grid-cols-1 max-w-[250px] max-h-[350px] overflow-y-auto w-full p-0 shadow-none">
+                      {countries?.map((value, index) => (
+                        <Button
+                          key={index}
+                          className="h-8 bg-white text-black hover:!bg-pm rounded-none hover:!text-white shadow-none border-none normal-case text-left outline-none px-3 py-0"
+                          onClick={() => {
+                            field.onChange(value?.label);
+                            handleSetCountry(value.label);
+                            countryRef.current.click();
+                          }}
+                        >
+                          {value?.label}
+                        </Button>
+                      ))}
+                    </PopoverContent>
+                  </Popover>
+                )}
+                {...register("country", { required: true })}
+              />
+              {/* <select
                 onClick={(e) => handleSetCountry(e.target.value)}
                 {...register("country", { required: true })}
                 className={`mb-0 form-select w-100 py-[19px] bg-[#f6f6f6] ${
@@ -209,7 +256,7 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
                     {country?.label}
                   </option>
                 ))}
-              </select>
+              </select> */}
               {errors.country && (
                 <small className="text-red-600 text-sm">
                   {errors.country.message}

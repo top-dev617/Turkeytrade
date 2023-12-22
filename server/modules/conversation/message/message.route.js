@@ -17,10 +17,6 @@ router.post(
 );
 router.get("/:chatId", getMessages);
 router.get("/total-unseen/counts", isAuth, getTotalUnseen);
-router.patch(
-  "/unseen-to-seen/:chatId/:receiverId",
-  isAuth,
-  seenAllUnseenMessages
-);
+router.patch("/unseen-to-seen/:chatId", isAuth, seenAllUnseenMessages);
 
 module.exports = router;

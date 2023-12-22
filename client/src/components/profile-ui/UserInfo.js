@@ -54,7 +54,7 @@ const UserInfo = () => {
           {image ? (
             <img
               src={URL.createObjectURL(image)}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
               alt=""
             />
           ) : (
@@ -62,7 +62,7 @@ const UserInfo = () => {
               {user?.image ? (
                 <img
                   src={`${base_url}/uploads/${user?.image}`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                   alt=""
                 />
               ) : (

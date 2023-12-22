@@ -20,6 +20,7 @@ import { Spinner } from "@material-tailwind/react";
 import { trash } from "@/utils/datas/icons";
 import { base_url } from "@/utils/auth/global";
 import VideoPlayer from "../commons/video-player/VideoPlayer";
+import StoreCertificates from "./StoreCertificates";
 
 const CompanyForm = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -58,6 +59,24 @@ const CompanyForm = () => {
     }
   };
 
+  const [storeVideo, setStoreVideo] = useState(true);
+  const [storeLogo, setStoreLogo] = useState(true);
+
+  const removeVideo = () => {
+    if (video) {
+      setVideo(null);
+    } else {
+      setStoreVideo(false);
+    }
+  };
+  const removeLogo = () => {
+    if (logo) {
+      setLogo(null);
+    } else {
+      setStoreLogo(false);
+    }
+  };
+
   useEffect(() => {
     setSaveCertificates(store?.data?.certificates);
   }, [store]);
@@ -83,8 +102,14 @@ const CompanyForm = () => {
     if (video) {
       newStoreInfo.append("store_presentation_video", video);
     }
+    if (!storeVideo) {
+      companyInfo["store_presentation_video"] = "";
+    }
     if (logo) {
       newStoreInfo.append("logo", logo);
+    }
+    if (!storeLogo) {
+      companyInfo["logo"] = "";
     }
     if (certificates?.length > 0) {
       certificates.forEach((file, index) => {
@@ -104,6 +129,7 @@ const CompanyForm = () => {
       setCertificates([]);
       setLogo(null);
       setVideo(null);
+      setStoreVideo(true);
       reset();
       toast.success("Store info Add Successfully");
     } else {
@@ -155,7 +181,15 @@ const CompanyForm = () => {
             <div className="w-full">
               <label>Logo</label>
               <div className={`input_box relative ${!isEdit && "!bg-white"}`}>
-                {store?.data?.logo && !logo ? (
+                {isEdit && (
+                  <div
+                    onClick={() => removeLogo()}
+                    className="absolute -top-2 -right-2 z-50 rounded-full bg-white text-red-600 p-1 w-8 cursor-pointer"
+                  >
+                    {trash}
+                  </div>
+                )}
+                {store?.data?.logo && storeLogo && !logo ? (
                   <div className="flex justify-center items-center">
                     <img
                       className="w-full h-full max-w-[200px] max-h-[150px] object-contain"
@@ -169,7 +203,7 @@ const CompanyForm = () => {
                     {logo ? (
                       <div className="input_inner">
                         <img
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain"
                           src={viewFile(logo)}
                           alt=""
                         />
@@ -210,7 +244,7 @@ const CompanyForm = () => {
                           className="relative w-24 h-24 bg-green-50 p-1 flex justify-start items-center rounded-md"
                         >
                           <img
-                            className="w-20 h-20 object-cover"
+                            className="w-20 h-20 object-contain"
                             src={`${base_url}/uploads/${img}`}
                             alt=""
                           />
@@ -246,13 +280,13 @@ const CompanyForm = () => {
                     )}
                     {certificates.length > 0 && (
                       <div className="flex items-center gap-3 flex-wrap w-full h-fit my-2">
-                        {certificates.map((img, index) => (
+                        {certificates?.map((img, index) => (
                           <div
                             key={index}
                             className="relative w-24 h-24 bg-green-50 p-1 flex justify-start items-center rounded-md"
                           >
                             <img
-                              className="w-20 h-20 object-cover"
+                              className="w-20 h-20 object-contain"
                               src={viewFile(img)}
                               alt=""
                             />
@@ -285,20 +319,7 @@ const CompanyForm = () => {
                 </>
               ) : (
                 <>
-                  <div className="grid grid-cols-3 gap-3 flex-wrap w-full h-fit my-2">
-                    {saveCertificates?.map((img, index) => (
-                      <div
-                        key={index}
-                        className="relative w-full bg-gray-100 p-2 flex justify-start items-center rounded-md border"
-                      >
-                        <img
-                          className="w-full h-full"
-                          src={`${base_url}/uploads/${img}`}
-                          alt=""
-                        />
-                      </div>
-                    ))}
-                  </div>
+                  <StoreCertificates saveCertificates={saveCertificates} />
                 </>
               )}
 
@@ -328,17 +349,18 @@ const CompanyForm = () => {
             <div className="w-full">
               <label>Upload a video presentation of your company</label>
               <div className={`input_box relative ${!isEdit && "!bg-white"}`}>
-                {isEdit && video && (
+                {isEdit && (
                   <div
-                    onClick={() => setVideo(null)}
-                    className="absolute -top-2 -right-2 z-50 rounded-full bg-white text-red-600 p-1 w-8"
+                    onClick={() => removeVideo()}
+                    className="absolute -top-2 -right-2 z-50 rounded-full bg-white text-red-600 p-1 w-8 cursor-pointer"
                   >
-                    {" "}
-                    {trash}{" "}
+                    {trash}
                   </div>
                 )}
 
-                {store?.data?.store_presentation_video && !video ? (
+                {store?.data?.store_presentation_video &&
+                storeVideo &&
+                !video ? (
                   <VideoPlayer
                     url={`${base_url}/uploads/${store?.data?.store_presentation_video}`}
                     className="object-contain w-100 h-100"

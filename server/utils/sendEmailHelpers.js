@@ -284,10 +284,7 @@ const sendContactMessage = async (data) => {
             <p style="color: #636465;font-size:14px;line-height:180% ; "><strong>Email:</strong> ${
               data?.email
             }</p>
-            <p style="color: #636465;font-size:14px;line-height:180% ; ">Hello <strong>${
-              store?.user?.name
-            }</strong>,
-            </p>
+          
 
 
             <p style="color: #636465;font-size:14px;line-height:180% ; ">Message</p>

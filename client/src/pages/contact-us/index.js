@@ -133,7 +133,7 @@ const ContactUsPage = () => {
                   {...register("message", {
                     required: true,
                     minLength: 50,
-                    maxLength: 500,
+                    maxLength: 2000,
                     message: "Message is Required",
                   })}
                   placeholder="Enter Message..."
@@ -141,7 +141,7 @@ const ContactUsPage = () => {
                 ></textarea>
                 {errors.message && (
                   <small className="text-red-500 text-xs italic">
-                    Please fill out this field.(Minimum: 50 and Maximum 500
+                    Please fill out this field.(Minimum: 50 and Maximum 2000
                     Characters)
                   </small>
                 )}

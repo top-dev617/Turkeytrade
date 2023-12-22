@@ -65,7 +65,7 @@ const conversationApi = api.injectEndpoints({
     }),
     seenAllMessagesByChat: builder.mutation({
       query: ({ data }) => ({
-        url: `/messages/unseen-to-seen/${data?.chatId}/${data?.receiverId}`,
+        url: `/messages/unseen-to-seen/${data?.chatId}`,
         method: "PATCH",
       }),
       invalidatesTags: ["seen_messages"],

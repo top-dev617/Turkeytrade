@@ -12,13 +12,14 @@ const sendMessage = async (req, res) => {
     } else {
       res.status(201).json({
         status: false,
-        message: "Message Send Felid",
+        message: "Message Send Failed",
       });
     }
   } catch (error) {
     res.status(201).json({
       status: false,
-      message: "Message Send Felid",
+      error_message: error.message,
+      message: "Message Send Failed",
     });
   }
 };

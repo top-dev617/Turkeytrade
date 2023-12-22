@@ -1,3 +1,4 @@
+import useInputPattern from "@/lib/hooks/useInputPattern";
 import { usePatchUserInfoByIdMutation } from "@/redux/features/auth/authApi";
 import {
   usePatchStoreInfoByIdMutation,
@@ -10,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const SellerStoreInfo = ({ store, isAuthor }) => {
+  const { handleAlphabeticInput, handlePhoneNumberInput } = useInputPattern();
   const { handleSubmit, register, reset } = useForm();
   const [patchUserInfoById, { isLoading }] = usePatchUserInfoByIdMutation();
   const [storeInfoUpdate] = useStoreInfoUpdateMutation();
@@ -95,6 +97,7 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
                   {...register("phoneNumber", { required: false })}
                   name="phoneNumber"
                   type="tel"
+                  onInput={handlePhoneNumberInput}
                   placeholder="Phone Number"
                   disabled={isEdit ? false : true}
                   readOnly={isEdit ? false : true}
@@ -121,6 +124,7 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
               {...register("city", { required: false })}
               name="city"
               type="text"
+              onInput={handleAlphabeticInput}
               placeholder="City"
               disabled={isEdit ? false : true}
               readOnly={isEdit ? false : true}

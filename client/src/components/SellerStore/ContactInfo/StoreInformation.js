@@ -1,3 +1,4 @@
+import useInputPattern from "@/lib/hooks/useInputPattern";
 import { usePatchUserInfoByIdMutation } from "@/redux/features/auth/authApi";
 import {
   usePatchStoreInfoByIdMutation,
@@ -11,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const StoreInformation = ({ store, isAuthor }) => {
+  const { handleNumber } = useInputPattern();
   const { handleSubmit, register, reset } = useForm();
   const [storeInfoUpdate, { isLoading }] = useStoreInfoUpdateMutation();
   const [isEdit, setIsEdit] = useState(false);
@@ -121,6 +123,7 @@ const StoreInformation = ({ store, isAuthor }) => {
                 {...register("year_established", { required: true })}
                 type="text"
                 name="year_established"
+                onInput={handleNumber}
                 placeholder="Year Established"
                 defaultValue={store?.business_information?.year_established}
                 className=""

@@ -38,15 +38,16 @@ const MessageArea = ({ auth, messageClassName }) => {
 
   const handleSeenAll = async () => {
     const options = {
-      data: { chatId: chatId, receiverId: receiverData?._id },
+      data: { chatId: chatId },
     };
-    await seenAllMessagesByChat(options);
+    const result = await seenAllMessagesByChat(options);
+    console.log(result);
   };
 
   useEffect(() => {
     handleSeenAll();
     return () => {};
-  }, [chatId, receiverData, messages]);
+  }, [chatId, messages]);
 
   useEffect(() => {
     refetch();

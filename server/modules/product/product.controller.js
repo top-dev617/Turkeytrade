@@ -57,7 +57,7 @@ const getProductById = async (req, res) => {
 const getProductsByCateId = async (req, res) => {
   try {
     const isExist = await Category.findOne({ cate_slug: req.params.cateSlug });
-    console.log(isExist);
+    // console.log(isExist);
     if (isExist) {
       const products = await Product.find({
         category: isExist._id,
@@ -71,9 +71,10 @@ const getProductsByCateId = async (req, res) => {
       const productsWithMinMaxPrices = await Promise.all(
         products.map(async (product) => {
           if (product?.price?.price_type === "ladder_price") {
-            const prices = product?.price?.ladder_price?.map(
-              (price) => price.euro
+            const prices = product?.price?.ladder_price?.map((price) =>
+              parseInt(price.euro)
             );
+            console.log(prices);
             const minPrice = Math.min(...prices);
             const maxPrice = Math.max(...prices);
             return {
@@ -93,7 +94,7 @@ const getProductsByCateId = async (req, res) => {
         data: productsWithMinMaxPrices,
       });
     } else {
-      res.status(201).json({
+      res.status(404).json({
         status: false,
         message: "Category not found",
       });
@@ -112,7 +113,7 @@ const getProductsBySubCateId = async (req, res) => {
     const isExistSubCate = await SubCategory.findOne({
       sub_cate_slug: req.params.subCateSlug,
     });
-    console.log("sub cate:", isExistSubCate);
+    // console.log("sub cate:", isExistSubCate);
     if (isExistSubCate) {
       const products = await Product.find({
         sub_category: isExistSubCate._id,
@@ -227,8 +228,8 @@ const getProductsByStoreId = async (req, res) => {
     const productsWithMinMaxPrices = await Promise.all(
       result.map(async (product) => {
         if (product?.price?.price_type === "ladder_price") {
-          const prices = product?.price?.ladder_price?.map(
-            (price) => price.euro
+          const prices = product?.price?.ladder_price?.map((price) =>
+            parseInt(price.euro)
           );
           const minPrice = Math.min(...prices);
           const maxPrice = Math.max(...prices);
@@ -471,7 +472,7 @@ const getSearchProducts = async (req, res) => {
     const { search } = req.query;
     const searchRegex = new RegExp(search, "i");
 
-    const result = await Product.find({
+    const products = await Product.find({
       $or: [
         { title: searchRegex },
         { keyword: searchRegex },
@@ -483,10 +484,29 @@ const getSearchProducts = async (req, res) => {
       .populate("group")
       .sort({ _id: -1 });
 
+    const productsWithMinMaxPrices = await Promise.all(
+      products.map(async (product) => {
+        if (product?.price?.price_type === "ladder_price") {
+          const prices = product?.price?.ladder_price?.map((price) =>
+            parseInt(price.euro)
+          );
+          const minPrice = Math.min(...prices);
+          const maxPrice = Math.max(...prices);
+          return {
+            ...product?.toObject(),
+            minPrice,
+            maxPrice,
+          };
+        } else {
+          return { ...product?.toObject() };
+        }
+      })
+    );
+
     res.status(200).json({
       status: true,
       message: "Products get successfully",
-      data: result,
+      data: productsWithMinMaxPrices,
     });
   } catch (error) {
     res.status(201).json({

@@ -85,13 +85,12 @@ const getTotalUnseen = async (req, res) => {
 
 const seenAllUnseenMessages = async (req, res) => {
   try {
-    const { chatId, receiverId } = req.params;
+    const { chatId } = req.params;
     const result = await Message.updateMany(
       {
         $and: [
           { chatId: chatId },
           { senderId: { $ne: req.user?._id } },
-          { senderId: receiverId },
           { isSeen: false },
         ],
       },
