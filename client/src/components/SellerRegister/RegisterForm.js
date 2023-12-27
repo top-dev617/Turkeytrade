@@ -9,7 +9,11 @@ import { Spinner } from "@material-tailwind/react";
 import { countries } from "@/utils/datas/countries";
 
 const RegisterForm = ({ user, store }) => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const closeModalRef = useRef(null);
   const router = useRouter();
 
@@ -37,7 +41,6 @@ const RegisterForm = ({ user, store }) => {
       },
       tax_information: {
         kdv_number: data?.kdv_number,
-        kdv_certificate: "",
       },
     };
 
@@ -48,9 +51,6 @@ const RegisterForm = ({ user, store }) => {
         "business_registration_certificate",
         data?.business_registration_certificate[0]
       );
-    }
-    if (data?.kdv_certificate) {
-      newData.append("kdv_certificate", data?.kdv_certificate[0]);
     }
 
     const options = {
@@ -84,9 +84,11 @@ const RegisterForm = ({ user, store }) => {
                   </label>
                   <select
                     {...register("country", { required: true })}
-                    className="px-2 block input py-4"
                     aria-label="Default select example"
                     name="country"
+                    className={`px-2 input block py-4 ${
+                      errors.country && "border !border-red-600"
+                    }`}
                   >
                     <option value="" style={{ color: "#94959B" }}>
                       Country Name
@@ -109,10 +111,12 @@ const RegisterForm = ({ user, store }) => {
                   </label>
                   <input
                     {...register("province", { required: true })}
-                    className="px-2"
                     type="text"
                     placeholder="Province"
                     defaultValue={user?.province}
+                    className={`px-2 ${
+                      errors.province && "border !border-red-600"
+                    }`}
                   />
                 </div>
               </div>
@@ -123,10 +127,12 @@ const RegisterForm = ({ user, store }) => {
                   </label>
                   <input
                     {...register("city", { required: true })}
-                    className="px-2"
                     type="text"
                     placeholder="City"
                     defaultValue={user?.city}
+                    className={`px-2 ${
+                      errors.city && "border !border-red-600"
+                    }`}
                   />
                 </div>
               </div>
@@ -137,7 +143,9 @@ const RegisterForm = ({ user, store }) => {
                   </label>
                   <input
                     {...register("address", { required: true })}
-                    className="px-2"
+                    className={`px-2 ${
+                      errors.address && "border !border-red-600"
+                    }`}
                     type="text"
                     placeholder="Address"
                     defaultValue={user?.companyAddress}
@@ -151,7 +159,9 @@ const RegisterForm = ({ user, store }) => {
                   </label>
                   <input
                     {...register("postal_code", { required: true })}
-                    className="px-2"
+                    className={`px-2 ${
+                      errors.postal_code && "border !border-red-600"
+                    }`}
                     type="text"
                     placeholder="Postal Code"
                     defaultValue={user?.zipCode}
@@ -171,7 +181,9 @@ const RegisterForm = ({ user, store }) => {
                   </label>
                   <input
                     {...register("store_name", { required: true })}
-                    className="px-2"
+                    className={`px-2 ${
+                      errors.store_name && "border !border-red-600"
+                    }`}
                     type="text"
                     placeholder="Business Name"
                     defaultValue={user?.company_name}
@@ -181,13 +193,17 @@ const RegisterForm = ({ user, store }) => {
               <div className="col-12 col-md-6">
                 <div>
                   <label>
-                    Business registration Certificate <span>*</span>
+                    Trade Registry Certificate / Ticaret Sicil Belgesi{" "}
+                    <span>*</span>
                   </label>
                   <input
                     {...register("business_registration_certificate", {
                       required: true,
                     })}
-                    className="px-2"
+                    className={`px-2 ${
+                      errors.business_registration_certificate &&
+                      "border !border-red-600"
+                    }`}
                     type="file"
                     multiple={false}
                     accept=".png, .jpg, .jpeg"
@@ -197,15 +213,19 @@ const RegisterForm = ({ user, store }) => {
               <div className="col-12 col-md-6">
                 <div>
                   <label>
-                    Business certificate Number <span>*</span>
+                    Central Registration System Number / MERSIS No{" "}
+                    <span>*</span>
                   </label>
                   <input
                     {...register("business_certificate_number", {
                       required: true,
                     })}
-                    className="px-2"
+                    className={`px-2 ${
+                      errors.business_certificate_number &&
+                      "border !border-red-600"
+                    }`}
                     type="text"
-                    placeholder="Business certificate number"
+                    placeholder="Central Registration System Number / MERSIS No"
                   />
                 </div>
               </div>
@@ -213,8 +233,16 @@ const RegisterForm = ({ user, store }) => {
                 <div>
                   <label>Company website</label>
                   <input
-                    {...register("company_website", { required: false })}
-                    className="px-2"
+                    {...register("company_website", {
+                      required: false,
+                      pattern: {
+                        value: /^(ftp|http|https):\/\/[^ "]+$/,
+                        message: "Invalid URL format",
+                      },
+                    })}
+                    className={`px-2 ${
+                      errors.company_website && "border !border-red-600"
+                    }`}
                     type="url"
                     placeholder="Company website"
                   />
@@ -229,27 +257,15 @@ const RegisterForm = ({ user, store }) => {
               <div className="col-12 col-md-6">
                 <div>
                   <label>
-                    KDV Number <span>*</span>
+                    Tax Number / Vergi No <span>*</span>
                   </label>
                   <input
                     {...register("kdv_number", { required: true })}
-                    className="px-2"
+                    className={`px-2 ${
+                      errors.kdv_number && "border !border-red-600"
+                    }`}
                     type="number"
-                    placeholder="KDV Number"
-                  />
-                </div>
-              </div>
-              <div className="col-12 col-md-6">
-                <div>
-                  <label>
-                    KDV certificate <span>*</span>
-                  </label>
-                  <input
-                    {...register("kdv_certificate", { required: true })}
-                    className="px-2"
-                    type="file"
-                    multiple={false}
-                    accept=".png, .jpg, .jpeg"
+                    placeholder="Tax Number / Vergi No"
                   />
                 </div>
               </div>

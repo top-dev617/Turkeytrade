@@ -4,7 +4,7 @@ import React from "react";
 import { useRef } from "react";
 import { useState } from "react";
 
-const AddGroup = ({ groups, storeId }) => {
+const AddGroup = ({ groups, storeId, setValue }) => {
   const [postProductGroup, { isLoading }] = usePostProductGroupMutation();
   const [groupTitle, setGroupTitle] = useState("");
   const groupRef = useRef();
@@ -18,6 +18,9 @@ const AddGroup = ({ groups, storeId }) => {
       if (result) {
         setGroupTitle("");
         groupRef.current.value = "";
+        if (result?.data?.status) {
+          setValue("group", result?.data?.data?._id);
+        }
       }
     }
   };

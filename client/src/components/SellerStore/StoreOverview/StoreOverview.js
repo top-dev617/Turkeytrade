@@ -7,7 +7,10 @@ import { useState } from "react";
 
 const StoreOverview = ({ store }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { data, isLoading, refetch } = useGetProductsByStoreQuery(store?._id, currentPage);
+  const { data, isLoading, refetch } = useGetProductsByStoreQuery({
+    storeId: store?._id,
+    page: currentPage,
+  });
 
   // Pagination state
 
@@ -17,7 +20,7 @@ const StoreOverview = ({ store }) => {
     setCurrentPage(page);
   };
   useEffect(() => {
-    if (typeof currentPage !== 'undefined') {
+    if (typeof currentPage !== "undefined") {
       const refetchWithNewPage = async () => {
         await refetch({ page: currentPage });
       };
@@ -42,6 +45,5 @@ const StoreOverview = ({ store }) => {
     </div>
   );
 };
-
 
 export default StoreOverview;

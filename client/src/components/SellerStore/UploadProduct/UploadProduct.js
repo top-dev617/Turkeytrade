@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import question from "../../../../public/assets/que.png";
 import plusIcon from "../../../../public/assets/plus-icon.png";
 import star from "../../../../public/assets/star.png";
@@ -33,6 +33,8 @@ import { RotatingSquare } from "react-loader-spinner";
 import useInputPattern from "@/lib/hooks/useInputPattern";
 import InputLabelTooltip from "@/components/commons/tooltip/InputLabelTooltip";
 import { labelInfo } from "@/utils/datas/inputLabelInfo";
+import ProductVideoInput from "./ProductVideoInput";
+import { useDropzone } from "react-dropzone";
 
 const modules = {
   toolbar: [
@@ -535,6 +537,12 @@ const UploadProduct = ({ store }) => {
             : "Product Publish Successfully"
         );
         localStorage.removeItem("productInfo");
+        setCategory(null);
+        setSubCategory(null);
+        setUnit({
+          singular: "",
+          plural: "",
+        });
         reset();
         setKeywords([]);
         setContent("");
@@ -665,6 +673,24 @@ const UploadProduct = ({ store }) => {
       customCateRef.current.focus();
     }
   }, [errors.group]);
+
+  // const onPImage = useCallback((acceptedFiles) => {
+  //   console.log(acceptedFiles);
+  //   if (acceptedFiles && acceptedFiles?.length > 0) {
+  //     let images = [];
+  //     for (let i = 0; i < acceptedFiles.length; i++) {
+  //       images.push(acceptedFiles[i]);
+  //     }
+  //     setProductImages((current) => [...current, ...images]);
+  //   }
+  // }, []);
+
+  // const { getRootProps, getInputProps } = useDropzone({
+  //   onDrop: onPImage,
+  //   accept: {
+  //     "image/*": [".jpeg", ".png", ".jpg"],
+  //   },
+  // });
 
   return (
     <div className="upload_product md:px-8 relative">
@@ -924,6 +950,7 @@ const UploadProduct = ({ store }) => {
                     <AddGroup
                       groups={productGroups?.data}
                       storeId={store?._id}
+                      setValue={setValue}
                     />
                   </Popover>
                 </div>
@@ -1064,7 +1091,7 @@ const UploadProduct = ({ store }) => {
                   </div>
                 </div>
 
-                {productImages?.filter(Boolean).length > 2 && (
+                {productImages?.length > 2 && (
                   <>
                     <div className="w-full">
                       <div className="input_box relative">
@@ -1106,7 +1133,7 @@ const UploadProduct = ({ store }) => {
                     </div>
                   </>
                 )}
-                {productImages.filter(Boolean).length > 3 && (
+                {productImages?.length > 3 && (
                   <>
                     <div className="w-full">
                       <div className="input_box relative">
@@ -1148,7 +1175,7 @@ const UploadProduct = ({ store }) => {
                     </div>
                   </>
                 )}
-                {productImages.filter(Boolean).length > 4 && (
+                {productImages?.length > 4 && (
                   <>
                     <div className="w-full">
                       <div className="input_box relative">
@@ -1193,39 +1220,13 @@ const UploadProduct = ({ store }) => {
 
             <div className="col-12 mb-5">
               <label>Upload Product video</label>
-              <div className="input_box cursor-pointer relative">
-                <div className="input_inner">
-                  {video ? (
-                    <VideoPlayer
-                      url={viewFile(video)}
-                      className="object-contain w-100 h-100"
-                    />
-                  ) : (
-                    <>
-                      {editProduct?._id ? (
-                        <VideoPlayer
-                          url={`${base_url}/uploads/${editProduct?.video}`}
-                          className="object-contain w-100 h-100"
-                        />
-                      ) : (
-                        <>
-                          <img src={videoIcon.src} alt="" />
-                          <p>Drop your video here or browse</p>
-                        </>
-                      )}
-                    </>
-                  )}
-                </div>
-
-                <input
-                  ref={videoRef}
-                  type="file"
-                  name="video"
-                  className="absolute w-full h-full top-0 bottom-0 opacity-0 cursor-pointer"
-                  accept=".mp4, .mkv"
-                  onChange={(e) => handleVideo(e.target.files[0])}
-                />
-              </div>
+              <ProductVideoInput
+                video={video}
+                editProduct={editProduct}
+                viewFile={viewFile}
+                videoRef={videoRef}
+                handleVideo={handleVideo}
+              />
             </div>
 
             <div className="col-12 col-lg-6 mb-4">

@@ -16,7 +16,7 @@ import { iView } from "@/utils/datas/icons";
 
 const StoreCertificates = ({ saveCertificates }) => {
   const [index, setIndex] = useState(-1);
-  const certificates = saveCertificates.map((certificate) => {
+  const certificates = saveCertificates?.map((certificate) => {
     return {
       src: `${base_url}/uploads/${certificate}`,
       width: 800,

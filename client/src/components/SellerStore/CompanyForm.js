@@ -21,6 +21,8 @@ import { trash } from "@/utils/datas/icons";
 import { base_url } from "@/utils/auth/global";
 import VideoPlayer from "../commons/video-player/VideoPlayer";
 import StoreCertificates from "./StoreCertificates";
+import CompanyLogoInput from "./companyFormComponents/CompanyLogoInput";
+import CompanyVideoInput from "./companyFormComponents/CompanyVideoInput";
 
 const CompanyForm = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -145,7 +147,7 @@ const CompanyForm = () => {
     setCertificates((current) => [...current, ...images]);
   };
 
-  const onDrop = useCallback((acceptedFiles) => {
+  const onCTF = useCallback((acceptedFiles) => {
     handleSetImages(acceptedFiles);
   }, []);
 
@@ -156,7 +158,10 @@ const CompanyForm = () => {
     isDragAccept,
     isDragReject,
   } = useDropzone({
-    onDrop,
+    onDrop: onCTF,
+    accept: {
+      "image/*": [".jpeg", ".png", ".jpg"],
+    },
   });
   // console.log(isEdit, video);
   return (
@@ -180,52 +185,16 @@ const CompanyForm = () => {
 
             <div className="w-full">
               <label>Logo</label>
-              <div className={`input_box relative ${!isEdit && "!bg-white"}`}>
-                {isEdit && (
-                  <div
-                    onClick={() => removeLogo()}
-                    className="absolute -top-2 -right-2 z-50 rounded-full bg-white text-red-600 p-1 w-8 cursor-pointer"
-                  >
-                    {trash}
-                  </div>
-                )}
-                {store?.data?.logo && storeLogo && !logo ? (
-                  <div className="flex justify-center items-center">
-                    <img
-                      className="w-full h-full max-w-[200px] max-h-[150px] object-contain"
-                      loading="lazy"
-                      src={`${base_url}/uploads/${store?.data?.logo}`}
-                      alt="store logo"
-                    />
-                  </div>
-                ) : (
-                  <>
-                    {logo ? (
-                      <div className="input_inner">
-                        <img
-                          className="w-full h-full object-contain"
-                          src={viewFile(logo)}
-                          alt=""
-                        />
-                      </div>
-                    ) : (
-                      <div className="input_inner">
-                        <img className="img-fluid " src={picIcon.src} alt="" />
-                        <p>Drop your image here or browse</p>
-                      </div>
-                    )}
-                  </>
-                )}
-                <input
-                  {...register("logo")}
-                  name="logo"
-                  type="file"
-                  className="absolute top-0 right-0 bottom-0 left-0 w-full h-full opacity-0"
-                  accept="image/*"
-                  disabled={isEdit ? false : true}
-                  onChange={(e) => setLogo(e.target.files[0])}
-                />
-              </div>
+              <CompanyLogoInput
+                register={register}
+                isEdit={isEdit}
+                store={store}
+                storeLogo={storeLogo}
+                logo={logo}
+                setLogo={setLogo}
+                viewFile={viewFile}
+                removeLogo={removeLogo}
+              />
             </div>
 
             <div className="w-full">
@@ -348,48 +317,16 @@ const CompanyForm = () => {
 
             <div className="w-full">
               <label>Upload a video presentation of your company</label>
-              <div className={`input_box relative ${!isEdit && "!bg-white"}`}>
-                {isEdit && (
-                  <div
-                    onClick={() => removeVideo()}
-                    className="absolute -top-2 -right-2 z-50 rounded-full bg-white text-red-600 p-1 w-8 cursor-pointer"
-                  >
-                    {trash}
-                  </div>
-                )}
-
-                {store?.data?.store_presentation_video &&
-                storeVideo &&
-                !video ? (
-                  <VideoPlayer
-                    url={`${base_url}/uploads/${store?.data?.store_presentation_video}`}
-                    className="object-contain w-100 h-100"
-                  />
-                ) : (
-                  <>
-                    {video ? (
-                      <VideoPlayer
-                        url={viewFile(video)}
-                        className="object-contain w-100 h-100"
-                      />
-                    ) : (
-                      <div className="input_inner">
-                        <img src={videoIcon.src} alt="" />
-                        <p>Drop your video here or browse</p>
-                      </div>
-                    )}
-                  </>
-                )}
-                <input
-                  ref={videoRef}
-                  type="file"
-                  multiple={false}
-                  className="absolute top-0 right-0 bottom-0 left-0 w-full h-full opacity-0 cursor-pointer"
-                  accept=".mp4, .mkv"
-                  disabled={isEdit ? false : true}
-                  onChange={(e) => handleVideo(e.target.files[0])}
-                />
-              </div>
+              <CompanyVideoInput
+                isEdit={isEdit}
+                removeVideo={removeVideo}
+                store={store}
+                storeVideo={storeVideo}
+                video={video}
+                viewFile={viewFile}
+                videoRef={videoRef}
+                handleVideo={handleVideo}
+              />
             </div>
           </div>
 

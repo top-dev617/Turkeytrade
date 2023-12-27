@@ -53,7 +53,7 @@ const productApi = api.injectEndpoints({
 
     // get all products by store
     getProductsByStore: builder.query({
-      query: (storeId, page) => `/products/store/${storeId}?page=${page}`,
+      query: ({ storeId, page }) => `/products/store/${storeId}?page=${page}`,
       providesTags: ["products"],
     }),
 
