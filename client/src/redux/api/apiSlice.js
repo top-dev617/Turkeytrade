@@ -21,6 +21,7 @@ export const api = createApi({
     "chats",
     "messages",
     "seen_messages",
+    "product-groups",
   ],
   endpoints: () => ({}),
 });

@@ -14,7 +14,7 @@ const BrowseCategory = ({ categories }) => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 800) {
+      if (window.innerWidth > 1000) {
         setPlacement("right");
       } else {
         setPlacement("bottom");

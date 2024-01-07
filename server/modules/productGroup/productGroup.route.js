@@ -8,6 +8,7 @@ const {
   deletePGroupById,
   getPGroupsByStoreId,
   getUniquePGroupsByStoreId,
+  checkIsExist,
 } = require("./productGroup.controller");
 
 const router = express.Router();
@@ -20,5 +21,8 @@ router.get("/", getPGroups);
 router.get("/show/group", getShowPGroups);
 router.patch("/:id", updatePGroup);
 router.delete("/:id", deletePGroupById);
+
+// check is exist
+router.get("/isexist/:id", checkIsExist);
 
 module.exports = router;

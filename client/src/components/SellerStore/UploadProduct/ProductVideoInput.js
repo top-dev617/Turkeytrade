@@ -26,7 +26,11 @@ const ProductVideoInput = ({
   });
   return (
     <div className="input_box cursor-pointer relative">
-      <div {...getRootProps()} className="input_inner">
+      <div
+        {...getRootProps()}
+        onClick={() => videoRef.current.click()}
+        className="input_inner"
+      >
         {video ? (
           <VideoPlayer
             url={viewFile(video)}

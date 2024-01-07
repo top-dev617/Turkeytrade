@@ -42,7 +42,7 @@ const StoreTab = ({ store }) => {
   };
 
   const handleDropdown = (v) => {
-    console.log(v);
+    // console.log(v);
     setSelectDrop(v);
     setOpen(false);
   };
@@ -114,9 +114,13 @@ const StoreTab = ({ store }) => {
         <div className="py-3">
           {step === 0 && <StoreOverview store={store} />}
           {step === 1 && (
-            <UploadProductMain store={store} selectDrop={selectDrop} />
+            <UploadProductMain
+              store={store}
+              selectDrop={selectDrop}
+              setStep={setStep}
+            />
           )}
-          {step === 2 && <EditProduct store={store} />}
+          {step === 2 && <EditProduct store={store} setStep={setStep} />}
           {step === 3 && <ContactInfo />}
         </div>
       </div>

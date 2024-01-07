@@ -97,7 +97,7 @@ const StoreInformation = ({ store, isAuthor }) => {
             <div>
               <label>Number of employees</label>
               <input
-                {...register("number_of_employees", { required: true })}
+                {...register("number_of_employees", { required: false })}
                 type="number"
                 min={0}
                 name="number_of_employees"
@@ -109,7 +109,7 @@ const StoreInformation = ({ store, isAuthor }) => {
             <div>
               <label>Business Type</label>
               <input
-                {...register("business_type", { required: true })}
+                {...register("business_type", { required: false })}
                 type="text"
                 name="business_type"
                 placeholder="Business Type"
@@ -120,7 +120,7 @@ const StoreInformation = ({ store, isAuthor }) => {
             <div>
               <label>Year Established</label>
               <input
-                {...register("year_established", { required: true })}
+                {...register("year_established", { required: false })}
                 type="text"
                 name="year_established"
                 onInput={handleNumber}
@@ -132,7 +132,7 @@ const StoreInformation = ({ store, isAuthor }) => {
             <div>
               <label>Website URL</label>
               <input
-                {...register("company_website", { required: true })}
+                {...register("company_website", { required: false })}
                 type="url"
                 name="company_website"
                 placeholder="Ex: https://website.com"

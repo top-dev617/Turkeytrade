@@ -59,7 +59,7 @@ const formats = [
   "video",
 ];
 
-const UploadProduct = ({ store }) => {
+const UploadProduct = ({ store, setStep }) => {
   const { editProduct } = useSelector((state) => state.product);
   const { data, isLoading: categoryLoading } = useGetCategoriesQuery();
   const { data: productGroups } = useGetProductGroupByStoreIdQuery(store?._id);
@@ -268,11 +268,11 @@ const UploadProduct = ({ store }) => {
   const img0Ref = useRef();
   const img1Ref = useRef();
   const img2Ref = useRef();
-  const img3Ref = useRef();
-  const img4Ref = useRef();
-  const img5Ref = useRef();
-
-  const imageRefs = [img0Ref, img1Ref, img2Ref, img3Ref, img4Ref, img5Ref];
+  // const img3Ref = useRef();
+  // const img4Ref = useRef();
+  // const img5Ref = useRef();
+  // img3Ref, img4Ref, img5Ref
+  const imageRefs = [img0Ref, img1Ref, img2Ref];
   const editImageHandle = (index, img) => {
     if (img) {
       if (img.size > 2 * 1024 * 1024) {
@@ -301,21 +301,21 @@ const UploadProduct = ({ store }) => {
       setProductImages([...productImages, img]);
     }
 
-    if (productImages.length > 3 && index === 3) {
-      changeImage(index, img);
-    } else if (productImages.length < 4 && index === 3) {
-      setProductImages([...productImages, img]);
-    }
-    if (productImages.length > 4 && index === 4) {
-      changeImage(index, img);
-    } else if (productImages.length < 5 && index === 4) {
-      setProductImages([...productImages, img]);
-    }
-    if (productImages.length > 5 && index === 5) {
-      changeImage(index, img);
-    } else if (productImages.length < 6 && index === 5) {
-      setProductImages([...productImages, img]);
-    }
+    // if (productImages.length > 3 && index === 3) {
+    //   changeImage(index, img);
+    // } else if (productImages.length < 4 && index === 3) {
+    //   setProductImages([...productImages, img]);
+    // }
+    // if (productImages.length > 4 && index === 4) {
+    //   changeImage(index, img);
+    // } else if (productImages.length < 5 && index === 4) {
+    //   setProductImages([...productImages, img]);
+    // }
+    // if (productImages.length > 5 && index === 5) {
+    //   changeImage(index, img);
+    // } else if (productImages.length < 6 && index === 5) {
+    //   setProductImages([...productImages, img]);
+    // }
   };
   // product images
 
@@ -497,9 +497,11 @@ const UploadProduct = ({ store }) => {
         setLoading(false);
         dispatch(setEditProduct(null));
         setVideo(null);
+        setStep(0);
       } else {
         toast.error("Product Update unsuccessfully");
         setLoading(false);
+        setStep(0);
       }
     } else {
       // -------------second part-------------
@@ -551,6 +553,7 @@ const UploadProduct = ({ store }) => {
         setOnePriceFields(oneFields);
         setLoading(false);
         setVideo(null);
+        setStep(0);
       } else {
         toast.error(
           saveDraft
@@ -558,6 +561,7 @@ const UploadProduct = ({ store }) => {
             : "Product Publish unsuccessfully"
         );
         setLoading(false);
+        setStep(0);
       }
     }
   };
@@ -965,7 +969,7 @@ const UploadProduct = ({ store }) => {
             <div className="col-12 mb-4">
               <label>
                 Product photos <small className="text-red-600">*</small>{" "}
-                <span>(max 6 photos)</span>{" "}
+                <span>(max 3 photos)</span>{" "}
               </label>
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -1018,80 +1022,84 @@ const UploadProduct = ({ store }) => {
                   </p>
                 </div>
 
-                <div className="w-full">
-                  <div className="input_box relative">
-                    {productImages?.length > 1 && (
-                      <div
-                        onClick={() => removeImage(1)}
-                        className="absolute -top-2 -right-2 z-40 rounded-full bg-white text-red-600 p-1 w-8 cursor-pointer"
-                      >
-                        {trash}
-                      </div>
-                    )}
-                    <div className="input_inner">
-                      {productImages?.length > 1 ? (
-                        <img
-                          className="w-100 h-100"
-                          src={viewImg(productImages[1])}
-                          alt=""
-                        />
-                      ) : (
-                        <img className="" src={plusIcon.src} alt="" />
+                {productImages?.length > 0 && (
+                  <div className="w-full">
+                    <div className="input_box relative">
+                      {productImages?.length > 1 && (
+                        <div
+                          onClick={() => removeImage(1)}
+                          className="absolute -top-2 -right-2 z-40 rounded-full bg-white text-red-600 p-1 w-8 cursor-pointer"
+                        >
+                          {trash}
+                        </div>
                       )}
-                    </div>
-                    <input
-                      ref={img1Ref}
-                      type="file"
-                      name="image2"
-                      accept=".png, .jpg, .jpeg"
-                      multiple={false}
-                      onChange={(e) => editImageHandle(1, e.target.files[0])}
-                      className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
-                    />
-                  </div>
-                  <div className="d-flex justify-content-center">
-                    <p className="dot_btn">1</p>
-                  </div>
-                </div>
-
-                <div className="w-full">
-                  <div className="input_box relative">
-                    {productImages.length > 2 && (
-                      <div
-                        onClick={() => removeImage(2)}
-                        className="absolute -top-2 -right-2 z-40 rounded-full bg-white text-red-600 p-1 w-8 cursor-pointer"
-                      >
-                        {trash}
+                      <div className="input_inner">
+                        {productImages?.length > 1 ? (
+                          <img
+                            className="w-100 h-100"
+                            src={viewImg(productImages[1])}
+                            alt=""
+                          />
+                        ) : (
+                          <img className="" src={plusIcon.src} alt="" />
+                        )}
                       </div>
-                    )}
-                    <div className="input_inner">
-                      {productImages?.length > 2 ? (
-                        <img
-                          className="w-100 h-100"
-                          src={viewImg(productImages[2])}
-                          alt=""
-                        />
-                      ) : (
-                        <img className="" src={plusIcon.src} alt="" />
-                      )}
+                      <input
+                        ref={img1Ref}
+                        type="file"
+                        name="image2"
+                        accept=".png, .jpg, .jpeg"
+                        multiple={false}
+                        onChange={(e) => editImageHandle(1, e.target.files[0])}
+                        className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
+                      />
                     </div>
-                    <input
-                      ref={img2Ref}
-                      type="file"
-                      name="image3"
-                      accept=".png, .jpg, .jpeg"
-                      multiple={false}
-                      onChange={(e) => editImageHandle(2, e.target.files[0])}
-                      className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
-                    />
+                    <div className="d-flex justify-content-center">
+                      <p className="dot_btn">1</p>
+                    </div>
                   </div>
-                  <div className="d-flex justify-content-center">
-                    {" "}
-                    <p className="dot_btn">2</p>
-                  </div>
-                </div>
+                )}
 
-                {productImages?.length > 2 && (
+                {productImages.length > 1 && (
+                  <div className="w-full">
+                    <div className="input_box relative">
+                      {productImages.length > 2 && (
+                        <div
+                          onClick={() => removeImage(2)}
+                          className="absolute -top-2 -right-2 z-40 rounded-full bg-white text-red-600 p-1 w-8 cursor-pointer"
+                        >
+                          {trash}
+                        </div>
+                      )}
+                      <div className="input_inner">
+                        {productImages?.length > 2 ? (
+                          <img
+                            className="w-100 h-100"
+                            src={viewImg(productImages[2])}
+                            alt=""
+                          />
+                        ) : (
+                          <img className="" src={plusIcon.src} alt="" />
+                        )}
+                      </div>
+                      <input
+                        ref={img2Ref}
+                        type="file"
+                        name="image3"
+                        accept=".png, .jpg, .jpeg"
+                        multiple={false}
+                        onChange={(e) => editImageHandle(2, e.target.files[0])}
+                        className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
+                      />
+                    </div>
+                    <div className="d-flex justify-content-center">
+                      {" "}
+                      <p className="dot_btn">2</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* {productImages?.length > 2 && (
                   <>
                     <div className="w-full">
                       <div className="input_box relative">
@@ -1214,7 +1222,7 @@ const UploadProduct = ({ store }) => {
                       </div>
                     </div>
                   </>
-                )}
+                )} */}
               </div>
             </div>
 

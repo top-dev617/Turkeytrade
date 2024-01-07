@@ -40,10 +40,16 @@ const getPGroupsByStoreId = async (req, res) => {
     const result = await ProductGroup.find({ store: req.params.storeId }).sort({
       _id: -1,
     });
+    const modifiedResult = result.map(async (group) => {
+      const isExist = await Product.exists({ group: group._id });
+      return { ...group.toObject(), isExist: Boolean(isExist) };
+    });
+    const finalResult = await Promise.all(modifiedResult);
+
     res.status(200).json({
       status: true,
       message: "Group get successfully",
-      data: result,
+      data: finalResult,
     });
   } catch (error) {
     res.status(201).json({
@@ -96,6 +102,33 @@ const getShowPGroups = async (req, res) => {
       message: "Groups get successfully",
       data: result,
     });
+  } catch (error) {
+    res.status(201).json({
+      status: false,
+      message: "Groups get unsuccessful",
+    });
+  }
+};
+
+const checkIsExist = async (req, res) => {
+  try {
+    const count = await Product.countDocuments({ group: req.params.id });
+    if (count > 0) {
+      return res.status(200).json({
+        status: true,
+        isExist: true,
+        message: `This custom category cannot be removed as it has ${count} product(s) linked to it.`,
+        data: null,
+      });
+    } else {
+      // If count is 0, the group is not in use
+      return res.status(200).json({
+        status: true,
+        isExist: false,
+        message: "This custom category is not linked to any products.",
+        data: null,
+      });
+    }
   } catch (error) {
     res.status(201).json({
       status: false,
@@ -172,4 +205,5 @@ module.exports = {
   deletePGroupById,
   getPGroupsByStoreId,
   getUniquePGroupsByStoreId,
+  checkIsExist,
 };

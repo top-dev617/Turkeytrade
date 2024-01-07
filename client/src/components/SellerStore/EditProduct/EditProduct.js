@@ -1,5 +1,5 @@
 import { trash } from "@/utils/datas/icons";
-import React from "react";
+import React, { useEffect } from "react";
 import EditProductRow from "./EditProductRow";
 import {
   useDeleteProductMutation,
@@ -18,11 +18,31 @@ import empty from "../../../../public/assets/empty_product.png";
 import { useSelector } from "react-redux";
 import UploadProduct from "../UploadProduct/UploadProduct";
 import Loading from "@/components/commons/Loading";
+import Pagination from "@/utils/Pagination";
 
-const EditProduct = ({ store }) => {
-  const { data, isLoading, isError, refetch } = useGetProductsByStoreQuery(
-    store?._id
-  );
+const EditProduct = ({ store, setStep }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data, isLoading, refetch } = useGetProductsByStoreQuery({
+    storeId: store?._id,
+    page: currentPage,
+  });
+
+  // Pagination state
+
+  const totalPages = data?.pagination?.totalPages;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  useEffect(() => {
+    if (typeof currentPage !== "undefined") {
+      const refetchWithNewPage = async () => {
+        await refetch({ page: currentPage });
+      };
+      refetchWithNewPage();
+    }
+  }, [currentPage, store, refetch]);
+
   const [deleteProduct] = useDeleteProductMutation();
   const [selectedItems, setSelectedItems] = useState([]);
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -64,10 +84,12 @@ const EditProduct = ({ store }) => {
     }
   };
 
+  // console.log(data);
+
   return (
     <div className="upload_product md:px-8">
       {editProduct?._id ? (
-        <UploadProduct store={store} />
+        <UploadProduct store={store} setStep={setStep} />
       ) : (
         <div className="relative overflow-x-auto sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500">
@@ -186,6 +208,11 @@ const EditProduct = ({ store }) => {
               ))}
             </tbody>
           </table>
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
         </div>
       )}
     </div>

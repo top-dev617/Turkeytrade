@@ -54,7 +54,11 @@ const CompanyVideoInput = ({
           ) : (
             <>
               {isEdit ? (
-                <div {...getRootProps()} className="input_inner">
+                <div
+                  {...getRootProps()}
+                  onClick={() => videoRef.current.click()}
+                  className="input_inner cursor-pointer"
+                >
                   <img src={videoIcon.src} alt="" />
                   <p>Drop your video here or browse</p>
                 </div>

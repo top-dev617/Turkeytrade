@@ -52,8 +52,6 @@ const Login = () => {
     }
   };
 
-  console.log(errors);
-
   return (
     <div className="login">
       <div className="row m-0">
@@ -94,8 +92,9 @@ const Login = () => {
                   type="email"
                   placeholder="Email "
                   name="email"
-                  className={`mb-0 ${errors.email && "!border !border-red-600"
-                    }`}
+                  className={`mb-0 ${
+                    errors.email && "!border !border-red-600"
+                  }`}
                 />
                 {errors.email && (
                   <small className="text-red-600">{errors.email.message}</small>
@@ -112,8 +111,9 @@ const Login = () => {
                   type="password"
                   placeholder="Password"
                   name="password"
-                  className={`mb-0 ${errors.password && "!border !border-red-600"
-                    }`}
+                  className={`mb-0 ${
+                    errors.password && "!border !border-red-600"
+                  }`}
                 />
                 {errors.password && (
                   <small className="text-red-600">
@@ -121,7 +121,7 @@ const Login = () => {
                   </small>
                 )}
               </div>
-              <div
+              {/* <div
                 style={{ marginBottom: "30px" }}
                 className="d-flex align-items-center justify-content-between mt-2"
               >
@@ -141,11 +141,11 @@ const Login = () => {
                   </div>
                 </div>
                 <Link href="/forgot-password">Forgot Password?</Link>
-              </div>
+              </div> */}
               <button
                 type="submit"
                 disabled={isLoading}
-                className="flex justify-center items-center"
+                className="flex justify-center items-center mt-[30px]"
               >
                 {isLoading ? <Spinner color="white" /> : "Login"}
               </button>

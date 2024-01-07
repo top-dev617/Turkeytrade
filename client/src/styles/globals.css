@@ -1194,3 +1194,8 @@ section.loaders .loader {
     box-shadow: none !important;
   }
 }
+
+.bg-black {
+  --tw-bg-opacity: 0 !important;
+  background-color: transparent !important;
+}
