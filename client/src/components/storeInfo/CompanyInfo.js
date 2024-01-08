@@ -1,6 +1,7 @@
 import { base_url } from "@/utils/auth/global";
 import React from "react";
 import VideoPlayer from "../commons/video-player/VideoPlayer";
+import StoreCertificates from "../SellerStore/StoreCertificates";
 
 const CompanyInfo = ({ store }) => {
   // console.log(store?.certificates);
@@ -14,9 +15,9 @@ const CompanyInfo = ({ store }) => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center h-[320px]">
+        <div className="flex justify-center items-center max-h-[320px]">
           <img
-            className="max-w-[300px] object-cover"
+            className="max-w-[300px] object-contain h-full"
             loading="lazy"
             src={`${base_url}/uploads/${store?.logo}`}
             alt="store logo"
@@ -24,7 +25,7 @@ const CompanyInfo = ({ store }) => {
         </div>
 
         <div className="h-fit md:h-[320px]">
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full">
+          {/* <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full">
             {store?.certificates.map((ctr, index) => (
               <div className="w-full max-h-[140px] p-2 flex justify-center items-center">
                 <img
@@ -36,7 +37,8 @@ const CompanyInfo = ({ store }) => {
                 />
               </div>
             ))}
-          </div>
+          </div> */}
+          <StoreCertificates saveCertificates={store?.certificates} />
         </div>
 
         <div className="h-[320px] max-h-[320px]">
