@@ -99,9 +99,34 @@ const storeSchema = new Schema(
       required: false,
       default: Date.now,
     },
+    comment: {
+      type: String,
+      required: false,
+    },
+    status_info: {
+      type: [
+        {
+          status: {
+            type: String,
+            enum: ["accept", "pending", "decline"],
+            required: false,
+          },
+          old_status: {
+            type: String,
+            enum: ["accept", "pending", "decline"],
+            required: false,
+          },
+          date: {
+            type: Date,
+            required: false,
+          },
+        },
+      ],
+      required: false,
+    },
   },
   {
-    timestamps: false,
+    timestamps: true,
   }
 );
 

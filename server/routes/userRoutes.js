@@ -12,6 +12,7 @@ const {
   deleteUserAndCollections,
   checkIsExistEmail,
   updateUserInfo,
+  loginAdmin,
 } = require("../controller/userController");
 const { isAuth } = require("../utils/middleware");
 const { upload, handleMulterError } = require("../config/multerConfig");
@@ -20,6 +21,7 @@ const router = express.Router();
 
 router.post("/signup", registerUser);
 router.post("/login", loginUser);
+router.post("/admin-login", loginAdmin);
 router.post("/verifyEmail", emailVerification);
 router.patch("/:id", upload.single("image"), handleMulterError, updateUserInfo);
 router.get("/", isAuth, getAllUsers);

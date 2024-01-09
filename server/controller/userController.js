@@ -170,6 +170,59 @@ const loginUser = async (req, res) => {
     });
   }
 };
+const loginAdmin = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(401).send({
+        success: false,
+        type: "email",
+        message: "User not found",
+      });
+    }
+
+    if (user?.role !== "Admin") {
+      return res.status(401).send({
+        success: false,
+        type: "email",
+        message: "Only Admin Can Login",
+      });
+    }
+
+    if (user?.isVerified === false) {
+      return res.status(401).send({
+        success: false,
+        type: "email",
+        message: "Email is not Verified",
+      });
+    }
+    if (
+      user &&
+      bcrcypt.compareSync(req.body.password, user.password) &&
+      user?.isVerified === true
+    ) {
+      const accessToken = await generateToken(user);
+      return res.send({
+        success: true,
+        message: "Logged in successfully",
+        status: 200,
+        user,
+        accessToken,
+      });
+    } else {
+      res.status(401).send({
+        success: false,
+        type: "password",
+        message: "Invalid user or password",
+        status: 401,
+      });
+    }
+  } catch (err) {
+    res.status(500).send({
+      message: err.message,
+    });
+  }
+};
 
 const getAllUsers = async (req, res) => {
   try {
@@ -395,6 +448,7 @@ const updateUserInfo = async (req, res) => {
 module.exports = {
   registerUser,
   loginUser,
+  loginAdmin,
   getAllUsers,
   deleteUser,
   emailVerification,
