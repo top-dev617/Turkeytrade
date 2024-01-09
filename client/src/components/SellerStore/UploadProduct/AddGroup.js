@@ -1,4 +1,5 @@
 import {
+  usePostIsExistGroupMutation,
   usePostProductGroupMutation,
   useRemoveGroupByIdMutation,
 } from "@/redux/features/product-group/productGroupApi";
@@ -18,6 +19,7 @@ import { useState } from "react";
 
 const AddGroup = ({ groups, storeId, setValue }) => {
   const [postProductGroup, { isLoading }] = usePostProductGroupMutation();
+  const [postIsExistGroup] = usePostIsExistGroupMutation();
   const [removeGroupById, { deleteLoading }] = useRemoveGroupByIdMutation();
   const [groupTitle, setGroupTitle] = useState("");
   const groupRef = useRef();
@@ -49,6 +51,18 @@ const AddGroup = ({ groups, storeId, setValue }) => {
       if (result) {
         setOpen(null);
       }
+    }
+  };
+
+  const handleCheckExist = async (group) => {
+    const options = {
+      id: group?._id,
+    };
+    const result = await postIsExistGroup(options);
+    if (result?.data?.isExist) {
+      setOpen({ isExist: true, _id: group?._id });
+    } else {
+      setOpen({ isExist: false, _id: group?._id });
     }
   };
 
@@ -92,7 +106,7 @@ const AddGroup = ({ groups, storeId, setValue }) => {
                     handler={() => setOpen(null)}
                     placement="bottom"
                   >
-                    <PopoverHandler onClick={() => setOpen(g)}>
+                    <PopoverHandler onClick={() => handleCheckExist(g)}>
                       <div className="cursor-pointer w-6 h-6 bg-white text-red-600 hover:!bg-red-600 hover:text-white p-1 rounded">
                         {trash}
                       </div>

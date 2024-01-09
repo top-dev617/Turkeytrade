@@ -16,10 +16,7 @@ const productGroupApi = api.injectEndpoints({
       query: (storeId) => `/product-groups/store/${storeId}`,
       providesTags: ["product-groups"],
     }),
-    isExistGroup: builder.query({
-      query: (id) => `/product-groups/isexist/${id}`,
-      providesTags: ["product-groups"],
-    }),
+
     getUniqueProductGroupByStoreId: builder.query({
       query: (storeId) => `/product-groups/unique/store/${storeId}`,
       providesTags: ["product-groups"],
@@ -32,6 +29,13 @@ const productGroupApi = api.injectEndpoints({
       }),
       invalidatesTags: ["product-groups", "products"],
     }),
+
+    postIsExistGroup: builder.mutation({
+      query: ({ id }) => ({
+        url: `/product-groups/isexist/${id}`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -41,6 +45,6 @@ export const {
   useGetUniqueProductGroupByStoreIdQuery,
 
   // check is exist group
-  useIsExistGroupQuery,
+  usePostIsExistGroupMutation,
   useRemoveGroupByIdMutation,
 } = productGroupApi;

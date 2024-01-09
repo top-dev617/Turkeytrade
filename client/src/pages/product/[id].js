@@ -4,16 +4,6 @@ import { base_url } from "@/utils/auth/global";
 import React, { useEffect } from "react";
 
 const Details = ({ product }) => {
-  useEffect(() => {
-    const scrollPosition = window.scrollY;
-    const handlePopState = () => {
-      window.scrollTo(0, scrollPosition);
-    };
-    window.addEventListener("popstate", handlePopState);
-    return () => {
-      window.removeEventListener("popstate", handlePopState);
-    };
-  }, []);
   return (
     <div className="container mb-12">
       <ProductBanner product={product} />

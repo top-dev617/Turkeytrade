@@ -253,11 +253,7 @@ const Header = () => {
                       Profile
                     </Button>
                   </Link>
-                  <Link href="/dashboard">
-                    <Button className="w-full py-0 h-8 rounded shadow-none bg-pm hover:bg-pmd">
-                      Dashboard
-                    </Button>
-                  </Link>
+
                   <Link href="/inbox">
                     <Button className="w-full py-0 h-8 rounded shadow-none bg-pm hover:bg-pmd">
                       Inbox

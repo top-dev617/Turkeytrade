@@ -23,6 +23,6 @@ router.patch("/:id", updatePGroup);
 router.delete("/:id", deletePGroupById);
 
 // check is exist
-router.get("/isexist/:id", checkIsExist);
+router.post("/isexist/:id", checkIsExist);
 
 module.exports = router;

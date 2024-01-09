@@ -9,12 +9,23 @@ const ProductDescription = ({ product }) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    const handlePopState = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [product?._id]);
+
+  useEffect(() => {
     setIsClient(true);
   }, []);
 
   if (!isClient) {
     return null;
   }
+
   return (
     <div className="product_description md:p-2">
       <div className="product_inner mt-0 p-2 md:!p-10">

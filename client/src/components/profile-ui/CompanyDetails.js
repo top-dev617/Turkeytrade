@@ -7,11 +7,13 @@ import { useState } from "react";
 import { Button, Spinner } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 import StoreInformation from "../SellerStore/ContactInfo/StoreInformation";
+import useInputPattern from "@/lib/hooks/useInputPattern";
 
 const CompanyDetails = () => {
   const { handleSubmit, register, reset } = useForm();
   const { setUser, user } = useContext(AuthContext);
   const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
+  const { handlePhoneNumberInput } = useInputPattern();
 
   const [patchUserInfoById, { isLoading }] = usePatchUserInfoByIdMutation();
   const [isEdit, setIsEdit] = useState(false);
@@ -73,6 +75,7 @@ const CompanyDetails = () => {
                 {...register("phoneNumber", { required: false })}
                 type="tel"
                 name="phoneNumber"
+                onInput={handlePhoneNumberInput}
                 placeholder="Phone Number"
                 readOnly={isEdit ? false : true}
                 defaultValue={user?.phoneNumber}

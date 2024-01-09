@@ -15,7 +15,7 @@ const productApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["products"],
+      invalidatesTags: ["products", "product-groups"],
     }),
 
     // update product
@@ -25,7 +25,7 @@ const productApi = api.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: ["products"],
+      invalidatesTags: ["products", "product-groups"],
     }),
 
     // get all products
@@ -86,7 +86,7 @@ const productApi = api.injectEndpoints({
           )}`,
         },
       }),
-      invalidatesTags: ["products"],
+      invalidatesTags: ["products", "product-groups"],
     }),
 
     // draf product sections
