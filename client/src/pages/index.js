@@ -12,9 +12,12 @@ export default function Home({ categories }) {
   const welcomeModal = useRef(null);
   const [isWelcomeModal, setIsWelcomeModal] = useState(null);
 
-  const handleCloseModal = () => {
-    localStorage.removeItem("welcomeModal");
-  };
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Set behavior to 'smooth' for smooth scrolling
+    });
+  }, []);
 
   useEffect(() => {
     const data = localStorage.getItem("welcomeModal");

@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import "@/styles/globals.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthProvider } from "@/components/context/AuthContext";
 import Chatting from "@/components/chatting/Chatting";
 import { usePathname } from "next/navigation";
@@ -19,6 +19,12 @@ export default function App({ Component, pageProps }) {
   const pathname = usePathname();
 
   const customTheme = {};
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Set behavior to 'smooth' for smooth scrolling
+    });
+  }, [pathname]);
 
   return (
     <>

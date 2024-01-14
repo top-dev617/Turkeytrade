@@ -4,6 +4,12 @@ import { base_url } from "@/utils/auth/global";
 import React, { useEffect } from "react";
 
 const Details = ({ product }) => {
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Set behavior to 'smooth' for smooth scrolling
+    });
+  }, []);
   return (
     <div className="container mb-12">
       <ProductBanner product={product} />

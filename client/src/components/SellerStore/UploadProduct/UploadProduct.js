@@ -412,8 +412,8 @@ const UploadProduct = ({ store, setStep }) => {
               to: "",
             }
           : {
-              from: onePriceFields?.one_price.from,
-              to: onePriceFields?.one_price.to,
+              from: onePriceFields?.one_price.from?.replaceAll(",", ""),
+              to: onePriceFields?.one_price.to?.replaceAll(",", ""),
             },
     };
 
@@ -1006,12 +1006,12 @@ const UploadProduct = ({ store, setStep }) => {
                       name="image1"
                       accept=".png, .jpg, .jpeg"
                       multiple={false}
-                      required={
-                        (editProduct && editProduct?.images?.length > 0) ||
-                        saveDraft
-                          ? false
-                          : true
-                      }
+                      // required={
+                      //   (editProduct && editProduct?.images?.length > 0) ||
+                      //   saveDraft
+                      //     ? false
+                      //     : true
+                      // }
                       onChange={(e) => editImageHandle(0, e.target.files[0])}
                       className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
                     />
@@ -1453,8 +1453,8 @@ const UploadProduct = ({ store, setStep }) => {
                       <div className="flex flex-col-reverse items-start md:flex-row gap-2 md:items-center">
                         <input
                           className="mb-0 md:min-w-[120px] w-full"
-                          type="number"
-                          onInput={handleNumber}
+                          type="text"
+                          onInput={handleNumberAndComma}
                           min={0}
                           name="from"
                           placeholder="From"
@@ -1472,8 +1472,8 @@ const UploadProduct = ({ store, setStep }) => {
                         <span>-</span>
                         <input
                           className="mb-0 md:min-w-[120px] w-full"
-                          type="number"
-                          onInput={handleNumber}
+                          type="text"
+                          onInput={handleNumberAndComma}
                           min={0}
                           name="to"
                           placeholder="To"

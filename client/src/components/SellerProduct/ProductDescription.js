@@ -9,16 +9,6 @@ const ProductDescription = ({ product }) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    const handlePopState = () => {
-      window.scrollTo(0, 0);
-    };
-    window.addEventListener("popstate", handlePopState);
-    return () => {
-      window.removeEventListener("popstate", handlePopState);
-    };
-  }, [product?._id]);
-
-  useEffect(() => {
     setIsClient(true);
   }, []);
 
@@ -55,17 +45,3 @@ const ProductDescription = ({ product }) => {
 };
 
 export default ProductDescription;
-{
-  /* <video
-              controls
-              loop
-              autoPlay
-              muted
-              className="object-contain max-h-[350px]"
-            >
-              <source
-                src={`${base_url}/uploads/${product?.video}`}
-                type="video/mp4"
-              />
-            </video> */
-}

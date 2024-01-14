@@ -2,7 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/": "pages/index.js",
+  "/product/[id]": "pages/product/[id].js",
   "/404": "pages/404.js",
-  "/mystore": "pages/mystore.js",
-  "/": "pages/index.js"
+  "/mystore": "pages/mystore.js"
 }
