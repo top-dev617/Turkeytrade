@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*  package styles */
+.ql-editor {
+  min-height: 350px !important;
+}
+
+/* global styles */
+._t1897 {
+  object-fit: contain !important;
+}
+
+.scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+.scrollbarSM {
+  scrollbar-width: thin; /* width of the scrollbar track */
+  scrollbar-color: #57db99 transparent; /* color of the scrollbar thumb and track */
+}
+
+/* For Chrome, Safari, Edge */
+.scrollbarSM::-webkit-scrollbar {
+  width: 4px; /* width of the scrollbar track */
+}
+
+.scrollbarSM::-webkit-scrollbar-thumb {
+  background-color: #57db99; /* color of the scrollbar thumb */
+}
+
+.scrollbarSM::-webkit-scrollbar-track {
+  background-color: transparent; /* color of the scrollbar track */
+}
+
+.bg-black {
+  --tw-bg-opacity: 0 !important;
+  background-color: transparent !important;
+}
