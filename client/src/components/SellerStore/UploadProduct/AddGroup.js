@@ -16,24 +16,24 @@ import Link from "next/link";
 import React from "react";
 import { useRef } from "react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
-const AddGroup = ({ groups, storeId, setValue }) => {
+const AddGroup = ({ groups, storeId, setValue, groupValue }) => {
   const [postProductGroup, { isLoading }] = usePostProductGroupMutation();
   const [postIsExistGroup] = usePostIsExistGroupMutation();
   const [removeGroupById, { deleteLoading }] = useRemoveGroupByIdMutation();
-  const [groupTitle, setGroupTitle] = useState("");
-  const groupRef = useRef();
   const [open, setOpen] = useState(null);
 
-  const handleAddNewGroup = async () => {
-    if (groupTitle) {
+  const { handleSubmit, register, reset, watch } = useForm();
+
+  const handleAddNewGroup = async (data) => {
+    if (data) {
       const options = {
-        data: { title: groupTitle, store: storeId },
+        data: { title: data?.title, store: storeId },
       };
       const result = await postProductGroup(options);
       if (result) {
-        setGroupTitle("");
-        groupRef.current.value = "";
+        reset();
         if (result?.data?.status) {
           setValue("group", result?.data?.data?._id);
         }
@@ -47,8 +47,11 @@ const AddGroup = ({ groups, storeId, setValue }) => {
         data: null,
       };
       const result = await removeGroupById(options);
-      console.log(result);
+      // console.log(result);
       if (result) {
+        if (groupValue === id) {
+          setValue("group", "");
+        }
         setOpen(null);
       }
     }
@@ -66,10 +69,21 @@ const AddGroup = ({ groups, storeId, setValue }) => {
     }
   };
 
+  const checkKeyDownAction = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleAddNewGroup({ title: watch("title") });
+    }
+  };
+
   return (
     <>
       <PopoverContent className="w-72 p-2 z-50">
-        <div className="max-w-[400px]">
+        <form
+          onKeyDown={checkKeyDownAction}
+          onSubmit={handleSubmit(handleAddNewGroup)}
+          className="max-w-[400px]"
+        >
           <label>
             New Category{" "}
             <small className="italic text-xs text-pmd">
@@ -77,37 +91,41 @@ const AddGroup = ({ groups, storeId, setValue }) => {
             </small>
           </label>
           <input
-            onChange={(e) => setGroupTitle(e.target.value)}
+            {...register("title", { required: true })}
             type="text"
             maxLength={25}
-            ref={groupRef}
+            // ref={groupRef}
             className="w-full h-14 px-4 !border border-pm mt-1"
             placeholder="Enter Category Name"
           />
           <Button
+            type="submit"
             onClick={() => handleAddNewGroup()}
-            disabled={isLoading || !groupTitle}
+            disabled={isLoading || !watch("title")}
             className="bg-pm hover:bg-pmd text-white mt-2 w-full flex justify-center items-center"
           >
             {isLoading ? <Spinner color="white" /> : "Create"}
           </Button>
 
           {groups?.length > 0 && (
-            <div className="grid grid-cols-1 gap-1 mt-2 p-1 text-gray-900 cursor-pointer max-h-[200px] overflow-y-auto">
+            <div className="grid grid-cols-1 gap-1 mt-2 p-1 text-gray-900 cursor-pointer max-h-[200px] h-full overflow-y-auto">
               {groups.map((g, i) => (
-                <Button
-                  key={i}
-                  className="h-10 w-full flex justify-between items-center rounded bg-white border shadow-none px-1"
-                >
-                  <small className="text-sm text-gray-900">{g?.title}</small>
-
+                <div className="h-10 max-h-[40px] w-full flex items-center justify-between border rounded-sm text-black hover:!bg-pm bg-white hover:!text-white px-1">
+                  <Button
+                    type="button"
+                    key={i}
+                    onClick={() => setValue("group", g?._id)}
+                    className="bg-transparent text-current flex justify-between items-center flex-grow shadow-none normal-case px-0"
+                  >
+                    <small className="text-sm">{g?.title}</small>
+                  </Button>
                   <Popover
                     open={open?._id === g?._id && !open?.isExist}
                     handler={() => setOpen(null)}
                     placement="bottom"
                   >
                     <PopoverHandler onClick={() => handleCheckExist(g)}>
-                      <div className="cursor-pointer w-6 h-6 bg-white text-red-600 hover:!bg-red-600 hover:text-white p-1 rounded">
+                      <div className="cursor-pointer w-6 h-6 bg-white text-red-600 hover:!bg-red-600 hover:text-white p-1 rounded z-50">
                         {trash}
                       </div>
                     </PopoverHandler>
@@ -118,6 +136,7 @@ const AddGroup = ({ groups, storeId, setValue }) => {
                             are you sure you want to delete this?
                           </p>
                           <Button
+                            type="button"
                             onClick={() => handleDeleteGroup(open?._id)}
                             size="sm"
                             className="bg-red-600 hover:bg-red-700 text-white mt-2"
@@ -128,11 +147,11 @@ const AddGroup = ({ groups, storeId, setValue }) => {
                       </div>
                     </PopoverContent>
                   </Popover>
-                </Button>
+                </div>
               ))}
             </div>
           )}
-        </div>
+        </form>
       </PopoverContent>
 
       <Dialog
@@ -161,6 +180,7 @@ const AddGroup = ({ groups, storeId, setValue }) => {
         </div>
         <div className="flex items-center justify-end">
           <Button
+            type="button"
             size="sm"
             onClick={() => setOpen(null)}
             className="bg-red-600 hover:bg-red-700 text-white rounded"

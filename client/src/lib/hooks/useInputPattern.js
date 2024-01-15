@@ -15,11 +15,25 @@ const useInputPattern = () => {
     e.target.value = e.target.value.replace(/[^0-9+\-]/g, "");
   };
 
+  const handleAmount = async (e) => {
+    const input = e.target.value.replace(/[^0-9,]/g, "");
+    const numericValue =
+      input.trim() === ""
+        ? ""
+        : input.includes(",")
+        ? parseFloat(input.replace(/,/g, ""))
+        : parseInt(input, 10);
+    e.target.value = numericValue
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ", ");
+  };
+
   return {
     handleNumber,
     handleNumberAndComma,
     handleAlphabeticInput,
     handlePhoneNumberInput,
+    handleAmount,
   };
 };
 

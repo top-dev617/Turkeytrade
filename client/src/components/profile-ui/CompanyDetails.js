@@ -8,6 +8,7 @@ import { Button, Spinner } from "@material-tailwind/react";
 import { toast } from "react-toastify";
 import StoreInformation from "../SellerStore/ContactInfo/StoreInformation";
 import useInputPattern from "@/lib/hooks/useInputPattern";
+import SteelManufacturer from "../SellerStore/ContactInfo/SteelManufacturer";
 
 const CompanyDetails = () => {
   const { handleSubmit, register, reset } = useForm();
@@ -33,8 +34,17 @@ const CompanyDetails = () => {
     }
   };
 
+  // console.log(user);
+
   return (
     <div className="contact_info !px-0 md:!px-4">
+      <SteelManufacturer
+        store={data?.data}
+        isAuthor={user?._id === data?.data?.user?._id ? true : false}
+        company={user?.company_name}
+        holderName={user?.name}
+        joined_date={user?.createdAt}
+      />
       <div className=" relative h-fit py-4">
         <button
           onClick={() => setIsEdit(!isEdit)}
@@ -150,7 +160,7 @@ const CompanyDetails = () => {
           )}
         </form>
       </div>
-      <StoreInformation store={data?.data} isAuthor={true} />
+      <StoreInformation store={data?.data} isAuthor={true} user={user} />
     </div>
   );
 };

@@ -6,7 +6,13 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const SteelManufacturer = ({ store, isAuthor }) => {
+const SteelManufacturer = ({
+  store,
+  isAuthor,
+  company,
+  holderName,
+  joined_date,
+}) => {
   const { handleSubmit, register, reset } = useForm();
   const [patchUserInfoById, { isLoading }] = usePatchUserInfoByIdMutation();
   const [isEdit, setIsEdit] = useState(false);
@@ -38,7 +44,7 @@ const SteelManufacturer = ({ store, isAuthor }) => {
             } */}
 
       <div className="max-w-[350px]">
-        <h1 className="label leading-snug">{store?.store_name}</h1>
+        <h1 className="label leading-snug">{store?.store_name || company}</h1>
       </div>
 
       <div className="h-fit w-full">
@@ -46,13 +52,16 @@ const SteelManufacturer = ({ store, isAuthor }) => {
           <div className="grid md:grid-cols-2 gap-2">
             <h1>Joined Turkeytrademarket</h1>
             <h1 className="font-bold">
-              : {moment(store?.joined_date).format("MM/DD/YYYY")}
+              :{" "}
+              {store?.joined_date
+                ? moment(store?.joined_date).format("MMM DD YYYY")
+                : moment(joined_date).format("MMM DD YYYY")}
             </h1>
           </div>
           <div className="grid md:grid-cols-2 gap-2">
             <h1>Account holder name</h1>
             <h1 className="font-bold break-all md:break-normal">
-              : {store?.user?.name}
+              : {holderName}
             </h1>
           </div>
         </div>

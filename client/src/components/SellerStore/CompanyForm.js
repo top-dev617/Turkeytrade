@@ -168,13 +168,13 @@ const CompanyForm = () => {
     <div className="company_form">
       <div className="container">
         <form onSubmit={handleSubmit(handleRegister)}>
-          <div className="grid md:grid-cols-2 gap-4 mx-auto">
-            <div className="w-full">
+          <div className="grid md:grid-cols-2 gap-8 mx-auto">
+            <div className="w-full h-[320px]">
               <label>Company info</label>
               <textarea
                 {...register("store_info")}
                 rows="7"
-                className={`${!isEdit && "!bg-white"}`}
+                className={`max-h-[270px] h-full ${!isEdit && "!bg-white"}`}
                 name="store_info"
                 disabled={isEdit ? false : true}
                 defaultValue={
@@ -317,16 +317,18 @@ const CompanyForm = () => {
 
             <div className="w-full">
               <label>Upload a video presentation of your company</label>
-              <CompanyVideoInput
-                isEdit={isEdit}
-                removeVideo={removeVideo}
-                store={store}
-                storeVideo={storeVideo}
-                video={video}
-                viewFile={viewFile}
-                videoRef={videoRef}
-                handleVideo={handleVideo}
-              />
+              <div className="w-full h-full max-h-[320px]">
+                <CompanyVideoInput
+                  isEdit={isEdit}
+                  removeVideo={removeVideo}
+                  store={store}
+                  storeVideo={storeVideo}
+                  video={video}
+                  viewFile={viewFile}
+                  videoRef={videoRef}
+                  handleVideo={handleVideo}
+                />
+              </div>
             </div>
           </div>
 

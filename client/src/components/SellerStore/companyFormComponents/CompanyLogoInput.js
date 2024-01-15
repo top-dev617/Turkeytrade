@@ -45,7 +45,7 @@ const CompanyLogoInput = ({
               className="flex justify-center items-center"
             >
               <img
-                className="w-full h-full max-w-[200px] max-h-[150px] object-contain"
+                className="w-full h-full max-w-[180px] max-h-[180px] object-contain"
                 loading="lazy"
                 src={`${base_url}/uploads/${store?.data?.logo}`}
                 alt="store logo"
@@ -54,7 +54,7 @@ const CompanyLogoInput = ({
           ) : (
             <div className="flex justify-center items-center">
               <img
-                className="w-full h-full max-w-[200px] max-h-[150px] object-contain"
+                className="w-full h-full max-w-[180px] max-h-[180px] object-contain"
                 loading="lazy"
                 src={`${base_url}/uploads/${store?.data?.logo}`}
                 alt="store logo"
@@ -67,7 +67,7 @@ const CompanyLogoInput = ({
           {logo ? (
             <div className="input_inner">
               <img
-                className="w-full h-full object-contain"
+                className="max-w-[180px] max-h-[180px] w-full h-full object-contain"
                 src={viewFile(logo)}
                 alt=""
               />

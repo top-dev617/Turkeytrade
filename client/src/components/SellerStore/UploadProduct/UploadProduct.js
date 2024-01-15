@@ -67,7 +67,8 @@ const UploadProduct = ({ store, setStep }) => {
   const [patchProduct] = usePatchProductMutation();
 
   // hooks
-  const { handleNumber, handleNumberAndComma } = useInputPattern();
+  const { handleNumber, handleNumberAndComma, handleAmount } =
+    useInputPattern();
 
   const {
     handleSubmit,
@@ -108,6 +109,7 @@ const UploadProduct = ({ store, setStep }) => {
 
   const [video, setVideo] = useState(null);
   const keywordRef = useRef();
+  const keywordInputRef = useRef();
 
   const viewFile = (file) => {
     return URL.createObjectURL(
@@ -155,7 +157,14 @@ const UploadProduct = ({ store, setStep }) => {
   useEffect(() => {
     setIsDataLoading(true);
     if (editProduct) {
-      setValue("group", editProduct?.group);
+      const groupFind = productGroups?.data?.find(
+        (g) => g?._id === editProduct?.group
+      );
+      if (groupFind) {
+        setValue("group", editProduct?.group);
+      } else {
+        setValue("group", "");
+      }
       const isExist = data?.data?.find(
         (cate) => cate?._id === editProduct?.category._id
       );
@@ -235,8 +244,8 @@ const UploadProduct = ({ store, setStep }) => {
       setKeywords((prevKeywords) => [...prevKeywords, keywordInput]);
       setKeywordInput("");
     }
+    keywordInputRef.current.value = "";
     setKeywordsError(false);
-    keywordRef.current.value = "";
   };
 
   const handleRemoveKeyword = (index) => {
@@ -372,7 +381,16 @@ const UploadProduct = ({ store, setStep }) => {
       setSubCategoryError(true);
       return;
     }
-
+    if (!keywords?.length && !saveDraft) {
+      setKeywordsError(true);
+      keywordRef.current.focus();
+      return;
+    }
+    if (productImages?.length === 0 && !saveDraft) {
+      setProductImageError(true);
+      img0Ref.current.focus();
+      return;
+    }
     if (!unit?.singular && !saveDraft) {
       setUnitError(true);
       unitRef.current.focus();
@@ -381,15 +399,7 @@ const UploadProduct = ({ store, setStep }) => {
     if (!time && !saveDraft) {
       return;
     }
-    if (!keywords?.length && !saveDraft) {
-      setKeywordsError(true);
-      return;
-    }
-    if (productImages?.length === 0 && !saveDraft) {
-      setProductImageError(true);
-      img0Ref.current.focus();
-      return;
-    }
+
     // console.log(saveDraft);
     if ((!content || content?.length < 101) && !saveDraft) {
       setDescriptionError(true);
@@ -412,15 +422,15 @@ const UploadProduct = ({ store, setStep }) => {
               to: "",
             }
           : {
-              from: onePriceFields?.one_price.from?.replaceAll(",", ""),
-              to: onePriceFields?.one_price.to?.replaceAll(",", ""),
+              from: onePriceFields?.one_price.from?.replaceAll(", ", ""),
+              to: onePriceFields?.one_price.to?.replaceAll(", ", ""),
             },
     };
 
     if (selectedCheckbox === "ladder") {
       const updatedLadderPriceFields = ladderPriceFields.map((field) => {
         const priceWithComma = field?.euro;
-        const price = priceWithComma?.replaceAll(",", "");
+        const price = priceWithComma?.replaceAll(", ", "");
         return {
           ...field,
           euro: price,
@@ -577,6 +587,11 @@ const UploadProduct = ({ store, setStep }) => {
       setSubCategoryError(true);
       return;
     }
+    if (!keywords?.length && !saveDraft) {
+      setKeywordsError(true);
+      keywordRef.current.focus();
+      return;
+    }
     if (!unit?.singular && !saveDraft) {
       setUnitError(true);
       unitRef.current.focus();
@@ -585,10 +600,7 @@ const UploadProduct = ({ store, setStep }) => {
     if (!time && !saveDraft) {
       return;
     }
-    if (!keywords?.length && !saveDraft) {
-      setKeywordsError(true);
-      return;
-    }
+
     if (productImages?.length === 0 && !saveDraft) {
       setProductImageError(true);
       img0Ref.current.focus();
@@ -611,7 +623,14 @@ const UploadProduct = ({ store, setStep }) => {
       setContent(pInfo?.description);
       setKeywords(pInfo?.keyword);
       setValue("title", pInfo?.title);
-      setValue("group", pInfo?.group);
+      const groupFind = productGroups?.data?.find(
+        (g) => g?._id === pInfo?.group
+      );
+      if (groupFind) {
+        setValue("group", pInfo?.group);
+      } else {
+        setValue("group", "");
+      }
       setValue("moq", pInfo?.moq);
       setValue("model", pInfo?.model);
       setValue("from", pInfo?.from);
@@ -852,9 +871,9 @@ const UploadProduct = ({ store, setStep }) => {
                     </div>
                   ))}
                 </div>
-                <div className="d-flex">
+                <div ref={keywordRef} className="d-flex" tabIndex={0}>
                   <input
-                    ref={keywordRef}
+                    ref={keywordInputRef}
                     type="text"
                     placeholder="Enter a new task"
                     className={`!rounded-e-none ${
@@ -914,7 +933,9 @@ const UploadProduct = ({ store, setStep }) => {
                           <Button
                             {...field}
                             className={`input h-[62px] shadow-none border-none normal-case text-left px-3 mb-1 ${
-                              errors.group ? "border !border-red-600" : ""
+                              errors.group && !watch("group")
+                                ? "border !border-red-600"
+                                : ""
                             }`}
                           >
                             {productGroups?.data?.find(
@@ -955,10 +976,11 @@ const UploadProduct = ({ store, setStep }) => {
                       groups={productGroups?.data}
                       storeId={store?._id}
                       setValue={setValue}
+                      groupValue={watch("group")}
                     />
                   </Popover>
                 </div>
-                {errors.group && (
+                {errors.group && !watch("group") && (
                   <p className="text-red-600 text-xs italic">
                     Custom Category is Required
                   </p>
@@ -1398,7 +1420,7 @@ const UploadProduct = ({ store, setStep }) => {
                             <input
                               className="mb-0 md:min-w-[120px] w-full"
                               type="text"
-                              onInput={handleNumberAndComma}
+                              onInput={handleAmount}
                               name="euro"
                               placeholder="Euro"
                               defaultValue={input.euro}
@@ -1454,26 +1476,26 @@ const UploadProduct = ({ store, setStep }) => {
                         <input
                           className="mb-0 md:min-w-[120px] w-full"
                           type="text"
-                          onInput={handleNumberAndComma}
+                          onInput={handleAmount}
                           min={0}
                           name="from"
                           placeholder="From"
                           defaultValue={onePriceFields?.one_price?.from}
                           required={saveDraft ? false : true}
-                          onChange={(event) =>
+                          onChange={(event) => {
                             setOnePriceFields({
                               one_price: {
                                 from: event?.target.value,
                                 to: onePriceFields?.one_price?.to,
                               },
-                            })
-                          }
+                            });
+                          }}
                         />
                         <span>-</span>
                         <input
                           className="mb-0 md:min-w-[120px] w-full"
                           type="text"
-                          onInput={handleNumberAndComma}
+                          onInput={handleAmount}
                           min={0}
                           name="to"
                           placeholder="To"

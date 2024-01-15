@@ -684,6 +684,10 @@ textarea {
   width: 100%;
   padding: 15px;
 }
+.input_box_video {
+  border-radius: 8px;
+  background: var(--text-white-grey, #f6f6f6);
+}
 
 .input_inner {
   border-radius: 8px;

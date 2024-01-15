@@ -29,7 +29,11 @@ const CompanyVideoInput = ({
     },
   });
   return (
-    <div className={`input_box relative ${!isEdit && "!bg-white"}`}>
+    <div
+      className={`input_box_video relative block w-full md:h-[320px] max-h-[320px] ${
+        !isEdit && "!bg-white"
+      }`}
+    >
       {isEdit && (
         <div
           onClick={() => removeVideo()}
@@ -42,14 +46,14 @@ const CompanyVideoInput = ({
       {store?.data?.store_presentation_video && storeVideo && !video ? (
         <VideoPlayer
           url={`${base_url}/uploads/${store?.data?.store_presentation_video}`}
-          className="object-contain w-100 h-100"
+          className="object-contain w-full h-full block relative"
         />
       ) : (
         <>
           {video ? (
             <VideoPlayer
               url={viewFile(video)}
-              className="object-contain w-100 h-100"
+              className="object-contain w-full h-full block relative"
             />
           ) : (
             <>
@@ -57,13 +61,13 @@ const CompanyVideoInput = ({
                 <div
                   {...getRootProps()}
                   onClick={() => videoRef.current.click()}
-                  className="input_inner cursor-pointer"
+                  className="input_inner h-full w-full cursor-pointer"
                 >
                   <img src={videoIcon.src} alt="" />
                   <p>Drop your video here or browse</p>
                 </div>
               ) : (
-                <div className="input_inner">
+                <div className="input_inner h-full w-full cursor-pointer">
                   <img src={videoIcon.src} alt="" />
                   <p>Drop your video here or browse</p>
                 </div>

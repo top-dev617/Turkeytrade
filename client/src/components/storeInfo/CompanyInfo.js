@@ -10,14 +10,17 @@ const CompanyInfo = ({ store }) => {
       <div className="container grid md:grid-cols-2 gap-8">
         <div className="h-[320px]">
           <h3>Company info</h3>
-          <div className="max-h-[270px] overflow-y-auto mt-2">
-            <p>{store?.store_info}</p>
-          </div>
+          <textarea
+            className="max-h-[270px] h-full mt-2 bg-white resize-none"
+            name="store_info"
+            value={store?.store_info}
+            readOnly
+          ></textarea>
         </div>
 
         <div className="flex justify-center items-center max-h-[320px]">
           <img
-            className="max-w-[300px] object-contain h-full"
+            className="max-w-[180px] max-h-[180px] w-full object-contain h-full"
             loading="lazy"
             src={`${base_url}/uploads/${store?.logo}`}
             alt="store logo"
@@ -25,26 +28,13 @@ const CompanyInfo = ({ store }) => {
         </div>
 
         <div className="h-fit md:h-[320px]">
-          {/* <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full">
-            {store?.certificates.map((ctr, index) => (
-              <div className="w-full max-h-[140px] p-2 flex justify-center items-center">
-                <img
-                  key={index}
-                  loading="lazy"
-                  className="w-full h-full object-contain"
-                  src={`${base_url}/uploads/${ctr}`}
-                  alt=""
-                />
-              </div>
-            ))}
-          </div> */}
           <StoreCertificates saveCertificates={store?.certificates} />
         </div>
 
-        <div className="h-[320px] max-h-[320px]">
+        <div className="w-full h-full max-h-[320px]">
           <VideoPlayer
             url={`${base_url}/uploads/${store?.store_presentation_video}`}
-            className="object-contain w-100 h-100 block relative"
+            className="object-contain w-full h-full block relative"
           />
         </div>
       </div>

@@ -6,14 +6,14 @@ import {
 } from "@/redux/features/stores/storeApi";
 import { Button, Spinner } from "@material-tailwind/react";
 import moment from "moment/moment";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const StoreInformation = ({ store, isAuthor }) => {
+const StoreInformation = ({ store, isAuthor, user }) => {
   const { handleNumber } = useInputPattern();
-  const { handleSubmit, register, reset } = useForm();
+  const { handleSubmit, register, reset, setValue } = useForm();
   const [storeInfoUpdate, { isLoading }] = useStoreInfoUpdateMutation();
   const [isEdit, setIsEdit] = useState(false);
 
@@ -35,6 +35,12 @@ const StoreInformation = ({ store, isAuthor }) => {
       toast.error("info add unsuccessfully");
     }
   };
+
+  useEffect(() => {
+    if (user?.role === "Buyer" && !store) {
+      setValue("store_name", user?.company_name);
+    }
+  }, [store, user]);
 
   const isTrue =
     store?.store_name ||
@@ -148,17 +154,19 @@ const StoreInformation = ({ store, isAuthor }) => {
             >
               Cancel
             </Button>
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className="bg-pm text-white flex justify-center items-center"
-            >
-              {isLoading ? (
-                <Spinner color="white" className="font-bold" />
-              ) : (
-                "Submit"
-              )}
-            </Button>
+            {store && (
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="bg-pm text-white flex justify-center items-center"
+              >
+                {isLoading ? (
+                  <Spinner color="white" className="font-bold" />
+                ) : (
+                  "Submit"
+                )}
+              </Button>
+            )}
           </div>
         </form>
       ) : (
@@ -166,7 +174,9 @@ const StoreInformation = ({ store, isAuthor }) => {
           <div className="flex flex-col gap-2 label-list mt-4 max-w-[400px]">
             <div className="grid md:grid-cols-2 gap-2">
               <h1>Company name</h1>
-              <h1 className="font-bold">: {store?.store_name}</h1>
+              <h1 className="font-bold">
+                : {store?.store_name || user?.company_name}
+              </h1>
             </div>
             <div className="grid md:grid-cols-2 gap-2">
               <h1>Number of employees</h1>

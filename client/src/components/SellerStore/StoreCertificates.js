@@ -25,11 +25,11 @@ const StoreCertificates = ({ saveCertificates }) => {
   });
   return (
     <div className="w-full h-fit relative">
-      <div className="bg-pm absolute rounded right-0 -top-10 z-50">
+      {/* <div className="bg-pm absolute rounded right-0 -top-10 z-50">
         <IconButton className="bg-pm" size="sm" onClick={() => setIndex(0)}>
           {iView}
         </IconButton>
-      </div>
+      </div> */}
       <div className="grid grid-cols-3 gap-3 flex-wrap w-full h-fit my-2 overflow-y-auto max-h-[300px] cursor-pointer">
         {saveCertificates?.map((img, index) => (
           <div

@@ -53,6 +53,9 @@ const ContactInfo = ({ store }) => {
         <SteelManufacturer
           store={storeData}
           isAuthor={user?._id === storeData?.user?._id ? true : false}
+          company={storeData?.store_name}
+          holderName={storeData?.user?.name}
+          joined_date={storeData?.user?.createdAt}
         />
 
         <SellerStoreInfo
