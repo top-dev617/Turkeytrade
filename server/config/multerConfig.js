@@ -19,9 +19,9 @@ const storage = multer.diskStorage({
     let uploadDir;
 
     if (isVideoFile(file)) {
-      uploadDir = "public/videos";
+      uploadDir = "/opt/turkeytrademarket/public/videos";
     } else if (isImageFile(file)) {
-      uploadDir = "public/images";
+      uploadDir = "/opt/turkeytrademarket/public/images";
     } else {
       return cb(new Error("Invalid file type"));
     }
