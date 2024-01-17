@@ -1,5 +1,5 @@
 import React from "react";
-import banner from "../../public/assets/banner.png";
+import banner from "../../public/assets/banner.jpg";
 
 const CategorySlider = () => {
   return (

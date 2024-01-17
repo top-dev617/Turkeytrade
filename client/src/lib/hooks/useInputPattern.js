@@ -25,7 +25,7 @@ const useInputPattern = () => {
         : parseInt(input, 10);
     e.target.value = numericValue
       .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ", ");
+      .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   };
 
   return {

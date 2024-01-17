@@ -146,12 +146,24 @@ const UploadProduct = ({ store, setStep }) => {
   const [subCategories, setSubCategories] = useState([]);
   const [subCategory, setSubCategory] = useState(null);
 
+  const handleSubCategories = (items) => {
+    const sortedSubCategories = [...subCategories].sort((a, b) => {
+      const numericPartA =
+        parseInt(a.sub_cate_slug?.match(/\d+/)?.[0], 10) || 0;
+      const numericPartB =
+        parseInt(b.sub_cate_slug?.match(/\d+/)?.[0], 10) || 0;
+
+      return numericPartA - numericPartB;
+    });
+    setSubCategories(sortedSubCategories);
+  };
+
   const handleCategory = (category) => {
     setSubCategory(null);
     const isExist = data?.data.find((cate) => cate?._id === category?._id);
     if (isExist) {
       setCategory(category);
-      setSubCategories(isExist?.subcategories);
+      handleSubCategories(isExist?.subcategories);
     }
   };
   useEffect(() => {
@@ -170,7 +182,7 @@ const UploadProduct = ({ store, setStep }) => {
       );
       setCategory({ _id: isExist?._id, cate_name: isExist?.cate_name });
       if (isExist) {
-        setSubCategories(isExist?.subcategories);
+        handleSubCategories(isExist?.subcategories);
         setSubCategory({
           sub_cate_name: editProduct?.sub_category?.sub_cate_name,
           _id: editProduct?.sub_category?._id,
@@ -643,7 +655,7 @@ const UploadProduct = ({ store, setStep }) => {
           (cate) => cate?._id === pInfo?.category
         );
         setCategory({ _id: isExist?._id, cate_name: isExist?.cate_name });
-        setSubCategories(isExist?.subcategories);
+        handleSubCategories(isExist?.subcategories);
         if (pInfo?.sub_category) {
           const subCateExist = isExist?.subcategories?.find(
             (subCate) => subCate?._id === pInfo?.sub_category

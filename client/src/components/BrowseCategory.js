@@ -47,7 +47,7 @@ const BrowseCategory = ({ categories }) => {
                 className="!w-full outline-none"
               >
                 <Button
-                  className="outline-none flex items-center justify-between bg-white shadow-none hover:!bg-gray-100 rounded duration-150 gap-5 h-8 w-full px-1 hover:text-gray-800 normal-case"
+                  className="outline-none flex items-center justify-between bg-white shadow-none hover:!bg-gray-200 rounded-sm duration-150 gap-5 h-10 w-full px-1 hover:text-gray-800 normal-case"
                   key={index}
                 >
                   <p
@@ -61,7 +61,7 @@ const BrowseCategory = ({ categories }) => {
             <PopoverContent
               onMouseEnter={() => setShowCategory(category)}
               onMouseLeave={() => setShowCategory(null)}
-              className={`px-0 pt-0 pb-1 shadow-none border-none rounded  ${
+              className={`px-0 pt-0 pb-1 shadow-none border-none rounded h-fit not-sr-only ${
                 showCategory?.subcategories?.length ? "block" : "hidden"
               }`}
             >
