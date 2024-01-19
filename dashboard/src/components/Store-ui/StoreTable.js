@@ -8,10 +8,12 @@ import {
 import { base_url } from "@/lib/global";
 
 import StoreStatus from "./StoreStatus";
-import moment from "moment";
+// import moment from "moment";
+const moment = require("moment-timezone");
 import { iArrowDown, iArrowUp } from "@/utils/icons/icons";
 import StoreViewInfo from "./StoreViewInfo";
 import storeLogo from "../../../public/assets/store.png";
+import { DATE_FORMATE, TIME_FORMATE } from "@/lib/constants";
 
 const StoreTable = ({ logout }) => {
   const { data, refetch } = useGetStoresQuery();
@@ -89,8 +91,17 @@ const StoreTable = ({ logout }) => {
                 <div
                   className={`flex justify-center items-center h-[30px] col-span-2 w-full border-r-2 border-[#D9D9D9]`}
                 >
-                  <h1 className="text-black font-inter text-[15px] font-medium tracking-[0.2px] text-break">
-                    {moment(store?.joined_date).format("MMM DD YYYY")}
+                  <h1 className="text-black font-inter text-[15px] font-medium tracking-[0.2px] text-break text-center">
+                    <small className="text-xs text-center block">
+                      {moment(store?.joined_date)
+                        .tz("Europe/Stockholm")
+                        .format(TIME_FORMATE)}
+                    </small>
+                    <p className="font-inter font-semibold text-sm text-black">
+                      {moment(store?.joined_date)
+                        .tz("Europe/Stockholm")
+                        .format(DATE_FORMATE)}
+                    </p>
                   </h1>
                 </div>
 
@@ -98,12 +109,30 @@ const StoreTable = ({ logout }) => {
                   className={`flex justify-center items-center h-[30px] col-span-2 w-full border-r-2 border-[#D9D9D9]`}
                 >
                   <h1 className="text-black font-inter text-[15px] font-medium tracking-[0.2px] text-break">
-                    {store?.status_info?.length > 0
-                      ? moment(
-                          store?.status_info[store?.status_info?.length - 1]
-                            ?.date
-                        ).format("MMM DD YYYY")
-                      : moment(store?.joined_date).format("MMM DD YYYY")}
+                    <small className="text-xs text-center block">
+                      {store?.status_info?.length > 0
+                        ? moment(
+                            store?.status_info[store?.status_info?.length - 1]
+                              ?.date
+                          )
+                            .tz("Europe/Stockholm")
+                            .format(TIME_FORMATE)
+                        : moment(store?.joined_date)
+                            .tz("Europe/Stockholm")
+                            .format(TIME_FORMATE)}
+                    </small>
+                    <p className="font-inter font-semibold text-sm text-black">
+                      {store?.status_info?.length > 0
+                        ? moment(
+                            store?.status_info[store?.status_info?.length - 1]
+                              ?.date
+                          )
+                            .tz("Europe/Stockholm")
+                            .format(DATE_FORMATE)
+                        : moment(store?.joined_date)
+                            .tz("Europe/Stockholm")
+                            .format(DATE_FORMATE)}
+                    </p>
                   </h1>
                 </div>
                 <div

@@ -35,6 +35,7 @@ import InputLabelTooltip from "@/components/commons/tooltip/InputLabelTooltip";
 import { labelInfo } from "@/utils/datas/inputLabelInfo";
 import ProductVideoInput from "./ProductVideoInput";
 import { useDropzone } from "react-dropzone";
+import useAuth from "@/lib/useAuth";
 
 const modules = {
   toolbar: [
@@ -60,6 +61,7 @@ const formats = [
 ];
 
 const UploadProduct = ({ store, setStep }) => {
+  const { user } = useAuth({ redirectTo: "/signin" });
   const { editProduct } = useSelector((state) => state.product);
   const { data, isLoading: categoryLoading } = useGetCategoriesQuery();
   const { data: productGroups } = useGetProductGroupByStoreIdQuery(store?._id);
@@ -147,7 +149,7 @@ const UploadProduct = ({ store, setStep }) => {
   const [subCategory, setSubCategory] = useState(null);
 
   const handleSubCategories = (items) => {
-    const sortedSubCategories = [...subCategories].sort((a, b) => {
+    const sortedSubCategories = [...items].sort((a, b) => {
       const numericPartA =
         parseInt(a.sub_cate_slug?.match(/\d+/)?.[0], 10) || 0;
       const numericPartB =
@@ -434,15 +436,15 @@ const UploadProduct = ({ store, setStep }) => {
               to: "",
             }
           : {
-              from: onePriceFields?.one_price.from?.replaceAll(", ", ""),
-              to: onePriceFields?.one_price.to?.replaceAll(", ", ""),
+              from: onePriceFields?.one_price.from?.replaceAll(/[,\s]/g, ""),
+              to: onePriceFields?.one_price.to?.replaceAll(/[,\s]/g, ""),
             },
     };
 
     if (selectedCheckbox === "ladder") {
       const updatedLadderPriceFields = ladderPriceFields.map((field) => {
         const priceWithComma = field?.euro;
-        const price = priceWithComma?.replaceAll(", ", "");
+        const price = priceWithComma?.replaceAll(/[,\s]/g, "");
         return {
           ...field,
           euro: price,
@@ -630,7 +632,7 @@ const UploadProduct = ({ store, setStep }) => {
   useEffect(() => {
     setIsDataLoading(true);
     const pInfo = JSON.parse(localStorage.getItem("productInfo")) || null;
-    if (!editProduct && pInfo) {
+    if (!editProduct && pInfo?.userId === user?._id) {
       setIsDataLoading(true);
       setContent(pInfo?.description);
       setKeywords(pInfo?.keyword);
@@ -698,6 +700,7 @@ const UploadProduct = ({ store, setStep }) => {
         keyword: keywords,
         unit: unit,
         time: time,
+        userId: user?._id,
       };
       localStorage.setItem("productInfo", JSON.stringify(productInfo));
     }
@@ -708,24 +711,6 @@ const UploadProduct = ({ store, setStep }) => {
       customCateRef.current.focus();
     }
   }, [errors.group]);
-
-  // const onPImage = useCallback((acceptedFiles) => {
-  //   console.log(acceptedFiles);
-  //   if (acceptedFiles && acceptedFiles?.length > 0) {
-  //     let images = [];
-  //     for (let i = 0; i < acceptedFiles.length; i++) {
-  //       images.push(acceptedFiles[i]);
-  //     }
-  //     setProductImages((current) => [...current, ...images]);
-  //   }
-  // }, []);
-
-  // const { getRootProps, getInputProps } = useDropzone({
-  //   onDrop: onPImage,
-  //   accept: {
-  //     "image/*": [".jpeg", ".png", ".jpg"],
-  //   },
-  // });
 
   return (
     <div className="upload_product md:px-8 relative">

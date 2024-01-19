@@ -1,3 +1,4 @@
+import { DATE_FORMATE, TIME_FORMATE } from "@/lib/constants";
 import { iArrowRight } from "@/utils/icons/icons";
 import { Breadcrumbs } from "@material-tailwind/react";
 import moment from "moment";
@@ -18,6 +19,9 @@ const StatusInfo = ({ status_info }) => {
         </p>
         <p className="rounded bg-white px-3 py-1 font-medium text-gray-900 min-w-[150px] text-center">
           Date
+        </p>
+        <p className="rounded bg-white px-3 py-1 font-medium text-gray-900 min-w-[150px] text-center">
+          Time
         </p>
       </Breadcrumbs>
       <div className="max-h-[350px] overflow-y-auto scrollbarSM">
@@ -48,7 +52,12 @@ const StatusInfo = ({ status_info }) => {
             <p
               className={`rounded-full px-3 py-1 font-medium text-gray-900 min-w-[150px] text-center uppercase bg-white`}
             >
-              {moment(info?.date).format("MMM DD YYYY")}
+              {moment(info?.date).tz("Europe/Stockholm").format(DATE_FORMATE)}
+            </p>
+            <p
+              className={`rounded-full px-3 py-1 font-medium text-gray-900 min-w-[150px] text-center uppercase bg-white`}
+            >
+              {moment(info?.date).tz("Europe/Stockholm").format(TIME_FORMATE)}
             </p>
           </Breadcrumbs>
         ))}
