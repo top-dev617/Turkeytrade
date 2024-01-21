@@ -9,7 +9,7 @@ const isVideoFile = function (file) {
 };
 
 const isImageFile = function (file) {
-  const allowedExtensions = [".png", ".jpg", ".jpeg"];
+  const allowedExtensions = [".png", ".jpg", ".jpeg", ".webp", ".avif"];
   const ext = path.extname(file.originalname);
   return allowedExtensions.includes(ext);
 };
