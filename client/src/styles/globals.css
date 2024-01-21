@@ -1255,3 +1255,7 @@ details[data-popover="right"] > summary + * {
 }
 
 /* wrapper setup */
+
+.wbv-in {
+  -webkit-backface-visibility: initial !important;
+}

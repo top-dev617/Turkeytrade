@@ -254,7 +254,7 @@ const StoreViewInfo = ({ store }) => {
       <Dialog
         open={openImage ? true : false}
         handler={() => setOpenImage("")}
-        size="lg"
+        size="md"
         className="max-h-fit flex justify-center items-center w-full py-5 px-2 shadow shadow-pm outline-none border border-pm rounded-sm"
       >
         <img

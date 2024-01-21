@@ -6,11 +6,11 @@ const Category = ({ categories }) => {
   return (
     <div className="category ">
       <div className="container !mx-auto">
-        <div className="row">
-          <div className="col-12 col-lg-4">
+        <div className="grid grid-cols-12 gap-3">
+          <div className="col-span-12 lg:col-span-4">
             <BrowseCategory categories={categories} />
           </div>
-          <div className="col-12 col-lg-8 mt-8 md:mt-0">
+          <div className="col-span-12 lg:col-span-8 mt-8 md:mt-0">
             <CategorySlider />
           </div>
         </div>

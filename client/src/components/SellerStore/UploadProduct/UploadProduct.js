@@ -180,7 +180,7 @@ const UploadProduct = ({ store, setStep }) => {
         setValue("group", "");
       }
       const isExist = data?.data?.find(
-        (cate) => cate?._id === editProduct?.category._id
+        (cate) => cate?._id === editProduct?.category?._id
       );
       setCategory({ _id: isExist?._id, cate_name: isExist?.cate_name });
       if (isExist) {
@@ -1270,8 +1270,8 @@ const UploadProduct = ({ store, setStep }) => {
                       }`}
                     >
                       {selectedCheckbox === "onePrice"
-                        ? unit.singular
-                        : unit.plural}
+                        ? unit?.singular
+                        : unit?.plural}
                     </Button>
                   </PopoverHandler>
                   <PopoverContent className="grid grid-cols-1 max-w-[650px] max-h-[350px] overflow-y-auto w-full p-0 shadow-none">
@@ -1285,8 +1285,8 @@ const UploadProduct = ({ store, setStep }) => {
                         className="h-8 bg-white text-black hover:!bg-pm rounded-none hover:!text-white shadow-none border-none normal-case text-left outline-none px-3 py-0"
                       >
                         {selectedCheckbox === "onePrice"
-                          ? un.singular
-                          : un.plural}
+                          ? un?.singular
+                          : un?.plural}
                       </Button>
                     ))}
                   </PopoverContent>

@@ -28,7 +28,11 @@ const CompanyLogoInput = ({
     },
   });
   return (
-    <div className={`input_box relative ${!isEdit && "!bg-white"}`}>
+    <div
+      className={`rounded-[8px] max-h-[270px] relative h-full ${
+        !isEdit && "!bg-white"
+      }`}
+    >
       {isEdit && (
         <div
           onClick={() => removeLogo()}
@@ -42,19 +46,19 @@ const CompanyLogoInput = ({
           {isEdit ? (
             <div
               {...getRootProps()}
-              className="flex justify-center items-center"
+              className="h-full flex justify-center items-center"
             >
               <img
-                className="w-full h-full max-w-[180px] max-h-[180px] object-contain"
+                className="max-w-[180px] max-h-[180px] object-contain"
                 loading="lazy"
                 src={`${base_url}/uploads/${store?.data?.logo}`}
                 alt="store logo"
               />
             </div>
           ) : (
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center h-full">
               <img
-                className="w-full h-full max-w-[180px] max-h-[180px] object-contain"
+                className="max-w-[180px] max-h-[180px] object-contain"
                 loading="lazy"
                 src={`${base_url}/uploads/${store?.data?.logo}`}
                 alt="store logo"
@@ -65,9 +69,9 @@ const CompanyLogoInput = ({
       ) : (
         <>
           {logo ? (
-            <div className="input_inner">
+            <div className="rounded-[8px] flex justify-center items-center h-full">
               <img
-                className="max-w-[180px] max-h-[180px] w-full h-full object-contain"
+                className="max-w-[180px] max-h-[180px] object-contain"
                 src={viewFile(logo)}
                 alt=""
               />
