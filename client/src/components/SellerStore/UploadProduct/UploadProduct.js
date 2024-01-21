@@ -410,6 +410,7 @@ const UploadProduct = ({ store, setStep }) => {
       unitRef.current.focus();
       return;
     }
+    console.log(time);
     if (!time && !saveDraft) {
       return;
     }
@@ -634,9 +635,15 @@ const UploadProduct = ({ store, setStep }) => {
     const pInfo = JSON.parse(localStorage.getItem("productInfo")) || null;
     if (!editProduct && pInfo?.userId === user?._id) {
       setIsDataLoading(true);
-      setContent(pInfo?.description);
-      setKeywords(pInfo?.keyword);
-      setValue("title", pInfo?.title);
+      if (pInfo?.description) {
+        setContent(pInfo?.description);
+      }
+      if (pInfo?.keyword) {
+        setKeywords(pInfo?.keyword);
+      }
+      if (pInfo?.title) {
+        setValue("title", pInfo?.title);
+      }
       const groupFind = productGroups?.data?.find(
         (g) => g?._id === pInfo?.group
       );
@@ -645,13 +652,27 @@ const UploadProduct = ({ store, setStep }) => {
       } else {
         setValue("group", "");
       }
-      setValue("moq", pInfo?.moq);
-      setValue("model", pInfo?.model);
-      setValue("from", pInfo?.from);
-      setValue("to", pInfo?.to);
-      setTime(pInfo?.time);
-      setVideo(pInfo?.video);
-      setUnit(pInfo?.unit);
+      if (pInfo?.moq) {
+        setValue("moq", pInfo?.moq);
+      }
+      if (pInfo?.model) {
+        setValue("model", pInfo?.model);
+      }
+      if (pInfo?.from) {
+        setValue("from", pInfo?.from);
+      }
+      if (pInfo?.to) {
+        setValue("to", pInfo?.to);
+      }
+      if (pInfo?.time) {
+        setTime(pInfo?.time);
+      }
+      if (pInfo?.video) {
+        setVideo(pInfo?.video);
+      }
+      if (pInfo?.unit) {
+        setUnit(pInfo?.unit);
+      }
       if (pInfo?.category && data?.data) {
         const isExist = data?.data?.find(
           (cate) => cate?._id === pInfo?.category

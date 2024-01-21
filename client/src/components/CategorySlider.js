@@ -4,11 +4,11 @@ import { useSelector } from "react-redux";
 
 const CategorySlider = () => {
   const { catesShow } = useSelector((state) => state.helper);
-  console.log(catesShow);
+  // console.log(catesShow);
   return (
-    <div className="h-full h-[585px]">
+    <div className="h-full">
       {catesShow ? (
-        <img src={banner.src} className="block w-full h-full" alt="..." />
+        <img src={banner.src} className="d-block w-100" alt="..." />
       ) : (
         <div
           id="carouselExampleInterval"
