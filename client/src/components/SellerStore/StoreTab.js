@@ -10,6 +10,7 @@ import {
   PopoverContent,
   PopoverHandler,
 } from "@material-tailwind/react";
+import useAuth from "@/lib/useAuth";
 
 const UploadProductMain = dynamic(
   () => import("./UploadProduct/UploadProductMain"),
@@ -20,6 +21,7 @@ const EditProduct = dynamic(() => import("./EditProduct/EditProduct"), {
 });
 
 const StoreTab = ({ store }) => {
+  const { user } = useAuth({ redirectTo: "/signin" });
   const dispatch = useDispatch();
 
   const [step, setStep] = useState(0);
@@ -118,6 +120,7 @@ const StoreTab = ({ store }) => {
               store={store}
               selectDrop={selectDrop}
               setStep={setStep}
+              user={user}
             />
           )}
           {step === 2 && <EditProduct store={store} setStep={setStep} />}

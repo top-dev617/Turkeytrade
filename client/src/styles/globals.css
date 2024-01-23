@@ -1256,6 +1256,20 @@ details[data-popover="right"] > summary + * {
 
 /* wrapper setup */
 
-.wbv-in {
-  -webkit-backface-visibility: initial !important;
+/* ::-webkit-scrollbar {
+  width: 0px;
 }
+
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+} */

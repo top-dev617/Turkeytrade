@@ -7,6 +7,10 @@ const productApi = api.injectEndpoints({
       query: () => `/categories/show/cate`,
       providesTags: ["category"],
     }),
+    getHomeCategories: builder.query({
+      query: () => `/categories/all/cate`,
+      providesTags: ["category"],
+    }),
 
     // add product
     postProduct: builder.mutation({
@@ -144,6 +148,7 @@ const productApi = api.injectEndpoints({
 export const {
   // categories
   useGetCategoriesQuery,
+  useGetHomeCategoriesQuery,
 
   // products
   usePostProductMutation,
@@ -156,6 +161,9 @@ export const {
   useGetProductByIdQuery,
 
   useDeleteProductMutation,
+
+  // groups
+  useGetProductsByGroupIdQuery,
 
   // draf products sections
   usePostDraftProductMutation,

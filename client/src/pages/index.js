@@ -7,7 +7,7 @@ import WelcomeModal from "@/utils/modals/WelcomeModal";
 import { useGetLatestProductsQuery } from "@/redux/features/products/productApi";
 import { base_url } from "@/utils/auth/global";
 
-export default function Home({ categories }) {
+export default function Home() {
   const { data, isLoading } = useGetLatestProductsQuery();
   const welcomeModal = useRef(null);
   const [isWelcomeModal, setIsWelcomeModal] = useState(null);
@@ -38,7 +38,7 @@ export default function Home({ categories }) {
 
       <div className="home">
         <SearchBanner />
-        <Category categories={categories} />
+        <Category />
         <div className="container mt-8">
           <h1 className="label mb-3">Recently Listed</h1>
           <Item items={data?.data} isLoading={isLoading} />
@@ -59,13 +59,13 @@ export default function Home({ categories }) {
   );
 }
 
-export async function getServerSideProps() {
-  const res = await fetch(`${base_url}/categories/all/cate`);
-  const categories = await res.json();
+// export async function getServerSideProps() {
+//   const res = await fetch(`${base_url}/categories/all/cate`);
+//   const categories = await res.json();
 
-  return {
-    props: {
-      categories: categories.data,
-    },
-  };
-}
+//   return {
+//     props: {
+//       categories: categories.data,
+//     },
+//   };
+// }

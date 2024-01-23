@@ -1,34 +1,57 @@
 import ProductBanner from "@/components/SellerProduct/ProductBanner";
 import ProductDescription from "@/components/SellerProduct/ProductDescription";
-import { base_url } from "@/utils/auth/global";
-import React, { useEffect } from "react";
+import Loading from "@/components/commons/Loading";
+import { useGetProductByIdQuery } from "@/redux/features/products/productApi";
+import { useRouter } from "next/router";
+import React, { useEffect, useMemo } from "react";
 
-const Details = ({ product }) => {
+const Details = () => {
+  const { query } = useRouter();
+  const { data, isLoading, refetch } = useGetProductByIdQuery(query?.id);
+  // console.log(data, isLoading);
   useEffect(() => {
+    refetch();
     window.scrollTo({
       top: 0,
-      behavior: "smooth", // Set behavior to 'smooth' for smooth scrolling
+      behavior: "smooth",
     });
+  }, [query?.id]);
+
+  useEffect(() => {
+    const handlePopstate = () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+    window.addEventListener("popstate", handlePopstate);
+    return () => {
+      window.removeEventListener("popstate", handlePopstate);
+    };
   }, []);
+
   return (
-    <div className="container mb-12">
-      <ProductBanner product={product} />
-      <ProductDescription product={product} />
-    </div>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="container mb-12">
+          <ProductBanner product={data?.data || null} />
+          <ProductDescription product={data?.data || null} />
+        </div>
+      )}
+    </>
   );
 };
 
-export async function getServerSideProps(context) {
-  const { params } = context;
-  const { id } = params;
+// export async function getServerSideProps(context) {
+//   const { params } = context;
+//   const { id } = params;
 
-  const response = await fetch(`${base_url}/products/${id}`);
-  const data = await response.json();
-  return {
-    props: {
-      product: data.data,
-    },
-  };
-}
+//   const response = await fetch(`${base_url}/products/${id}`);
+//   const data = await response.json();
+//   return {
+//     props: {
+//       product: data.data,
+//     },
+//   };
+// }
 
 export default Details;

@@ -59,7 +59,7 @@ const ProductBanner = ({ product }) => {
     }
   };
 
-  const images = product.images.map((img) => ({
+  const images = product?.images?.map((img) => ({
     src: `${base_url}/uploads/${img}`,
   }));
 
@@ -162,7 +162,7 @@ const ProductBanner = ({ product }) => {
               <div>
                 <Link
                   style={{ marginBottom: "18px" }}
-                  href={`/store/${product.store?._id}`}
+                  href={`/store/${product?.store?._id}`}
                   className="text-pm hover:text-pmd fw-bold text-decoration-none d-block"
                 >
                   {product?.store?.store_name}{" "}

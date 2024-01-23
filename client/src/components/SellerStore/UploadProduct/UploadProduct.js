@@ -60,8 +60,7 @@ const formats = [
   "video",
 ];
 
-const UploadProduct = ({ store, setStep }) => {
-  const { user } = useAuth({ redirectTo: "/signin" });
+const UploadProduct = ({ store, setStep, user }) => {
   const { editProduct } = useSelector((state) => state.product);
   const { data, isLoading: categoryLoading } = useGetCategoriesQuery();
   const { data: productGroups } = useGetProductGroupByStoreIdQuery(store?._id);
@@ -633,6 +632,7 @@ const UploadProduct = ({ store, setStep }) => {
   useEffect(() => {
     setIsDataLoading(true);
     const pInfo = JSON.parse(localStorage.getItem("productInfo")) || null;
+
     if (!editProduct && pInfo?.userId === user?._id) {
       setIsDataLoading(true);
       if (pInfo?.description) {

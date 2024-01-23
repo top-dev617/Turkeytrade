@@ -21,7 +21,7 @@ import Loading from "@/components/commons/Loading";
 import { useEffect } from "react";
 import Pagination from "@/utils/Pagination";
 
-const UploadProductMain = ({ store, selectDrop, setStep }) => {
+const UploadProductMain = ({ store, selectDrop, setStep, user }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data, isLoading, isError, refetch } = useGetDraftProductsByStoreQuery(
     store?._id,
@@ -93,7 +93,7 @@ const UploadProductMain = ({ store, selectDrop, setStep }) => {
   return (
     <div className="upload_product md:px-8">
       {selectDrop === "Upload New Product" || editProduct ? (
-        <UploadProduct store={store} setStep={setStep} />
+        <UploadProduct store={store} setStep={setStep} user={user} />
       ) : (
         <div className="relative overflow-x-auto sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500">

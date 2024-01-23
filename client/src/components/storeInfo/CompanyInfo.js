@@ -20,7 +20,7 @@ const CompanyInfo = ({ store }) => {
 
         <div className="flex justify-center items-center max-h-[320px]">
           <img
-            className="max-w-[180px] max-h-[180px] w-full object-contain h-full"
+            className="max-w-[180px] max-h-[180px] object-contain"
             loading="lazy"
             src={`${base_url}/uploads/${store?.logo}`}
             alt="store logo"

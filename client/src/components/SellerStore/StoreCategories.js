@@ -17,20 +17,14 @@ const StoreCategories = ({ store }) => {
         <>
           <h5 className="text-xl font-bold mb-2">Browse Categories</h5>
 
-          <div className="grid grid-cols-1 gap-1 mx-auto">
+          <div className="grid md:grid-cols-3 gap-2 md:gap-4 mx-auto">
             {data?.data?.map((group, index) => (
               <Link
                 href={`/group/${group?._id}`}
-                className="flex items-center justify-between hover:bg-green-100 rounded duration-150 gap-5 h-14 px-1"
+                className="flex items-center justify-between bg-gray-200 shadow-none hover:bg-gray-300 rounded-sm duration-150 gap-5 h-10 w-full px-1 hover:text-gray-800 normal-case"
                 key={index}
               >
                 <div className="flex items-center gap-5">
-                  {/* <img
-                    className="rounded"
-                    src={group?.image}
-                    alt=""
-                    style={{ width: "50px" }}
-                  /> */}
                   <p dangerouslySetInnerHTML={{ __html: group?.title }} />
                 </div>
                 <img src={arrow.src} alt="" />

@@ -4,20 +4,10 @@ import Link from "next/link";
 import Loading from "./commons/Loading";
 import { noProducts } from "@/utils/icons/icons";
 import { base_url } from "@/utils/auth/global";
-import { useRouter } from "next/router";
 
 const Item = ({ items, isLoading: loading }) => {
   const pathname = usePathname();
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
-
-  const scrollToTop = async (link) => {
-    await window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-    router.push(link);
-  };
 
   setTimeout(() => {
     setIsLoading(false);
@@ -33,8 +23,9 @@ const Item = ({ items, isLoading: loading }) => {
             {items?.length > 0 ? (
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:!gap-6 w-full">
                 {items?.map((item, index) => (
-                  <div
-                    onClick={() => scrollToTop(`/product/${item._id}`)}
+                  <Link
+                    href={`/product/${item._id}`}
+                    // onClick={() => scrollToTop(``)}
                     key={index}
                     style={{ cursor: "pointer", textDecoration: "none" }}
                     className="item border rounded-md"
@@ -110,7 +101,7 @@ const Item = ({ items, isLoading: loading }) => {
                         </>
                       )}
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             ) : (
