@@ -68,8 +68,12 @@ const UploadProduct = ({ store, setStep, user }) => {
   const [patchProduct] = usePatchProductMutation();
 
   // hooks
-  const { handleNumber, handleNumberAndComma, handleAmount } =
-    useInputPattern();
+  const {
+    handleNumber,
+    handleOnePriceFrom,
+    handleOnePriceTo,
+    handleLadderPrice,
+  } = useInputPattern();
 
   const {
     handleSubmit,
@@ -168,8 +172,8 @@ const UploadProduct = ({ store, setStep, user }) => {
     }
   };
   useEffect(() => {
-    setIsDataLoading(true);
     if (editProduct) {
+      setIsDataLoading(true);
       const groupFind = productGroups?.data?.find(
         (g) => g?._id === editProduct?.group
       );
@@ -189,9 +193,9 @@ const UploadProduct = ({ store, setStep, user }) => {
           _id: editProduct?.sub_category?._id,
         });
       }
+      setIsDataLoading(false);
     }
-    setIsDataLoading(false);
-  }, [editProduct, data?.data, subCategories]);
+  }, [editProduct, data?.data]);
 
   const [unit, setUnit] = useState(
     editProduct
@@ -365,6 +369,14 @@ const UploadProduct = ({ store, setStep, user }) => {
     });
   };
 
+  const changeLadderEuro = (index, value) => {
+    setLadderPriceFields((prevPriceFields) => {
+      const data = JSON.parse(JSON.stringify(prevPriceFields));
+      data[index]["euro"] = value;
+      return data;
+    });
+  };
+
   // --------- multi price ---------
   const handleCheckboxChange = (checkboxId) => {
     if (checkboxId === "onePrice") {
@@ -409,7 +421,7 @@ const UploadProduct = ({ store, setStep, user }) => {
       unitRef.current.focus();
       return;
     }
-    console.log(time);
+    // console.log(time);
     if (!time && !saveDraft) {
       return;
     }
@@ -436,21 +448,34 @@ const UploadProduct = ({ store, setStep, user }) => {
               to: "",
             }
           : {
-              from: onePriceFields?.one_price.from?.replaceAll(/[,\s]/g, ""),
-              to: onePriceFields?.one_price.to?.replaceAll(/[,\s]/g, ""),
+              from: onePriceFields?.one_price.from?.replaceAll(" ", ""),
+              to: onePriceFields?.one_price.to?.replaceAll(" ", ""),
             },
     };
 
     if (selectedCheckbox === "ladder") {
       const updatedLadderPriceFields = ladderPriceFields.map((field) => {
         const priceWithComma = field?.euro;
-        const price = priceWithComma?.replaceAll(/[,\s]/g, "");
+        const price = priceWithComma?.replaceAll(" ", "");
+        let newPrice = price?.slice(-1) !== "," ? price : price + "00";
         return {
           ...field,
-          euro: price,
+          euro: newPrice,
         };
       });
       price["ladder_price"] = updatedLadderPriceFields;
+    } else {
+      const fromP = onePriceFields?.one_price.from?.replaceAll(" ", "");
+      const from = fromP?.slice(-1) !== "," ? fromP : fromP + "00";
+
+      const toP = onePriceFields?.one_price.to?.replaceAll(" ", "");
+      const to = toP?.slice(-1) !== "," ? toP : toP + "00";
+
+      const onPrice = {
+        from: from,
+        to: to,
+      };
+      price["one_price"] = onPrice;
     }
 
     const images = productImages.filter(Boolean);
@@ -1351,6 +1376,7 @@ const UploadProduct = ({ store, setStep, user }) => {
               )}
             </div>
 
+            {/* // fob price */}
             <div className="col-12 col-lg-6 ">
               <label className="flex items-center gap-1">
                 FOB-price <small className="text-red-600">*</small>{" "}
@@ -1438,14 +1464,17 @@ const UploadProduct = ({ store, setStep, user }) => {
                             <input
                               className="mb-0 md:min-w-[120px] w-full"
                               type="text"
-                              onInput={handleAmount}
+                              value={input.euro}
+                              onInput={(e) =>
+                                handleLadderPrice(e, changeLadderEuro, index)
+                              }
                               name="euro"
                               placeholder="Euro"
                               defaultValue={input.euro}
                               required={saveDraft ? false : true}
-                              onChange={(event) =>
-                                changeLadderPrice(index, event)
-                              }
+                              // onChange={(event) =>
+                              //   changeLadderPrice(index, event)
+                              // }
                             />
                             <div className="d-flex gap-2 align-items-center">
                               <span
@@ -1487,6 +1516,7 @@ const UploadProduct = ({ store, setStep, user }) => {
                   )}
                 </div>
               ) : (
+                // single price
                 <div style={{ maxWidth: "1000px" }}>
                   <>
                     <div className="flex-none md:flex flex-col md:flex-row align-items-center gap-5 mb-3 w-full">
@@ -1494,39 +1524,53 @@ const UploadProduct = ({ store, setStep, user }) => {
                         <input
                           className="mb-0 md:min-w-[120px] w-full"
                           type="text"
-                          onInput={handleAmount}
+                          value={onePriceFields?.one_price?.from}
+                          onInput={(e) =>
+                            handleOnePriceFrom(
+                              e,
+                              setOnePriceFields,
+                              onePriceFields?.one_price?.to
+                            )
+                          }
                           min={0}
                           name="from"
                           placeholder="From"
                           defaultValue={onePriceFields?.one_price?.from}
                           required={saveDraft ? false : true}
-                          onChange={(event) => {
-                            setOnePriceFields({
-                              one_price: {
-                                from: event?.target.value,
-                                to: onePriceFields?.one_price?.to,
-                              },
-                            });
-                          }}
+                          // onChange={(event) => {
+                          //   setOnePriceFields({
+                          //     one_price: {
+                          //       from: event?.target.value,
+                          //       to: onePriceFields?.one_price?.to,
+                          //     },
+                          //   });
+                          // }}
                         />
                         <span>-</span>
                         <input
                           className="mb-0 md:min-w-[120px] w-full"
                           type="text"
-                          onInput={handleAmount}
+                          value={onePriceFields?.one_price?.to}
+                          onInput={(e) =>
+                            handleOnePriceTo(
+                              e,
+                              setOnePriceFields,
+                              onePriceFields?.one_price?.from
+                            )
+                          }
                           min={0}
                           name="to"
                           placeholder="To"
                           defaultValue={onePriceFields?.one_price?.to}
                           required={saveDraft ? false : true}
-                          onChange={(event) =>
-                            setOnePriceFields({
-                              one_price: {
-                                from: onePriceFields?.one_price?.from,
-                                to: event?.target.value,
-                              },
-                            })
-                          }
+                          // onChange={(event) =>
+                          //   setOnePriceFields({
+                          //     one_price: {
+                          //       from: onePriceFields?.one_price?.from,
+                          //       to: event?.target.value,
+                          //     },
+                          //   })
+                          // }
                         />
                         <span className="lowerCase flex items-center w-full gap-1">
                           euro/{unit?.singular?.toLowerCase()}

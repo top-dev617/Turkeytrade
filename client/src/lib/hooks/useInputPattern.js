@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const useInputPattern = () => {
   const handleNumber = (e) => {
     e.target.value = e.target.value.replace(/[^0-9]/g, "");
@@ -46,12 +48,74 @@ const useInputPattern = () => {
     e.target.value = result;
   };
 
+  const handleEuro = (e, setValue) => {
+    let inputValue = e.target.value.replace(/[^\d,]/g, "");
+    const parts = inputValue.split(",");
+
+    // Format euros
+    let euros = parts[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ");
+    let cents = parts?.length === 2 && euros ? "," + parts[1].slice(0, 2) : "";
+    if (parts.length <= 2) {
+      setValue(`${euros}${cents}`);
+    }
+  };
+
+  const handleOnePriceFrom = (e, setValue, to) => {
+    let inputValue = e.target.value.replace(/[^\d,]/g, "");
+    const parts = inputValue.split(",");
+
+    // Format euros
+    let euros = parts[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ");
+    let cents = parts?.length === 2 && euros ? "," + parts[1].slice(0, 2) : "";
+    if (parts.length <= 2) {
+      setValue({
+        one_price: {
+          from: `${euros}${cents}`,
+          to: to,
+        },
+      });
+    }
+  };
+
+  const handleOnePriceTo = (e, setValue, from) => {
+    let inputValue = e.target.value.replace(/[^\d,]/g, "");
+    const parts = inputValue.split(",");
+
+    // Format euros
+    let euros = parts[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ");
+    let cents = parts?.length === 2 && euros ? "," + parts[1].slice(0, 2) : "";
+    if (parts.length <= 2) {
+      setValue({
+        one_price: {
+          to: `${euros}${cents}`,
+          from: from,
+        },
+      });
+    }
+  };
+
+  const handleLadderPrice = (e, setValue, index) => {
+    let inputValue = e.target.value.replace(/[^\d,]/g, "");
+    const parts = inputValue.split(",");
+
+    // Format euros
+    let euros = parts[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ");
+    let cents = parts?.length === 2 && euros ? "," + parts[1].slice(0, 2) : "";
+    if (parts.length <= 2) {
+      setValue(index, `${euros}${cents}`);
+    }
+  };
+
   return {
     handleNumber,
     handleNumberAndComma,
     handleAlphabeticInput,
     handlePhoneNumberInput,
     handleAmount,
+    handleEuro,
+    handleOnePriceFrom,
+    handleOnePriceTo,
+    handleLadderPrice,
   };
 };
 
