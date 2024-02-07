@@ -43,11 +43,9 @@ export default function App({ Component, pageProps }) {
             theme="light"
           />
           <ThemeProvider value={customTheme}>
-            <div className="min-h-screen flex flex-col justify-between w-full  h-full">
-              {pathname !== "/signin" && pathname !== "/register" && <Header />}
-              <Component {...pageProps} />
-              {pathname !== "/signin" && pathname !== "/register" && <Footer />}
-            </div>
+            {pathname !== "/signin" && pathname !== "/register" && <Header />}
+            <Component {...pageProps} />
+            {pathname !== "/signin" && pathname !== "/register" && <Footer />}
             <ChatMain />
             <BottomBar />
           </ThemeProvider>

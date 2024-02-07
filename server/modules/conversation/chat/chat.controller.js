@@ -5,28 +5,57 @@ const Chat = require("./chat.model");
 
 const createChat = async (req, res) => {
   try {
-    const { memberOne, memberTwo } = req.body;
-    const isExist = await Chat.findOne({
-      $or: [
-        { "memberOne.id": memberOne.id, "memberTwo.id": memberTwo.id },
-        { "memberOne.id": memberTwo.id, "memberTwo.id": memberOne.id },
-      ],
-    });
+    const { members } = req.body;
+    const isExist = await Chat.findOne({ members: { $all: members } });
+    const exFinder = await isExist?.members?.find(
+      (member) => member?.toString() !== req.body?.requester
+    );
+    const receiverInfo = await User.findOne({
+      _id: exFinder?.toString(),
+    }).select("role name company_name image");
+
+    const storeInfo = await Store.findOne({
+      user: exFinder,
+    }).select("store_name logo");
+
     if (isExist) {
+      const exFormattedChat = {
+        ...isExist.toObject(),
+        receiverInfo: receiverInfo,
+        storeInfo: storeInfo,
+        lastMessage: "",
+      };
       res.status(200).json({
         status: false,
         access: true,
         message: "Already Friend",
-        data: isExist,
+        data: exFormattedChat,
       });
     } else {
       const newChat = new Chat(req.body);
       const result = await newChat.save();
+
+      const finder = await result?.members?.find(
+        (member) => member?.toString() !== req.body?.requester
+      );
+      const receiverInfo = await User.findOne({
+        _id: finder?.toString(),
+      }).select("role name company_name image");
+
+      const storeInfo = await Store.findOne({
+        user: finder,
+      }).select("store_name logo");
+      const formattedChat = {
+        ...result.toObject(),
+        receiverInfo: receiverInfo,
+        storeInfo: storeInfo,
+        lastMessage: "",
+      };
       res.status(200).json({
         status: true,
         access: true,
         message: "Chat Created",
-        data: result,
+        data: formattedChat,
       });
     }
   } catch (error) {
@@ -38,125 +67,133 @@ const createChat = async (req, res) => {
   }
 };
 
-// const userChats = async (req, res) => {
-//     const { userId } = req.params
-//     try {
-//         const result = await Chat.find({
-//             $or: [
-//                 { 'memberOne.id': userId },
-//                 { 'memberTwo.id': userId }
-//             ]
-//         })
-//         res.status(200).send(result)
-//     } catch (error) {
-//         res.status(500).send(error)
-//     }
-// };
-
-const userChats = async (req, res) => {
-  const { userId } = req.params;
-
+const toggleNotificationSound = async (req, res) => {
   try {
-    // Find chats where the user is a member of memberOne or memberTwo
-    const chats = await Chat.find({
-      $or: [{ "memberOne.id": userId }, { "memberTwo.id": userId }],
-    }).sort({ createdAt: 1 });
+    const { chatId } = req.params;
+    const userId = req.user?._id;
+    const isExist = await Chat.findOne({ _id: chatId });
+    if (isExist) {
+      const receiverId = isExist?.receiver?.toString();
+      if (receiverId === userId) {
+        const rsData = {
+          settings: {
+            sender: isExist?.settings?.sender,
+            receiver: {
+              isMute: isExist?.settings?.receiver?.isMute ? false : true,
+              last_active: isExist?.settings?.receiver?.last_active,
+            },
+          },
+        };
+        const result = await Chat.updateOne(
+          { _id: chatId, receiver: userId },
+          rsData,
+          { new: true }
+        );
+        res.status(200).json({
+          success: true,
+          message: "Notification Setting Change Success",
+          data: rsData,
+        });
+      } else {
+        const snData = {
+          settings: {
+            receiver: isExist?.settings?.receiver,
+            sender: {
+              isMute: isExist?.settings?.sender?.isMute ? false : true,
+              last_active: isExist?.settings?.sender?.last_active,
+            },
+          },
+        };
+        const result = await Chat.updateOne(
+          { _id: chatId, requester: userId },
+          snData,
+          { new: true }
+        );
+        res.status(200).json({
+          success: true,
+          message: "Notification Setting Change Success",
+          data: snData,
+        });
+      }
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Chat Not found",
+        data: null,
+      });
+    }
+  } catch (error) {
+    res.status(201).json({
+      success: false,
+      message: "Notification Setting Change Failed",
+      error_message: error.message,
+    });
+  }
+};
 
+const inboxChats = async (req, res) => {
+  const userId = req.user?._id;
+  try {
+    const userChats = await Chat.find({ receiver: userId });
     const formattedChats = [];
+    for (const chat of userChats) {
+      const lastMessage = await Message.findOne({ chatId: chat._id }).sort({
+        createdAt: -1,
+      });
+      const finder = await chat?.members?.find(
+        (member) => member?.toString() !== userId
+      );
+      const receiverInfo = await User.findOne({
+        _id: finder?.toString(),
+      }).select("role name company_name image");
 
-    for (const chat of chats) {
-      const lastMessage = await Message.findOne({ chatId: chat._id })
-        .sort({ createdAt: -1 })
-        .populate({
-          path: "senderId",
-          select: "username",
-        })
-        .populate("product");
+      const storeInfo = await Store.findOne({
+        user: finder,
+      }).select("store_name logo");
       const formattedChat = {
-        _id: chat._id,
-        memberOne: chat.memberOne,
-        memberTwo: chat.memberTwo,
-        lastMessage: lastMessage ? lastMessage.text : null,
-        lastConversationTime: lastMessage ? lastMessage.createdAt : null,
+        ...chat.toObject(),
+        receiverInfo: receiverInfo,
+        storeInfo: storeInfo,
+        lastMessage: lastMessage,
       };
       formattedChats.push(formattedChat);
     }
-    const sortByIsoDateDesc = (a, b) =>
-      new Date(b.lastConversationTime) - new Date(a.lastConversationTime);
-
-    const sortedDateArrayDesc = formattedChats.sort(sortByIsoDateDesc);
-    res.status(200).json(sortedDateArrayDesc);
+    res.status(200).json(formattedChats);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
 // get global chats
 const getGlobalChats = async (req, res) => {
-  const { userId } = req.params;
+  const userId = req.user?._id;
   try {
-    const store = await Store.findOne({ user: userId });
-    const storeId = store?._id?.toString();
-    if (storeId) {
-      var storeChats = await Chat.find({ "memberOne.id": storeId }).sort({
-        createdAt: 1,
-      });
-    }
-
-    const userChats = await Chat.find({ "memberTwo.id": userId }).sort({
-      createdAt: 1,
-    });
-
+    const userChats = await Chat.find({ members: { $all: [userId] } });
     const formattedChats = [];
-
     for (const chat of userChats) {
-      const lastMessage = await Message.findOne({ chatId: chat._id })
-        .sort({ createdAt: -1 })
-        .populate({
-          path: "senderId",
-          select: "username",
-        })
-        .populate("product");
+      const lastMessage = await Message.findOne({ chatId: chat._id }).sort({
+        createdAt: -1,
+      });
+      const finder = await chat?.members?.find(
+        (member) => member?.toString() !== userId
+      );
+      const receiverInfo = await User.findOne({
+        _id: finder?.toString(),
+      }).select("role name company_name image");
+
+      const storeInfo = await Store.findOne({
+        user: finder,
+      }).select("store_name logo");
       const formattedChat = {
-        _id: chat._id,
-        type: "Store",
-        memberOne: chat.memberOne,
-        memberTwo: chat.memberTwo,
-        lastMessage: lastMessage ? lastMessage.text : null,
-        lastConversationTime: lastMessage ? lastMessage.createdAt : null,
+        ...chat.toObject(),
+        receiverInfo: receiverInfo,
+        storeInfo: storeInfo,
+        lastMessage: lastMessage,
       };
       formattedChats.push(formattedChat);
     }
-
-    if (storeChats?.length) {
-      for (const chat of storeChats) {
-        const lastMessage = await Message.findOne({ chatId: chat._id })
-          .sort({ createdAt: -1 })
-          .populate({
-            path: "senderId",
-            select: "username",
-          })
-          .populate("product");
-        const formattedChat = {
-          _id: chat._id,
-          type: "User",
-          memberOne: chat.memberOne,
-          memberTwo: chat.memberTwo,
-          lastMessage: lastMessage ? lastMessage.text : null,
-          lastConversationTime: lastMessage ? lastMessage.createdAt : null,
-        };
-        formattedChats.push(formattedChat);
-      }
-    }
-
-    const sortByIsoDateDesc = (a, b) =>
-      new Date(b.lastConversationTime) - new Date(a.lastConversationTime);
-
-    const sortedDateArrayDesc = formattedChats.sort(sortByIsoDateDesc);
-    res.status(200).json(sortedDateArrayDesc);
+    res.status(200).json(formattedChats);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -178,7 +215,6 @@ const findChat = async (req, res) => {
 
 const getInfoByMemberType = async (req, res) => {
   const { memberId, type } = req.params;
-  // console.log(memberId, type);
   try {
     if (type === "Store") {
       const isStore = await Store.findById({ _id: memberId });
@@ -205,8 +241,9 @@ const getInfoByMemberType = async (req, res) => {
 
 module.exports = {
   createChat,
-  userChats,
+  inboxChats,
   getGlobalChats,
   findChat,
   getInfoByMemberType,
+  toggleNotificationSound,
 };

@@ -262,11 +262,7 @@ const deleteUser = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id, {
-      name: 1,
-      email: 1,
-      isVerified: 1,
-    });
+    const user = await User.findById(req.params.id);
     res.send(user);
   } catch (err) {
     res.status(500).send({

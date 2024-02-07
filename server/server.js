@@ -76,9 +76,15 @@ const io = socketIo(Server, {
 
 let users = [];
 
-const addUser = (userId, socketId) => {
-  !users.some((user) => user.userId === userId) &&
-    users.push({ userId, socketId });
+const addUser = (userInfo, socketId) => {
+  !users.some(
+    (user) => user.userId === userInfo.id && user?.type === userInfo?.type
+  ) &&
+    users.push({
+      userId: userInfo?.id,
+      type: userInfo?.type,
+      socketId: socketId,
+    });
 };
 
 const removeUser = (socketId) => {
@@ -89,37 +95,49 @@ const getUser = (userId) => {
   return users.find((user) => user.userId === userId);
 };
 
+const getUsers = (userId, senderId) => {
+  return users.filter(
+    (user) => user.userId === userId || user?.userId === senderId
+  );
+};
+
 io.on("connection", (socket) => {
   console.log("connected. 🟢");
 
   //take userId and socketId from user
-  socket.on("addUser", (userId) => {
-    addUser(userId, socket.id);
+  socket.on("addUser", (user) => {
+    addUser(user, socket.id);
     io.emit("getUsers", users);
   });
 
   //send and get message
+
   socket.on(
     "sendMessage",
     ({
       senderId,
       receiverId,
       chatId,
-      sender_type,
-      text,
+      message,
       images,
+      video,
+      document,
       createdAt,
     }) => {
-      io.emit("getMessage", {
-        senderId,
-        receiverId,
-        chatId,
-        sender_type,
-        text,
-        images,
-        createdAt,
-        members: [receiverId, senderId],
-      });
+      const currentUsers = getUsers(receiverId, senderId);
+      for (let i = 0; i < currentUsers?.length; i++) {
+        io.to(currentUsers[i]?.socketId).emit("getMessage", {
+          senderId,
+          receiverId,
+          chatId,
+          message,
+          images,
+          video,
+          document,
+          createdAt,
+          members: [receiverId, senderId],
+        });
+      }
     }
   );
 

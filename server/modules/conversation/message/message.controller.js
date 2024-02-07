@@ -14,19 +14,17 @@ const createMessage = async (req, res) => {
         }
         messageData["images"] = images;
       }
+      if (req?.files?.video) {
+        messageData["video"] = req.files?.video[0]?.path;
+      }
+      if (req?.files?.document) {
+        messageData["document"] = req.files?.document[0]?.path;
+      }
     }
-    // const { sender_type, ...other } = messageData;
-    // const newNotification = new Notification({
-    //   title: `New Message`,
-    //   chatId: req.body.chatId,
-    //   sender_type: sender_type,
-    //   receiverId: messageData[0],
-    //   senderId: messageData[1],
-    //   seen: false,
-    // });
+
+    console.log(messageData);
     const newMessage = new Message(messageData);
     const result = await newMessage.save();
-    // const nftResult = await newNotification.save();
     res.status(200).send(result);
   } catch (error) {
     res.status(500).send(error);
@@ -39,10 +37,9 @@ Message.createIndexes([{ chatId: 1 }, { senderId: 1 }]);
 const getMessages = async (req, res) => {
   const { chatId } = req.params;
   try {
-    const result = await Message.find({ chatId })
-      .populate("product")
-      .sort({ _id: -1 })
-      .limit(50);
+    const result = await Message.find({ chatId }).sort({ _id: -1 }).limit(50);
+
+    // console.log(result);
     const messagesAsc = result.reverse();
     res.status(200).send(messagesAsc);
   } catch (error) {
@@ -52,26 +49,14 @@ const getMessages = async (req, res) => {
 
 const getTotalUnseen = async (req, res) => {
   try {
-    const store = await Store.findOne({ user: req.user?._id });
-    const storeId = store?._id?.toString();
-    if (storeId) {
-      var storeChats = await Chat.find({ "memberOne.id": storeId }).select(
-        "_id district"
-      );
-    }
-    const userChats = await Chat.find({ "memberTwo.id": req.user?._id }).select(
-      "_id district"
-    );
-    const storeChatIds = storeChats.map((chat) => chat._id.toString());
+    const userChats = await Chat.find({
+      members: { $all: [req.user?._id] },
+    }).select("_id district");
+
     const userChatIds = userChats.map((chat) => chat._id.toString());
     const total = await Message.countDocuments({
       $and: [
-        {
-          $or: [
-            { chatId: { $in: userChatIds } },
-            { chatId: { $in: storeChatIds } },
-          ],
-        },
+        { chatId: { $in: userChatIds } },
         { senderId: { $ne: req.user?._id } },
         { isSeen: false },
       ],

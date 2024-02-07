@@ -1,84 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useContext } from "react";
-import { AuthContext } from "@/components/context/AuthContext";
-import { useGetChatDataQuery } from "@/redux/features/conversation/conversationApi";
-import HelpCenterMessageArea from "@/components/chatting/conversation-conponets/HelpCenterMessageArea";
-import { useGetStoreInfoBySellerIdQuery } from "@/redux/features/stores/storeApi";
 import InboxChatSidebar from "@/components/chatting/conversation-conponets/inbox-ui/InboxChatSidebar";
 import InboxMessageArea from "@/components/chatting/conversation-conponets/inbox-ui/InboxMessageArea";
-import useAuth from "@/lib/useAuth";
-import Loading from "@/components/commons/Loading";
+import React from "react";
 
 const InboxPage = () => {
-  const {
-    user,
-    isLoading,
-    // refetch,
-    // setUser,
-  } = useAuth({
-    redirectTo: "/signin",
-  });
-  const { data: storeData } = useGetStoreInfoBySellerIdQuery(user?._id);
-  const { inboxReceiverData, inboxChatId, openHelpCenter } = useSelector(
-    (state) => state.conversation
-  );
-  const {
-    data,
-    refetch,
-    isLoading: loading,
-  } = useGetChatDataQuery(storeData?.data?._id);
-
-  useEffect(() => {
-    refetch();
-  }, [storeData]);
-
   return (
-    <>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <div className="container mx-auto flex justify-between gap-2 h-full max-h-[90%] w-full">
-          <div
-            className={`md:w-[350px] w-full h-full ${
-              inboxChatId ? "hidden md:block" : ""
-            }`}
-          >
-            <InboxChatSidebar
-              chatData={data}
-              isLoading={loading}
-              type={"Store"}
-            />
-          </div>
-          <div
-            className={`flex-grow h-full mt-6 bg-white border rounded-md ${
-              inboxChatId ? "" : "hidden md:block"
-            }`}
-          >
-            {openHelpCenter ? (
-              <>
-                <HelpCenterMessageArea auth={user} />
-              </>
-            ) : (
-              <>
-                {inboxChatId && inboxReceiverData && (
-                  <InboxMessageArea
-                    chatId={inboxChatId}
-                    auth={user}
-                    messageClassName="max-h-[500px]"
-                  />
-                )}
-              </>
-            )}
-            {!openHelpCenter && !inboxChatId && !inboxReceiverData && (
-              <div className="flex justify-center items-center w-full min-h-screen">
-                <p className="text-center h-full">Welcome</p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-    </>
+    <div className="container mx-auto h-[91vh] flex items-start justify-between">
+      <InboxChatSidebar />
+
+      <div className="flex-grow w-full h-full border-r">
+        <InboxMessageArea />
+      </div>
+    </div>
   );
 };
 

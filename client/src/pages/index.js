@@ -5,7 +5,6 @@ import Category from "@/components/Category";
 import { useEffect, useRef, useState } from "react";
 import WelcomeModal from "@/utils/modals/WelcomeModal";
 import { useGetLatestProductsQuery } from "@/redux/features/products/productApi";
-import { base_url } from "@/utils/auth/global";
 
 export default function Home() {
   const { data, isLoading } = useGetLatestProductsQuery();

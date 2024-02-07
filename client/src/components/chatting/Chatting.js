@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import MessageArea from "./conversation-conponets/MessageArea";
 import { useDispatch, useSelector } from "react-redux";
 import ChatSidebar from "./conversation-conponets/ChatSidebar";
@@ -6,19 +6,22 @@ import { useGetGlobalChatDataQuery } from "@/redux/features/conversation/convers
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
 import HelpCenterMessageArea from "./conversation-conponets/HelpCenterMessageArea";
-import { handelClosePopup } from "@/redux/features/conversation/conversationSlice";
+import {
+  handelClosePopup,
+  setChats,
+} from "@/redux/features/conversation/conversationSlice";
 
 const Chatting = () => {
-  const { user, setMsgOpen } = useContext(AuthContext);
-  const { online_users, receiverData, chatId, openHelpCenter } = useSelector(
-    (state) => state.conversation
-  );
-  const { data, refetch, isLoading } = useGetGlobalChatDataQuery(user?._id);
+  const { setMsgOpen } = useContext(AuthContext);
+  const { chat, chats } = useSelector((state) => state.conversation);
+  const { data, isLoading } = useGetGlobalChatDataQuery();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    refetch();
-  }, [user]);
+  useMemo(() => {
+    if (data && data?.length > 0) {
+      dispatch(setChats(data));
+    }
+  }, [data]);
 
   return (
     <div className="chatting shadow">
@@ -31,19 +34,16 @@ const Chatting = () => {
       >
         Message Us
       </h4>
-      {openHelpCenter ? (
-        <>
-          <HelpCenterMessageArea auth={user} />
-        </>
-      ) : (
-        <>
-          {chatId && receiverData ? (
-            <MessageArea chatId={chatId} auth={user} />
-          ) : (
-            <ChatSidebar chatData={data} isLoading={isLoading} />
-          )}
-        </>
-      )}
+      <>
+        {/* {chat ? (
+          <MessageArea chat={chat} />
+        ) : (
+          
+        )} */}
+        {chat && <MessageArea chat={chat} />}
+
+        <ChatSidebar chatData={chats} isLoading={isLoading} />
+      </>
     </div>
   );
 };

@@ -14,20 +14,19 @@ const MessageSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
-    text: {
+    message: {
       type: String,
-      required: false,
-    },
-    product: {
-      type: String,
-      ref: "Product",
       required: false,
     },
     images: {
       type: [String],
       required: false,
     },
-    attachment: {
+    video: {
+      type: String,
+      required: false,
+    },
+    document: {
       type: String,
       required: false,
     },

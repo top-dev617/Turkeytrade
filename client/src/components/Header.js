@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import logo from "../../public/assets/logo.png";
 import star from "../../public/assets/star1.png";
@@ -11,38 +11,39 @@ import { setSaveProducts } from "@/redux/features/products/productSlice";
 import { useGetStoreInfoBySellerIdQuery } from "@/redux/features/stores/storeApi";
 import { useRouter } from "next/router";
 import {
-  Badge,
   Button,
-  IconButton,
-  Menu,
-  MenuHandler,
   Popover,
   PopoverContent,
   PopoverHandler,
 } from "@material-tailwind/react";
 import {
   handleClearConversations,
-  setNotifications,
+  setChats,
+  setInboxLastMessages,
+  setInboxMessagePush,
+  setLastChat,
+  setLastMessages,
+  setMessagePush,
+  setNtfAlert,
   setOnline_users,
-  setTotalNotifications,
 } from "@/redux/features/conversation/conversationSlice";
 import { socket_url } from "@/utils/auth/global";
 import { io } from "socket.io-client";
 import { setStoreInfo } from "@/redux/features/stores/storeSlice";
-import Notifications from "./shared/Notifications";
 import {
-  useMyNotificationsQuery,
-  useSeenAllNotificationsMutation,
+  useGetGlobalChatDataQuery,
   useTotalUnseenQuery,
 } from "@/redux/features/conversation/conversationApi";
 import useAuth from "@/lib/useAuth";
+import { playNtf } from "@/lib/services/globalService";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
   const { logout } = useAuth({ redirectTo: false });
   const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
   const { refetch } = useTotalUnseenQuery();
-  const { notifications } = useSelector((state) => state.conversation);
+
+  const { data: chatData } = useGetGlobalChatDataQuery();
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -55,6 +56,12 @@ const Header = () => {
     onMouseLeave: () => setOpenPopover(false),
   };
 
+  useMemo(() => {
+    if (chatData && chatData?.length > 0) {
+      dispatch(setChats(chatData));
+    }
+  }, [chatData]);
+
   const handleSignout = () => {
     logout();
     dispatch(handleClearConversations());
@@ -65,6 +72,7 @@ const Header = () => {
     const newProducts = JSON.parse(localStorage.getItem("save-products")) || [];
     dispatch(setSaveProducts(newProducts));
   }, []);
+
   const handleNavigate = () => {
     if (user?.role === "Seller" && !data?.data) {
       router.push("/seller-register");
@@ -74,6 +82,7 @@ const Header = () => {
   };
 
   const [sellerReg, setSellerReg] = useState(false);
+
   useEffect(() => {
     if (user?.role === "Seller" && data?.status && !data?.data?._id) {
       setTimeout(() => {
@@ -100,42 +109,22 @@ const Header = () => {
       credentials: true,
     });
     if (user?._id) {
-      socket.current.emit("addUser", user?._id);
-      socket.current.on("getUsers", (users) => {
-        dispatch(setOnline_users(users));
-      });
-    }
-    if (data?.data) {
-      dispatch(setStoreInfo(data?.data));
-      socket.current.emit("addUser", data?.data?._id);
+      socket.current.emit("addUser", { id: user?._id, type: "Global" });
       socket.current.on("getUsers", (users) => {
         dispatch(setOnline_users(users));
       });
     }
 
     socket.current.on("getMessage", (receiveMessage) => {
-      if (
-        receiveMessage?.receiverId === user?._id ||
-        receiveMessage?.receiverId === data?.data?._id
-      ) {
-        refetch();
-        dispatch(
-          setNotifications([
-            {
-              title: `New Message`,
-              chatId: receiveMessage.chatId,
-              sender_type: receiveMessage.sender_type,
-              receiverId: receiveMessage.receiverId,
-              senderId: receiveMessage.senderId,
-              createdAt: receiveMessage?.createdAt,
-              seen: false,
-            },
-            ...notifications,
-          ])
-        );
-      }
+      refetch();
+      dispatch(setNtfAlert({ ...receiveMessage, userId: user?._id }));
+      dispatch(setMessagePush(receiveMessage));
+      dispatch(setInboxMessagePush(receiveMessage));
+      dispatch(setLastMessages(receiveMessage));
+      dispatch(setInboxLastMessages(receiveMessage));
+      setLastChat();
     });
-  }, [user, data]);
+  }, [user]);
 
   return (
     <nav

@@ -13,6 +13,7 @@ import Chatting from "../chatting/Chatting";
 import StoreChat from "../SellerStore/StoreChat";
 import { usePostNewChatMutation } from "@/redux/features/conversation/conversationApi";
 import { useRouter } from "next/router";
+import { setChat } from "@/redux/features/conversation/conversationSlice";
 
 const tabs = [
   { name: "Products" },
@@ -22,7 +23,7 @@ const tabs = [
 ];
 
 const InfoTab = ({ store }) => {
-  const { user } = useContext(AuthContext);
+  const { user, setMsgOpen } = useContext(AuthContext);
   const { publicTab } = useSelector((state) => state.store);
   const [postNewChat] = usePostNewChatMutation();
   const dispatch = useDispatch();
@@ -30,28 +31,30 @@ const InfoTab = ({ store }) => {
   const router = useRouter();
 
   const handleTab = async (index) => {
-    dispatch(setPublicTab(index));
+    if (index !== 3) {
+      dispatch(setPublicTab(index));
+    }
     if (index === 3) {
       if (!user?._id) {
         router.push("/signin");
         return;
       }
-      const chatData = {
-        memberOne: {
-          member_type: "Store",
-          id: store?._id,
-        },
-        memberTwo: {
-          member_type: "User",
-          id: user?._id,
-        },
-      };
-      const options = {
-        data: chatData,
-      };
-      const result = await postNewChat(options);
-      if (result?.data?.access) {
-        setChatId(result?.data?.data?._id);
+      if (user?._id !== store?.user?._id) {
+        const chatData = {
+          members: [store?.user?._id, user?._id],
+          requester: user?._id,
+          receiver: store?.user?._id,
+        };
+        const options = {
+          data: chatData,
+        };
+
+        const result = await postNewChat(options);
+        // console.log(result);
+        if (result?.data?.access) {
+          dispatch(setChat(result?.data?.data));
+          setMsgOpen(true);
+        }
       }
     }
   };
@@ -80,9 +83,6 @@ const InfoTab = ({ store }) => {
           {publicTab === 0 && <StoreOverview store={store} />}
           {publicTab === 1 && <StoreCategories store={store} />}
           {publicTab === 2 && <ContactInfo store={store} />}
-          {publicTab === 3 && store?.user?._id !== user?._id && (
-            <StoreChat store={store} chatId={chatId} />
-          )}
         </div>
       </div>
     </div>

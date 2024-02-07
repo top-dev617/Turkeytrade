@@ -1,25 +1,25 @@
+import { playNtf } from "@/lib/services/globalService";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  messages: [],
   online_users: [],
-  chatId: "",
-  receiverData: null,
-  chatData: [],
-  openHelpCenter: false,
-  image: null,
-
-  // inbox for store
-  inboxChatId: "",
-  inboxReceiverData: null,
-  inboxChatData: [],
-
-  // store chat for any user
-  storeChatId: "",
-  storeReceiverData: null,
-
   notifications: [],
   totalNotifications: 0,
+  images: [],
+  video: null,
+  document: null,
+
+  // global
+  messages: [],
+  lastMessages: [],
+  chat: null,
+  chats: [],
+  chatData: [],
+
+  // inbox for store
+  inboxMessages: [],
+  inboxChats: [],
+  inboxChat: null,
 };
 
 const conversationSlice = createSlice({
@@ -32,64 +32,164 @@ const conversationSlice = createSlice({
     setMessages: (state, action) => {
       state.messages = action.payload;
     },
-    setMessagesPush: (state, action) => {
-      const messages = JSON.parse(JSON.stringify(state.messages));
-      const lastItems = messages.slice(-1);
-      const isExist = lastItems.some(
-        (msg) => msg.createdAt === action.payload.createdAt
-      );
-      if (!isExist) {
+    setMessagePush: (state, action) => {
+      const stateData = JSON.parse(JSON.stringify(state));
+      if (action.payload?.chatId === stateData?.chat?._id) {
         state.messages.push(action.payload);
       }
     },
+    setNtfAlert: (state, action) => {
+      const stateData = JSON.parse(JSON.stringify(state));
+      const isExist = stateData?.chats.find(
+        (sChat) => sChat?._id === action.payload?.chatId
+      );
+      if (stateData?.chat?._id !== action.payload?.chatId) {
+        const isMute =
+          isExist?.receiver === action.payload.userId
+            ? isExist?.settings?.receiver?.isMute
+            : isExist?.settings?.sender?.isMute;
+        if (isExist && !isMute) {
+          playNtf();
+        }
+      }
+    },
+    setLastMessages: (state, action) => {
+      let chats = JSON.parse(JSON.stringify(state.chats));
 
-    setChatId: (state, action) => {
-      state.chatId = action.payload;
+      const existingIndex = chats.findIndex(
+        (chat) => chat._id === action.payload.chatId
+      );
+
+      if (existingIndex !== -1) {
+        // Update the existing chat's lastMessage
+        chats[existingIndex]["lastMessage"] = action.payload;
+        const sortByIsoDateDesc = (a, b) =>
+          new Date(b.lastMessage?.createdAt) -
+          new Date(a.lastMessage?.createdAt);
+
+        const sortedChats = [...chats].sort(sortByIsoDateDesc);
+        state.chats = sortedChats;
+      }
     },
-    setReceiverData: (state, action) => {
-      state.receiverData = action.payload;
+
+    setChats: (state, action) => {
+      const chats = action.payload;
+      if (Array.isArray(chats)) {
+        const sortByIsoDateDesc = (a, b) =>
+          new Date(b.lastMessage?.createdAt) -
+          new Date(a.lastMessage?.createdAt);
+        const sortedDateArrayDesc = [...chats].sort(sortByIsoDateDesc);
+        state.chats = sortedDateArrayDesc;
+      } else {
+        console.error("Invalid chats data:", chats);
+      }
     },
-    setChatData: (state, action) => {
-      state.chatData = action.payload;
+    setChat: (state, action) => {
+      state.chat = action.payload;
     },
-    setOpenHelpCenter: (state, action) => {
-      state.openHelpCenter = action.payload;
+    setChatSetting: (state, action) => {
+      let chats = JSON.parse(JSON.stringify(state.chats));
+      const stateData = JSON.parse(JSON.stringify(state));
+      let chat = stateData?.chat;
+      const existingIndex = stateData?.chats.findIndex(
+        (chat) => chat._id === action.payload.chatId
+      );
+      if (chat && chat?._id === action.payload.chatId) {
+        chat["settings"] = action.payload?.settings;
+        state.chat = chat;
+      }
+      if (existingIndex !== -1) {
+        chats[existingIndex]["settings"] = action.payload?.settings;
+        state.chats = [...chats];
+      }
     },
-    handelClosePopup: (state, action) => {
-      state.chatId = "";
-      state.openHelpCenter = false;
-      state.receiverData = null;
+
+    // for inbox chat
+    setInboxMessages: (state, action) => {
+      state.inboxMessages = action.payload;
     },
+    setInboxMessagePush: (state, action) => {
+      const stateData = JSON.parse(JSON.stringify(state));
+      if (action.payload?.chatId === stateData?.inboxChat?._id) {
+        state.inboxMessages.push(action.payload);
+      }
+    },
+    setInboxLastMessages: (state, action) => {
+      let chats = JSON.parse(JSON.stringify(state.inboxChats));
+
+      const existingIndex = chats.findIndex(
+        (chat) => chat._id === action.payload.chatId
+      );
+
+      if (existingIndex !== -1) {
+        // Update the existing chat's lastMessage
+        chats[existingIndex]["lastMessage"] = action.payload;
+        const sortByIsoDateDesc = (a, b) =>
+          new Date(b.lastMessage?.createdAt) -
+          new Date(a.lastMessage?.createdAt);
+
+        const sortedChats = [...chats].sort(sortByIsoDateDesc);
+        state.inboxChats = sortedChats;
+      }
+    },
+
+    setInboxChats: (state, action) => {
+      const chats = action.payload;
+      if (Array.isArray(chats)) {
+        const sortByIsoDateDesc = (a, b) =>
+          new Date(b.lastMessage?.createdAt) -
+          new Date(a.lastMessage?.createdAt);
+        const sortedDateArrayDesc = [...chats].sort(sortByIsoDateDesc);
+        state.inboxChats = sortedDateArrayDesc;
+      } else {
+        console.error("Invalid chats data:", chats);
+      }
+    },
+    setInboxChat: (state, action) => {
+      state.inboxChat = action.payload;
+    },
+
+    setInboxChatSetting: (state, action) => {
+      let chats = JSON.parse(JSON.stringify(state.inboxChats));
+      const stateData = JSON.parse(JSON.stringify(state));
+
+      let inboxChat = stateData?.inboxChat;
+      const existingIndex = stateData?.inboxChats.findIndex(
+        (chat) => chat._id === action.payload.chatId
+      );
+      if (inboxChat && inboxChat?._id === action.payload.chatId) {
+        inboxChat["settings"] = action.payload?.settings;
+        state.inboxChat = inboxChat;
+      }
+
+      if (existingIndex !== -1) {
+        chats[existingIndex]["settings"] = action.payload?.settings;
+        state.inboxChats = [...chats];
+      }
+    },
+
+    // globally for both
+    setLastChat: (state, action) => {
+      const stateData = JSON.parse(JSON.stringify(state));
+
+      let inboxChat = stateData?.inboxChat;
+      let chat = stateData?.chat;
+
+      if (inboxChat && inboxChat?._id === action.payload.chatId) {
+        inboxChat["lastMessage"] = action.payload;
+        state.inboxChat = inboxChat;
+      }
+      if (chat && chat?._id === action.payload.chatId) {
+        chat["lastMessage"] = action.payload;
+        state.chat = chat;
+      }
+    },
+
+    // others
+
+    handelClosePopup: (state, action) => {},
     // logout action
-    handleClearConversations: (state, action) => {
-      state.chatId = "";
-      state.openHelpCenter = false;
-      state.receiverData = null;
-      state.receiverData = null;
-      state.inboxChatId = "";
-      state.inboxReceiverData = null;
-      state.storeChatId = "";
-      state.storeReceiverData = null;
-    },
-
-    // inbox for store
-    setInboxChatId: (state, action) => {
-      state.inboxChatId = action.payload;
-    },
-    setInboxReceiverData: (state, action) => {
-      state.inboxReceiverData = action.payload;
-    },
-    setInboxChatData: (state, action) => {
-      state.inboxChatData = action.payload;
-    },
-
-    // store chat for any user
-    setStoreChatId: (state, action) => {
-      state.storeChatId = action.payload;
-    },
-    setStoreReceiverData: (state, action) => {
-      state.storeReceiverData = action.payload;
-    },
+    handleClearConversations: (state, action) => {},
 
     // notifications
     setNotifications: (state, action) => {
@@ -98,38 +198,51 @@ const conversationSlice = createSlice({
     setTotalNotifications: (state, action) => {
       state.totalNotifications = action.payload;
     },
-    setImage: (state, action) => {
-      state.image = action.payload;
+    setImages: (state, action) => {
+      state.images = action.payload;
+    },
+    setVideo: (state, action) => {
+      state.video = action.payload;
+    },
+    setDocument: (state, action) => {
+      state.document = action.payload;
     },
   },
 });
 
 export const {
   setMessages,
+  setMessagePush,
+  setLastMessages,
+  setNtfAlert,
   setOnline_users,
-  setChatId,
-  setReceiverData,
-  setChatData,
-  setOpenHelpCenter,
+  setChat,
+  setChats,
   handelClosePopup,
+  setChatSetting,
 
   // close all for logout
   handleClearConversations,
 
-  // inbox for store
-  setInboxChatId,
-  setInboxReceiverData,
-  setInboxChatData,
-
-  // store chat for any user
-  setStoreChatId,
-  setStoreReceiverData,
-
   //setNotifications
   setNotifications,
   setTotalNotifications,
-  setImage,
-  setMessagesPush,
+
+  // files for send message
+  setImages,
+  setVideo,
+  setDocument,
+
+  // globally for both
+  setLastChat,
+
+  // inbox
+  setInboxMessages,
+  setInboxMessagePush,
+  setInboxLastMessages,
+  setInboxChats,
+  setInboxChat,
+  setInboxChatSetting,
 } = conversationSlice.actions;
 
 export default conversationSlice.reducer;

@@ -74,7 +74,7 @@ const getProductsByCateId = async (req, res) => {
             const prices = product?.price?.ladder_price?.map((price) =>
               parseInt(price.euro)
             );
-            console.log(prices);
+            // console.log(prices);
             const minPrice = Math.min(...prices);
             const maxPrice = Math.max(...prices);
             return {

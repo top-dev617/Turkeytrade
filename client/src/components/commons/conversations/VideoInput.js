@@ -1,4 +1,4 @@
-import { setImages } from "@/redux/features/conversation/conversationSlice";
+import { setVideo } from "@/redux/features/conversation/conversationSlice";
 import {
   Popover,
   PopoverContent,
@@ -9,16 +9,18 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import EmojiInput from "./EmojiInput";
-import { ACCEPTABLE_IMAGE_FILE } from "@/lib/constants/globalConstant";
-import useViewImage from "@/lib/hooks/useViewImage";
+import { iVideo } from "@/utils/icons/icons";
+import { ACCEPTABLE_VIDEO_FILE } from "@/lib/constants/globalConstant";
 import { toast } from "react-toastify";
+import VideoPlayer from "../video-player/VideoPlayer";
+import useViewVideo from "@/lib/hooks/useViewVideo";
 
-const ImageInput = ({ sendMessage }) => {
-  const { images } = useSelector((state) => state.conversation);
-  const { viewImg } = useViewImage();
+const VideoInput = ({ sendMessage }) => {
+  const { video } = useSelector((state) => state.conversation);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const imgRef = useRef();
+  const videoRef = useRef();
+  const { viewVideo } = useViewVideo();
   const { handleSubmit, register, reset, setValue, watch } = useForm();
   const handleMessage = (data) => {
     sendMessage(data.message);
@@ -30,48 +32,46 @@ const ImageInput = ({ sendMessage }) => {
     setValue("message", currentMessage + input);
   };
 
-  const handleSetImages = (e) => {
-    const files = e.target.files;
-    if (files.length > 3) {
-      toast.error(`Please select up to ${3} files.`);
-      imgRef.current.value = null;
-      return;
+  const handleVideo = (file) => {
+    if (file) {
+      if (file.size > 10 * 1024 * 1024) {
+        toast.error("File size must be 10 MB or less.");
+        videoRef.current.value = null;
+        return;
+      } else {
+        console.log(file);
+        dispatch(setVideo(file));
+        setOpen(true);
+      }
     } else {
-      dispatch(setImages([...files]));
-      setOpen(true);
+      videoRef.current.value = null;
+      return;
     }
   };
   return (
     <>
       <Popover
-        open={open}
+        open={video && open}
         handler={() => {
-          dispatch(setImages([]));
+          dispatch(setVideo(null));
           setOpen(false);
         }}
       >
-        <PopoverHandler onClick={() => imgRef.current.click()}>
-          <div className="border-0 bg-transparent relative cursor-pointer">
-            <i className="fa-solid fa-image text-secondary hover:text-pm"></i>
+        <PopoverHandler onClick={() => videoRef.current.click()}>
+          <div className="border-0 bg-transparent relative cursor-pointer min-w-[25px] hover:text-pm text-black flex justify-center items-center">
+            {iVideo}
           </div>
         </PopoverHandler>
-        <PopoverContent className="w-[300px] p-0 rounded z-[100000000000000]">
-          {Array.isArray(images) && (
+        <PopoverContent className="w-[300px] h-fit p-0 rounded z-[100000000000000]">
+          {video && (
             <>
-              <div
-                className={`w-full max-h-[300px] grid ${
-                  images?.length === 1 ? "grid-cols-1" : "grid-cols-2"
-                } gap-2 p-2`}
-              >
-                {images?.map((img, index) => (
-                  <img
-                    key={index}
-                    className="w-full h-full max-h-[200px] object-contain"
-                    loading="lazy"
-                    src={viewImg(img)}
-                  />
-                ))}
+              <div className="p-2 min-h-[200px] max-h-[200px] w-full">
+                <VideoPlayer
+                  url={viewVideo(video)}
+                  className="object-contain w-100 h-100"
+                />
               </div>
+
               <div className="h-fit w-full bg-white">
                 <form
                   onSubmit={handleSubmit(handleMessage)}
@@ -101,16 +101,15 @@ const ImageInput = ({ sendMessage }) => {
       </Popover>
 
       <input
-        ref={imgRef}
-        onChange={(e) => handleSetImages(e)}
+        ref={videoRef}
+        onChange={(e) => handleVideo(e.target.files[0])}
         type="file"
         className="hidden"
-        max={3}
-        multiple={true}
-        accept={ACCEPTABLE_IMAGE_FILE}
+        accept={ACCEPTABLE_VIDEO_FILE}
+        multiple={false}
       />
     </>
   );
 };
 
-export default ImageInput;
+export default VideoInput;

@@ -14,11 +14,11 @@ const conversationApi = api.injectEndpoints({
     }),
 
     getChatData: builder.query({
-      query: (userId) => `/chats/${userId}`,
+      query: () => `/chats/inbox`,
       providesTags: ["chats"],
     }),
     getGlobalChatData: builder.query({
-      query: (userId) => `/chats/global/${userId}`,
+      query: () => `/chats/global`,
       providesTags: ["chats"],
     }),
     getSingleChat: builder.query({
@@ -56,6 +56,17 @@ const conversationApi = api.injectEndpoints({
       }),
       invalidatesTags: ["notifications"],
     }),
+
+    // update notfication sound
+    toggleAlert: builder.mutation({
+      query: ({ data, chatId }) => ({
+        url: `/chats/toggle-alert/${chatId}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["notifications"],
+    }),
+
     seenAllNotifications: builder.mutation({
       query: () => ({
         url: `/notifications/seen/all`,
@@ -97,4 +108,7 @@ export const {
   useMyNotificationsQuery,
   useSeenAllMessagesByChatMutation,
   useTotalUnseenQuery,
+
+  // udpate notification sound
+  useToggleAlertMutation,
 } = conversationApi;

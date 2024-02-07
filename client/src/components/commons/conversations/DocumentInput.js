@@ -1,5 +1,13 @@
-import { setImages } from "@/redux/features/conversation/conversationSlice";
 import {
+  setDocument,
+  setImage,
+} from "@/redux/features/conversation/conversationSlice";
+import {
+  Button,
+  IconButton,
+  Menu,
+  MenuHandler,
+  MenuList,
   Popover,
   PopoverContent,
   PopoverHandler,
@@ -9,16 +17,14 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import EmojiInput from "./EmojiInput";
-import { ACCEPTABLE_IMAGE_FILE } from "@/lib/constants/globalConstant";
-import useViewImage from "@/lib/hooks/useViewImage";
-import { toast } from "react-toastify";
+import { iAttach } from "@/utils/icons/icons";
+import { ACCEPTABLE_ATTACH_FILE } from "@/lib/constants/globalConstant";
 
-const ImageInput = ({ sendMessage }) => {
-  const { images } = useSelector((state) => state.conversation);
-  const { viewImg } = useViewImage();
+const DocumentInput = ({ sendMessage }) => {
+  const { document } = useSelector((state) => state.conversation);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const imgRef = useRef();
+  const docRef = useRef();
   const { handleSubmit, register, reset, setValue, watch } = useForm();
   const handleMessage = (data) => {
     sendMessage(data.message);
@@ -30,48 +36,47 @@ const ImageInput = ({ sendMessage }) => {
     setValue("message", currentMessage + input);
   };
 
-  const handleSetImages = (e) => {
-    const files = e.target.files;
-    if (files.length > 3) {
-      toast.error(`Please select up to ${3} files.`);
-      imgRef.current.value = null;
-      return;
-    } else {
-      dispatch(setImages([...files]));
+  const handleDoc = (e) => {
+    if (e) {
+      dispatch(setDocument(e.target.files[0]));
       setOpen(true);
+    } else {
+      docRef.current.value = null;
     }
   };
   return (
     <>
       <Popover
-        open={open}
+        open={document && open}
         handler={() => {
-          dispatch(setImages([]));
+          dispatch(setDocument(null));
           setOpen(false);
         }}
       >
-        <PopoverHandler onClick={() => imgRef.current.click()}>
-          <div className="border-0 bg-transparent relative cursor-pointer">
-            <i className="fa-solid fa-image text-secondary hover:text-pm"></i>
+        <PopoverHandler onClick={() => docRef.current.click()}>
+          <div className="border-0 bg-transparent relative cursor-pointer min-w-[25px] hover:text-pm text-black flex justify-center items-center">
+            {iAttach}
           </div>
         </PopoverHandler>
-        <PopoverContent className="w-[300px] p-0 rounded z-[100000000000000]">
-          {Array.isArray(images) && (
+        <PopoverContent className="w-[300px] h-fit p-0 rounded z-[100000000000000]">
+          {document && (
             <>
-              <div
-                className={`w-full max-h-[300px] grid ${
-                  images?.length === 1 ? "grid-cols-1" : "grid-cols-2"
-                } gap-2 p-2`}
-              >
-                {images?.map((img, index) => (
-                  <img
-                    key={index}
-                    className="w-full h-full max-h-[200px] object-contain"
-                    loading="lazy"
-                    src={viewImg(img)}
-                  />
-                ))}
+              <div className="p-2 min-h-[120px] flex justify-center items-center w-full">
+                <div className="flex justify-between items-center gap-3 w-full h-[50px] border bg-pm/10 rounded-md border-pm overflow-hidden">
+                  <div className="h-full w-[50px] flex justify-center items-center text-base font-bold text-red-600 bg-pm uppercase">
+                    {document?.name?.split(".").pop().toLowerCase()}
+                  </div>
+                  <div className="flex flex-col gap-1 flex-grow">
+                    <h1 className="oneLine text-black font-sm font-semibold">
+                      {document?.name}
+                    </h1>
+                    <small className="text-xs text-gray-500">
+                      Document file
+                    </small>
+                  </div>
+                </div>
               </div>
+
               <div className="h-fit w-full bg-white">
                 <form
                   onSubmit={handleSubmit(handleMessage)}
@@ -101,16 +106,15 @@ const ImageInput = ({ sendMessage }) => {
       </Popover>
 
       <input
-        ref={imgRef}
-        onChange={(e) => handleSetImages(e)}
+        ref={docRef}
+        onChange={(e) => handleDoc(e)}
         type="file"
         className="hidden"
-        max={3}
-        multiple={true}
-        accept={ACCEPTABLE_IMAGE_FILE}
+        accept={ACCEPTABLE_ATTACH_FILE}
+        multiple={false}
       />
     </>
   );
 };
 
-export default ImageInput;
+export default DocumentInput;

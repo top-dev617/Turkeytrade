@@ -9,7 +9,33 @@ const isVideoFile = function (file) {
 };
 
 const isImageFile = function (file) {
-  const allowedExtensions = [".png", ".jpg", ".jpeg", ".webp", ".avif"];
+  const allowedExtensions = [".png", ".jpg", ".jpeg"];
+  const ext = path.extname(file.originalname);
+  return allowedExtensions.includes(ext);
+};
+
+const isPdfFile = function (file) {
+  const allowedExtensions = [".pdf"];
+  const ext = path.extname(file.originalname);
+  return allowedExtensions.includes(ext);
+};
+const isDocFile = function (file) {
+  const allowedExtensions = [".doc"];
+  const ext = path.extname(file.originalname);
+  return allowedExtensions.includes(ext);
+};
+const isDocxFile = function (file) {
+  const allowedExtensions = [".docx"];
+  const ext = path.extname(file.originalname);
+  return allowedExtensions.includes(ext);
+};
+const isZipFile = function (file) {
+  const allowedExtensions = [".zip"];
+  const ext = path.extname(file.originalname);
+  return allowedExtensions.includes(ext);
+};
+const isTxtFile = function (file) {
+  const allowedExtensions = [".txt"];
   const ext = path.extname(file.originalname);
   return allowedExtensions.includes(ext);
 };
@@ -22,6 +48,16 @@ const storage = multer.diskStorage({
       uploadDir = "opt/turkeytrademarket/public/videos";
     } else if (isImageFile(file)) {
       uploadDir = "opt/turkeytrademarket/public/images";
+    } else if (isPdfFile(file)) {
+      uploadDir = "opt/turkeytrademarket/public/pdfs";
+    } else if (isDocFile(file)) {
+      uploadDir = "opt/turkeytrademarket/public/docs";
+    } else if (isDocxFile(file)) {
+      uploadDir = "opt/turkeytrademarket/public/docxs";
+    } else if (isZipFile(file)) {
+      uploadDir = "opt/turkeytrademarket/public/zips";
+    } else if (isTxtFile(file)) {
+      uploadDir = "opt/turkeytrademarket/public/txts";
     } else {
       return cb(new Error("Invalid file type"));
     }

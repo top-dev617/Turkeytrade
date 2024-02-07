@@ -1,7 +1,8 @@
+import DocumentInput from "@/components/commons/conversations/DocumentInput";
 import EmojiInput from "@/components/commons/conversations/EmojiInput";
 import ImageInput from "@/components/commons/conversations/ImageInput";
+import VideoInput from "@/components/commons/conversations/VideoInput";
 import React from "react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const SendMessageBox = ({ sendMessage }) => {
@@ -16,18 +17,23 @@ const SendMessageBox = ({ sendMessage }) => {
     setValue("message", currentMessage + input);
   };
   return (
-    <form onSubmit={handleSubmit(handleMessage)} className="chatting_footer">
+    <form
+      onSubmit={handleSubmit(handleMessage)}
+      className="chatting_footer w-full"
+    >
       <input
         {...register("message", { required: true })}
-        className="w-100 border-0 bg-transparent p-3 border-top border-black"
+        className="w-full border-0 bg-transparent p-3 border-top border-black"
         type="text"
         name="message"
         placeholder="Send a message"
       />
-      <div className="d-flex justify-content-between p-3">
+      <div className="flex justify-between items-center p-3">
         <div className="flex items-center w-fit gap-2">
           <EmojiInput setImoji={setNewImoji} />
           <ImageInput sendMessage={sendMessage} />
+          <VideoInput sendMessage={sendMessage} />
+          <DocumentInput sendMessage={sendMessage} />
         </div>
         <button type="submit" className="border-0 bg-transparent">
           <i className="fa-solid fa-paper-plane text-secondary"></i>

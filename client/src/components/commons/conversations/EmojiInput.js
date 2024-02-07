@@ -18,8 +18,8 @@ const EmojiInput = ({ setImoji }) => {
   return (
     <>
       <Popover open={open} handler={() => setOpen(false)}>
-        <PopoverHandler>
-          <p className="opacity-0 absolute w-1"></p>
+        <PopoverHandler onClick={() => setOpen(!open)}>
+          <div className="border-0 bg-transparent cursor-pointer">{iEmoji}</div>
         </PopoverHandler>
         <PopoverContent className="p-0 z-[9999999999]">
           {open && (
@@ -31,12 +31,6 @@ const EmojiInput = ({ setImoji }) => {
           )}
         </PopoverContent>
       </Popover>
-      <div
-        onClick={() => setOpen(!open)}
-        className="border-0 bg-transparent cursor-pointer"
-      >
-        {iEmoji}
-      </div>
     </>
   );
 };

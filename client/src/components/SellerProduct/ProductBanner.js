@@ -10,10 +10,7 @@ import { AuthContext } from "../context/AuthContext";
 import { usePostNewChatMutation } from "@/redux/features/conversation/conversationApi";
 import { star } from "@/utils/icons/icons";
 import { useRouter } from "next/router";
-import {
-  setChatId,
-  setReceiverData,
-} from "@/redux/features/conversation/conversationSlice";
+import { setChat } from "@/redux/features/conversation/conversationSlice";
 import {
   useCreateSaveProductMutation,
   useGetSingleSaveProductByIdQuery,
@@ -24,10 +21,9 @@ import { useGetStoreInfoBySellerIdQuery } from "@/redux/features/stores/storeApi
 import { base_url } from "@/utils/auth/global";
 
 const ProductBanner = ({ product }) => {
-  const { user, msgOpen, setMsgOpen } = useContext(AuthContext);
+  const { user, setMsgOpen } = useContext(AuthContext);
   const { data: store, isLoading: storeLoading } =
     useGetStoreInfoBySellerIdQuery(user?._id);
-  const { storeInfo } = useSelector((state) => state.store);
   const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
@@ -68,25 +64,23 @@ const ProductBanner = ({ product }) => {
       router.push("/signin");
       return;
     }
-    const chatData = {
-      memberOne: {
-        member_type: "Store",
-        id: product?.store?._id,
-      },
-      memberTwo: {
-        member_type: "User",
-        id: user?._id,
-      },
-    };
-    const options = {
-      data: chatData,
-    };
+    if (user?._id !== product?.store?.user) {
+      const chatData = {
+        members: [product?.store?.user, user?._id],
+        requester: user?._id,
+        receiver: product?.store?.user,
+      };
+      const options = {
+        data: chatData,
+      };
 
-    const result = await postNewChat(options);
-    if (result?.data?.access) {
-      dispatch(setChatId(result?.data?.data?._id));
-      dispatch(setReceiverData(product?.store));
-      setMsgOpen(true);
+      const result = await postNewChat(options);
+      console.log(result);
+      console.log(options);
+      if (result?.data?.access) {
+        dispatch(setChat(result?.data?.data));
+        setMsgOpen(true);
+      }
     }
   };
 

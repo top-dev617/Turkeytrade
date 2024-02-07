@@ -1,17 +1,17 @@
 import React from "react";
 import logo from "../../public/assets/logo.png";
 
-import facebook from "../../public/assets/fb.png";
-import linkedin from "../../public/assets/linkedin.png";
-import youtube from "../../public/assets/youtube.png";
-import instagram from "../../public/assets/instagram.png";
+// import facebook from "../../public/assets/fb.png";
+// import linkedin from "../../public/assets/linkedin.png";
+// import youtube from "../../public/assets/youtube.png";
+// import instagram from "../../public/assets/instagram.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
 const Footer = () => {
   const router = useRouter();
   return (
-    <footer className={`${router.pathname.includes("/dashboard") && "hidden"}`}>
+    <footer className={`${router.pathname.includes("/inbox") && "hidden"}`}>
       <div className="container">
         <div>
           <Link href="/">

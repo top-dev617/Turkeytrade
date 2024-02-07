@@ -1,186 +1,284 @@
-import React from "react";
+import { iBack, iMute, iThreeDot, iUnMute } from "@/utils/icons/icons";
+import {
+  Button,
+  Popover,
+  PopoverContent,
+  PopoverHandler,
+} from "@material-tailwind/react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import SendMessageBox from "../SendMessageBox";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setInboxChatId,
-  setInboxReceiverData,
+  setChatSetting,
+  setDocument,
+  setImages,
+  setInboxChat,
+  setInboxChatSetting,
+  setInboxMessages,
+  setMessages,
+  setVideo,
 } from "@/redux/features/conversation/conversationSlice";
+import useLocalTime from "@/lib/hooks/useLocalTime";
+import useViewImage from "@/lib/hooks/useViewImage";
 import {
-  useGetMessagesQuery,
+  useGetGlobalChatMessagesQuery,
   usePostNewMessageMutation,
+  useSeenAllMessagesByChatMutation,
+  useToggleAlertMutation,
 } from "@/redux/features/conversation/conversationApi";
-import moment from "moment";
+import { AuthContext } from "@/components/context/AuthContext";
+import Link from "next/link";
+import { socket_url } from "@/utils/auth/global";
+import { io } from "socket.io-client";
+import SingleMessage from "../SingleMessage";
 import Loading from "@/components/commons/Loading";
-import SendMessageBox from "../SendMessageBox";
-import InboxSingleMessage from "./InboxSingleMessage";
-import { base_url } from "@/utils/auth/global";
 
-const InboxMessageArea = ({ auth, messageClassName }) => {
-  const { inboxReceiverData, inboxChatId, image } = useSelector(
-    (state) => state.conversation
+const InboxMessageArea = () => {
+  const { user } = useContext(AuthContext);
+  const { inboxChat, online_users, inboxMessages, images, video, document } =
+    useSelector((state) => state.conversation);
+  const [toggleAlert] = useToggleAlertMutation();
+  const { data, refetch, isLoading } = useGetGlobalChatMessagesQuery(
+    inboxChat?._id
   );
-  const {
-    data: messages,
-    refetch,
-    isLoading,
-  } = useGetMessagesQuery(inboxChatId);
   const [postNewMessage] = usePostNewMessageMutation();
+  const [seenAllMessagesByChat] = useSeenAllMessagesByChatMutation();
   const dispatch = useDispatch();
+  const { viewImg } = useViewImage();
+  const { fromNow } = useLocalTime();
+  const socket = useRef();
+
+  const handleBack = () => {
+    dispatch(setInboxChat(null));
+  };
+
+  const [open, setOpen] = useState(null);
+
+  const handleSeenAll = async () => {
+    const options = {
+      data: { chatId: inboxChat?._id },
+    };
+    const result = await seenAllMessagesByChat(options);
+    // console.log(result);
+  };
+
+  useEffect(() => {
+    handleSeenAll();
+    return () => {};
+  }, [inboxChat, inboxMessages]);
+
+  useEffect(() => {
+    refetch();
+    return () => {};
+  }, [inboxChat]);
+
+  useEffect(() => {
+    dispatch(setInboxMessages(data));
+
+    return () => {};
+  }, [data]);
+
+  useEffect(() => {
+    socket.current = io(socket_url, {
+      credentials: true,
+    });
+  }, []);
+
+  const handleRemoveFiles = () => {
+    dispatch(setImages([]));
+    dispatch(setVideo(null));
+    dispatch(setDocument(null));
+  };
 
   const sendMessage = async (message) => {
     const newMessage = {
-      text: message,
-      storeId: inboxReceiverData?._id,
-      chatId: inboxChatId,
-      senderId: auth?._id,
-      members: [inboxReceiverData?._id, auth?._id],
-      productId: "",
+      message: message,
+      chatId: inboxChat?._id,
+      senderId: user?._id,
+      members: [inboxChat?.receiverInfo?._id, user?._id],
     };
+
     const newMessageFormData = new FormData();
     newMessageFormData.append(`message`, JSON.stringify(newMessage));
-    if (image) {
-      [image].forEach((file, index) => {
+
+    if (images?.length > 0) {
+      images.forEach((file, index) => {
         newMessageFormData.append(`images`, file);
       });
     }
+    if (video) {
+      newMessageFormData.append(`video`, video);
+    }
+    if (document) {
+      newMessageFormData.append(`document`, document);
+    }
+
     const options = {
       data: newMessageFormData,
     };
     const result = await postNewMessage(options);
+    if (result) {
+      const sendMessage = {
+        senderId: user?._id,
+        receiverId: inboxChat?.receiverInfo?._id,
+        chatId: inboxChat?._id,
+        message: message,
+        createdAt: Date.now(),
+        images: result?.data?.images,
+        video: result?.data?.video,
+        document: result?.data?.document,
+      };
+      socket.current.emit("sendMessage", sendMessage);
+      handleRemoveFiles();
+    }
   };
 
-  const handleBack = () => {
-    dispatch(setInboxReceiverData(null));
-    dispatch(setInboxChatId(""));
+  // console.log(messages);
+  const isOnline = online_users.some(
+    (user) => user?.userId === inboxChat?.receiverInfo?._id
+  );
+
+  const handleToggle = async (chatId) => {
+    const options = {
+      chatId: chatId,
+      data: {},
+    };
+    const result = await toggleAlert(options);
+    if (result?.data?.success) {
+      dispatch(setInboxChatSetting({ ...result?.data?.data, chatId: chatId }));
+      dispatch(setChatSetting({ ...result?.data?.data, chatId: chatId }));
+    }
   };
 
-  const lastMessage = messages?.length > 0 && messages[messages?.length - 1];
-
+  const scrollBottomRef = useRef();
+  useEffect(() => {
+    if (scrollBottomRef.current) {
+      scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [inboxChat]);
   return (
     <>
-      {inboxChatId && !isLoading ? (
-        <>
-          <div className="flex items-center justify-between border-b p-2">
-            <div className="flex items-center gap-2">
+      {inboxChat && !isLoading ? (
+        <div className="w-full h-full flex flex-col justify-between">
+          <div className="flex items-center justify-between border-b p-2 bg-blue-gray-50">
+            <div className="flex items-center gap-2 ">
               <button
                 onClick={() => handleBack()}
                 className="inline-flex hover:bg-indigo-50 rounded-full p-2"
                 type="button"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="2.5"
-                  stroke="currentColor"
-                  className="w-5 h-5 hover:text-pm"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                  />
-                </svg>
+                {iBack}
               </button>
               <div className="flex items-center">
                 <button className="flex items-center justify-center min-w-[40px] !w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px]">
-                  {inboxReceiverData?.logo || inboxReceiverData?.image ? (
+                  {inboxChat?.storeInfo?.logo ||
+                  inboxChat?.receiverInfo?.image ? (
                     <img
                       className="w-full h-full rounded-full bg-white object-cover"
-                      src={`${base_url}/uploads/${
-                        inboxReceiverData?.logo || inboxReceiverData?.image
-                      }`}
+                      src={viewImg(
+                        inboxChat?.storeInfo?.logo ||
+                          inboxChat?.receiverInfo?.image
+                      )}
                       alt=""
                     />
                   ) : (
-                    <span>
-                      {inboxReceiverData?.store_name?.slice(0, 1) ||
-                        inboxReceiverData?.name?.slice(0, 1)}{" "}
+                    <span className="uppercase">
+                      {inboxChat?.storeInfo?.store_name?.slice(0, 1) ||
+                        inboxChat?.receiverInfo?.name?.slice(0, 1)}{" "}
                     </span>
                   )}
                 </button>
                 <div className="pl-2">
                   <div className="font-semibold">
-                    {inboxReceiverData?.name ? (
-                      <p>
-                        {(
-                          inboxReceiverData?.name ||
-                          inboxReceiverData?.store_name
-                        )?.length > 12
-                          ? (
-                              inboxReceiverData?.name ||
-                              inboxReceiverData?.store_name
-                            ).slice(0, 12) + "..."
-                          : inboxReceiverData?.name ||
-                            inboxReceiverData?.store_name}
-                      </p>
+                    {inboxChat?.storeInfo ? (
+                      <Link href={`/store/${inboxChat?.storeInfo?._id}`}>
+                        {inboxChat?.receiverInfo?.name?.length > 15
+                          ? inboxChat?.receiverInfo?.name?.slice(0, 15) + "..."
+                          : inboxChat?.receiverInfo?.name}
+                        <small className="lowercase">
+                          {" "}
+                          - {inboxChat?.storeInfo?.store_name}
+                        </small>
+                      </Link>
                     ) : (
-                      <Link
-                        href={`/store/${
-                          inboxReceiverData?._id || inboxReceiverData?._id
-                        }`}
-                        className="hover:underline"
-                      >
-                        {(
-                          inboxReceiverData?.name ||
-                          inboxReceiverData?.store_name
-                        )?.length > 12
-                          ? (
-                              inboxReceiverData?.name ||
-                              inboxReceiverData?.store_name
-                            ).slice(0, 12) + "..."
-                          : inboxReceiverData?.name ||
-                            inboxReceiverData?.store_name}
+                      <Link href={`/profile/${inboxChat?.receiverInfo?._id}`}>
+                        {inboxChat?.receiverInfo?.name?.length > 15
+                          ? inboxChat?.receiverInfo?.name?.slice(0, 15) + "..."
+                          : inboxChat?.receiverInfo?.name}
+                        <small className="lowercase">
+                          {" "}
+                          - {inboxChat?.receiverInfo?.company_name}
+                        </small>
                       </Link>
                     )}
                   </div>
-                  <div className="text-xs text-gray-600">
-                    {moment(lastMessage?.createdAt).fromNow()}
-                  </div>
+                  {isOnline ? (
+                    <span className="text-pm text-xs">online</span>
+                  ) : (
+                    <div className="text-xs text-gray-600">
+                      {fromNow(inboxChat?.createdAt)}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
+            <Popover
+              open={open ? true : false}
+              handler={() => setOpen(null)}
+              placement="bottom-end"
+            >
+              <PopoverHandler onClick={() => setOpen(inboxChat)}>
+                <button className="inline-flex hover:bg-indigo-50 rounded-full p-2">
+                  {iThreeDot}
+                </button>
+              </PopoverHandler>
+              <PopoverContent className="w-32 h-fit bg-white rounded border z-[100000000] px-2 py-1">
+                <h1 className="my-2 text-black font-bold text-left">
+                  Sound Alert
+                </h1>
 
-            <div>
-              <button className="inline-flex hover:bg-indigo-50 rounded-full p-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                <Button
+                  onClick={() => handleToggle(inboxChat?._id)}
+                  className="flex items-center h-10 w-full rounded bg-white text-black gap-2 hover:!bg-pm hover:!text-white shadow-none hover:shadow-none border px-1 normal-case"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
+                  {inboxChat?.receiver === user?._id
+                    ? inboxChat?.settings?.receiver?.isMute
+                      ? iUnMute
+                      : iMute
+                    : inboxChat?.settings?.sender?.isMute
+                    ? iUnMute
+                    : iMute}
 
+                  <h1 className="text-xs">
+                    {inboxChat?.receiver === user?._id
+                      ? inboxChat?.settings?.receiver?.isMute
+                        ? "unMute"
+                        : "Mute"
+                      : inboxChat?.settings?.sender?.isMute
+                      ? "unMute"
+                      : "Mute"}
+                  </h1>
+                </Button>
+              </PopoverContent>
+            </Popover>
+          </div>
           <div
-            className={`flex-grow px-4 py-4 scrollBar overflow-y-auto ${messageClassName}`}
+            className={`flex-grow px-2 scrollBar overflow-y-auto scroll_off bg-gray-50`}
           >
             {isLoading ? (
               <Loading />
             ) : (
-              messages?.map((message, i) => (
-                <InboxSingleMessage
-                  key={i}
-                  message={message}
-                  auth={auth}
-                  receiverData={inboxReceiverData}
-                />
+              inboxMessages?.map((message, i) => (
+                <SingleMessage key={i} message={message} chat={inboxChat} />
               ))
             )}
+            <div ref={scrollBottomRef}></div>
           </div>
 
           <SendMessageBox sendMessage={sendMessage} />
-        </>
+        </div>
       ) : (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center w-full h-full">
           <img
             className="w-[300px] mx-auto"
             src="https://cdni.iconscout.com/illustration/free/thumb/free-no-messages-4085820-3385489.png"

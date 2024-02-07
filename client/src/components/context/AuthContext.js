@@ -15,11 +15,9 @@ export function AuthProvider({ children }) {
     const isLog = localStorage.getItem("isSignedIn", true);
     return isLog;
   };
-  const url = `${base_url}/users/user-info/me`;
-
   useEffect(() => {
     setIsLoading(true);
-    fetch(url, {
+    fetch(`${base_url}/users/user-info/me`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("turkey-trade-market")}`,
       },
