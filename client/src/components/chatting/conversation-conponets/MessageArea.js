@@ -4,6 +4,7 @@ import SendMessageBox from "./SendMessageBox";
 import SingleMessage from "./SingleMessage";
 import {
   setChat,
+  setChatSeen,
   setChatSetting,
   setDocument,
   setImage,
@@ -36,6 +37,7 @@ import {
   PopoverHandler,
 } from "@material-tailwind/react";
 import useLocalTime from "@/lib/hooks/useLocalTime";
+import useGlobal from "@/lib/hooks/useGlobal";
 
 const MessageArea = ({ messageClassName }) => {
   const { user } = useContext(AuthContext);
@@ -49,6 +51,7 @@ const MessageArea = ({ messageClassName }) => {
   const dispatch = useDispatch();
   const { viewImg } = useViewImage();
   const { fromNow } = useLocalTime();
+  const { firstLatterUp } = useGlobal();
   const socket = useRef();
 
   const [open, setOpen] = useState(null);
@@ -63,6 +66,7 @@ const MessageArea = ({ messageClassName }) => {
 
   useEffect(() => {
     handleSeenAll();
+    dispatch(setChatSeen({ userId: user?._id, chatId: chat?._id }));
     return () => {};
   }, [chat, messages]);
 
@@ -197,36 +201,37 @@ const MessageArea = ({ messageClassName }) => {
                     </span>
                   )}
                 </button>
-                <div className="pl-2">
-                  <div className="font-semibold">
+                <div className="pl-2 cursor-pointer">
+                  <small className="font-semibold p-0 m-0 block leading-[10px]">
+                    {firstLatterUp(
+                      chat?.receiverInfo?.name?.length > 15
+                        ? chat?.receiverInfo?.name?.slice(0, 15) + "..."
+                        : chat?.receiverInfo?.name
+                    )}
+                  </small>
+                  <>
                     {chat?.storeInfo ? (
-                      <Link href={`/store/${chat?.storeInfo?._id}`}>
-                        {chat?.receiverInfo?.name?.length > 15
-                          ? chat?.receiverInfo?.name?.slice(0, 15) + "..."
-                          : chat?.receiverInfo?.name}
-                        <small className="lowercase">
-                          {" "}
-                          - {chat?.storeInfo?.store_name}
-                        </small>
+                      <Link
+                        className="text-[10px] p-0 m-0"
+                        href={`/store/${chat?.storeInfo?._id}`}
+                      >
+                        {chat?.storeInfo?.store_name}
                       </Link>
                     ) : (
-                      <Link href={`/profile/${chat?.receiverInfo?._id}`}>
-                        {chat?.receiverInfo?.name?.length > 15
-                          ? chat?.receiverInfo?.name?.slice(0, 15) + "..."
-                          : chat?.receiverInfo?.name}
-                        <small className="lowercase">
-                          {" "}
-                          - {chat?.receiverInfo?.company_name}
-                        </small>
+                      <Link
+                        className="text-[10px] p-0 m-0"
+                        href={`/profile/${chat?.receiverInfo?._id}`}
+                      >
+                        {chat?.receiverInfo?.company_name}
                       </Link>
                     )}
-                  </div>
+                  </>
                   {isOnline ? (
-                    <span className="text-pm text-xs">online</span>
+                    <span className="text-pm text-xs block">online</span>
                   ) : (
-                    <div className="text-xs text-gray-600">
+                    <span className="text-xs text-gray-600 block">
                       {fromNow(chat?.createdAt)}
-                    </div>
+                    </span>
                   )}
                 </div>
               </div>

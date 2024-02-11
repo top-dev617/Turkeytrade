@@ -11,12 +11,12 @@ export default function Home() {
   const welcomeModal = useRef(null);
   const [isWelcomeModal, setIsWelcomeModal] = useState(null);
 
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth", // Set behavior to 'smooth' for smooth scrolling
-    });
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: "smooth", // Set behavior to 'smooth' for smooth scrolling
+  //   });
+  // }, []);
 
   useEffect(() => {
     const data = localStorage.getItem("welcomeModal");

@@ -99,10 +99,10 @@ const AddGroup = ({ groups, storeId, setValue, groupValue }) => {
             placeholder="Enter Category Name"
           />
           <Button
-            type="submit"
-            onClick={() => handleAddNewGroup()}
+            type="button"
+            onClick={() => handleAddNewGroup({ title: watch("title") })}
             disabled={isLoading || !watch("title")}
-            className="bg-pm hover:bg-pmd text-white mt-2 w-full flex justify-center items-center"
+            className="bg-pm hover:bg-pmd text-white mt-2 w-full flex justify-center items-center cursor-pointer"
           >
             {isLoading ? <Spinner color="white" /> : "Create"}
           </Button>

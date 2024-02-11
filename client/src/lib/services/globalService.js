@@ -5,6 +5,7 @@ export const handleDownload = (endpoint) => {
   const link = document.createElement("a");
   link.href = fileUrl;
   link.download = "downloaded.ext";
+  link.target = "_blank";
   link.click();
 };
 

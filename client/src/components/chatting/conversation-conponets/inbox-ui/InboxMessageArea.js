@@ -9,6 +9,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import SendMessageBox from "../SendMessageBox";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setChatSeen,
   setChatSetting,
   setDocument,
   setImages,
@@ -32,6 +33,7 @@ import { socket_url } from "@/utils/auth/global";
 import { io } from "socket.io-client";
 import SingleMessage from "../SingleMessage";
 import Loading from "@/components/commons/Loading";
+import useGlobal from "@/lib/hooks/useGlobal";
 
 const InboxMessageArea = () => {
   const { user } = useContext(AuthContext);
@@ -46,6 +48,7 @@ const InboxMessageArea = () => {
   const dispatch = useDispatch();
   const { viewImg } = useViewImage();
   const { fromNow } = useLocalTime();
+  const { firstLatterUp } = useGlobal();
   const socket = useRef();
 
   const handleBack = () => {
@@ -64,6 +67,7 @@ const InboxMessageArea = () => {
 
   useEffect(() => {
     handleSeenAll();
+    dispatch(setChatSeen({ userId: user?._id, chatId: inboxChat?._id }));
     return () => {};
   }, [inboxChat, inboxMessages]);
 
@@ -188,7 +192,41 @@ const InboxMessageArea = () => {
                     </span>
                   )}
                 </button>
-                <div className="pl-2">
+
+                <div className="pl-2 cursor-pointer">
+                  <small className="font-semibold text-[14px] p-0 m-0 block leading-[10px]">
+                    {firstLatterUp(
+                      inboxChat?.receiverInfo?.name?.length > 15
+                        ? inboxChat?.receiverInfo?.name?.slice(0, 15) + "..."
+                        : inboxChat?.receiverInfo?.name
+                    )}
+                  </small>
+                  <>
+                    {inboxChat?.storeInfo ? (
+                      <Link
+                        className="text-[11px] p-0 m-0"
+                        href={`/store/${inboxChat?.storeInfo?._id}`}
+                      >
+                        {firstLatterUp(inboxChat?.storeInfo?.store_name)}
+                      </Link>
+                    ) : (
+                      <Link
+                        className="text-[11px] p-0 m-0"
+                        href={`/profile/${inboxChat?.receiverInfo?._id}`}
+                      >
+                        {firstLatterUp(inboxChat?.receiverInfo?.company_name)}
+                      </Link>
+                    )}
+                  </>
+                  {isOnline ? (
+                    <span className="text-pm text-xs block">online</span>
+                  ) : (
+                    <span className="text-xs text-gray-600 block">
+                      {fromNow(inboxChat?.createdAt)}
+                    </span>
+                  )}
+                </div>
+                {/* <div className="pl-2">
                   <div className="font-semibold">
                     {inboxChat?.storeInfo ? (
                       <Link href={`/store/${inboxChat?.storeInfo?._id}`}>
@@ -219,7 +257,7 @@ const InboxMessageArea = () => {
                       {fromNow(inboxChat?.createdAt)}
                     </div>
                   )}
-                </div>
+                </div> */}
               </div>
             </div>
             <Popover

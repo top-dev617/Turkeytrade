@@ -18,7 +18,9 @@ import {
 } from "@material-tailwind/react";
 import {
   handleClearConversations,
+  setChatUnseen,
   setChats,
+  setInboxChatUnseen,
   setInboxLastMessages,
   setInboxMessagePush,
   setLastChat,
@@ -35,7 +37,6 @@ import {
   useTotalUnseenQuery,
 } from "@/redux/features/conversation/conversationApi";
 import useAuth from "@/lib/useAuth";
-import { playNtf } from "@/lib/services/globalService";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
@@ -116,8 +117,11 @@ const Header = () => {
     }
 
     socket.current.on("getMessage", (receiveMessage) => {
+      console.log(receiveMessage);
       refetch();
       dispatch(setNtfAlert({ ...receiveMessage, userId: user?._id }));
+      dispatch(setChatUnseen({ ...receiveMessage, userId: user?._id }));
+      dispatch(setInboxChatUnseen({ ...receiveMessage, userId: user?._id }));
       dispatch(setMessagePush(receiveMessage));
       dispatch(setInboxMessagePush(receiveMessage));
       dispatch(setLastMessages(receiveMessage));

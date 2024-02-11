@@ -31,7 +31,7 @@ const CompanyDetailsById = () => {
             <div className=" relative h-fit py-4">
               <div>
                 <div className="row">
-                  <div className="col-12 col-md-6">
+                  {/* <div className="col-12 col-md-6">
                     <label>Email Address</label>
                     <input
                       type="email"
@@ -50,7 +50,7 @@ const CompanyDetailsById = () => {
                       readOnly={true}
                       defaultValue={user?.phoneNumber}
                     />
-                  </div>
+                  </div> */}
                   <div className="col-12 col-md-6">
                     <label>Province</label>
                     <input

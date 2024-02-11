@@ -150,11 +150,20 @@ const inboxChats = async (req, res) => {
       const storeInfo = await Store.findOne({
         user: finder,
       }).select("store_name logo");
+
+      const total = await Message.countDocuments({
+        $and: [
+          { chatId: chat?._id },
+          { senderId: { $ne: userId } },
+          { isSeen: false },
+        ],
+      });
       const formattedChat = {
         ...chat.toObject(),
         receiverInfo: receiverInfo,
         storeInfo: storeInfo,
         lastMessage: lastMessage,
+        total_unseen: total,
       };
       formattedChats.push(formattedChat);
     }
@@ -184,11 +193,19 @@ const getGlobalChats = async (req, res) => {
       const storeInfo = await Store.findOne({
         user: finder,
       }).select("store_name logo");
+      const total = await Message.countDocuments({
+        $and: [
+          { chatId: chat?._id },
+          { senderId: { $ne: userId } },
+          { isSeen: false },
+        ],
+      });
       const formattedChat = {
         ...chat.toObject(),
         receiverInfo: receiverInfo,
         storeInfo: storeInfo,
         lastMessage: lastMessage,
+        total_unseen: total,
       };
       formattedChats.push(formattedChat);
     }

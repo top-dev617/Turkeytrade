@@ -45,6 +45,10 @@ const SingleMessage = ({ message, chat }) => {
             </button>
           </div>
           <div className="w-fit max-w-[70%] h-fit flex flex-col items-end">
+            <small ref={scroll} className="text-gray-900 text-[10px]">
+              {message?.createdAt &&
+                inputTime(message?.createdAt, DATE_FORMATE)}
+            </small>
             {message?.images?.length > 0 && (
               <div
                 className={`cursor-pointer grid ${
@@ -75,7 +79,7 @@ const SingleMessage = ({ message, chat }) => {
                 </div>
                 <div
                   onClick={() => handleDownload(message?.document)}
-                  className="h-full w-[50px] flex justify-center items-center text-base font-bold text-white cursor-pointer bg-pm uppercase"
+                  className="h-full w-[50px] flex justify-center items-center text-base font-bold text-white cursor-pointer bg-pm hover:bg-pmd uppercase"
                 >
                   {iDownload}
                 </div>
@@ -96,10 +100,6 @@ const SingleMessage = ({ message, chat }) => {
                 <div className="absolute -right-2 bottom-[6px] transform -translate-x-1/2 rotate-45 w-2 h-2 bg-pm"></div>
               </div>
             )}
-            <small ref={scroll} className="text-gray-900 text-[10px]">
-              {message?.createdAt &&
-                inputTime(message?.createdAt, DATE_FORMATE)}
-            </small>
           </div>
         </div>
       ) : (
@@ -123,6 +123,10 @@ const SingleMessage = ({ message, chat }) => {
             </button>
           </div>
           <div className="w-fit max-w-[70%] h-fit flex flex-col items-start">
+            <small ref={scroll} className="text-gray-900 text-[10px]">
+              {message?.createdAt &&
+                inputTime(message?.createdAt, DATE_FORMATE)}
+            </small>
             {message?.images?.length > 0 && (
               <div
                 className={`cursor-pointer grid ${
@@ -153,7 +157,7 @@ const SingleMessage = ({ message, chat }) => {
                 </div>
                 <div
                   onClick={() => handleDownload(message?.document)}
-                  className="h-full w-[50px] flex justify-center items-center text-base font-bold text-white cursor-pointer bg-pm uppercase"
+                  className="h-full w-[50px] flex justify-center items-center text-base font-bold text-white cursor-pointer bg-pm hover:bg-pmd uppercase"
                 >
                   {iDownload}
                 </div>
@@ -174,10 +178,6 @@ const SingleMessage = ({ message, chat }) => {
                 <div className="absolute -left-2 bottom-[6px] transform translate-x-1/2 rotate-45 w-2 h-2 bg-[#d9eee4]"></div>
               </div>
             )}
-            <small ref={scroll} className="text-gray-900 text-[10px]">
-              {message?.createdAt &&
-                inputTime(message?.createdAt, DATE_FORMATE)}
-            </small>
           </div>
         </div>
       )}

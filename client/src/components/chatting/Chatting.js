@@ -18,10 +18,12 @@ const Chatting = () => {
   const dispatch = useDispatch();
 
   useMemo(() => {
-    if (data && data?.length > 0) {
+    if (data && data?.length > 0 && chats?.length < 1) {
       dispatch(setChats(data));
     }
   }, [data]);
+
+  // console.log(data);
 
   return (
     <div className="chatting shadow">
@@ -32,7 +34,7 @@ const Chatting = () => {
         }}
         className="shadow-sm cursor-pointer"
       >
-        Message Us
+        Messages
       </h4>
       <>
         {/* {chat ? (

@@ -103,6 +103,46 @@ const conversationSlice = createSlice({
         state.chats = [...chats];
       }
     },
+    setChatUnseen: (state, action) => {
+      const stateData = JSON.parse(JSON.stringify(state));
+      if (
+        action.payload.userId === action.payload.receiverId &&
+        stateData?.chat?._id !== action.payload.chatId
+      ) {
+        let chats = JSON.parse(JSON.stringify(state.chats));
+
+        const existingIndex = stateData?.chats.findIndex(
+          (chat) => chat._id === action.payload.chatId
+        );
+        if (existingIndex !== -1) {
+          const old = chats[existingIndex]["total_unseen"];
+          chats[existingIndex]["total_unseen"] = parseInt(old) + 1;
+          state.chats = [...chats];
+        }
+      }
+    },
+    setChatSeen: (state, action) => {
+      const stateData = JSON.parse(JSON.stringify(state));
+      let chats = JSON.parse(JSON.stringify(state.chats));
+
+      const existingIndex = stateData?.chats.findIndex(
+        (chat) => chat._id === action.payload.chatId
+      );
+      if (existingIndex !== -1) {
+        chats[existingIndex]["total_unseen"] = 0;
+        state.chats = [...chats];
+      }
+
+      // inbox part
+      let inboxChats = JSON.parse(JSON.stringify(state.inboxChats));
+      const inboxExistingIndex = stateData?.inboxChats.findIndex(
+        (chat) => chat._id === action.payload.chatId
+      );
+      if (inboxExistingIndex !== -1) {
+        inboxChats[inboxExistingIndex]["total_unseen"] = 0;
+        state.inboxChats = [...inboxChats];
+      }
+    },
 
     // for inbox chat
     setInboxMessages: (state, action) => {
@@ -167,6 +207,24 @@ const conversationSlice = createSlice({
         state.inboxChats = [...chats];
       }
     },
+    setInboxChatUnseen: (state, action) => {
+      const stateData = JSON.parse(JSON.stringify(state));
+      if (
+        action.payload.userId === action.payload.receiverId &&
+        stateData?.inboxChat?._id !== action.payload.chatId
+      ) {
+        let chats = JSON.parse(JSON.stringify(state.inboxChats));
+
+        const existingIndex = stateData?.inboxChats.findIndex(
+          (chat) => chat._id === action.payload.chatId
+        );
+        if (existingIndex !== -1) {
+          const old = chats[existingIndex]["total_unseen"];
+          chats[existingIndex]["total_unseen"] = parseInt(old) + 1;
+          state.inboxChats = [...chats];
+        }
+      }
+    },
 
     // globally for both
     setLastChat: (state, action) => {
@@ -220,6 +278,8 @@ export const {
   setChats,
   handelClosePopup,
   setChatSetting,
+  setChatUnseen,
+  setChatSeen,
 
   // close all for logout
   handleClearConversations,
@@ -243,6 +303,7 @@ export const {
   setInboxChats,
   setInboxChat,
   setInboxChatSetting,
+  setInboxChatUnseen,
 } = conversationSlice.actions;
 
 export default conversationSlice.reducer;

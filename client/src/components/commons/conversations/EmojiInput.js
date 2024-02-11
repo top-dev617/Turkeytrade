@@ -11,24 +11,28 @@ import { useState } from "react";
 
 const EmojiInput = ({ setImoji }) => {
   const [open, setOpen] = useState(false);
-  const handleEmoji = (emoji) => {
-    setImoji(emoji);
+
+  const handleEmoji = (e) => {
+    setImoji(e.emoji);
     setOpen(false);
   };
   return (
     <>
       <Popover open={open} handler={() => setOpen(false)}>
-        <PopoverHandler onClick={() => setOpen(!open)}>
+        <PopoverHandler
+          onClick={(e) => {
+            setOpen(!open);
+          }}
+        >
           <div className="border-0 bg-transparent cursor-pointer">{iEmoji}</div>
         </PopoverHandler>
-        <PopoverContent className="p-0 z-[9999999999]">
-          {open && (
-            <EmojiPicker
-              onEmojiClick={(e) => handleEmoji(e.emoji)}
-              emojiStyle="facebook"
-              style={{ position: "absolute" }}
-            />
-          )}
+        <PopoverContent className="p-0 z-[9999999999] h-fit bg-white">
+          <EmojiPicker
+            open={open}
+            onEmojiClick={(e) => handleEmoji(e)}
+            emojiStyle="facebook"
+            lazyLoadEmojis={false}
+          />
         </PopoverContent>
       </Popover>
     </>

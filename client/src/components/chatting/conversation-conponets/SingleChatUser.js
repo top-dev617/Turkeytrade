@@ -1,4 +1,5 @@
 import { AuthContext } from "@/components/context/AuthContext";
+import useGlobal from "@/lib/hooks/useGlobal";
 import useLocalTime from "@/lib/hooks/useLocalTime";
 import useViewImage from "@/lib/hooks/useViewImage";
 import { setChat } from "@/redux/features/conversation/conversationSlice";
@@ -11,11 +12,11 @@ const SingleChatUser = ({ chatData, handleSetData, chat }) => {
   const { user } = useContext(AuthContext);
   const { online_users } = useSelector((state) => state.conversation);
   const { viewImg } = useViewImage();
+  const { firstLatterUp } = useGlobal();
 
   const isOnline = online_users.some(
     (user) => user?.userId === chatData?.receiverInfo?._id
   );
-
   return (
     <button
       onClick={() => handleSetData(chatData)}
@@ -46,31 +47,40 @@ const SingleChatUser = ({ chatData, handleSetData, chat }) => {
         )}
       </button>
 
-      <div className="w-full flex flex-col h-full">
-        <div className="flex items-center justify-between">
-          <span className="ml-2 font-semibold text-black uppercase">
-            {/* {
-              chatData?.requester===chatData?.receiverInfo?._id
-            } */}
+      <div className="w-full flex flex-col h-full items-start ml-2">
+        <div className="flex items-center justify-between w-full">
+          <span className="font-semibold text-black flex items-center gap-1">
+            {chatData?.receiver === user?._id
+              ? chatData?.settings?.receiver?.isMute && iMute
+              : chatData?.settings?.sender?.isMute && iMute}
             {chatData?.receiverInfo?.name?.length > 15
-              ? chatData?.receiverInfo?.name?.slice(0, 15) + "..."
-              : chatData?.receiverInfo?.name}
-            <small className="lowercase">
-              {" "}
-              -{" "}
-              {chatData?.storeInfo?.store_name ||
-                chatData?.receiverInfo?.company_name}
-            </small>
+              ? firstLatterUp(
+                  chatData?.receiverInfo?.name?.slice(0, 15) + "..."
+                )
+              : firstLatterUp(chatData?.receiverInfo?.name)}
           </span>
-          <span className="block ml-2 text-[10px] text-pm">
+          <span className="block text-[10px] text-pm">
             {chatData?.lastMessage &&
               inputTime(chatData?.lastMessage?.createdAt)}
           </span>
         </div>
-        <div className="ml-2 flex items-center gap-1">
-          {chatData?.receiver === user?._id
-            ? chatData?.settings?.receiver?.isMute && iMute
-            : chatData?.settings?.sender?.isMute && iMute}
+
+        <div className="flex justify-between items-start w-full">
+          <small className="text-[10px]">
+            {firstLatterUp(
+              chatData?.storeInfo?.store_name ||
+                chatData?.receiverInfo?.company_name
+            )}
+          </small>
+          {chatData?.total_unseen > 0 && (
+            <div className="h-fit w-fit px-1 rounded-full bg-red-500 border-[2px] border-white flex justify-center items-center">
+              <small className="text-white text-xs">
+                {chatData?.total_unseen}
+              </small>
+            </div>
+          )}
+        </div>
+        <div className="flex items-center gap-1">
           <span className="block text-xs text-black text-left oneLine">
             {chatData?.lastMessage && chatData?.lastMessage?.message}
           </span>
