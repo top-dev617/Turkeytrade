@@ -13,6 +13,7 @@ import { ThemeProvider } from "@material-tailwind/react";
 import "../styles/globals.css";
 import ChatMain from "@/components/chatting/ChatMain";
 import BottomBar from "@/components/shared/BottomBar";
+import SocketContext from "@/components/context/SocketContext";
 
 export default function App({ Component, pageProps }) {
   // const getLayout = Component.getLayout || ((page) => page);
@@ -28,30 +29,32 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <AuthProvider>
-        <Provider store={store}>
-          <ToastContainer
-            position="top-right"
-            autoClose={1500}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-          <ThemeProvider value={customTheme}>
-            {pathname !== "/signin" && pathname !== "/register" && <Header />}
-            <Component {...pageProps} />
-            {pathname !== "/signin" && pathname !== "/register" && <Footer />}
-            <ChatMain />
-            <BottomBar />
-          </ThemeProvider>
-          <ToastContainer />
-        </Provider>
-      </AuthProvider>
+      <SocketContext>
+        <AuthProvider>
+          <Provider store={store}>
+            <ToastContainer
+              position="top-right"
+              autoClose={1500}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
+            <ThemeProvider value={customTheme}>
+              {pathname !== "/signin" && pathname !== "/register" && <Header />}
+              <Component {...pageProps} />
+              {pathname !== "/signin" && pathname !== "/register" && <Footer />}
+              <ChatMain />
+              <BottomBar />
+            </ThemeProvider>
+            <ToastContainer />
+          </Provider>
+        </AuthProvider>
+      </SocketContext>
     </>
   );
 }

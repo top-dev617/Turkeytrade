@@ -10,7 +10,9 @@ import {
 
 const InboxChatSidebar = () => {
   const { data, isLoading } = useGetChatDataQuery();
-  const { inboxChats, inboxChat } = useSelector((state) => state.conversation);
+  const { inboxChats, inboxChat, chats } = useSelector(
+    (state) => state.conversation
+  );
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
 
@@ -61,8 +63,8 @@ const InboxChatSidebar = () => {
       ) : (
         <ul className={`overflow-y-auto h-full`}>
           <li>
-            {inboxChats &&
-              inboxChats?.map((item, index) => (
+            {chats &&
+              chats?.map((item, index) => (
                 <SingleChatUser
                   key={index}
                   chatData={item}

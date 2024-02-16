@@ -110,9 +110,40 @@ io.on("connection", (socket) => {
     io.emit("getUsers", users);
   });
 
+  socket.on("addChat", (chat) => {
+    const user = getUser(chat?.rcId);
+    io.to(user?.socketId).emit("getChat", chat);
+  });
+
   //send and get message
 
-  socket.on(
+  socket.on("sendMessage", (newMessage) => {
+    const currentUser = getUser(newMessage?.receiverId);
+    io.to(currentUser?.socketId).emit("getMessage", newMessage);
+  });
+
+  //when disconnect
+  socket.on("disconnect", () => {
+    console.log("disconnected! 🔴");
+    removeUser(socket.id);
+    io.emit("getUsers", users);
+  });
+});
+
+// -----------------socket server-----------------
+
+// testing api
+app.get("/", (req, res) => {
+  res.send("Server is running");
+});
+
+Server.listen(PORT, () => {
+  console.log(`Server is Running PORT: ${PORT}`);
+});
+
+/*
+
+socket.on(
     "sendMessage",
     ({
       senderId,
@@ -141,21 +172,4 @@ io.on("connection", (socket) => {
     }
   );
 
-  //when disconnect
-  socket.on("disconnect", () => {
-    console.log("disconnected! 🔴");
-    removeUser(socket.id);
-    io.emit("getUsers", users);
-  });
-});
-
-// -----------------socket server-----------------
-
-// testing api
-app.get("/", (req, res) => {
-  res.send("Server is running");
-});
-
-Server.listen(PORT, () => {
-  console.log(`Server is Running PORT: ${PORT}`);
-});
+*/

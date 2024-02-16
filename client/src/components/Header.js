@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import logo from "../../public/assets/logo.png";
 import star from "../../public/assets/star1.png";
-import message from "../../public/assets/message.png";
 import man from "../../public/assets/profile.png";
 import verification from "../../public/assets/verification.png";
 import { AuthContext } from "./context/AuthContext";
@@ -26,6 +25,7 @@ import {
   setLastChat,
   setLastMessages,
   setMessagePush,
+  setNewChat,
   setNtfAlert,
   setOnline_users,
 } from "@/redux/features/conversation/conversationSlice";
@@ -37,9 +37,11 @@ import {
   useTotalUnseenQuery,
 } from "@/redux/features/conversation/conversationApi";
 import useAuth from "@/lib/useAuth";
+import { SocketContext } from "./context/SocketContext";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
+  const { socket } = useContext(SocketContext);
   const { logout } = useAuth({ redirectTo: false });
   const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
   const { refetch } = useTotalUnseenQuery();
@@ -48,7 +50,6 @@ const Header = () => {
 
   const dispatch = useDispatch();
   const router = useRouter();
-  const socket = useRef();
   const { pathname } = router;
   const [open, setOpen] = useState(false);
   const [openPopover, setOpenPopover] = useState(false);
@@ -117,7 +118,6 @@ const Header = () => {
     }
 
     socket.current.on("getMessage", (receiveMessage) => {
-      console.log(receiveMessage);
       refetch();
       dispatch(setNtfAlert({ ...receiveMessage, userId: user?._id }));
       dispatch(setChatUnseen({ ...receiveMessage, userId: user?._id }));
@@ -126,7 +126,11 @@ const Header = () => {
       dispatch(setInboxMessagePush(receiveMessage));
       dispatch(setLastMessages(receiveMessage));
       dispatch(setInboxLastMessages(receiveMessage));
-      setLastChat();
+      // setLastChat();
+    });
+
+    socket.current.on("getChat", (receiveChat) => {
+      dispatch(setNewChat(receiveChat));
     });
   }, [user]);
 

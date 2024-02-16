@@ -228,6 +228,7 @@ const conversationSlice = createSlice({
 
     // globally for both
     setLastChat: (state, action) => {
+      console.log("action");
       const stateData = JSON.parse(JSON.stringify(state));
 
       let inboxChat = stateData?.inboxChat;
@@ -240,6 +241,18 @@ const conversationSlice = createSlice({
       if (chat && chat?._id === action.payload.chatId) {
         chat["lastMessage"] = action.payload;
         state.chat = chat;
+      }
+    },
+    setNewChat: (state, action) => {
+      const stateData = JSON.parse(JSON.stringify(state));
+
+      let chats = [action.payload, ...stateData.chats];
+      let inboxChats = [action.payload, ...stateData.inboxChats];
+      if (chats) {
+        state.chats = chats;
+      }
+      if (inboxChats) {
+        state.inboxChats = inboxChats;
       }
     },
 
@@ -295,6 +308,7 @@ export const {
 
   // globally for both
   setLastChat,
+  setNewChat,
 
   // inbox
   setInboxMessages,

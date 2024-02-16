@@ -13,7 +13,12 @@ import Chatting from "../chatting/Chatting";
 import StoreChat from "../SellerStore/StoreChat";
 import { usePostNewChatMutation } from "@/redux/features/conversation/conversationApi";
 import { useRouter } from "next/router";
-import { setChat } from "@/redux/features/conversation/conversationSlice";
+import {
+  setChat,
+  setChats,
+  setNewChat,
+} from "@/redux/features/conversation/conversationSlice";
+import { SocketContext } from "../context/SocketContext";
 
 const tabs = [
   { name: "Products" },
@@ -24,6 +29,7 @@ const tabs = [
 
 const InfoTab = ({ store }) => {
   const { user, setMsgOpen } = useContext(AuthContext);
+  const { socket } = useContext(SocketContext);
   const { publicTab } = useSelector((state) => state.store);
   const [postNewChat] = usePostNewChatMutation();
   const dispatch = useDispatch();
@@ -53,6 +59,14 @@ const InfoTab = ({ store }) => {
         // console.log(result);
         if (result?.data?.access) {
           dispatch(setChat(result?.data?.data));
+          dispatch(setChats(result?.data?.data));
+          if (result?.data?.receiver_Chat) {
+            dispatch(setNewChat(result?.data?.data));
+            socket.current.emit("addChat", {
+              ...result?.data?.receiver_Chat,
+              rcId: result?.data?.data?.receiverInfo?._id,
+            });
+          }
           setMsgOpen(true);
         }
       }

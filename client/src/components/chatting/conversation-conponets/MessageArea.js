@@ -10,6 +10,9 @@ import {
   setImage,
   setImages,
   setInboxChatSetting,
+  setInboxLastMessages,
+  setInboxMessagePush,
+  setLastMessages,
   setMessagePush,
   setMessages,
   setVideo,
@@ -38,9 +41,11 @@ import {
 } from "@material-tailwind/react";
 import useLocalTime from "@/lib/hooks/useLocalTime";
 import useGlobal from "@/lib/hooks/useGlobal";
+import { SocketContext } from "@/components/context/SocketContext";
 
 const MessageArea = ({ messageClassName }) => {
   const { user } = useContext(AuthContext);
+  const { socket } = useContext(SocketContext);
   const { chat, online_users, messages, images, video, document } = useSelector(
     (state) => state.conversation
   );
@@ -52,7 +57,6 @@ const MessageArea = ({ messageClassName }) => {
   const { viewImg } = useViewImage();
   const { fromNow } = useLocalTime();
   const { firstLatterUp } = useGlobal();
-  const socket = useRef();
 
   const [open, setOpen] = useState(null);
 
@@ -100,6 +104,13 @@ const MessageArea = ({ messageClassName }) => {
     dispatch(setDocument(null));
   };
 
+  const someAction = (msg) => {
+    dispatch(setMessagePush(msg));
+    dispatch(setInboxMessagePush(msg));
+    dispatch(setLastMessages(msg));
+    dispatch(setInboxLastMessages(msg));
+  };
+
   const sendMessage = async (message) => {
     const newMessage = {
       message: message,
@@ -137,7 +148,9 @@ const MessageArea = ({ messageClassName }) => {
         images: result?.data?.images,
         video: result?.data?.video,
         document: result?.data?.document,
+        members: [chat?.receiverInfo?._id, user?._id],
       };
+      someAction(sendMessage);
       socket.current.emit("sendMessage", sendMessage);
       handleRemoveFiles();
     }

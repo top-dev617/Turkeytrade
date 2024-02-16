@@ -81,7 +81,7 @@ const SingleChatUser = ({ chatData, handleSetData, chat }) => {
           )}
         </div>
         <div className="flex items-center gap-1">
-          <span className="block text-xs text-black text-left oneLine">
+          <span className="block text-xs text-black text-left oneLine break-all">
             {chatData?.lastMessage && chatData?.lastMessage?.message}
           </span>
         </div>

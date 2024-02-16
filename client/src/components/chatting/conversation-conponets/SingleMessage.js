@@ -96,7 +96,9 @@ const SingleMessage = ({ message, chat }) => {
             )}
             {message?.message && (
               <div className="bg-pm text-white p-2 rounded relative w-fit">
-                <div className="label-list text-white">{message?.message}</div>
+                <div className="label-list text-white break-all">
+                  {message?.message}
+                </div>
                 <div className="absolute -right-2 bottom-[6px] transform -translate-x-1/2 rotate-45 w-2 h-2 bg-pm"></div>
               </div>
             )}
@@ -174,7 +176,7 @@ const SingleMessage = ({ message, chat }) => {
             )}
             {message?.message && (
               <div className="bg-[#d9eee4] p-2 rounded relative w-fit">
-                <div className="label-list">{message?.message}</div>
+                <div className="label-list break-all">{message?.message}</div>
                 <div className="absolute -left-2 bottom-[6px] transform translate-x-1/2 rotate-45 w-2 h-2 bg-[#d9eee4]"></div>
               </div>
             )}

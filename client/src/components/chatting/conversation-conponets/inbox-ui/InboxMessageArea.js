@@ -15,7 +15,11 @@ import {
   setImages,
   setInboxChat,
   setInboxChatSetting,
+  setInboxLastMessages,
+  setInboxMessagePush,
   setInboxMessages,
+  setLastMessages,
+  setMessagePush,
   setMessages,
   setVideo,
 } from "@/redux/features/conversation/conversationSlice";
@@ -34,9 +38,11 @@ import { io } from "socket.io-client";
 import SingleMessage from "../SingleMessage";
 import Loading from "@/components/commons/Loading";
 import useGlobal from "@/lib/hooks/useGlobal";
+import { SocketContext } from "@/components/context/SocketContext";
 
 const InboxMessageArea = () => {
   const { user } = useContext(AuthContext);
+  const { socket } = useContext(SocketContext);
   const { inboxChat, online_users, inboxMessages, images, video, document } =
     useSelector((state) => state.conversation);
   const [toggleAlert] = useToggleAlertMutation();
@@ -49,7 +55,6 @@ const InboxMessageArea = () => {
   const { viewImg } = useViewImage();
   const { fromNow } = useLocalTime();
   const { firstLatterUp } = useGlobal();
-  const socket = useRef();
 
   const handleBack = () => {
     dispatch(setInboxChat(null));
@@ -94,6 +99,13 @@ const InboxMessageArea = () => {
     dispatch(setDocument(null));
   };
 
+  const someAction = (msg) => {
+    dispatch(setMessagePush(msg));
+    dispatch(setInboxMessagePush(msg));
+    dispatch(setLastMessages(msg));
+    dispatch(setInboxLastMessages(msg));
+  };
+
   const sendMessage = async (message) => {
     const newMessage = {
       message: message,
@@ -131,7 +143,9 @@ const InboxMessageArea = () => {
         images: result?.data?.images,
         video: result?.data?.video,
         document: result?.data?.document,
+        members: [inboxChat?.receiverInfo?._id, user?._id],
       };
+      someAction(sendMessage);
       socket.current.emit("sendMessage", sendMessage);
       handleRemoveFiles();
     }

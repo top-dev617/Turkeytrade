@@ -10,7 +10,11 @@ import { AuthContext } from "../context/AuthContext";
 import { usePostNewChatMutation } from "@/redux/features/conversation/conversationApi";
 import { star } from "@/utils/icons/icons";
 import { useRouter } from "next/router";
-import { setChat } from "@/redux/features/conversation/conversationSlice";
+import {
+  setChat,
+  setChats,
+  setNewChat,
+} from "@/redux/features/conversation/conversationSlice";
 import {
   useCreateSaveProductMutation,
   useGetSingleSaveProductByIdQuery,
@@ -19,9 +23,11 @@ import {
 import { Spinner } from "@material-tailwind/react";
 import { useGetStoreInfoBySellerIdQuery } from "@/redux/features/stores/storeApi";
 import { base_url } from "@/utils/auth/global";
+import { SocketContext } from "../context/SocketContext";
 
 const ProductBanner = ({ product }) => {
   const { user, setMsgOpen } = useContext(AuthContext);
+  const { socket } = useContext(SocketContext);
   const { data: store, isLoading: storeLoading } =
     useGetStoreInfoBySellerIdQuery(user?._id);
   const dispatch = useDispatch();
@@ -76,9 +82,16 @@ const ProductBanner = ({ product }) => {
 
       const result = await postNewChat(options);
       console.log(result);
-      console.log(options);
       if (result?.data?.access) {
         dispatch(setChat(result?.data?.data));
+        dispatch(setChats(result?.data?.data));
+        if (result?.data?.receiver_Chat) {
+          dispatch(setNewChat(result?.data?.data));
+          socket.current.emit("addChat", {
+            ...result?.data?.receiver_Chat,
+            rcId: result?.data?.data?.receiverInfo?._id,
+          });
+        }
         setMsgOpen(true);
       }
     }

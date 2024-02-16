@@ -2,6 +2,7 @@ const User = require("../../../models/Users");
 const Store = require("../../store/store.model");
 const Message = require("../message/message.model");
 const Chat = require("./chat.model");
+const { getChatByUserId } = require("./chat.service");
 
 const createChat = async (req, res) => {
   try {
@@ -51,11 +52,15 @@ const createChat = async (req, res) => {
         storeInfo: storeInfo,
         lastMessage: "",
       };
+      const receiver_Chat = await getChatByUserId(
+        receiverInfo?._id?.toString()
+      );
       res.status(200).json({
         status: true,
         access: true,
         message: "Chat Created",
         data: formattedChat,
+        receiver_Chat: receiver_Chat,
       });
     }
   } catch (error) {
