@@ -41,11 +41,8 @@ import { SocketContext } from "./context/SocketContext";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
-  const { socket } = useContext(SocketContext);
   const { logout } = useAuth({ redirectTo: false });
   const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
-  const { refetch } = useTotalUnseenQuery();
-
   const { data: chatData } = useGetGlobalChatDataQuery();
 
   const dispatch = useDispatch();
@@ -70,6 +67,7 @@ const Header = () => {
     setStoreInfo(null);
     router.reload();
   };
+
   useEffect(() => {
     const newProducts = JSON.parse(localStorage.getItem("save-products")) || [];
     dispatch(setSaveProducts(newProducts));
@@ -105,34 +103,6 @@ const Header = () => {
       document.removeEventListener("mousedown", handler);
     };
   });
-
-  useEffect(() => {
-    socket.current = io(socket_url, {
-      credentials: true,
-    });
-    if (user?._id) {
-      socket.current.emit("addUser", { id: user?._id, type: "Global" });
-      socket.current.on("getUsers", (users) => {
-        dispatch(setOnline_users(users));
-      });
-    }
-
-    socket.current.on("getMessage", (receiveMessage) => {
-      refetch();
-      dispatch(setNtfAlert({ ...receiveMessage, userId: user?._id }));
-      dispatch(setChatUnseen({ ...receiveMessage, userId: user?._id }));
-      dispatch(setInboxChatUnseen({ ...receiveMessage, userId: user?._id }));
-      dispatch(setMessagePush(receiveMessage));
-      dispatch(setInboxMessagePush(receiveMessage));
-      dispatch(setLastMessages(receiveMessage));
-      dispatch(setInboxLastMessages(receiveMessage));
-      // setLastChat();
-    });
-
-    socket.current.on("getChat", (receiveChat) => {
-      dispatch(setNewChat(receiveChat));
-    });
-  }, [user]);
 
   return (
     <nav

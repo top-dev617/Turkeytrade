@@ -103,7 +103,7 @@ const InboxMessageArea = () => {
     dispatch(setMessagePush(msg));
     dispatch(setInboxMessagePush(msg));
     dispatch(setLastMessages(msg));
-    dispatch(setInboxLastMessages(msg));
+    // dispatch(setInboxLastMessages(msg));
   };
 
   const sendMessage = async (message) => {
@@ -163,7 +163,7 @@ const InboxMessageArea = () => {
     };
     const result = await toggleAlert(options);
     if (result?.data?.success) {
-      dispatch(setInboxChatSetting({ ...result?.data?.data, chatId: chatId }));
+      // dispatch(setInboxChatSetting({ ...result?.data?.data, chatId: chatId }));
       dispatch(setChatSetting({ ...result?.data?.data, chatId: chatId }));
     }
   };

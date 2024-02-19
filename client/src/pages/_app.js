@@ -29,9 +29,9 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <SocketContext>
+      <Provider store={store}>
         <AuthProvider>
-          <Provider store={store}>
+          <SocketContext>
             <ToastContainer
               position="top-right"
               autoClose={1500}
@@ -52,9 +52,9 @@ export default function App({ Component, pageProps }) {
               <BottomBar />
             </ThemeProvider>
             <ToastContainer />
-          </Provider>
+          </SocketContext>
         </AuthProvider>
-      </SocketContext>
+      </Provider>
     </>
   );
 }

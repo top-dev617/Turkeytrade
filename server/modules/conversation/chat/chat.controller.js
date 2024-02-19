@@ -53,7 +53,8 @@ const createChat = async (req, res) => {
         lastMessage: "",
       };
       const receiver_Chat = await getChatByUserId(
-        receiverInfo?._id?.toString()
+        receiverInfo?._id?.toString(),
+        result?._id.toString()
       );
       res.status(200).json({
         status: true,

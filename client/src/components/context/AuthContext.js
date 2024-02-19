@@ -15,6 +15,7 @@ export function AuthProvider({ children }) {
     const isLog = localStorage.getItem("isSignedIn", true);
     return isLog;
   };
+
   useEffect(() => {
     setIsLoading(true);
     fetch(`${base_url}/users/user-info/me`, {

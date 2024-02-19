@@ -10,6 +10,7 @@ export const handleDownload = (endpoint) => {
 };
 
 export const playNtf = () => {
+  navigator.mediaDevices.getUserMedia({ audio: true });
   var audio = new Audio(
     "https://cdn.freesound.org/sounds/320/320654-86c83ec2-7954-42e2-89f6-bdbb2b752777?filename=320654__rhodesmas__level-up-02.wav"
   );

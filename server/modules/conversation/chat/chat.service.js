@@ -3,8 +3,10 @@ const Store = require("../../store/store.model");
 const Message = require("../message/message.model");
 const Chat = require("./chat.model");
 
-const getChatByUserId = async (userId) => {
-  const chat = await Chat.findOne({ members: { $all: [userId] } });
+const getChatByUserId = async (userId, chatId) => {
+  const chat = await Chat.findOne({
+    $and: [{ _id: chatId }, { members: { $all: [userId] } }],
+  });
 
   const lastMessage = await Message.findOne({ chatId: chat._id }).sort({
     createdAt: -1,

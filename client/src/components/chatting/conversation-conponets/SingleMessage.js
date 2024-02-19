@@ -95,14 +95,16 @@ const SingleMessage = ({ message, chat }) => {
               </div>
             )}
             {message?.message && (
-              <div className="bg-pm text-white p-2 rounded relative w-fit">
+              <div className="bg-pm text-white p-1 rounded relative w-fit">
                 <div className="label-list text-white break-all">
                   {message?.message}
                 </div>
+
                 <div className="absolute -right-2 bottom-[6px] transform -translate-x-1/2 rotate-45 w-2 h-2 bg-pm"></div>
               </div>
             )}
           </div>
+          <div ref={scroll}></div>
         </div>
       ) : (
         <div className="flex items-end gap-2 mb-4">
@@ -125,7 +127,7 @@ const SingleMessage = ({ message, chat }) => {
             </button>
           </div>
           <div className="w-fit max-w-[70%] h-fit flex flex-col items-start">
-            <small ref={scroll} className="text-gray-900 text-[10px]">
+            <small className="text-gray-900 text-[10px]">
               {message?.createdAt &&
                 inputTime(message?.createdAt, DATE_FORMATE)}
             </small>
@@ -181,6 +183,7 @@ const SingleMessage = ({ message, chat }) => {
               </div>
             )}
           </div>
+          <div ref={scroll}></div>
         </div>
       )}
 

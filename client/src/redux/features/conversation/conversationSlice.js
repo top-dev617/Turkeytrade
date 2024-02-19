@@ -33,8 +33,8 @@ const conversationSlice = createSlice({
       state.messages = action.payload;
     },
     setMessagePush: (state, action) => {
-      const stateData = JSON.parse(JSON.stringify(state));
-      if (action.payload?.chatId === stateData?.chat?._id) {
+      const chat = JSON.parse(JSON.stringify(state.chat));
+      if (action.payload?.chatId === chat?._id) {
         state.messages.push(action.payload);
       }
     },
@@ -133,15 +133,15 @@ const conversationSlice = createSlice({
         state.chats = [...chats];
       }
 
-      // inbox part
-      let inboxChats = JSON.parse(JSON.stringify(state.inboxChats));
-      const inboxExistingIndex = stateData?.inboxChats.findIndex(
-        (chat) => chat._id === action.payload.chatId
-      );
-      if (inboxExistingIndex !== -1) {
-        inboxChats[inboxExistingIndex]["total_unseen"] = 0;
-        state.inboxChats = [...inboxChats];
-      }
+      // // inbox part
+      // let inboxChats = JSON.parse(JSON.stringify(state.inboxChats));
+      // const inboxExistingIndex = stateData?.inboxChats.findIndex(
+      //   (chat) => chat._id === action.payload.chatId
+      // );
+      // if (inboxExistingIndex !== -1) {
+      //   inboxChats[inboxExistingIndex]["total_unseen"] = 0;
+      //   state.inboxChats = [...inboxChats];
+      // }
     },
 
     // for inbox chat

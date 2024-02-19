@@ -95,10 +95,8 @@ const getUser = (userId) => {
   return users.find((user) => user.userId === userId);
 };
 
-const getUsers = (userId, senderId) => {
-  return users.filter(
-    (user) => user.userId === userId || user?.userId === senderId
-  );
+const getUsers = (userId) => {
+  return users.filter((user) => user.userId === userId);
 };
 
 io.on("connection", (socket) => {
@@ -107,6 +105,7 @@ io.on("connection", (socket) => {
   //take userId and socketId from user
   socket.on("addUser", (user) => {
     addUser(user, socket.id);
+    console.log("total: ", users?.length, "  ", "user: ", user);
     io.emit("getUsers", users);
   });
 
@@ -118,8 +117,10 @@ io.on("connection", (socket) => {
   //send and get message
 
   socket.on("sendMessage", (newMessage) => {
-    const currentUser = getUser(newMessage?.receiverId);
-    io.to(currentUser?.socketId).emit("getMessage", newMessage);
+    const currentUsers = getUsers(newMessage?.receiverId);
+    for (let i = 0; i < currentUsers.length; i++) {
+      io.to(currentUsers[i]?.socketId).emit("getMessage", newMessage);
+    }
   });
 
   //when disconnect

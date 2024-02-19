@@ -34,8 +34,8 @@ const VideoInput = ({ sendMessage }) => {
 
   const handleVideo = (file) => {
     if (file) {
-      if (file.size > 10 * 1024 * 1024) {
-        toast.error("File size must be 10 MB or less.");
+      if (file.size > 200 * 1024 * 1024) {
+        toast.error("File size must be 200 MB or less.");
         videoRef.current.value = null;
         return;
       } else {
