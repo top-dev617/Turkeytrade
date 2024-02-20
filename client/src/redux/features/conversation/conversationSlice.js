@@ -255,6 +255,57 @@ const conversationSlice = createSlice({
         state.inboxChats = inboxChats;
       }
     },
+    setLastActivity: (state, action) => {
+      const stateData = JSON.parse(JSON.stringify(state));
+      let chats = stateData.chats;
+
+      const existingIndex = chats.findIndex(
+        (chat) =>
+          chat?.receiver === action.payload.id ||
+          chat?.requester === action.payload.id
+      );
+
+      let chat = stateData.chat;
+      let inboxChat = stateData.inboxChat;
+
+      if (existingIndex !== -1) {
+        const isExist = chats[existingIndex];
+        const settings =
+          isExist.receiver === action.payload.id
+            ? {
+                sender: isExist?.settings?.sender,
+                receiver: {
+                  isMute: isExist?.settings?.receiver?.isMute,
+                  last_active: action.payload.time,
+                },
+              }
+            : {
+                receiver: isExist?.settings?.receiver,
+                sender: {
+                  isMute: isExist?.settings?.sender?.isMute,
+                  last_active: action.payload.time,
+                },
+              };
+
+        chats[existingIndex]["settings"] = settings;
+        state.chats = chats;
+
+        if (
+          chat?.receiver === action.payload.id ||
+          chat?.requester === action.payload.id
+        ) {
+          chat["settings"] = settings;
+        }
+        if (
+          inboxChat?.receiver === action.payload.id ||
+          inboxChat?.requester === action.payload.id
+        ) {
+          inboxChat["settings"] = settings;
+        }
+        state.chat = chat;
+        state.inboxChat = inboxChat;
+      }
+    },
 
     // others
 
@@ -309,6 +360,7 @@ export const {
   // globally for both
   setLastChat,
   setNewChat,
+  setLastActivity,
 
   // inbox
   setInboxMessages,

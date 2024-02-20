@@ -243,7 +243,11 @@ const MessageArea = ({ messageClassName }) => {
                     <span className="text-pm text-xs block">online</span>
                   ) : (
                     <span className="text-xs text-gray-600 block">
-                      {fromNow(chat?.createdAt)}
+                      {fromNow(
+                        chat?.receiver === user?._id
+                          ? chat?.settings?.receiver?.last_active
+                          : chat?.settings?.sender?.last_active
+                      )}
                     </span>
                   )}
                 </div>
@@ -324,7 +328,11 @@ const MessageArea = ({ messageClassName }) => {
           </div>
 
           <div
-            className={`flex-1 px-2 py-4 scrollBar overflow-y-auto scroll_off ${messageClassName}`}
+            className={`flex-1 px-2 py-4 scrollBar overflow-y-auto scroll_off bg-gray-50/90 ${messageClassName}`}
+            style={{
+              backgroundImage: `url("https://t3.ftcdn.net/jpg/03/27/51/56/360_F_327515607_Hcps04aaEc7Ki43d1XZPxwcv0ZaIaorh.jpg")`,
+              backgroundBlendMode: "soft-light",
+            }}
           >
             {isLoading ? (
               <Loading />

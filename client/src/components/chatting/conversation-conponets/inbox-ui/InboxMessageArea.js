@@ -174,6 +174,7 @@ const InboxMessageArea = () => {
       scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [inboxChat]);
+
   return (
     <>
       {inboxChat && !isLoading ? (
@@ -236,7 +237,11 @@ const InboxMessageArea = () => {
                     <span className="text-pm text-xs block">online</span>
                   ) : (
                     <span className="text-xs text-gray-600 block">
-                      {fromNow(inboxChat?.createdAt)}
+                      {fromNow(
+                        inboxChat?.receiver === user?._id
+                          ? inboxChat?.settings?.receiver?.last_active
+                          : inboxChat?.settings?.sender?.last_active
+                      )}
                     </span>
                   )}
                 </div>
@@ -315,7 +320,11 @@ const InboxMessageArea = () => {
             </Popover>
           </div>
           <div
-            className={`flex-grow px-2 scrollBar overflow-y-auto scroll_off bg-gray-50`}
+            className={`flex-grow px-2 scrollBar overflow-y-auto scroll_off bg-gray-50/90`}
+            style={{
+              backgroundImage: `url("https://t3.ftcdn.net/jpg/03/27/51/56/360_F_327515607_Hcps04aaEc7Ki43d1XZPxwcv0ZaIaorh.jpg")`,
+              backgroundBlendMode: "soft-light",
+            }}
           >
             {isLoading ? (
               <Loading />

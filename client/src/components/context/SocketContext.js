@@ -7,6 +7,7 @@ import {
   setInboxChatUnseen,
   setInboxLastMessages,
   setInboxMessagePush,
+  setLastActivity,
   setLastMessages,
   setMessagePush,
   setNewChat,
@@ -58,6 +59,11 @@ const SocketProvider = ({ children }) => {
 
     socket.current.on("getUsers", (users) => {
       dispatch(setOnline_users(users));
+    });
+    socket.current.on("last-activity", (user) => {
+      if (user) {
+        dispatch(setLastActivity(user));
+      }
     });
 
     socket.current.on("getMessage", (receiveMessage) => {

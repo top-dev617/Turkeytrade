@@ -30,6 +30,9 @@ const app = express();
 const http = require("http");
 const Server = http.createServer(app);
 const socketIo = require("socket.io");
+const {
+  updateLastActivity,
+} = require("./modules/conversation/chat/chat.service");
 
 // middleware
 app.use(cors());
@@ -87,12 +90,18 @@ const addUser = (userInfo, socketId) => {
     });
 };
 
-const removeUser = (socketId) => {
-  users = users.filter((user) => user.socketId !== socketId);
-};
-
 const getUser = (userId) => {
   return users.find((user) => user.userId === userId);
+};
+
+const getUserBySocketId = async (socketId) => {
+  return users.find((user) => user.socketId === socketId);
+};
+
+const removeUser = async (socketId) => {
+  const user = getUserBySocketId(socketId);
+  users = users.filter((user) => user.socketId !== socketId);
+  return user;
 };
 
 const getUsers = (userId) => {
@@ -100,12 +109,12 @@ const getUsers = (userId) => {
 };
 
 io.on("connection", (socket) => {
-  console.log("connected. 🟢");
+  // console.log("connected. 🟢");
 
   //take userId and socketId from user
   socket.on("addUser", (user) => {
     addUser(user, socket.id);
-    console.log("total: ", users?.length, "  ", "user: ", user);
+    // console.log("🟢 Connected total: ", users?.length, "  ", "user: ", user);
     io.emit("getUsers", users);
   });
 
@@ -124,10 +133,19 @@ io.on("connection", (socket) => {
   });
 
   //when disconnect
-  socket.on("disconnect", () => {
-    console.log("disconnected! 🔴");
-    removeUser(socket.id);
+  socket.on("disconnect", async () => {
+    const user = await removeUser(socket.id);
     io.emit("getUsers", users);
+    if (user?.userId) {
+      const timestamp = Date.now(); // Get the current timestamp in milliseconds
+      const time = new Date(timestamp);
+      await updateLastActivity(user?.userId, time.toISOString());
+      io.emit("last-activity", {
+        id: user?.userId,
+        time: time.toISOString(),
+      });
+    }
+    // console.log("disconnected! 🔴");
   });
 });
 

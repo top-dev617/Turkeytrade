@@ -38,6 +38,46 @@ const getChatByUserId = async (userId, chatId) => {
   return formattedChat;
 };
 
+const updateLastActivity = async (userId, time) => {
+  const userChats = await Chat.find({ members: { $all: [userId] } });
+
+  for (const isExist of userChats) {
+    const receiverId = isExist?.receiver?.toString();
+    if (receiverId === userId) {
+      const rsData = {
+        settings: {
+          sender: isExist?.settings?.sender,
+          receiver: {
+            isMute: isExist?.settings?.receiver?.isMute,
+            last_active: time,
+          },
+        },
+      };
+      const result = await Chat.updateOne(
+        { _id: isExist?._id.toString(), receiver: userId },
+        rsData,
+        { new: true }
+      );
+    } else {
+      const snData = {
+        settings: {
+          receiver: isExist?.settings?.receiver,
+          sender: {
+            isMute: isExist?.settings?.sender?.isMute,
+            last_active: time,
+          },
+        },
+      };
+      const result = await Chat.updateOne(
+        { _id: isExist?._id.toString(), requester: userId },
+        snData,
+        { new: true }
+      );
+    }
+  }
+};
+
 module.exports = {
   getChatByUserId,
+  updateLastActivity,
 };

@@ -213,6 +213,7 @@ const getGlobalChats = async (req, res) => {
         lastMessage: lastMessage,
         total_unseen: total,
       };
+
       formattedChats.push(formattedChat);
     }
     res.status(200).json(formattedChats);

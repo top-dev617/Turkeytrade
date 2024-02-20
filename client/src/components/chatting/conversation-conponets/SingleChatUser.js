@@ -25,7 +25,9 @@ const SingleChatUser = ({ chatData, handleSetData, chat }) => {
               chatData?._id === chat?._id
                 ? "bg-blue-gray-50"
                 : "hover:bg-gray-100"
-            }`}
+            }
+            
+            ${!chatData?.lastMessage && "hidden"} `}
     >
       <button className="flex items-center justify-center min-w-[40px] !w-[40px] h-10 rounded-full bg-blue-600 object-cover text-white text-[18px] relative">
         {chatData?.storeInfo?.logo || chatData?.receiverInfo?.image ? (
