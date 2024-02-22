@@ -3,13 +3,13 @@ const fs = require("fs");
 const path = require("path");
 
 const isVideoFile = function (file) {
-  const allowedExtensions = [".mkv", ".mp4"];
+  const allowedExtensions = [".mkv", ".mp4", ".webm", ".ogg"];
   const ext = path.extname(file.originalname);
   return allowedExtensions.includes(ext);
 };
 
 const isImageFile = function (file) {
-  const allowedExtensions = [".png", ".jpg", ".jpeg"];
+  const allowedExtensions = [".png", ".jpg", ".jpeg", ".gif", ".webp"];
   const ext = path.extname(file.originalname);
   return allowedExtensions.includes(ext);
 };

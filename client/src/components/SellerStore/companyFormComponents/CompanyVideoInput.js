@@ -4,6 +4,7 @@ import { trash } from "@/utils/datas/icons";
 import React, { useCallback } from "react";
 import videoIcon from "../../../../public/assets/vedio-icon.png";
 import { useDropzone } from "react-dropzone";
+import { ACCEPTABLE_VIDEO_FILE } from "@/lib/constants/globalConstant";
 
 const CompanyVideoInput = ({
   isEdit,
@@ -25,7 +26,7 @@ const CompanyVideoInput = ({
     onDrop: onVideo,
     multiple: false,
     accept: {
-      "video/*": [".mp4", ".mkv"],
+      "video/*": [".mp4", ".mkv", ".webm"],
     },
   });
   return (
@@ -82,7 +83,7 @@ const CompanyVideoInput = ({
         type="file"
         multiple={false}
         className="absolute top-0 right-0 bottom-0 left-0 w-full h-full opacity-0 cursor-pointer"
-        accept=".mp4, .mkv"
+        accept={ACCEPTABLE_VIDEO_FILE}
         disabled={isEdit ? false : true}
       />
     </div>

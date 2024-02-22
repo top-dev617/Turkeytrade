@@ -85,19 +85,6 @@ const MessageArea = ({ messageClassName }) => {
     return () => {};
   }, [data]);
 
-  useEffect(() => {
-    socket.current = io(socket_url, {
-      credentials: true,
-    });
-    // socket.current.emit("addUser", { id: user?._id, type: "Chat" });
-    // socket.current.on("getMessage", (receiveMessage) => {
-    //   // console.log(receiveMessage);
-    //   if (receiveMessage?.chatId === chat?._id) {
-    //     dispatch(setMessagePush(receiveMessage));
-    //   }
-    // });
-  }, []);
-
   const handleRemoveFiles = () => {
     dispatch(setImages([]));
     dispatch(setVideo(null));
@@ -245,8 +232,8 @@ const MessageArea = ({ messageClassName }) => {
                     <span className="text-xs text-gray-600 block">
                       {fromNow(
                         chat?.receiver === user?._id
-                          ? chat?.settings?.receiver?.last_active
-                          : chat?.settings?.sender?.last_active
+                          ? chat?.settings?.sender?.last_active
+                          : chat?.settings?.receiver?.last_active
                       )}
                     </span>
                   )}

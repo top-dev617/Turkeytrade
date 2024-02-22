@@ -1069,7 +1069,7 @@ const UploadProduct = ({ store, setStep, user }) => {
                       ref={img0Ref}
                       type="file"
                       name="image1"
-                      accept=".png, .jpg, .jpeg"
+                      accept=".png, .jpg, .jpeg, .webp"
                       multiple={false}
                       // required={
                       //   (editProduct && editProduct?.images?.length > 0) ||
@@ -1113,7 +1113,7 @@ const UploadProduct = ({ store, setStep, user }) => {
                         ref={img1Ref}
                         type="file"
                         name="image2"
-                        accept=".png, .jpg, .jpeg"
+                        accept=".png, .jpg, .jpeg, .webp"
                         multiple={false}
                         onChange={(e) => editImageHandle(1, e.target.files[0])}
                         className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
@@ -1151,7 +1151,7 @@ const UploadProduct = ({ store, setStep, user }) => {
                         ref={img2Ref}
                         type="file"
                         name="image3"
-                        accept=".png, .jpg, .jpeg"
+                        accept=".png, .jpg, .jpeg, .webp"
                         multiple={false}
                         onChange={(e) => editImageHandle(2, e.target.files[0])}
                         className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
@@ -1163,131 +1163,6 @@ const UploadProduct = ({ store, setStep, user }) => {
                     </div>
                   </div>
                 )}
-
-                {/* {productImages?.length > 2 && (
-                  <>
-                    <div className="w-full">
-                      <div className="input_box relative">
-                        {productImages.length > 3 && (
-                          <div
-                            onClick={() => removeImage(3)}
-                            className="absolute -top-2 -right-2 z-40 rounded-full bg-white text-red-600 p-1 w-8 cursor-pointer"
-                          >
-                            {trash}
-                          </div>
-                        )}
-                        <div className="input_inner">
-                          {productImages?.length > 3 ? (
-                            <img
-                              className="w-100 h-100"
-                              src={viewImg(productImages[3])}
-                              alt=""
-                            />
-                          ) : (
-                            <img className="" src={plusIcon.src} alt="" />
-                          )}
-                        </div>
-                        <input
-                          ref={img3Ref}
-                          type="file"
-                          name="image4"
-                          accept=".png, .jpg, .jpeg"
-                          multiple={false}
-                          onChange={(e) =>
-                            editImageHandle(3, e.target.files[0])
-                          }
-                          className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
-                        />
-                      </div>
-                      <div className="d-flex justify-content-center">
-                        {" "}
-                        <p className="dot_btn">3</p>
-                      </div>
-                    </div>
-                  </>
-                )}
-                {productImages?.length > 3 && (
-                  <>
-                    <div className="w-full">
-                      <div className="input_box relative">
-                        {productImages.length > 4 && (
-                          <div
-                            onClick={() => removeImage(4)}
-                            className="absolute -top-2 -right-2 z-40 rounded-full bg-white text-red-600 p-1 w-8 cursor-pointer"
-                          >
-                            {trash}
-                          </div>
-                        )}
-                        <div className="input_inner">
-                          {productImages?.length > 4 ? (
-                            <img
-                              className="w-100 h-100"
-                              src={viewImg(productImages[4])}
-                              alt=""
-                            />
-                          ) : (
-                            <img className="" src={plusIcon.src} alt="" />
-                          )}
-                        </div>
-                        <input
-                          ref={img4Ref}
-                          type="file"
-                          name="image5"
-                          accept=".png, .jpg, .jpeg"
-                          multiple={false}
-                          onChange={(e) =>
-                            editImageHandle(4, e.target.files[0])
-                          }
-                          className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
-                        />
-                      </div>
-                      <div className="d-flex justify-content-center">
-                        {" "}
-                        <p className="dot_btn">4</p>
-                      </div>
-                    </div>
-                  </>
-                )}
-                {productImages?.length > 4 && (
-                  <>
-                    <div className="w-full">
-                      <div className="input_box relative">
-                        {productImages.length > 5 && (
-                          <div
-                            onClick={() => removeImage(5)}
-                            className="cursor-pointer absolute -top-2 -right-2 z-40 rounded-full bg-white text-red-600 p-1 w-8"
-                          >
-                            {trash}
-                          </div>
-                        )}
-                        <div className="input_inner">
-                          {productImages?.length > 5 ? (
-                            <img
-                              className="w-100 h-100"
-                              src={viewImg(productImages[5])}
-                              alt=""
-                            />
-                          ) : (
-                            <img className="" src={plusIcon.src} alt="" />
-                          )}
-                        </div>
-                        <input
-                          ref={img5Ref}
-                          type="file"
-                          name="image6"
-                          onChange={(e) =>
-                            editImageHandle(5, e.target.files[0])
-                          }
-                          className="w-full h-full absolute top-0 bottom-0 left-0 right-0 opacity-0 cursor-pointer"
-                        />
-                      </div>
-                      <div className="d-flex justify-content-center">
-                        {" "}
-                        <p className="dot_btn">5</p>
-                      </div>
-                    </div>
-                  </>
-                )} */}
               </div>
             </div>
 

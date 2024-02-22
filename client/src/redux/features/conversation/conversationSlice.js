@@ -43,7 +43,7 @@ const conversationSlice = createSlice({
       const isExist = stateData?.chats.find(
         (sChat) => sChat?._id === action.payload?.chatId
       );
-      if (stateData?.chat?._id !== action.payload?.chatId) {
+      if (isExist) {
         const isMute =
           isExist?.receiver === action.payload.userId
             ? isExist?.settings?.receiver?.isMute

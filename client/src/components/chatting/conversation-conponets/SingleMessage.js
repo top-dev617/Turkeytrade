@@ -45,12 +45,12 @@ const SingleMessage = ({ message, chat }) => {
               )}
             </button>
           </div>
-          <div className="w-fit max-w-[70%] h-fit">
+          <div className="w-fit max-w-[70%] h-fit flex flex-col items-end">
             <small className="text-gray-700 text-[10px] text-end block">
               {message?.createdAt &&
-                moment(message?.createdAt).format(DATE_FORMATE)}
+                inputTime(message?.createdAt, DATE_FORMATE)}
             </small>
-            <div className="flex flex-col items-end bg-pm text-white px-[6px] pt-[6px] rounded-[3px]">
+            <div className="flex flex-col items-end bg-pm text-white px-[6px] p-[6px] w-fit h-fit rounded-[3px]">
               {message?.images?.length > 0 && (
                 <div
                   className={`cursor-pointer grid ${
@@ -103,7 +103,7 @@ const SingleMessage = ({ message, chat }) => {
                 </div>
               )}
               {message?.message && (
-                <div className="text-white pt-1 relative w-fit">
+                <div className="text-white  p-0 m-0 relative w-fit">
                   <div className="label-list text-white break-all !text-xs !font-medium">
                     {message?.message}
                   </div>
@@ -111,12 +111,12 @@ const SingleMessage = ({ message, chat }) => {
                   <div className="absolute -right-3 bottom-[6px] transform -translate-x-1/2 rotate-45 w-2 h-2 bg-pm"></div>
                 </div>
               )}
-              <small
+              {/* <small
                 ref={scroll}
                 className="text-gray-200 text-[10px] mt-1 !mb-[5]"
               >
                 {message?.createdAt && inputTime(message?.createdAt)}
-              </small>
+              </small> */}
             </div>
           </div>
           <div ref={scroll}></div>
@@ -144,9 +144,9 @@ const SingleMessage = ({ message, chat }) => {
           <div className="w-fit max-w-[70%] h-fit">
             <small className="text-gray-700 text-[10px]">
               {message?.createdAt &&
-                moment(message?.createdAt).format(DATE_FORMATE)}
+                inputTime(message?.createdAt, DATE_FORMATE)}
             </small>
-            <div className=" flex flex-col items-start bg-[#d9eee4] text-white px-[6px] pt-[6px] rounded-[3px]">
+            <div className=" flex flex-col items-start bg-[#d9eee4] text-white px-[6px] p-[6px] w-fit h-fit rounded-[3px]">
               {message?.images?.length > 0 && (
                 <div
                   className={`cursor-pointer grid ${
@@ -199,19 +199,19 @@ const SingleMessage = ({ message, chat }) => {
                 </div>
               )}
               {message?.message && (
-                <div className="pt-1 relative w-fit">
+                <div className=" p-0 m-0 relative w-fit">
                   <div className="label-list break-all !text-xs !font-medium">
                     {message?.message}
                   </div>
                   <div className="absolute -left-3 bottom-[6px] transform translate-x-1/2 rotate-45 w-2 h-2 bg-[#d9eee4]"></div>
                 </div>
               )}
-              <small
+              {/* <small
                 ref={scroll}
                 className="text-gray-700 text-[10px] mt-1 !mb-[5]"
               >
                 {message?.createdAt && inputTime(message?.createdAt)}
-              </small>
+              </small> */}
             </div>
           </div>
           <div ref={scroll}></div>

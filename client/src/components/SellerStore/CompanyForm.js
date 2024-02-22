@@ -23,6 +23,7 @@ import VideoPlayer from "../commons/video-player/VideoPlayer";
 import StoreCertificates from "./StoreCertificates";
 import CompanyLogoInput from "./companyFormComponents/CompanyLogoInput";
 import CompanyVideoInput from "./companyFormComponents/CompanyVideoInput";
+import { ACCEPTABLE_IMAGE_FILE } from "@/lib/constants/globalConstant";
 
 const CompanyForm = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -160,7 +161,7 @@ const CompanyForm = () => {
   } = useDropzone({
     onDrop: onCTF,
     accept: {
-      "image/*": [".jpeg", ".png", ".jpg"],
+      "image/*": [".jpeg", ".png", ".jpg", ".gif", ".webp"],
     },
   });
   // console.log(isEdit, video);
@@ -308,7 +309,7 @@ const CompanyForm = () => {
                     {...getInputProps()}
                     type="file"
                     className="absolute top-0 right-0 bottom-0 left-0 w-full h-full opacity-0"
-                    accept=".jpg, .jpeg, .png"
+                    accept={ACCEPTABLE_IMAGE_FILE}
                     multiple
                   />
                 </div>

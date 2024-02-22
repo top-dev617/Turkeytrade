@@ -3,6 +3,7 @@ import { trash } from "@/utils/datas/icons";
 import React, { useCallback } from "react";
 import picIcon from "../../../../public/assets/pic-icon.png";
 import { useDropzone } from "react-dropzone";
+import { ACCEPTABLE_IMAGE_FILE } from "@/lib/constants/globalConstant";
 
 const CompanyLogoInput = ({
   register,
@@ -24,7 +25,7 @@ const CompanyLogoInput = ({
     onDrop: onLogo,
     multiple: false,
     accept: {
-      "image/*": [".jpeg", ".png", ".jpg"],
+      "image/*": [".jpeg", ".png", ".jpg", ".gif", ".webp"],
     },
   });
   return (
@@ -100,7 +101,7 @@ const CompanyLogoInput = ({
         type="file"
         multiple={false}
         className="absolute top-0 right-0 bottom-0 left-0 w-full h-full opacity-0"
-        accept=".png, .jpg, .jpeg"
+        accept={ACCEPTABLE_IMAGE_FILE}
         disabled={isEdit ? false : true}
       />
     </div>

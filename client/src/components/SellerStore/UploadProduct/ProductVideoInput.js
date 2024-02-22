@@ -3,6 +3,7 @@ import { base_url } from "@/utils/auth/global";
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import videoIcon from "../../../../public/assets/vedio-icon.png";
+import { ACCEPTABLE_VIDEO_FILE } from "@/lib/constants/globalConstant";
 
 const ProductVideoInput = ({
   video,
@@ -21,7 +22,7 @@ const ProductVideoInput = ({
     onDrop: onVideo,
     multiple: false,
     accept: {
-      "video/*": [".mp4", ".mkv"],
+      "video/*": [".mp4", ".mkv", ".webm"],
     },
   });
   return (
@@ -59,7 +60,7 @@ const ProductVideoInput = ({
         type="file"
         name="video"
         className="absolute w-full h-full top-0 bottom-0 opacity-0 cursor-pointer"
-        accept=".mp4, .mkv"
+        accept={ACCEPTABLE_VIDEO_FILE}
         multiple={false}
       />
     </div>

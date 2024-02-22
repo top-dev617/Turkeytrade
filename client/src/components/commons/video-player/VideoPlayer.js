@@ -19,6 +19,9 @@ const VideoPlayer = ({ url, className, width, height, playing = true }) => {
       pip
       stopOnUnmount={false}
       config={{
+        attributes: {
+          type: "video/x-matroska",
+        },
         youtube: {
           playerVars: { showinfo: 1, controls: 1 },
         },

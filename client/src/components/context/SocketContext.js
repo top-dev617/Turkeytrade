@@ -1,12 +1,19 @@
 import { io } from "socket.io-client";
 import { socket_url } from "@/utils/auth/global";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { AuthContext } from "./AuthContext";
 import {
   setChatUnseen,
   setInboxChatUnseen,
   setInboxLastMessages,
   setInboxMessagePush,
+  setIsVisible,
   setLastActivity,
   setLastMessages,
   setMessagePush,
@@ -14,7 +21,7 @@ import {
   setNtfAlert,
   setOnline_users,
 } from "@/redux/features/conversation/conversationSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTotalUnseenQuery } from "@/redux/features/conversation/conversationApi";
 
 export const SocketContext = createContext();
@@ -26,33 +33,57 @@ const SocketProvider = ({ children }) => {
   const { user } = useContext(AuthContext);
   const dispatch = useDispatch();
   const { refetch } = useTotalUnseenQuery();
-  // const [id,setId]=useState("")
 
-  // useEffect(() => {
-  //   const uuid = () => {
-  //     let dt = new Date().getTime();
-  //     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-  //       /[xy]/g,
-  //       function (c) {
-  //         let r = (dt + Math.random() * 16) % 16 | 0;
-  //         dt = Math.floor(dt / 16);
-  //         return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
-  //       }
-  //     );
-  //   };
-  //   if (!window.name) {
-  //     window.name = uuid();
-  //   }
-  //   setTabId(window.name);
-  // }, []);
+  const handleVisibilityChange = () => {
+    if (document.visibilityState === "visible") {
+      return {
+        status: true,
+        message: "The browser window is currently open and visible.",
+      };
+    } else if (document.visibilityState === "hidden") {
+      return {
+        status: false,
+        message: "The browser window is currently minimized and not visible.",
+      };
+    }
+  };
+
+  const sendNotification = (message = "...") => {
+    if ("Notification" in window && Notification.permission === "granted") {
+      new Notification("New Message", {
+        body: message,
+        icon: "https://static.vecteezy.com/system/resources/previews/014/441/089/original/chat-message-icon-design-in-blue-circle-png.png",
+      });
+    }
+  };
+
+  const handleNtf = (message) => {
+    if ("Notification" in window && Notification.permission !== "granted") {
+      Notification.requestPermission().then(function (permission) {
+        if (permission === "granted") {
+          sendNotification(message);
+        }
+      });
+    } else {
+      sendNotification(message);
+    }
+  };
+
+  const makePermit = async () => {
+    await Notification.requestPermission();
+  };
 
   useEffect(() => {
-    socket.current = io(socket_url, {
+    makePermit();
+  }, []);
+
+  useEffect(() => {
+    socket.current = io.connect(socket_url, {
       credentials: true,
     });
 
     setInterval(() => {
-      if (user) {
+      if (user && user._id) {
         socket.current.emit("addUser", { id: user?._id, type: "Global" });
       }
     }, 5000);
@@ -61,14 +92,16 @@ const SocketProvider = ({ children }) => {
       dispatch(setOnline_users(users));
     });
     socket.current.on("last-activity", (user) => {
-      if (user) {
-        dispatch(setLastActivity(user));
-      }
+      dispatch(setLastActivity(user));
     });
 
     socket.current.on("getMessage", (receiveMessage) => {
       refetch();
       dispatch(setNtfAlert({ ...receiveMessage, userId: user?._id }));
+      const isVisible = handleVisibilityChange();
+      if (isVisible?.status === false) {
+        handleNtf(receiveMessage?.message);
+      }
       dispatch(setChatUnseen({ ...receiveMessage, userId: user?._id }));
       dispatch(setInboxChatUnseen({ ...receiveMessage, userId: user?._id }));
       dispatch(setMessagePush(receiveMessage));
@@ -81,6 +114,10 @@ const SocketProvider = ({ children }) => {
     socket.current.on("getChat", (receiveChat) => {
       dispatch(setNewChat(receiveChat));
     });
+
+    return () => {
+      socket.current.disconnect();
+    };
   }, [user]);
 
   const contextValue = {

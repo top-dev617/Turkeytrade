@@ -127,6 +127,7 @@ io.on("connection", (socket) => {
 
   socket.on("sendMessage", (newMessage) => {
     const currentUsers = getUsers(newMessage?.receiverId);
+    // console.log("users", currentUsers);
     for (let i = 0; i < currentUsers.length; i++) {
       io.to(currentUsers[i]?.socketId).emit("getMessage", newMessage);
     }
@@ -139,7 +140,7 @@ io.on("connection", (socket) => {
     if (user?.userId) {
       const timestamp = Date.now(); // Get the current timestamp in milliseconds
       const time = new Date(timestamp);
-      await updateLastActivity(user?.userId, time.toISOString());
+      updateLastActivity(user?.userId, time.toISOString());
       io.emit("last-activity", {
         id: user?.userId,
         time: time.toISOString(),

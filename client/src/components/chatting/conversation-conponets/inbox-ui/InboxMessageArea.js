@@ -33,8 +33,7 @@ import {
 } from "@/redux/features/conversation/conversationApi";
 import { AuthContext } from "@/components/context/AuthContext";
 import Link from "next/link";
-import { socket_url } from "@/utils/auth/global";
-import { io } from "socket.io-client";
+
 import SingleMessage from "../SingleMessage";
 import Loading from "@/components/commons/Loading";
 import useGlobal from "@/lib/hooks/useGlobal";
@@ -86,12 +85,6 @@ const InboxMessageArea = () => {
 
     return () => {};
   }, [data]);
-
-  useEffect(() => {
-    socket.current = io(socket_url, {
-      credentials: true,
-    });
-  }, []);
 
   const handleRemoveFiles = () => {
     dispatch(setImages([]));
@@ -239,8 +232,8 @@ const InboxMessageArea = () => {
                     <span className="text-xs text-gray-600 block">
                       {fromNow(
                         inboxChat?.receiver === user?._id
-                          ? inboxChat?.settings?.receiver?.last_active
-                          : inboxChat?.settings?.sender?.last_active
+                          ? inboxChat?.settings?.sender?.last_active
+                          : inboxChat?.settings?.receiver?.last_active
                       )}
                     </span>
                   )}
