@@ -169,7 +169,7 @@ const MessageArea = ({ messageClassName }) => {
     if (scrollBottomRef.current) {
       scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [chat]);
+  }, [chat, messages]);
 
   return (
     <>
@@ -254,39 +254,6 @@ const MessageArea = ({ messageClassName }) => {
                 <h1 className="my-2 text-black font-bold text-left">
                   Sound Alert
                 </h1>
-
-                {/* <div className="flex items-center gap-2">
-                  {chat?.receiver === user?._id
-                    ? chat?.settings?.receiver?.isMute
-                      ? iMute
-                      : iUnMute
-                    : chat?.settings?.sender?.isMute
-                    ? iMute
-                    : iUnMute}
-                  <ReactSwitch
-                    checked={
-                      chat?.receiver === user?._id
-                        ? chat?.settings?.receiver?.isMute
-                          ? true
-                          : false
-                        : chat?.settings?.sender?.isMute
-                        ? true
-                        : false
-                    }
-                    onChange={(value) => handleToggle(chat?.chatId)}
-                    onColor="#86d3ff"
-                    onHandleColor="#2693e6"
-                    handleDiameter={30}
-                    uncheckedIcon={false}
-                    checkedIcon={false}
-                    boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                    activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                    height={20}
-                    width={48}
-                    className="react-switch"
-                    id="material-switch"
-                  />
-                </div> */}
 
                 <Button
                   onClick={() => handleToggle(chat?._id)}

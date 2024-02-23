@@ -22,9 +22,9 @@ const SingleMessage = ({ message, chat }) => {
   const [open, setOpen] = useState("");
 
   const scroll = useRef();
-  useEffect(() => {
-    scroll.current?.scrollIntoView({ behavior: "smooth" });
-  }, [message]);
+  // useEffect(() => {
+  //   scroll.current?.scrollIntoView({ behavior: "smooth" });
+  // }, [message]);
 
   return (
     <>
@@ -119,7 +119,6 @@ const SingleMessage = ({ message, chat }) => {
               </small> */}
             </div>
           </div>
-          <div ref={scroll}></div>
         </div>
       ) : (
         <div className="flex items-end gap-2 mb-4">
@@ -214,7 +213,6 @@ const SingleMessage = ({ message, chat }) => {
               </small> */}
             </div>
           </div>
-          <div ref={scroll}></div>
         </div>
       )}
 

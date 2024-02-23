@@ -6,15 +6,14 @@ const useLocalTime = () => {
     if (dateFormat) {
       dateF = dateFormat;
     }
-    const detectedTimeZone = timeZone || moment.tz.guess(); // Use provided timeZone or detect it
-    const momentObject = moment().tz(detectedTimeZone);
+    const detectedTimeZone = timeZone || moment.tz.guess();
+    console.log(detectedTimeZone);
 
-    // Check if the locale's default formatting uses AM/PM indicators
-    const is12HourFormat =
-      momentObject.format("LT").includes("a") ||
-      momentObject.format("LT").includes("A");
+    const d = new Date();
+    const fTime = d.toLocaleTimeString();
+    const is24HourFormat = !fTime.includes("AM") && !fTime.includes("PM");
 
-    const timeFormat = is12HourFormat ? "h:mm A" : "HH:mm";
+    const timeFormat = is24HourFormat ? "HH:mm" : "h:mm A";
 
     const formattedTime = moment(createdAt)
       .tz(detectedTimeZone)

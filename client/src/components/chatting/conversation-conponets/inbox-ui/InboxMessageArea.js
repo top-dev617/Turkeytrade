@@ -166,7 +166,7 @@ const InboxMessageArea = () => {
     if (scrollBottomRef.current) {
       scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [inboxChat]);
+  }, [inboxChat, inboxMessages]);
 
   return (
     <>
@@ -238,38 +238,6 @@ const InboxMessageArea = () => {
                     </span>
                   )}
                 </div>
-                {/* <div className="pl-2">
-                  <div className="font-semibold">
-                    {inboxChat?.storeInfo ? (
-                      <Link href={`/store/${inboxChat?.storeInfo?._id}`}>
-                        {inboxChat?.receiverInfo?.name?.length > 15
-                          ? inboxChat?.receiverInfo?.name?.slice(0, 15) + "..."
-                          : inboxChat?.receiverInfo?.name}
-                        <small className="lowercase">
-                          {" "}
-                          - {inboxChat?.storeInfo?.store_name}
-                        </small>
-                      </Link>
-                    ) : (
-                      <Link href={`/profile/${inboxChat?.receiverInfo?._id}`}>
-                        {inboxChat?.receiverInfo?.name?.length > 15
-                          ? inboxChat?.receiverInfo?.name?.slice(0, 15) + "..."
-                          : inboxChat?.receiverInfo?.name}
-                        <small className="lowercase">
-                          {" "}
-                          - {inboxChat?.receiverInfo?.company_name}
-                        </small>
-                      </Link>
-                    )}
-                  </div>
-                  {isOnline ? (
-                    <span className="text-pm text-xs">online</span>
-                  ) : (
-                    <div className="text-xs text-gray-600">
-                      {fromNow(inboxChat?.createdAt)}
-                    </div>
-                  )}
-                </div> */}
               </div>
             </div>
             <Popover

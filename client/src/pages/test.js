@@ -1,45 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-const sendNotification = (message = "...") => {
-  if ("Notification" in window && Notification.permission === "granted") {
-    console.log(message);
-    new Notification("New Message", {
-      body: message,
-      icon: "https://static.vecteezy.com/system/resources/previews/014/441/089/original/chat-message-icon-design-in-blue-circle-png.png",
-    });
+const NotificationExample = () => {
+  const [time, setTime] = useState("");
+  const [format, setFormate] = useState(null);
+
+  function is24HourFormat() {
+    const d = new Date();
+    const formattedTime = d.toLocaleTimeString();
+    setTime(formattedTime);
+    const is24 = !formattedTime.includes("AM") && !formattedTime.includes("PM");
+    setFormate(is24);
   }
-};
 
-const handleNtf = (message) => {
-  if ("Notification" in window && Notification.permission !== "granted") {
-    Notification.requestPermission().then(function (permission) {
-      if (permission === "granted") {
-        sendNotification(message);
-      }
-    });
-  } else {
-    sendNotification(message);
-  }
-};
-
-const hdd = () => {};
-
-const makePermit = async () => {
-  await Notification.requestPermission();
-};
-
-function NotificationExample() {
   useEffect(() => {
-    makePermit();
+    is24HourFormat();
   }, []);
+
+  // const processImage = (imageFile) => {
+  //   const reader = new FileReader();
+  //   reader.onload = (event) => {
+  //     console.log(event.target.result);
+  //     setImageDataURL(event.target.result);
+  //   };
+  //   reader.readAsDataURL(imageFile);
+  // };
 
   return (
     <div>
-      <button onClick={() => handleNtf("Hello, world!")}>
-        Show Notification
-      </button>
+      {time && (
+        <p>
+          is 24 Hour Format:{" "}
+          <div className="bg-red-100 w-fit rounded-md inline p-1">
+            {format ? "True" : "False"}
+          </div>{" "}
+          = {time}
+        </p>
+      )}
     </div>
   );
-}
+};
 
 export default NotificationExample;

@@ -4,7 +4,7 @@ import {
   PopoverContent,
   PopoverHandler,
 } from "@material-tailwind/react";
-import React, { useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +13,7 @@ import { ACCEPTABLE_IMAGE_FILE } from "@/lib/constants/globalConstant";
 import useViewImage from "@/lib/hooks/useViewImage";
 import { toast } from "react-toastify";
 
-const ImageInput = ({ sendMessage }) => {
+const ImageInput = ({ sendMessage, pastImage, resetImage }) => {
   const { images } = useSelector((state) => state.conversation);
   const { viewImg } = useViewImage();
   const [open, setOpen] = useState(false);
@@ -41,6 +41,14 @@ const ImageInput = ({ sendMessage }) => {
       setOpen(true);
     }
   };
+
+  useMemo(() => {
+    if (pastImage) {
+      dispatch(setImages([pastImage]));
+      setOpen(true);
+      resetImage(null);
+    }
+  }, [pastImage]);
   return (
     <>
       <Popover
