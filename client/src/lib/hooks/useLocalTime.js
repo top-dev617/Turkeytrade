@@ -7,7 +7,6 @@ const useLocalTime = () => {
       dateF = dateFormat;
     }
     const detectedTimeZone = timeZone || moment.tz.guess();
-    console.log(detectedTimeZone);
 
     const d = new Date();
     const fTime = d.toLocaleTimeString();

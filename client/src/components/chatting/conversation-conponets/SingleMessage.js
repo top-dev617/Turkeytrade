@@ -103,7 +103,7 @@ const SingleMessage = ({ message, chat }) => {
                 </div>
               )}
               {message?.message && (
-                <div className="text-white  p-0 m-0 relative w-fit">
+                <div className="text-white  p-0 mx-0 mt-1 relative w-fit">
                   <div className="label-list text-white break-all !text-xs !font-medium">
                     {message?.message}
                   </div>
@@ -198,7 +198,7 @@ const SingleMessage = ({ message, chat }) => {
                 </div>
               )}
               {message?.message && (
-                <div className=" p-0 m-0 relative w-fit">
+                <div className=" p-0 mx-0 mt-1 relative w-fit">
                   <div className="label-list break-all !text-xs !font-medium">
                     {message?.message}
                   </div>
