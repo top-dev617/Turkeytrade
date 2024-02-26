@@ -168,6 +168,7 @@ const MessageArea = ({ messageClassName }) => {
   useEffect(() => {
     if (scrollBottomRef.current) {
       scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
+      scrollBottomRef.current.scrollTop = scrollBottomRef.current.scrollHeight;
     }
   }, [chat, messages]);
 
@@ -282,6 +283,7 @@ const MessageArea = ({ messageClassName }) => {
           </div>
 
           <div
+            ref={scrollBottomRef}
             className={`flex-1 px-2 py-4 scrollBar overflow-y-auto scroll_off bg-gray-50/90 ${messageClassName}`}
             style={{
               backgroundImage: `url("https://t3.ftcdn.net/jpg/03/27/51/56/360_F_327515607_Hcps04aaEc7Ki43d1XZPxwcv0ZaIaorh.jpg")`,

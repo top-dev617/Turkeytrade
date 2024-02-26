@@ -26,7 +26,7 @@ const CompanyVideoInput = ({
     onDrop: onVideo,
     multiple: false,
     accept: {
-      "video/*": [".mp4", ".mkv", ".webm"],
+      "video/*": [".mp4", ".mkv", ".webm", ".ogg"],
     },
   });
   return (

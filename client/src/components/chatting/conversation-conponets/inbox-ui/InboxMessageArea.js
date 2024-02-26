@@ -165,6 +165,7 @@ const InboxMessageArea = () => {
   useEffect(() => {
     if (scrollBottomRef.current) {
       scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
+      scrollBottomRef.current.scrollTop = scrollBottomRef.current.scrollHeight;
     }
   }, [inboxChat, inboxMessages]);
 
@@ -281,6 +282,7 @@ const InboxMessageArea = () => {
             </Popover>
           </div>
           <div
+            ref={scrollBottomRef}
             className={`flex-grow px-2 scrollBar overflow-y-auto scroll_off bg-gray-50/90`}
             style={{
               backgroundImage: `url("https://t3.ftcdn.net/jpg/03/27/51/56/360_F_327515607_Hcps04aaEc7Ki43d1XZPxwcv0ZaIaorh.jpg")`,

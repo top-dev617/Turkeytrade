@@ -25,7 +25,8 @@ const DocumentInput = ({ sendMessage }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const docRef = useRef();
-  const { handleSubmit, register, reset, setValue, watch } = useForm();
+  const { handleSubmit, register, reset, setValue, watch, setFocus } =
+    useForm();
   const handleMessage = (data) => {
     sendMessage(data.message);
     reset();
@@ -33,6 +34,7 @@ const DocumentInput = ({ sendMessage }) => {
   };
   const setNewImoji = (input) => {
     const currentMessage = watch("message");
+    setFocus("message");
     setValue("message", currentMessage + input);
   };
 

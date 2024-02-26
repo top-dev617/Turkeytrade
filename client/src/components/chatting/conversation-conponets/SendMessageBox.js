@@ -6,7 +6,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const SendMessageBox = ({ sendMessage }) => {
-  const { handleSubmit, register, reset, setValue, watch } = useForm();
+  const { handleSubmit, register, reset, setValue, watch, setFocus } =
+    useForm();
   const handleMessage = (data) => {
     sendMessage(data.message);
     reset();
@@ -16,7 +17,9 @@ const SendMessageBox = ({ sendMessage }) => {
 
   const setNewImoji = (input) => {
     const currentMessage = watch("message");
+    setFocus("message");
     setValue("message", currentMessage + input);
+    setFocus("message");
   };
 
   const onPaste = (event) => {

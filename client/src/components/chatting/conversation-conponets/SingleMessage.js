@@ -53,7 +53,7 @@ const SingleMessage = ({ message, chat }) => {
             <div className="flex flex-col items-end bg-pm text-white px-[6px] p-[6px] w-fit h-fit rounded-[3px]">
               {message?.images?.length > 0 && (
                 <div
-                  className={`cursor-pointer grid ${
+                  className={`cursor-pointer w-fit grid ${
                     message?.images?.length === 1
                       ? "grid-cols-1"
                       : "grid-cols-2"
@@ -63,7 +63,13 @@ const SingleMessage = ({ message, chat }) => {
                     <img
                       key={index}
                       onClick={() => setOpen(img)}
-                      className="w-fit h-fit object-contain max-h-[200px]"
+                      className={`w-full h-full object-contain ${
+                        message?.images?.length < 3
+                          ? `max-h-[200px] max-w-[180px] ${
+                              message?.images?.length === 2 && "bg-pmd"
+                            }`
+                          : "max-h-[98px] max-w-[130px] bg-pmd"
+                      }`}
                       src={`${base_url}/uploads/${img}`}
                       alt=""
                     />
@@ -148,7 +154,7 @@ const SingleMessage = ({ message, chat }) => {
             <div className=" flex flex-col items-start bg-[#d9eee4] text-white px-[6px] p-[6px] w-fit h-fit rounded-[3px]">
               {message?.images?.length > 0 && (
                 <div
-                  className={`cursor-pointer grid ${
+                  className={`cursor-pointer w-fit grid ${
                     message?.images?.length === 1
                       ? "grid-cols-1"
                       : "grid-cols-2"
@@ -158,7 +164,13 @@ const SingleMessage = ({ message, chat }) => {
                     <img
                       key={index}
                       onClick={() => setOpen(img)}
-                      className="w-fit h-fit object-contain max-h-[200px]"
+                      className={`w-full h-full object-contain ${
+                        message?.images?.length < 3
+                          ? `max-h-[200px] max-w-[180px] ${
+                              message?.images?.length === 2 && "bg-pmd"
+                            }`
+                          : "max-h-[98px] max-w-[130px] bg-pmd"
+                      }`}
                       src={`${base_url}/uploads/${img}`}
                       alt=""
                     />

@@ -21,7 +21,8 @@ const VideoInput = ({ sendMessage }) => {
   const dispatch = useDispatch();
   const videoRef = useRef();
   const { viewVideo } = useViewVideo();
-  const { handleSubmit, register, reset, setValue, watch } = useForm();
+  const { handleSubmit, register, reset, setValue, watch, setFocus } =
+    useForm();
   const handleMessage = (data) => {
     sendMessage(data.message);
     reset();
@@ -29,6 +30,7 @@ const VideoInput = ({ sendMessage }) => {
   };
   const setNewImoji = (input) => {
     const currentMessage = watch("message");
+    setFocus("message");
     setValue("message", currentMessage + input);
   };
 
@@ -39,7 +41,6 @@ const VideoInput = ({ sendMessage }) => {
         videoRef.current.value = null;
         return;
       } else {
-        console.log(file);
         dispatch(setVideo(file));
         setOpen(true);
       }
@@ -65,10 +66,11 @@ const VideoInput = ({ sendMessage }) => {
         <PopoverContent className="w-[300px] h-fit p-0 rounded z-[100000000000000]">
           {video && (
             <>
-              <div className="p-2 min-h-[200px] max-h-[200px] w-full">
+              <div className="p-2 min-h-[200px] max-h-[200px] w-full relative">
                 <VideoPlayer
                   url={viewVideo(video)}
-                  className="object-contain w-100 h-100"
+                  className="object-contain w-100"
+                  height="190px"
                 />
               </div>
 

@@ -19,7 +19,8 @@ const ImageInput = ({ sendMessage, pastImage, resetImage }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const imgRef = useRef();
-  const { handleSubmit, register, reset, setValue, watch } = useForm();
+  const { handleSubmit, register, reset, setValue, watch, setFocus } =
+    useForm();
   const handleMessage = (data) => {
     sendMessage(data.message);
     reset();
@@ -27,6 +28,7 @@ const ImageInput = ({ sendMessage, pastImage, resetImage }) => {
   };
   const setNewImoji = (input) => {
     const currentMessage = watch("message");
+    setFocus("message");
     setValue("message", currentMessage + input);
   };
 
@@ -74,7 +76,9 @@ const ImageInput = ({ sendMessage, pastImage, resetImage }) => {
                 {images?.map((img, index) => (
                   <img
                     key={index}
-                    className="w-full h-full max-h-[200px] object-contain"
+                    className={`w-full h-full object-contain ${
+                      images?.length < 3 ? "max-h-[200px]" : "max-h-[98px]"
+                    }`}
                     loading="lazy"
                     src={viewImg(img)}
                   />
