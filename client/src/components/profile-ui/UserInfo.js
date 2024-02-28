@@ -1,13 +1,14 @@
 import { usePatchUserInfoByIdMutation } from "@/redux/features/auth/authApi";
 import { iEdit, iTick } from "@/utils/icons/icons";
 import { Button, Spinner } from "@material-tailwind/react";
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { useRef } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { base_url } from "@/utils/auth/global";
+import styles from "@/styles/Register.module.css";
 
 const UserInfo = () => {
   const { user, setUser, uploadImg } = useContext(AuthContext);
@@ -20,9 +21,35 @@ const UserInfo = () => {
   const imgRef = useRef();
   const [patchUserInfoById, { isLoading }] = usePatchUserInfoByIdMutation();
 
-  const handleUserUpdate = (data) => {
-    console.log(data);
+  const [time_format, setTime_format] = useState("");
+
+  const handleUserUpdate = async (data) => {
+    const newData = new FormData();
+    if (data) {
+      newData.append("time_format", data);
+    }
+    if (time_format) {
+      const options = {
+        id: user?._id,
+        data: newData,
+      };
+      const result = await patchUserInfoById(options);
+      if (result?.data?.status === true) {
+        setUser(result?.data?.data);
+        toast.success("Profile Info Update Successful");
+      } else {
+        toast.error("Profile Info Update unSuccessful");
+      }
+    } else {
+      toast.error("Something went wrong, Try again");
+    }
   };
+
+  useMemo(() => {
+    if (user?.time_format) {
+      setTime_format(user?.time_format);
+    }
+  }, [user]);
 
   const handleImageUpdate = async () => {
     const newData = new FormData();
@@ -99,6 +126,46 @@ const UserInfo = () => {
             accept=".png, .jpg, .jpeg"
             multiple={false}
           />
+        </div>
+        <div className="w-100 h-fit mt-8">
+          <label for="exampleInputPassword1" className="form-label font-bold">
+            Choose 12 or 24 Hours Time Format<span>*</span>
+          </label>
+          <div className="flex items-center gap-4 relative">
+            <div className="grid grid-cols-6 w-8 absolute -top-10 left-12 opacity-0 z-10">
+              <input
+                type="text"
+                required={!time_format}
+                className="opacity-0"
+              />
+            </div>
+            <div className="d-flex gap-2 align-items-center mb-3 z-50">
+              <input
+                type="checkbox"
+                className="mb-0 cursor-pointer"
+                checked={time_format === "12h"}
+                onClick={() => handleUserUpdate("12h")}
+              />
+              <p
+                className={`mb-0 ${styles.agreementText} text-black font-bold`}
+              >
+                12h
+              </p>
+            </div>
+            <div className="d-flex gap-2 align-items-center mb-3 z-50">
+              <input
+                type="checkbox"
+                className="mb-0 cursor-pointer"
+                checked={time_format === "24h"}
+                onClick={() => handleUserUpdate("24h")}
+              />
+              <p
+                className={`mb-0 ${styles.agreementText} text-black font-bold`}
+              >
+                24h
+              </p>
+            </div>
+          </div>
         </div>
         <form onSubmit={handleSubmit(handleUserUpdate)}></form>
       </div>
