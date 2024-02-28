@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import MessageArea from "./conversation-conponets/MessageArea";
 import { useDispatch, useSelector } from "react-redux";
 import ChatSidebar from "./conversation-conponets/ChatSidebar";
 import { useGetGlobalChatDataQuery } from "@/redux/features/conversation/conversationApi";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
-import HelpCenterMessageArea from "./conversation-conponets/HelpCenterMessageArea";
 import {
   handelClosePopup,
   setChats,

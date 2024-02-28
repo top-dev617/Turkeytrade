@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import login from "../../public/assets/login-banner.png";
-import checkbox from "../../public/assets/checkbox.png";
-import checked from "../../public/assets/checked.png";
 import Link from "next/link";
 import RegistrationFromSecond from "@/components/RegistrationFromSecond";
 import { useRouter } from "next/router";
@@ -89,8 +87,9 @@ const RegisterPage = () => {
                     {...register("email", { required: true })}
                     type="email"
                     placeholder="Email "
-                    className={`mb-0 ${errors.email ? "border !border-red-600" : "border-none"
-                      }`}
+                    className={`mb-0 ${
+                      errors.email ? "border !border-red-600" : "border-none"
+                    }`}
                     autoComplete="off"
                     name="email"
                   />
@@ -112,8 +111,9 @@ const RegisterPage = () => {
                     {...register("password", { required: true })}
                     type="password"
                     placeholder="Password "
-                    className={`mb-0 ${errors.password ? "border !border-red-600" : "border-none"
-                      }`}
+                    className={`mb-0 ${
+                      errors.password ? "border !border-red-600" : "border-none"
+                    }`}
                     autoComplete="off"
                     name="password"
                   />
@@ -140,10 +140,11 @@ const RegisterPage = () => {
                     {...register("repeatPassword", { required: true })}
                     type="password"
                     placeholder="Repeat Password "
-                    className={`mb-0 ${errors.repeatPassword
+                    className={`mb-0 ${
+                      errors.repeatPassword
                         ? "border !border-red-600"
                         : "border-none"
-                      }`}
+                    }`}
                     autoComplete="off"
                     name="repeatPassword"
                   />
@@ -164,10 +165,11 @@ const RegisterPage = () => {
                   <input
                     {...register("companyName", { required: true })}
                     type="text"
-                    className={`mb-0 ${errors.companyName
+                    className={`mb-0 ${
+                      errors.companyName
                         ? "border !border-red-600"
                         : "border-none"
-                      }`}
+                    }`}
                     placeholder="Company Name"
                     name="companyName"
                   />

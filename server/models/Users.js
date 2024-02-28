@@ -73,6 +73,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    time_format: {
+      type: String,
+      enum: ["12h", "24h"],
+      required: true,
+    },
     website: {
       type: String,
       required: false,

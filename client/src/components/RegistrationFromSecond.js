@@ -31,6 +31,8 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
     handleSubmit,
     register,
     control,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -39,6 +41,8 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
   const countryRef = useRef();
 
   const [postRegister, { isLoading }] = usePostRegisterMutation();
+
+  const [time_format, setTime_format] = useState("");
 
   const [error, setError] = useState("");
   const [number, setNumber] = useState("");
@@ -58,6 +62,9 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
   const [userAgreement, setUserAgreement] = useState(false);
 
   const handleUser = async (data) => {
+    if (!time_format) {
+      return;
+    }
     const userFinalData = {
       ...userData,
       name: data?.name,
@@ -67,6 +74,7 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
       province: data?.province,
       country: data?.country,
       phoneNumber: number,
+      time_format: time_format,
     };
     const options = { data: userFinalData };
     if (userAgreement) {
@@ -299,6 +307,39 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
                 {errors.phoneNumber.message}
               </small>
             )}
+          </div>
+
+          <div className="w-100 h-fit mb-8">
+            <label for="exampleInputPassword1" className="form-label">
+              Choose 12 or 24 Hours Time Format<span>*</span>
+            </label>
+            <div className="flex items-center gap-4 relative">
+              <div className="grid grid-cols-6 w-8 absolute -top-10 left-12 opacity-0 z-10">
+                <input
+                  type="text"
+                  required={!time_format}
+                  className="opacity-0"
+                />
+              </div>
+              <div className="d-flex gap-2 align-items-center mb-3 z-50">
+                <input
+                  type="checkbox"
+                  className="mb-0 cursor-pointer"
+                  checked={time_format === "12h"}
+                  onClick={() => setTime_format("12h")}
+                />
+                <p className={`mb-0 ${styles.agreementText}`}>12h</p>
+              </div>
+              <div className="d-flex gap-2 align-items-center mb-3 z-50">
+                <input
+                  type="checkbox"
+                  className="mb-0 cursor-pointer"
+                  checked={time_format === "14h"}
+                  onClick={() => setTime_format("14h")}
+                />
+                <p className={`mb-0 ${styles.agreementText}`}>24h</p>
+              </div>
+            </div>
           </div>
 
           {error && <small className="text-red-600 text-sm">{error}</small>}

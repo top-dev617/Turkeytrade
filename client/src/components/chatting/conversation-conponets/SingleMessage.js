@@ -1,30 +1,20 @@
 import ShowImage from "@/components/commons/ShowImage";
 import VideoPlayer from "@/components/commons/video-player/VideoPlayer";
 import { AuthContext } from "@/components/context/AuthContext";
-import {
-  DATE_FORMATE,
-  DATE_TIME_FORMATE,
-  TIME_FORMATE,
-} from "@/lib/constants/globalConstant";
+import { DATE_FORMATE } from "@/lib/constants/globalConstant";
 import useLocalTime from "@/lib/hooks/useLocalTime";
 import useViewVideo from "@/lib/hooks/useViewVideo";
 import { handleDownload } from "@/lib/services/globalService";
 import { base_url } from "@/utils/auth/global";
 import { iDownload } from "@/utils/icons/icons";
-import moment from "moment";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useContext, useState } from "react";
+import SingleMessageImage from "./single-message/SingleMessageImage";
 
 const SingleMessage = ({ message, chat }) => {
   const { user } = useContext(AuthContext);
   const { viewVideo } = useViewVideo();
   const { inputTime } = useLocalTime();
   const [open, setOpen] = useState("");
-
-  const scroll = useRef();
-  // useEffect(() => {
-  //   scroll.current?.scrollIntoView({ behavior: "smooth" });
-  // }, [message]);
 
   return (
     <>
@@ -52,29 +42,10 @@ const SingleMessage = ({ message, chat }) => {
             </small>
             <div className="flex flex-col items-end bg-pm text-white px-[6px] p-[6px] w-fit h-fit rounded-[3px]">
               {message?.images?.length > 0 && (
-                <div
-                  className={`cursor-pointer w-fit grid ${
-                    message?.images?.length === 1
-                      ? "grid-cols-1"
-                      : "grid-cols-2"
-                  } gap-2`}
-                >
-                  {message?.images?.map((img, index) => (
-                    <img
-                      key={index}
-                      onClick={() => setOpen(img)}
-                      className={`w-full h-full object-contain ${
-                        message?.images?.length < 3
-                          ? `max-h-[200px] max-w-[180px] ${
-                              message?.images?.length === 2 && "bg-pmd"
-                            }`
-                          : "max-h-[98px] max-w-[130px] bg-pmd"
-                      }`}
-                      src={`${base_url}/uploads/${img}`}
-                      alt=""
-                    />
-                  ))}
-                </div>
+                <SingleMessageImage
+                  images={message?.images}
+                  setOpen={setOpen}
+                />
               )}
               {message?.document && (
                 <div className="bg-[#E1EEE8] rounded-[3px]">
@@ -110,7 +81,7 @@ const SingleMessage = ({ message, chat }) => {
               )}
               {message?.message && (
                 <div className="text-white  p-0 mx-0 mt-1 relative w-fit">
-                  <div className="label-list text-white break-all !text-xs !font-medium">
+                  <div className="label-list text-white break-words !text-xs !font-medium">
                     {message?.message}
                   </div>
 
@@ -153,29 +124,10 @@ const SingleMessage = ({ message, chat }) => {
             </small>
             <div className=" flex flex-col items-start bg-[#d9eee4] text-white px-[6px] p-[6px] w-fit h-fit rounded-[3px]">
               {message?.images?.length > 0 && (
-                <div
-                  className={`cursor-pointer w-fit grid ${
-                    message?.images?.length === 1
-                      ? "grid-cols-1"
-                      : "grid-cols-2"
-                  } gap-2`}
-                >
-                  {message?.images?.map((img, index) => (
-                    <img
-                      key={index}
-                      onClick={() => setOpen(img)}
-                      className={`w-full h-full object-contain ${
-                        message?.images?.length < 3
-                          ? `max-h-[200px] max-w-[180px] ${
-                              message?.images?.length === 2 && "bg-pmd"
-                            }`
-                          : "max-h-[98px] max-w-[130px] bg-pmd"
-                      }`}
-                      src={`${base_url}/uploads/${img}`}
-                      alt=""
-                    />
-                  ))}
-                </div>
+                <SingleMessageImage
+                  images={message?.images}
+                  setOpen={setOpen}
+                />
               )}
               {message?.document && (
                 <div className="bg-[#E1EEE8] rounded-[3px]">
@@ -211,7 +163,7 @@ const SingleMessage = ({ message, chat }) => {
               )}
               {message?.message && (
                 <div className=" p-0 mx-0 mt-1 relative w-fit">
-                  <div className="label-list break-all !text-xs !font-medium">
+                  <div className="label-list break-words !text-xs !font-medium">
                     {message?.message}
                   </div>
                   <div className="absolute -left-3 bottom-[6px] transform translate-x-1/2 rotate-45 w-2 h-2 bg-[#d9eee4]"></div>

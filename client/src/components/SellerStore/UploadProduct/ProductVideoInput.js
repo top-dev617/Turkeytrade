@@ -22,7 +22,7 @@ const ProductVideoInput = ({
     onDrop: onVideo,
     multiple: false,
     accept: {
-      "video/*": [".mp4", ".mkv", ".webm", ".ogg"],
+      "video/*": [".mp4", ".webm"],
     },
   });
   return (

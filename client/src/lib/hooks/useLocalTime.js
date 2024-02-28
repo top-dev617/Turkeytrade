@@ -1,6 +1,10 @@
+import { AuthContext } from "@/components/context/AuthContext";
 import moment from "moment-timezone";
+import { useContext } from "react";
 
 const useLocalTime = () => {
+  const { user } = useContext(AuthContext);
+
   const inputTime = (createdAt, dateFormat, timeZone) => {
     let dateF = "";
     if (dateFormat) {
@@ -8,11 +12,7 @@ const useLocalTime = () => {
     }
     const detectedTimeZone = timeZone || moment.tz.guess();
 
-    const d = new Date();
-    const fTime = d.toLocaleTimeString();
-    const is24HourFormat = !fTime.includes("AM") && !fTime.includes("PM");
-
-    const timeFormat = is24HourFormat ? "HH:mm" : "h:mm A";
+    const timeFormat = user?.time_format === "12h" ? "h:mm A" : "HH:mm";
 
     const formattedTime = moment(createdAt)
       .tz(detectedTimeZone)

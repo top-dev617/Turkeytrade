@@ -51,6 +51,7 @@ const registerUser = async (req, res) => {
         country: req.body.country,
         phoneNumber: req.body.phoneNumber,
         role: req.body.role,
+        time_format: req.body.time_format,
       });
 
       const user = await newUser.save();

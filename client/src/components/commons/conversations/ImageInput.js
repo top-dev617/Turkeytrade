@@ -34,8 +34,8 @@ const ImageInput = ({ sendMessage, pastImage, resetImage }) => {
 
   const handleSetImages = (e) => {
     const files = e.target.files;
-    if (files.length > 3) {
-      toast.error(`Please select up to ${3} files.`);
+    if (files.length > 4) {
+      toast.error(`Please select up to ${4} files.`);
       imgRef.current.value = null;
       return;
     } else {
