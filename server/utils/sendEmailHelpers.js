@@ -377,7 +377,7 @@ const sendWelcomeMail = async (data) => {
                 </p>
                 <p style="color: #2c2d2e;font-size:14px;line-height:180% ;margin-top: 5px; ">
                     Should you have any questions or need support, our team is here for you. Contact us anytime at
-                    <a href="mailto:Info@turkeytrademarket.com" target="_blank">support@turkeytrademarket.com</a>.
+                    <a href="mailto:support@turkeytrademarket.com" target="_blank">support@turkeytrademarket.com</a>.
                 </p>
                 <p style="color: #2c2d2e;font-size:14px;line-height:180% ;margin-top: 5px; ">
                     We are glad to have you with us and look forward to supporting your business endeavors.
