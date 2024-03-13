@@ -334,8 +334,8 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
                 <input
                   type="checkbox"
                   className="mb-0 cursor-pointer"
-                  checked={time_format === "14h"}
-                  onClick={() => setTime_format("14h")}
+                  checked={time_format === "24h"}
+                  onClick={() => setTime_format("24h")}
                 />
                 <p className={`mb-0 ${styles.agreementText}`}>24h</p>
               </div>

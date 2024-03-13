@@ -1,3 +1,4 @@
+import { playNtf } from "@/lib/services/globalService";
 import React, { useEffect, useState } from "react";
 
 const NotificationExample = () => {
@@ -36,6 +37,8 @@ const NotificationExample = () => {
           = {time}
         </p>
       )}
+
+      <button onClick={() => playNtf()}>Play</button>
     </div>
   );
 };
