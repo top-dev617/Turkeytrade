@@ -10,8 +10,11 @@ export const handleDownload = (endpoint) => {
 };
 
 export const playNtf = async () => {
-  var audio = new Audio(
+  const audio = document.createElement("audio");
+  audio.setAttribute(
+    "src",
     "https://proxy.notificationsounds.com/message-tones/relax-message-tone/download/file-sounds-1217-relax.mp3"
   );
-  audio.play();
+  document.body.appendChild(audio);
+  await audio.play();
 };
