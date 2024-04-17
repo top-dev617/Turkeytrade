@@ -40,7 +40,7 @@ const conversationApi = api.injectEndpoints({
       providesTags: ["messages"],
     }),
     getGlobalChatMessages: builder.query({
-      query: (chatId) => `/messages/${chatId}`,
+      query: ({ chatId, page }) => `/messages/${chatId}?page=${page}`,
     }),
     getReceiverInfo: builder.query({
       query: (type, memberId) => `/chats/info/${type}/${memberId}`,

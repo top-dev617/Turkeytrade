@@ -9,7 +9,7 @@ const CompanyInfo = ({ store }) => {
     <div className="info">
       <div className="container grid md:grid-cols-2 gap-8">
         <div className="h-[320px]">
-          <h3>Company info</h3>
+          <h3>Company Description</h3>
           <textarea
             className="max-h-[270px] h-full mt-2 bg-white resize-none"
             name="store_info"

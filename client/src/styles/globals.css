@@ -1281,3 +1281,7 @@ details[data-popover="right"] > summary + * {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
+
+.all_break {
+  word-break: break-word !important;
+}

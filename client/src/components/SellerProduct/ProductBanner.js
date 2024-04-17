@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import sms from "../../../public/assets/smsicon.png";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import Carousel from "react-gallery-carousel";
 import "react-gallery-carousel/dist/index.css";
@@ -45,18 +45,18 @@ const ProductBanner = ({ product }) => {
       const result = await removeSaveProduct(options);
       if (result?.data?.success) {
         refetch();
-        toast.success("Product Remove Successful");
+        toast.success("Product Remove Successfully");
       } else {
-        toast.error("Product Remove unSuccessful");
+        toast.error("Product Remove Unsuccessfully");
       }
     } else {
       const options = { data: { product: id } };
       const result = await createSaveProduct(options);
       if (result?.data?.success) {
         refetch();
-        toast.success("Product Saved Successful");
+        toast.success("Product Saved Successfully");
       } else {
-        toast.error("Product Saved unSuccessful");
+        toast.error("Product Saved Unsuccessfully");
       }
     }
   };
@@ -81,7 +81,7 @@ const ProductBanner = ({ product }) => {
       };
 
       const result = await postNewChat(options);
-      console.log(result);
+      // console.log(result);
       if (result?.data?.access) {
         dispatch(setChat(result?.data?.data));
         dispatch(setChats(result?.data?.data));

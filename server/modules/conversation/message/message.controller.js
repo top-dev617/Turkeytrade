@@ -36,12 +36,25 @@ Message.createIndexes([{ chatId: 1 }, { senderId: 1 }]);
 
 const getMessages = async (req, res) => {
   const { chatId } = req.params;
-  try {
-    const result = await Message.find({ chatId }).sort({ _id: -1 }).limit(50);
+  const page = parseInt(req.query.page) || 1; // Default page is 1
+  const limit = parseInt(req.query.limit) || 50; // Default limit is 50
 
-    // console.log(result);
+  const skip = (page - 1) * limit;
+
+  try {
+    const result = await Message.find({ chatId })
+      .sort({ _id: -1 })
+      .skip(skip)
+      .limit(limit);
     const messagesAsc = result.reverse();
-    res.status(200).send(messagesAsc);
+    const total = await Message.countDocuments({ chatId });
+    res.status(200).json({
+      data: {
+        messages: messagesAsc,
+        total: total,
+        page: page,
+      },
+    });
   } catch (error) {
     res.status(500).send(error);
   }

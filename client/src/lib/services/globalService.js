@@ -18,3 +18,11 @@ export const playNtf = async () => {
   document.body.appendChild(audio);
   await audio.play();
 };
+
+export const isValidImageForJpg = async (file) => {
+  if (file && file.name.endsWith(".JPG")) {
+    return false;
+  } else {
+    return true;
+  }
+};

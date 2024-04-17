@@ -45,6 +45,8 @@ const Header = () => {
   const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
   const { data: chatData } = useGetGlobalChatDataQuery();
 
+  const profileRef = useRef();
+
   const dispatch = useDispatch();
   const router = useRouter();
   const { pathname } = router;
@@ -208,13 +210,16 @@ const Header = () => {
         {user?._id && (
           <div className="hidden md:block">
             <Popover placement="bottom">
-              <PopoverHandler>
+              <PopoverHandler ref={profileRef}>
                 <Button className="bg-[#037D41] flex justify-center items-center gap-2 outline-none shadow-none">
                   <span>{user?.name}</span>
                 </Button>
               </PopoverHandler>
               <PopoverContent className="w-44 p-2">
-                <div className="max-w-[200px] text-center grid grid-cols-1 gap-2">
+                <div
+                  onClick={() => profileRef.current.click()}
+                  className="max-w-[200px] text-center grid grid-cols-1 gap-2"
+                >
                   <Link href="/profile">
                     <Button className="w-full py-0 h-8 rounded shadow-none bg-pm hover:bg-pmd">
                       Profile

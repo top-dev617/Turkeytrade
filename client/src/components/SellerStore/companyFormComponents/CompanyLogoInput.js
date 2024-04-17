@@ -4,6 +4,7 @@ import React, { useCallback } from "react";
 import picIcon from "../../../../public/assets/pic-icon.png";
 import { useDropzone } from "react-dropzone";
 import { ACCEPTABLE_IMAGE_FILE } from "@/lib/constants/globalConstant";
+import { isValidImageForJpg } from "@/lib/services/globalService";
 
 const CompanyLogoInput = ({
   register,
@@ -15,9 +16,14 @@ const CompanyLogoInput = ({
   viewFile,
   removeLogo,
 }) => {
-  const onLogo = useCallback((acceptedFiles) => {
+  const onLogo = useCallback(async (acceptedFiles) => {
     if (acceptedFiles) {
-      setLogo(acceptedFiles[0]);
+      const isValidCheck = await isValidImageForJpg(acceptedFiles[0]);
+      if (!isValidCheck) {
+        return;
+      } else {
+        setLogo(acceptedFiles[0]);
+      }
     }
   }, []);
 

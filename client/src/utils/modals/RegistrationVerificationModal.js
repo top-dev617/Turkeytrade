@@ -4,11 +4,14 @@ import tickMark from "/public/assets/tickMark.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { AuthContext } from "@/components/context/AuthContext";
-import { useHandleOtpMutation, useHandleResendOtpMutation } from "@/redux/features/auth/authApi";
+import {
+  useHandleOtpMutation,
+  useHandleResendOtpMutation,
+} from "@/redux/features/auth/authApi";
 import { Spinner } from "@material-tailwind/react";
 
 const RegistrationVerificationModal = ({ userRegistrationInfo }) => {
-  const { user, setUser, setIsSignedIn } = useContext(AuthContext)
+  const { user, setUser, setIsSignedIn } = useContext(AuthContext);
 
   const [completeStep, setCompleteStep] = useState(0);
   const router = useRouter();
@@ -16,7 +19,7 @@ const RegistrationVerificationModal = ({ userRegistrationInfo }) => {
   const closeModalRef = useRef(null);
 
   const [otp, setOtp] = useState(["", "", "", "", ""]);
-  const [isResend, setIsResend] = useState("")
+  const [isResend, setIsResend] = useState("");
 
   const inputRefs = useRef([]);
   const handleChange = async (index, value) => {
@@ -46,35 +49,35 @@ const RegistrationVerificationModal = ({ userRegistrationInfo }) => {
     router.push("/");
   };
 
-
-  const [handleOtp, { isLoading }] = useHandleOtpMutation()
-  const [handleResendOtp] = useHandleResendOtpMutation()
-
+  const [handleOtp, { isLoading }] = useHandleOtpMutation();
+  const [handleResendOtp] = useHandleResendOtpMutation();
 
   const handleOTP = async () => {
-    const otpData = { email: userRegistrationInfo?.email, otp: otp.join("") }
+    const otpData = { email: userRegistrationInfo?.email, otp: otp.join("") };
 
-    const options = { data: otpData }
-    const result = await handleOtp(options)
+    const options = { data: otpData };
+    const result = await handleOtp(options);
     if (result?.error?.data?.success === false) {
-      setIsResend(result?.error?.data.message)
+      setIsResend(result?.error?.data.message);
     }
     if (result?.data?.accessToken) {
-      localStorage.setItem("turkey-trade-market", result?.data?.accessToken)
-      setIsResend("")
-      setUser(result?.data?.user)
-      setCompleteStep((prev) => prev + 1)
-      setIsSignedIn(true)
+      localStorage.setItem("turkey-trade-market", result?.data?.accessToken);
+      setIsResend("");
+      setUser(result?.data?.user);
+      setCompleteStep((prev) => prev + 1);
+      setIsSignedIn(true);
     }
-  }
+  };
 
   const handleResend = async () => {
-    const options = { data: userRegistrationInfo }
-    const result = await handleResendOtp(options)
+    const options = { data: userRegistrationInfo };
+    const result = await handleResendOtp(options);
     if (result?.data?.status === 200) {
-      setIsResend("Resend OTP")
+      setIsResend(
+        "Your new one-time password has been sent. Please check your inbox."
+      );
     }
-  }
+  };
 
   return (
     <div>
@@ -120,19 +123,27 @@ const RegistrationVerificationModal = ({ userRegistrationInfo }) => {
                     </div>
                   </div>
                   <div>
-                    <div className={styles.resendButtonContainer} style={{ marginBottom: "10px" }}>
-                      <button onClick={() => handleResend()}>Resend Code</button>
-
+                    <div
+                      className={styles.resendButtonContainer}
+                      style={{ marginBottom: "10px" }}
+                    >
+                      <button onClick={() => handleResend()}>
+                        Resend Code
+                      </button>
                     </div>
-                    {
-                      isResend && <p
+                    {isResend && (
+                      <p
+                        className="all_break"
                         style={{
                           textAlign: "center",
                           fontSize: "14px",
                           marginBottom: "10px",
-                          color: "red"
-                        }}>{isResend}</p>
-                    }
+                          color: "red",
+                        }}
+                      >
+                        {isResend}
+                      </p>
+                    )}
                   </div>
                   <div className={styles.completeButtonContainer}>
                     <button
@@ -141,9 +152,11 @@ const RegistrationVerificationModal = ({ userRegistrationInfo }) => {
                       onClick={handleOTP}
                       className="flex justify-center items-center"
                     >
-                      {
-                        isLoading ? <Spinner color="white" /> : "Complete Verification"
-                      }
+                      {isLoading ? (
+                        <Spinner color="white" />
+                      ) : (
+                        "Complete Verification"
+                      )}
                     </button>
                   </div>
                 </div>

@@ -40,7 +40,7 @@ const SingleMessage = ({ message, chat }) => {
               {message?.createdAt &&
                 inputTime(message?.createdAt, DATE_FORMATE)}
             </small>
-            <div className="flex flex-col items-end bg-pm text-white px-[6px] p-[6px] w-fit h-fit rounded-[3px]">
+            <div className="flex flex-col items-end bg-pm text-white px-[6px] p-[6px] max-w-fit h-fit rounded-[3px]">
               {message?.images?.length > 0 && (
                 <SingleMessageImage
                   images={message?.images}
@@ -80,8 +80,8 @@ const SingleMessage = ({ message, chat }) => {
                 </div>
               )}
               {message?.message && (
-                <div className="text-white  p-0 mx-0 mt-1 relative w-fit">
-                  <div className="label-list text-white break-words !text-xs !font-medium">
+                <div className="text-white p-0 mx-0 mt-1 relative w-fit">
+                  <div className="label-list text-white all_break !text-xs !font-medium">
                     {message?.message}
                   </div>
 
@@ -163,7 +163,7 @@ const SingleMessage = ({ message, chat }) => {
               )}
               {message?.message && (
                 <div className=" p-0 mx-0 mt-1 relative w-fit">
-                  <div className="label-list break-words !text-xs !font-medium">
+                  <div className="label-list all_break !text-xs !font-medium">
                     {message?.message}
                   </div>
                   <div className="absolute -left-3 bottom-[6px] transform translate-x-1/2 rotate-45 w-2 h-2 bg-[#d9eee4]"></div>

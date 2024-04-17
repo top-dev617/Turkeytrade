@@ -7,12 +7,15 @@ import {
   setInboxChat,
   setInboxChats,
 } from "@/redux/features/conversation/conversationSlice";
+import Image from "next/image";
+import emptyChats from "../../../../assets/icons/no_chats.png";
 
 const InboxChatSidebar = () => {
   const { data, isLoading } = useGetChatDataQuery();
   const { inboxChats, inboxChat, chats } = useSelector(
     (state) => state.conversation
   );
+
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
 
@@ -61,19 +64,32 @@ const InboxChatSidebar = () => {
           />
         </div>
       ) : (
-        <ul className={`overflow-y-auto h-full`}>
-          <li>
-            {chats &&
-              chats?.map((item, index) => (
-                <SingleChatUser
-                  key={index}
-                  chatData={item}
-                  handleSetData={handleSetData}
-                  chat={inboxChat}
-                />
-              ))}
-          </li>
-        </ul>
+        <>
+          {chats?.length > 0 && (
+            <ul className={`overflow-y-auto h-full`}>
+              <li>
+                {chats &&
+                  chats?.map((item, index) => (
+                    <SingleChatUser
+                      key={index}
+                      chatData={item}
+                      handleSetData={handleSetData}
+                      chat={inboxChat}
+                    />
+                  ))}
+              </li>
+            </ul>
+          )}
+        </>
+      )}
+
+      {!isLoading && chats?.length < 1 && (
+        <div className="flex flex-col justify-center items-center h-full">
+          <Image src={emptyChats} className="max-w-[200px] object-contain" />
+          <h1 className="font-semibold text-[#1E2024]">
+            You have no messages yet
+          </h1>
+        </div>
       )}
     </div>
   );

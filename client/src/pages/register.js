@@ -8,6 +8,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useCheckEmailMutation } from "@/redux/features/auth/authApi";
 import { Spinner } from "@material-tailwind/react";
+import { iEyeHide, iEyeShow } from "@/utils/icons/icons";
 
 const schema = yup.object().shape({
   email: yup
@@ -43,6 +44,9 @@ const RegisterPage = () => {
   const router = useRouter();
   const isSeller = router.asPath.includes("type=seller");
   const [firstData, setFirstData] = useState(null);
+
+  const [openPassword, setOpenPassword] = useState(false);
+  const [openConfirmPassword, setOpenConfirmPassword] = useState(false);
 
   const [checkEmail, { isLoading }] = useCheckEmailMutation();
 
@@ -107,16 +111,26 @@ const RegisterPage = () => {
                   >
                     Password<span>*</span>
                   </label>
-                  <input
-                    {...register("password", { required: true })}
-                    type="password"
-                    placeholder="Password "
-                    className={`mb-0 ${
-                      errors.password ? "border !border-red-600" : "border-none"
-                    }`}
-                    autoComplete="off"
-                    name="password"
-                  />
+                  <div className="relative">
+                    <input
+                      {...register("password", { required: true })}
+                      type={openPassword ? "text" : "password"}
+                      placeholder="Password "
+                      className={`mb-0 !pr-10 ${
+                        errors.password
+                          ? "border !border-red-600"
+                          : "border-none"
+                      }`}
+                      autoComplete="off"
+                      name="password"
+                    />
+                    <div
+                      onClick={() => setOpenPassword(!openPassword)}
+                      className="absolute top-5 right-3 cursor-pointer"
+                    >
+                      {openPassword ? iEyeShow : iEyeHide}
+                    </div>
+                  </div>
                   {errors.password ? (
                     <small className="text-red-600 text-sm">
                       {errors.password.message}
@@ -136,18 +150,28 @@ const RegisterPage = () => {
                   >
                     Repeat Password<span>*</span>
                   </label>
-                  <input
-                    {...register("repeatPassword", { required: true })}
-                    type="password"
-                    placeholder="Repeat Password "
-                    className={`mb-0 ${
-                      errors.repeatPassword
-                        ? "border !border-red-600"
-                        : "border-none"
-                    }`}
-                    autoComplete="off"
-                    name="repeatPassword"
-                  />
+                  <div className="relative">
+                    <input
+                      {...register("repeatPassword", { required: true })}
+                      type={openConfirmPassword ? "text" : "password"}
+                      placeholder="Repeat Password "
+                      className={`mb-0 !pr-10 ${
+                        errors.repeatPassword
+                          ? "border !border-red-600"
+                          : "border-none"
+                      }`}
+                      autoComplete="off"
+                      name="repeatPassword"
+                    />
+                    <div
+                      onClick={() =>
+                        setOpenConfirmPassword(!openConfirmPassword)
+                      }
+                      className="absolute top-5 right-3 cursor-pointer"
+                    >
+                      {openConfirmPassword ? iEyeShow : iEyeHide}
+                    </div>
+                  </div>
                   {errors.repeatPassword && (
                     <small className="text-red-600 text-sm">
                       {errors.repeatPassword.message}
@@ -182,9 +206,10 @@ const RegisterPage = () => {
 
                 <div className="d-flex gap-5 mt-4">
                   <button
-                    type=""
+                    onClick={() => router.back()}
+                    type="button"
                     style={{ backgroundColor: "#F2F2F2", color: "#909090" }}
-                    disabled
+                    className="hover:!bg-[#e9e5e5]"
                   >
                     Back
                   </button>

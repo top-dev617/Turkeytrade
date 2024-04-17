@@ -36,16 +36,14 @@ const sendVerificationCode = async (user, otp) => {
     <div
     style="max-width: 600px; width: 100%; margin: 0 auto; font-family: 'Cabin',sans-serif; text-align:center; background-color: #ffff;">
     <div style="width: 100%; background-color: #037d41; align-items: center; padding:30px 0px">
-        <p style=" color:#ffff; font-weight: 700;">T H A N K S <span style="margin-left: 10px;">F O R</span> <span
-                style="margin-left: 10px;">REGISTERING
-                !</span></p>
-        <p style=" color:#ffff; margin: 0px;     line-height: 39.2px;
-    font-size: 28px;">Verify Your E-mail Address</p>
-    </div>
+    <p style="color:#ffff; margin: 0px; line-height: 32px; font-size:15px">THANKS FOR REGISTERING !</span></p>
+    <p style=" color:#ffff; margin: 0px; line-height: 39.2px;
+font-size: 28px;">Verify Your E-mail Address</p>
+</div>
 
     <div style="text-align: center; padding:10px">
         <p style="font-size: 22px;
-    line-height: 35.2px;">Hi,</p>
+    line-height: 35.2px;">Hi, ${user?.name}</p>
         <small style="color: #636465;">Please use the following OTP code to complete the registration process</small>
     </div>
     <button

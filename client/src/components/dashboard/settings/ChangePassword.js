@@ -55,14 +55,14 @@ const ChangePassword = () => {
         </div>
         <hr className="mt-4 mb-8" />
 
-        <div className="mb-2">
+        <div className="mb-2 max-w-[500px]">
           <label for="exampleInputPassword1" className="form-label mb-1 label">
-            Old Password<span>*</span>
+            Old Password<span className="text-red-600">*</span>
           </label>
           <input
             {...register("old_password", { required: true })}
             type="password"
-            placeholder="old_Password "
+            placeholder="Old Password "
             className={`input px-4 mb-0 ${
               errors.old_password ? "border !border-red-600" : "border-none"
             }`}
@@ -70,19 +70,19 @@ const ChangePassword = () => {
             name="old_password"
           />
           {errors.old_password && (
-            <small className="text-red-600 text-sm">
+            <i className="text-red-600 text-xs">
               {errors.old_password.message}
-            </small>
+            </i>
           )}
         </div>
-        <div className="mb-2">
+        <div className="mb-2 max-w-[500px]">
           <label for="exampleInputPassword1" className="form-label mb-1 label">
-            New Password<span>*</span>
+            New Password<span className="text-red-600">*</span>
           </label>
           <input
             {...register("new_password", { required: true })}
             type="password"
-            placeholder="new_Password "
+            placeholder="New Password "
             className={`input px-4 mb-0 ${
               errors.new_password ? "border !border-red-600" : "border-none"
             }`}
@@ -90,15 +90,15 @@ const ChangePassword = () => {
             name="new_password"
           />
           {errors.new_password && (
-            <small className="text-red-600 text-sm">
+            <i className="text-red-600 text-xs">
               {errors.new_password.message}
-            </small>
+            </i>
           )}
         </div>
 
-        <div className="mb-2">
+        <div className="mb-2 max-w-[500px]">
           <label for="exampleInputPassword1" className="form-label mb-1 label">
-            Repeat Password<span>*</span>
+            Repeat Password<span className="text-red-600">*</span>
           </label>
           <input
             {...register("repeat_password", { required: true })}
@@ -111,9 +111,9 @@ const ChangePassword = () => {
             name="repeat_password"
           />
           {errors.repeat_password && (
-            <small className="text-red-600 text-sm">
+            <i className="text-red-600 text-xs">
               {errors.repeat_password.message}
-            </small>
+            </i>
           )}
         </div>
 

@@ -114,7 +114,7 @@ io.on("connection", (socket) => {
   //take userId and socketId from user
   socket.on("addUser", (user) => {
     addUser(user, socket.id);
-    // console.log("🟢 Connected total: ", users?.length, "  ", "user: ", user);
+    console.log("🟢 Connected total: ", users?.length, "  ", "user: ", user);
     io.emit("getUsers", users);
   });
 
@@ -127,7 +127,7 @@ io.on("connection", (socket) => {
 
   socket.on("sendMessage", (newMessage) => {
     const currentUsers = getUsers(newMessage?.receiverId);
-    // console.log("users", currentUsers);
+    console.log("users", currentUsers);
     for (let i = 0; i < currentUsers.length; i++) {
       io.to(currentUsers[i]?.socketId).emit("getMessage", newMessage);
     }
@@ -146,7 +146,7 @@ io.on("connection", (socket) => {
         time: time.toISOString(),
       });
     }
-    // console.log("disconnected! 🔴");
+    console.log("disconnected! 🔴");
   });
 });
 
@@ -160,3 +160,36 @@ app.get("/", (req, res) => {
 Server.listen(PORT, () => {
   console.log(`Server is Running PORT: ${PORT}`);
 });
+
+/*
+
+socket.on(
+    "sendMessage",
+    ({
+      senderId,
+      receiverId,
+      chatId,
+      message,
+      images,
+      video,
+      document,
+      createdAt,
+    }) => {
+      const currentUsers = getUsers(receiverId, senderId);
+      for (let i = 0; i < currentUsers?.length; i++) {
+        io.to(currentUsers[i]?.socketId).emit("getMessage", {
+          senderId,
+          receiverId,
+          chatId,
+          message,
+          images,
+          video,
+          document,
+          createdAt,
+          members: [receiverId, senderId],
+        });
+      }
+    }
+  );
+
+*/

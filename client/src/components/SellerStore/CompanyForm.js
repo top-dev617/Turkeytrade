@@ -24,6 +24,7 @@ import StoreCertificates from "./StoreCertificates";
 import CompanyLogoInput from "./companyFormComponents/CompanyLogoInput";
 import CompanyVideoInput from "./companyFormComponents/CompanyVideoInput";
 import { ACCEPTABLE_IMAGE_FILE } from "@/lib/constants/globalConstant";
+import { isValidImageForJpg } from "@/lib/services/globalService";
 
 const CompanyForm = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -148,8 +149,22 @@ const CompanyForm = () => {
     setCertificates((current) => [...current, ...images]);
   };
 
-  const onCTF = useCallback((acceptedFiles) => {
-    handleSetImages(acceptedFiles);
+  const onCTF = useCallback(async (acceptedFiles) => {
+    if (acceptedFiles?.length > 0) {
+      let isValid = true;
+      for (let i = 0; i < acceptedFiles.length; i++) {
+        const isValidCheck = await isValidImageForJpg(acceptedFiles[i]);
+        if (!isValidCheck) {
+          isValid = isValidCheck;
+          break;
+        }
+      }
+      if (!isValid) {
+        return;
+      } else {
+        handleSetImages(acceptedFiles);
+      }
+    }
   }, []);
 
   const {
@@ -171,7 +186,7 @@ const CompanyForm = () => {
         <form onSubmit={handleSubmit(handleRegister)}>
           <div className="grid md:grid-cols-2 gap-8 mx-auto">
             <div className="w-full h-[320px]">
-              <label>Company info</label>
+              <label>Company Description</label>
               <textarea
                 {...register("store_info")}
                 rows="7"

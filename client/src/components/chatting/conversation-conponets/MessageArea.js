@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SendMessageBox from "./SendMessageBox";
 import SingleMessage from "./SingleMessage";
@@ -7,10 +7,7 @@ import {
   setChatSeen,
   setChatSetting,
   setDocument,
-  setImage,
   setImages,
-  setInboxChatSetting,
-  setInboxLastMessages,
   setInboxMessagePush,
   setLastMessages,
   setMessagePush,
@@ -24,11 +21,8 @@ import {
   useToggleAlertMutation,
 } from "@/redux/features/conversation/conversationApi";
 import Link from "next/link";
-import moment from "moment";
 import Loading from "@/components/commons/Loading";
-import { io } from "socket.io-client";
 import { useRef } from "react";
-import { socket_url } from "@/utils/auth/global";
 import { useEffect } from "react";
 import { iBack, iMute, iThreeDot, iUnMute } from "@/utils/icons/icons";
 import useViewImage from "@/lib/hooks/useViewImage";
@@ -38,6 +32,7 @@ import {
   Popover,
   PopoverContent,
   PopoverHandler,
+  Spinner,
 } from "@material-tailwind/react";
 import useLocalTime from "@/lib/hooks/useLocalTime";
 import useGlobal from "@/lib/hooks/useGlobal";
@@ -50,7 +45,13 @@ const MessageArea = ({ messageClassName }) => {
     (state) => state.conversation
   );
   const [toggleAlert] = useToggleAlertMutation();
-  const { data, refetch, isLoading } = useGetGlobalChatMessagesQuery(chat?._id);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(1);
+  const [loadMore, setLoadMore] = useState(false);
+  const { data, refetch, isLoading } = useGetGlobalChatMessagesQuery({
+    chatId: chat?._id,
+    page: page,
+  });
   const [postNewMessage] = usePostNewMessageMutation();
   const [seenAllMessagesByChat] = useSeenAllMessagesByChatMutation();
   const dispatch = useDispatch();
@@ -79,9 +80,23 @@ const MessageArea = ({ messageClassName }) => {
     return () => {};
   }, [chat]);
 
-  useEffect(() => {
-    dispatch(setMessages(data));
+  useMemo(() => {
+    if (chat?._id) {
+      setTotal(1);
+      setPage(1);
+    }
+  }, [chat?._id]);
 
+  useEffect(() => {
+    if (data?.data?.messages?.length > 0) {
+      if (data?.data?.page === 1) {
+        dispatch(setMessages(data?.data?.messages));
+        setTotal(data?.data?.total);
+      } else {
+        dispatch(setMessages([...data.data.messages, ...messages]));
+      }
+    }
+    setLoadMore(false);
     return () => {};
   }, [data]);
 
@@ -166,11 +181,19 @@ const MessageArea = ({ messageClassName }) => {
 
   const scrollBottomRef = useRef();
   useEffect(() => {
-    if (scrollBottomRef.current) {
-      scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
-      scrollBottomRef.current.scrollTop = scrollBottomRef.current.scrollHeight;
+    if (!loadMore) {
+      if (scrollBottomRef.current) {
+        scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
+        scrollBottomRef.current.scrollTop =
+          scrollBottomRef.current.scrollHeight;
+      }
     }
   }, [chat, messages]);
+
+  const loadMoreMessages = async () => {
+    setLoadMore(true);
+    setPage(page + 1);
+  };
 
   return (
     <>
@@ -290,6 +313,16 @@ const MessageArea = ({ messageClassName }) => {
               backgroundBlendMode: "soft-light",
             }}
           >
+            {total - page * 50 > 0 && (
+              <div className="flex justify-center">
+                <button
+                  onClick={() => loadMoreMessages()}
+                  className="min-w-[80px] max-w-fit h-[35px] bg-pm hover:bg-pmd text-white rounded-md text-xs mx-auto my-1 flex items-center justify-center gap-2 px-2"
+                >
+                  {loadMore && <Spinner color="white" />} Load More
+                </button>
+              </div>
+            )}
             {isLoading ? (
               <Loading />
             ) : (

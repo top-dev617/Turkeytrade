@@ -12,6 +12,7 @@ import EmojiInput from "./EmojiInput";
 import { ACCEPTABLE_IMAGE_FILE } from "@/lib/constants/globalConstant";
 import useViewImage from "@/lib/hooks/useViewImage";
 import { toast } from "react-toastify";
+import { isValidImageForJpg } from "@/lib/services/globalService";
 
 const ImageInput = ({ sendMessage, pastImage, resetImage }) => {
   const { images } = useSelector((state) => state.conversation);
@@ -21,6 +22,7 @@ const ImageInput = ({ sendMessage, pastImage, resetImage }) => {
   const imgRef = useRef();
   const { handleSubmit, register, reset, setValue, watch, setFocus } =
     useForm();
+
   const handleMessage = (data) => {
     sendMessage(data.message);
     reset();
@@ -32,15 +34,29 @@ const ImageInput = ({ sendMessage, pastImage, resetImage }) => {
     setValue("message", currentMessage + input);
   };
 
-  const handleSetImages = (e) => {
+  const handleSetImages = async (e) => {
     const files = e.target.files;
     if (files.length > 4) {
       toast.error(`Please select up to ${4} files.`);
       imgRef.current.value = null;
       return;
     } else {
-      dispatch(setImages([...files]));
-      setOpen(true);
+      let isValid = true;
+      for (let i = 0; i < files.length; i++) {
+        const isValidCheck = await isValidImageForJpg(files[i]);
+        if (!isValidCheck) {
+          isValid = isValidCheck;
+          break;
+        }
+      }
+      if (!isValid) {
+        imgRef.current.value = null;
+        return;
+      } else {
+        dispatch(setImages([...files]));
+        setOpen(true);
+        imgRef.current.value = null;
+      }
     }
   };
 

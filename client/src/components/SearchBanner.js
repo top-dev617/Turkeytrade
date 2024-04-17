@@ -80,7 +80,7 @@ const SearchBanner = () => {
               )}
             </MenuList>
           </Menu>
-          <Menu
+          {/* <Menu
             animate={{
               mount: { y: 0 },
               unmount: { y: 25 },
@@ -106,7 +106,7 @@ const SearchBanner = () => {
                 </>
               ))}
             </MenuList>
-          </Menu>
+          </Menu> */}
         </div>
         <form onSubmit={handleSearch}>
           <input

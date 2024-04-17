@@ -36,6 +36,7 @@ import { labelInfo } from "@/utils/datas/inputLabelInfo";
 import ProductVideoInput from "./ProductVideoInput";
 import { useDropzone } from "react-dropzone";
 import useAuth from "@/lib/useAuth";
+import { isValidImageForJpg } from "@/lib/services/globalService";
 
 const modules = {
   toolbar: [
@@ -299,7 +300,12 @@ const UploadProduct = ({ store, setStep, user }) => {
   // const img5Ref = useRef();
   // img3Ref, img4Ref, img5Ref
   const imageRefs = [img0Ref, img1Ref, img2Ref];
-  const editImageHandle = (index, img) => {
+  const editImageHandle = async (index, img) => {
+    const isValidCheck = await isValidImageForJpg(img);
+    if (!isValidCheck) {
+      imageRefs[index].current.value = null;
+      return;
+    }
     if (img) {
       if (img.size > 2 * 1024 * 1024) {
         toast.error("Image size must be 2 MB or less.");
@@ -548,7 +554,7 @@ const UploadProduct = ({ store, setStep, user }) => {
         setVideo(null);
         setStep(0);
       } else {
-        toast.error("Product Update unsuccessfully");
+        toast.error("Product Update Unsuccessfully");
         setLoading(false);
         setStep(0);
       }
@@ -606,8 +612,8 @@ const UploadProduct = ({ store, setStep, user }) => {
       } else {
         toast.error(
           saveDraft
-            ? "Saved As Draft unsuccessfully"
-            : "Product Publish unsuccessfully"
+            ? "Saved As Draft Unsuccessfully"
+            : "Product Publish Unsuccessfully"
         );
         setLoading(false);
         setStep(0);

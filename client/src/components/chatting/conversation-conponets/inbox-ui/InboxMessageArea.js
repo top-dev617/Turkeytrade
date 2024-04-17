@@ -4,8 +4,9 @@ import {
   Popover,
   PopoverContent,
   PopoverHandler,
+  Spinner,
 } from "@material-tailwind/react";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import SendMessageBox from "../SendMessageBox";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,13 +15,10 @@ import {
   setDocument,
   setImages,
   setInboxChat,
-  setInboxChatSetting,
-  setInboxLastMessages,
   setInboxMessagePush,
   setInboxMessages,
   setLastMessages,
   setMessagePush,
-  setMessages,
   setVideo,
 } from "@/redux/features/conversation/conversationSlice";
 import useLocalTime from "@/lib/hooks/useLocalTime";
@@ -45,9 +43,13 @@ const InboxMessageArea = () => {
   const { inboxChat, online_users, inboxMessages, images, video, document } =
     useSelector((state) => state.conversation);
   const [toggleAlert] = useToggleAlertMutation();
-  const { data, refetch, isLoading } = useGetGlobalChatMessagesQuery(
-    inboxChat?._id
-  );
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(1);
+  const [loadMore, setLoadMore] = useState(false);
+  const { data, refetch, isLoading } = useGetGlobalChatMessagesQuery({
+    chatId: inboxChat?._id,
+    page: page,
+  });
   const [postNewMessage] = usePostNewMessageMutation();
   const [seenAllMessagesByChat] = useSeenAllMessagesByChatMutation();
   const dispatch = useDispatch();
@@ -80,9 +82,23 @@ const InboxMessageArea = () => {
     return () => {};
   }, [inboxChat]);
 
-  useEffect(() => {
-    dispatch(setInboxMessages(data));
+  useMemo(() => {
+    if (inboxChat?._id) {
+      setTotal(1);
+      setPage(1);
+    }
+  }, [inboxChat?._id]);
 
+  useEffect(() => {
+    if (data?.data?.messages?.length > 0) {
+      if (data?.data?.page === 1) {
+        dispatch(setInboxMessages(data?.data?.messages));
+        setTotal(data?.data?.total);
+      } else {
+        dispatch(setInboxMessages([...data.data.messages, ...inboxMessages]));
+      }
+    }
+    setLoadMore(false);
     return () => {};
   }, [data]);
 
@@ -162,12 +178,21 @@ const InboxMessageArea = () => {
   };
 
   const scrollBottomRef = useRef();
+
   useEffect(() => {
-    if (scrollBottomRef.current) {
-      scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
-      scrollBottomRef.current.scrollTop = scrollBottomRef.current.scrollHeight;
+    if (!loadMore) {
+      if (scrollBottomRef.current) {
+        scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
+        scrollBottomRef.current.scrollTop =
+          scrollBottomRef.current.scrollHeight;
+      }
     }
   }, [inboxChat, inboxMessages]);
+
+  const loadMoreMessages = async () => {
+    setLoadMore(true);
+    setPage(page + 1);
+  };
 
   return (
     <>
@@ -282,13 +307,23 @@ const InboxMessageArea = () => {
             </Popover>
           </div>
           <div
-            ref={scrollBottomRef}
             className={`flex-grow px-2 scrollBar overflow-y-auto scroll_off bg-gray-50/90`}
             style={{
               backgroundImage: `url("https://t3.ftcdn.net/jpg/03/27/51/56/360_F_327515607_Hcps04aaEc7Ki43d1XZPxwcv0ZaIaorh.jpg")`,
               backgroundBlendMode: "soft-light",
             }}
           >
+            {total - page * 50 > 0 && (
+              <div className="flex justify-center">
+                <button
+                  onClick={() => loadMoreMessages()}
+                  className="min-w-[80px] max-w-fit h-[35px] bg-pm hover:bg-pmd text-white rounded-md text-xs mx-auto my-2 flex items-center justify-center gap-2 px-2"
+                >
+                  {loadMore && <Spinner color="white" />} Load More
+                </button>
+              </div>
+            )}
+
             {isLoading ? (
               <Loading />
             ) : (
