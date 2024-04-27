@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { Spinner } from "@material-tailwind/react";
 import { countries } from "@/utils/datas/countries";
+import { business_types } from "@/utils/datas/globalData";
+import useInputPattern from "@/lib/hooks/useInputPattern";
 
 const RegisterForm = ({ user, store }) => {
   const {
@@ -16,6 +18,7 @@ const RegisterForm = ({ user, store }) => {
   } = useForm();
   const closeModalRef = useRef(null);
   const router = useRouter();
+  const { handleNumber } = useInputPattern();
 
   const [postStoreRequest, { isLoading }] = usePostStoreRequestMutation();
 
@@ -38,12 +41,14 @@ const RegisterForm = ({ user, store }) => {
         business_registration_certificate: "",
         business_certificate_number: data?.business_certificate_number,
         company_website: data?.company_website,
+        business_type: data?.business_type,
+        number_of_employees: data?.number_of_employees,
+        year_established: data?.year_established,
       },
       tax_information: {
         kdv_number: data?.kdv_number,
       },
     };
-
     const newData = new FormData();
     newData.append("storeData", JSON.stringify(registerData));
     if (data?.business_registration_certificate) {
@@ -52,7 +57,6 @@ const RegisterForm = ({ user, store }) => {
         data?.business_registration_certificate[0]
       );
     }
-
     const options = {
       data: newData,
     };
@@ -229,7 +233,7 @@ const RegisterForm = ({ user, store }) => {
                   />
                 </div>
               </div>
-              <div className="col-12">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div>
                   <label>Company website</label>
                   <input
@@ -247,6 +251,58 @@ const RegisterForm = ({ user, store }) => {
                     placeholder="Company website"
                   />
                 </div>
+                <div>
+                  <label>
+                    Number of employees <span>*</span>
+                  </label>
+                  <input
+                    {...register("number_of_employees", {
+                      required: true,
+                    })}
+                    className={`px-2 ${
+                      errors.number_of_employees && "border !border-red-600"
+                    }`}
+                    onInput={handleNumber}
+                    type="text"
+                    placeholder="Number of employees"
+                  />
+                </div>
+                <div>
+                  <label>
+                    Year Established <span>*</span>
+                  </label>
+                  <input
+                    {...register("year_established", {
+                      required: true,
+                    })}
+                    className={`px-2 ${
+                      errors.year_established && "border !border-red-600"
+                    }`}
+                    onInput={handleNumber}
+                    type="text"
+                    placeholder="Year Established"
+                  />
+                </div>
+              </div>
+
+              <div className="md:max-w-[50%]">
+                <label>
+                  Business Type <span>*</span>
+                </label>
+                <select
+                  {...register("business_type", { required: true })}
+                  aria-label="Default select example"
+                  className={`px-2 input block py-4 ${
+                    errors.business_type && "border !border-red-600"
+                  }`}
+                >
+                  <option value="" style={{ color: "#94959B" }}>
+                    Business Type
+                  </option>
+                  {business_types?.map((item) => (
+                    <option value={item}>{item}</option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>

@@ -38,7 +38,6 @@ const createStore = async (req, res) => {
 
 const getStoreById = async (req, res) => {
   try {
-    console.log(req.params.id);
     const result = await Store.findById({ _id: req.params.id }).populate(
       "user"
     );
@@ -74,7 +73,11 @@ const getStoreByUserId = async (req, res) => {
   try {
     const result = await Store.findOne({
       user: req.params.userId,
-      $or: [{ status: "accept" }, { status: "pending" }],
+      $or: [
+        { status: "accept" },
+        { status: "pending" },
+        { status: "initialize" },
+      ],
     }).populate("user");
 
     res.status(200).json({
@@ -168,6 +171,50 @@ const updateStoreInfo = async (req, res) => {
   }
 };
 
+const updateStoreInfoAfterVerification = async (req, res) => {
+  try {
+    const isExist = await Store.findOne({ _id: req.params.id });
+    if (isExist) {
+      const updateData = {
+        initialize_status: "Done",
+      };
+      if (req.files?.store_presentation_video) {
+        updateData["store_presentation_video"] =
+          req.files?.store_presentation_video[0].path;
+      }
+      if (req.files?.logo) {
+        updateData["logo"] = req.files?.logo[0].path;
+      }
+      if (req.body.store_info) {
+        updateData["store_info"] = req.body.store_info;
+      }
+      const result = await Store.updateOne(
+        { _id: req.params.id },
+        {
+          $set: updateData,
+        },
+        {
+          new: true,
+        }
+      );
+      res.status(200).json({
+        status: true,
+        message: "Store status Update successful",
+        data: result,
+      });
+    } else {
+      res.status(201).json({
+        status: false,
+        message: "Something went wrong",
+      });
+    }
+  } catch (error) {
+    res.status(201).json({
+      status: false,
+      message: "Info Add Not Successful",
+    });
+  }
+};
 const updateStoreStatus = async (req, res) => {
   try {
     const isExist = await Store.findOne({ _id: req.params.id });
@@ -252,4 +299,5 @@ module.exports = {
   getStoreCategoriesByStore,
   updateStoreStatus,
   updateStoreInfo,
+  updateStoreInfoAfterVerification,
 };

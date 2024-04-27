@@ -1,3 +1,4 @@
+const User = require("../../../models/Users");
 const Store = require("../../store/store.model");
 const Chat = require("../chat/chat.model");
 const Notification = require("../notification/notification.model");
@@ -62,20 +63,27 @@ const getMessages = async (req, res) => {
 
 const getTotalUnseen = async (req, res) => {
   try {
-    const userChats = await Chat.find({
-      members: { $all: [req.user?._id] },
-    }).select("_id district");
-
-    const userChatIds = userChats.map((chat) => chat._id.toString());
-    const total = await Message.countDocuments({
-      $and: [
-        { chatId: { $in: userChatIds } },
-        { senderId: { $ne: req.user?._id } },
-        { isSeen: false },
-      ],
+    const isExist = await User.countDocuments({
+      _id: req.user?._id,
+      email: req.user?.email,
     });
+    if (isExist) {
+      const userChats = await Chat.find({
+        members: { $all: [req.user?._id] },
+      }).select("_id district");
 
-    res.status(200).json(total);
+      const userChatIds = userChats.map((chat) => chat._id.toString());
+      const total = await Message.countDocuments({
+        $and: [
+          { chatId: { $in: userChatIds } },
+          { senderId: { $ne: req.user?._id } },
+          { isSeen: false },
+        ],
+      });
+      res.status(200).json(total);
+    } else {
+      res.status(200).json(0);
+    }
   } catch (error) {
     res.status(500).send(error);
   }

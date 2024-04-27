@@ -9,6 +9,7 @@ const {
   updateStoreStatus,
   getStores,
   updateStoreInfo,
+  updateStoreInfoAfterVerification,
 } = require("./store.controller");
 const { upload, handleMulterError } = require("../../config/multerConfig");
 
@@ -34,6 +35,17 @@ router.patch(
   ]),
   handleMulterError,
   updateStore
+);
+
+router.patch(
+  "/info/after-verify/:id",
+  isAuth,
+  upload.fields([
+    { name: "store_presentation_video", maxCount: 1 },
+    { name: "logo", maxCount: 1 },
+  ]),
+  handleMulterError,
+  updateStoreInfoAfterVerification
 );
 router.patch("/status/:id", updateStoreStatus);
 router.patch("/info/:id", updateStoreInfo);

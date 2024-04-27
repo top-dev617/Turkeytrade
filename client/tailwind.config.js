@@ -21,7 +21,9 @@ module.exports = withMT({
         label: "#222",
       },
       fontFamily: {
-        sans: ["ui-sans-serif", "system-ui"],
+        poppins: ["Poppins", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
+        "sf-pro": ["Inter", "sans-serif"],
         display: ["Poppins"],
         body: ["Poppins"],
       },

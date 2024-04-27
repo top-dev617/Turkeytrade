@@ -46,15 +46,15 @@ const storeSchema = new Schema(
       },
       business_type: {
         type: String,
-        required: false,
+        required: true,
       },
       number_of_employees: {
         type: String,
-        required: false,
+        required: true,
       },
       year_established: {
         type: String,
-        required: false,
+        required: true,
       },
     },
     tax_information: {
@@ -93,6 +93,11 @@ const storeSchema = new Schema(
       type: String,
       enum: ["accept", "pending", "decline"],
       default: "pending",
+    },
+    initialize_status: {
+      type: String,
+      enum: ["None", "Done"],
+      default: "None",
     },
     joined_date: {
       type: Date,

@@ -11,7 +11,11 @@ import { useRouter } from "next/router";
 const Footer = () => {
   const router = useRouter();
   return (
-    <footer className={`${router.pathname.includes("/inbox") && "hidden"}`}>
+    <footer
+      className={`${router.pathname.includes("/inbox") && "hidden"} ${
+        router.pathname.includes("/mystore") && "hidden"
+      }`}
+    >
       <div className="container">
         <div>
           <Link href="/">

@@ -60,6 +60,7 @@ const CompanyVideoInput = ({
         {store?.data?.store_presentation_video && storeVideo && !video ? (
           <VideoPlayer
             url={`${base_url}/uploads/${store?.data?.store_presentation_video}`}
+            playing={false}
             className="object-contain w-full h-full block relative"
           />
         ) : (
@@ -67,6 +68,7 @@ const CompanyVideoInput = ({
             {video ? (
               <VideoPlayer
                 url={viewFile(video)}
+                playing={false}
                 className="object-contain w-full h-full block relative"
               />
             ) : (

@@ -34,6 +34,14 @@ const storeApi = api.injectEndpoints({
       }),
       invalidatesTags: ["store"],
     }),
+    storeUpdateAfterVerify: builder.mutation({
+      query: ({ data, id }) => ({
+        url: `/stores/info/after-verify/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["store"],
+    }),
 
     // get product by id
     getStoreInfoBySellerId: builder.query({
@@ -63,4 +71,5 @@ export const {
   useStoreInfoUpdateMutation,
 
   useGetStoreCategoriesQuery,
+  useStoreUpdateAfterVerifyMutation,
 } = storeApi;

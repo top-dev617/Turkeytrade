@@ -206,10 +206,15 @@ const getGlobalChats = async (req, res) => {
           { isSeen: false },
         ],
       });
+
       const formattedChat = {
         ...chat.toObject(),
-        receiverInfo: receiverInfo,
-        storeInfo: storeInfo,
+        receiverInfo: receiverInfo || {
+          name: "Unknown User",
+          company_name: "",
+          isExist: false,
+        },
+        storeInfo: storeInfo || { store_name: "" },
         lastMessage: lastMessage,
         total_unseen: total,
       };
