@@ -16,8 +16,17 @@ const StoreVideoInputInStepper = ({ setVideo, video }) => {
   const onVideo = useCallback((acceptedFiles) => {
     if (acceptedFiles.length === 1) {
       const file = acceptedFiles[0];
-      if ([".mp4", ".webm"].includes(file.name.slice(-4).toLowerCase())) {
-        setVideo(file);
+      if (
+        file.name.split(".").pop().toLowerCase().includes("webm") ||
+        file.name.split(".").pop().toLowerCase().includes("mp4")
+      ) {
+        if (file?.size > 200 * 1024 * 1024) {
+          videoRef.current.value = null;
+          setOpen("File size must be 200 MB or less.");
+          return;
+        } else {
+          setVideo(file);
+        }
       } else {
         setOpen(
           "This file is not supported. Please upload videos in MP4 or Webm format."
@@ -31,9 +40,9 @@ const StoreVideoInputInStepper = ({ setVideo, video }) => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: onVideo,
     multiple: false,
-    accept: {
-      "video/*": [".mp4", ".webm"],
-    },
+    // accept: {
+    //   "video/*": [".mp4", ".webm"],
+    // },
   });
   return (
     <>
@@ -72,7 +81,6 @@ const StoreVideoInputInStepper = ({ setVideo, video }) => {
                 </p>
                 <button
                   type="button"
-                  onClick={() => videoRef.current.click()}
                   className="mt-[30px] w-[150px] md:w-[207px] h-[35px] md:h-[60px] bg-[#037D41] rounded md:!rounded-[5px] font-inter font-medium text-[14px] md:text-[22px] text-white"
                 >
                   Browse file

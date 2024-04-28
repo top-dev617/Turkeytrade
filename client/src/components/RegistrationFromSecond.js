@@ -167,7 +167,7 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
 
             <div className="">
               <label for="exampleInputEmail1" className="form-label mb-1">
-                Zip Code<span>*</span>
+                Zip / Postal Code<span>*</span>
               </label>
               <input
                 {...register("zipCode", { required: true })}

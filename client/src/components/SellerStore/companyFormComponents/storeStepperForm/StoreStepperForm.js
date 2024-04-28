@@ -1,6 +1,6 @@
 import { AuthContext } from "@/components/context/AuthContext";
 import { useStoreUpdateAfterVerifyMutation } from "@/redux/features/stores/storeApi";
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import LogoInput from "./LogoInput";
 import StoreVideoInputInStepper from "./StoreVideoInputInStepper";
@@ -10,7 +10,7 @@ import { Spinner } from "@material-tailwind/react";
 
 const StoreStepperForm = ({ store, refetch }) => {
   const { user } = useContext(AuthContext);
-  const { register, handleSubmit, reset, watch } = useForm();
+  const { register, handleSubmit, reset, watch, setValue } = useForm();
   const [storeUpdateAfterVerify, { isLoading }] =
     useStoreUpdateAfterVerifyMutation();
   const [step, setStep] = useState(1);
@@ -24,6 +24,9 @@ const StoreStepperForm = ({ store, refetch }) => {
 
       if (data?.store_info) {
         formData.append("store_info", data?.store_info);
+      }
+      if (data?.store_name) {
+        formData.append("store_name", data?.store_name);
       }
       if (video) {
         formData.append("store_presentation_video", video);
@@ -48,6 +51,12 @@ const StoreStepperForm = ({ store, refetch }) => {
     }
   };
 
+  useMemo(() => {
+    if (store?.store_name) {
+      setValue("store_name", store?.store_name);
+    }
+  }, [store]);
+
   const handleNext = () => {
     setStep(step + 1);
   };
@@ -57,11 +66,11 @@ const StoreStepperForm = ({ store, refetch }) => {
   };
 
   return (
-    <div className="container ">
+    <div className="container">
       <div className="h-full w-full pt-[49px] !pb-[400px]">
         <div className="text-center">
           <h1 className="font-inter font-semibold leading-[48px] text-[26px] md:text-[40px] text-[#074801]">
-            Let’s set up your Mystore!
+            Let’s set up your MyStore!
           </h1>
           <h1 className="font-inter font-semibold leading-[24px] text-[17px] md:text-[20px] text-[#021D00]">
             Follow the steps bellow to get started
@@ -141,6 +150,7 @@ const StoreStepperForm = ({ store, refetch }) => {
             </div>
             <div className={`pt-3 md:pt-[24px] ${step !== 4 && "hidden"}`}>
               <StoreStepperOverview
+                register={register}
                 logo={logo}
                 video={video}
                 description={watch("store_info")}

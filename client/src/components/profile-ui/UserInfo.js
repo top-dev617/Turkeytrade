@@ -9,6 +9,8 @@ import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { base_url } from "@/utils/auth/global";
 import styles from "@/styles/Register.module.css";
+import { isValidImageForJpg } from "@/lib/services/globalService";
+import FileExtInfoDialog from "../commons/dialogs/FileExtInfoDialog";
 
 const UserInfo = () => {
   const { user, setUser, uploadImg } = useContext(AuthContext);
@@ -23,6 +25,8 @@ const UserInfo = () => {
 
   const [time_format, setTime_format] = useState("");
 
+  const [open, setOpen] = useState("");
+
   const handleUserUpdate = async (data) => {
     const newData = new FormData();
     if (data) {
@@ -36,9 +40,9 @@ const UserInfo = () => {
       const result = await patchUserInfoById(options);
       if (result?.data?.status === true) {
         setUser(result?.data?.data);
-        toast.success("Profile Info Update Successful");
+        toast.success("Profile Info Update Successfully");
       } else {
-        toast.error("Profile Info Update unSuccessful");
+        toast.error("Profile Info Update Unsuccessfully");
       }
     } else {
       toast.error("Something went wrong, Try again");
@@ -65,12 +69,22 @@ const UserInfo = () => {
       if (result?.data?.status === true) {
         setUser(result?.data?.data);
         setImage(null);
-        toast.success("Profile Picture changed Successful");
+        toast.success("Profile Picture Changed Successfully");
       } else {
-        toast.error("Profile Picture changed unSuccessful");
+        toast.error("Profile Picture Changed Unsuccessfully");
       }
     } else {
       toast.error("Something went wrong, Try again");
+    }
+  };
+
+  const handleImageSet = async (file) => {
+    const isValidCheck = await isValidImageForJpg(file);
+    if (!isValidCheck) {
+      setOpen("Please Upload Valid Image file");
+      return;
+    } else {
+      setImage(file);
     }
   };
 
@@ -120,7 +134,7 @@ const UserInfo = () => {
           </div>
           <input
             ref={imgRef}
-            onChange={(e) => setImage(e.target.files[0])}
+            onChange={(e) => handleImageSet(e.target.files[0])}
             className="hidden"
             type="file"
             accept=".png, .jpg, .jpeg"
@@ -169,6 +183,8 @@ const UserInfo = () => {
         </div>
         <form onSubmit={handleSubmit(handleUserUpdate)}></form>
       </div>
+
+      <FileExtInfoDialog open={open} setOpen={setOpen} />
     </div>
   );
 };

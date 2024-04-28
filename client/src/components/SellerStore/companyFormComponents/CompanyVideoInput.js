@@ -22,7 +22,10 @@ const CompanyVideoInput = ({
   const onVideo = useCallback((acceptedFiles, rejectedFiles) => {
     if (acceptedFiles.length === 1) {
       const file = acceptedFiles[0];
-      if ([".mp4", ".webm"].includes(file.name.slice(-4).toLowerCase())) {
+      if (
+        file.name.split(".").pop().toLowerCase().includes("webm") ||
+        file.name.split(".").pop().toLowerCase().includes("mp4")
+      ) {
         handleVideo(file);
       } else {
         setOpen(
@@ -37,9 +40,9 @@ const CompanyVideoInput = ({
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: onVideo,
     multiple: false,
-    accept: {
-      "video/*": [".mp4", ".webm"],
-    },
+    // accept: {
+    //   "video/*": [".mp4", ".webm"],
+    // },
   });
   return (
     <>

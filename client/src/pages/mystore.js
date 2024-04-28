@@ -66,7 +66,11 @@ const sellerStore = () => {
               )}
           </>
 
-          <div className="bg-[#EFF4ED] min-h-screen w-full md:pb-4">
+          <div
+            className={`bg-[#EFF4ED] w-full md:pb-4 ${
+              data?.data?.initialize_status === "None" && "min-h-screen"
+            }`}
+          >
             {data &&
               data?.data?.status === "accept" &&
               data?.data?.initialize_status === "None" && (

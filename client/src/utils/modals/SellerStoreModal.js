@@ -4,9 +4,13 @@ const SellerStoreModal = () => {
   return (
     <div style={{ gap: "26px" }} className="d-flex flex-column">
       <h3>
+        Your MyStore is ready! Start uploading your products to reach a global
+        audience.
+      </h3>
+      {/* <h3>
         Welcome to My Store. Get started by setting up your <br /> "My Store" to
         showcase your business and products:
-      </h3>
+      </h3> */}
       <div>
         <p>1: Provide company information</p>
         <p>2: Add an engaging video or slideshow presentation </p>

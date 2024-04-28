@@ -307,8 +307,8 @@ const UploadProduct = ({ store, setStep, user }) => {
       return;
     }
     if (img) {
-      if (img.size > 2 * 1024 * 1024) {
-        toast.error("Image size must be 2 MB or less.");
+      if (img.size > 10 * 1024 * 1024) {
+        toast.error("Image size must be 10 MB or less.");
         imageRefs[index].current.value = null;
         return;
       }

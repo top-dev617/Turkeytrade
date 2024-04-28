@@ -188,6 +188,9 @@ const updateStoreInfoAfterVerification = async (req, res) => {
       if (req.body.store_info) {
         updateData["store_info"] = req.body.store_info;
       }
+      if (req.body.store_name) {
+        updateData["store_name"] = req.body.store_name;
+      }
       const result = await Store.updateOne(
         { _id: req.params.id },
         {

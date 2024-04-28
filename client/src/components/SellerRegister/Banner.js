@@ -5,8 +5,10 @@ const Banner = () => {
     <div className="sr_banner">
       <div className="container">
         <p>
-          Start Selling on Turkeytrademarket, the exciting new platform
-          connecting buyers around the world with sellers in Turkey.
+          <span className="font-semibold">
+            Start Selling on Turkeytrademarket, the exciting new platform
+            connecting buyers around the world with sellers in Turkey.
+          </span>
           {/* As we
           embark on this journey, we are delighted to offer a special
           limited-time opportunity for sellers. Register now and enjoy a
@@ -18,7 +20,7 @@ const Banner = () => {
           foster a vibrant marketplace. Your participation will contribute to
           the overall success and dynamism of Turkeytrademarket as we continue
           to evolve and enhance our platform.  */}
-          <br /> <br /> <br /> To become a verified seller and fully utilize our
+          <br /> <br /> To become a verified seller and fully utilize our
           services, please fill in the following details for verification:
         </p>
       </div>

@@ -4,7 +4,7 @@ import useViewVideo from "@/lib/hooks/useViewVideo";
 import { iVerticalLine } from "@/utils/icons/icons";
 import React from "react";
 
-const StoreStepperOverview = ({ logo, video, description }) => {
+const StoreStepperOverview = ({ register, logo, video, description }) => {
   const { viewImg } = useViewImage();
   const { viewVideo } = useViewVideo();
   return (
@@ -22,18 +22,33 @@ const StoreStepperOverview = ({ logo, video, description }) => {
           <h1 className="text-[16px] lg:text-[20px] font-inter font-semibold leading-[24px] text-[#021D00] mt-[22px]">
             Video Presentation
           </h1>
-          <div className="overflow-hidden">
-            <VideoPlayer
-              url={viewVideo(video)}
-              playing={false}
-              className="object-contain w-full md:max-h-[120px] lg:max-h-[220px] block relative mt-[10px]"
-            />
-          </div>
+          {video ? (
+            <>
+              <div className="overflow-hidden">
+                <VideoPlayer
+                  url={viewVideo(video)}
+                  playing={false}
+                  className="object-contain w-full md:max-h-[120px] lg:max-h-[220px] block relative mt-[10px]"
+                />
+              </div>
+            </>
+          ) : (
+            <div className="object-contain w-full md:max-h-[120px] lg:max-h-[220px] block relative mt-[10px]"></div>
+          )}
         </div>
         <div className="flex items-center w-full h-full justify-between gap-x-[25px]">
           <div className="w-fit hidden lg:block">{iVerticalLine}</div>
           <div className="flex-grow">
             <h1 className="text-[16px] lg:text-[20px] font-inter font-semibold leading-[24px] text-[#021D00] mb-[10px]">
+              Company Name
+            </h1>
+            <input
+              {...register("store_name", { required: true })}
+              type="text"
+              required
+              className="bg-[#F4F4F4] w-full h-[40px] md:h-[49px] rounded-md px-3 font-inter text-[#021D00]"
+            />
+            <h1 className="text-[16px] lg:text-[20px] font-inter font-semibold leading-[24px] text-[#021D00] mb-[10px] mt-3">
               Company Description
             </h1>
             <textarea
