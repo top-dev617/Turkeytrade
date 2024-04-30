@@ -10,8 +10,6 @@ import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import { base_url } from "@/utils/auth/global";
-import { IconButton } from "@material-tailwind/react";
-import { iView } from "@/utils/datas/icons";
 
 const StoreCertificates = ({ saveCertificates }) => {
   const [index, setIndex] = useState(-1);
@@ -25,11 +23,6 @@ const StoreCertificates = ({ saveCertificates }) => {
   });
   return (
     <div className="w-full h-fit relative">
-      {/* <div className="bg-pm absolute rounded right-0 -top-10 z-50">
-        <IconButton className="bg-pm" size="sm" onClick={() => setIndex(0)}>
-          {iView}
-        </IconButton>
-      </div> */}
       <div className="grid grid-cols-3 gap-3 flex-wrap w-full h-fit my-2 overflow-y-auto max-h-[300px] cursor-pointer">
         {saveCertificates?.map((img, index) => (
           <div
@@ -45,13 +38,6 @@ const StoreCertificates = ({ saveCertificates }) => {
           </div>
         ))}
       </div>
-
-      {/* <PhotoAlbum
-        photos={certificates}
-        layout="rows"
-        targetRowHeight={150}
-        onClick={({ index }) => setIndex(index)}
-      /> */}
 
       <Lightbox
         slides={certificates}

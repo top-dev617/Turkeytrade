@@ -32,10 +32,12 @@ const CompanyInfo = ({ store }) => {
         </div>
 
         <div className="w-full h-full max-h-[320px]">
-          <VideoPlayer
-            url={`${base_url}/uploads/${store?.store_presentation_video}`}
-            className="object-contain w-full h-full block relative"
-          />
+          {store?.store_presentation_video && (
+            <VideoPlayer
+              url={`${base_url}/uploads/${store?.store_presentation_video}`}
+              className="object-contain w-full h-full block relative"
+            />
+          )}
         </div>
       </div>
     </div>

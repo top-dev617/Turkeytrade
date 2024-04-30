@@ -36,7 +36,11 @@ import { labelInfo } from "@/utils/datas/inputLabelInfo";
 import ProductVideoInput from "./ProductVideoInput";
 import { useDropzone } from "react-dropzone";
 import useAuth from "@/lib/useAuth";
-import { isValidImageForJpg } from "@/lib/services/globalService";
+import {
+  isAcceptableFile,
+  isValidImageForJpg,
+} from "@/lib/services/globalService";
+import { ACCEPTABLE_IMAGE_EXTENSIONS } from "@/lib/constants/globalConstant";
 
 const modules = {
   toolbar: [
@@ -301,7 +305,10 @@ const UploadProduct = ({ store, setStep, user }) => {
   // img3Ref, img4Ref, img5Ref
   const imageRefs = [img0Ref, img1Ref, img2Ref];
   const editImageHandle = async (index, img) => {
-    const isValidCheck = await isValidImageForJpg(img);
+    const isValidCheck = await isAcceptableFile(
+      ACCEPTABLE_IMAGE_EXTENSIONS,
+      img
+    );
     if (!isValidCheck) {
       imageRefs[index].current.value = null;
       return;

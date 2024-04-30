@@ -3,8 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
-const ProductSlider = ({ images, handleImageClick }) => {
-
+const ProductSlider = ({ images = [], handleImageClick }) => {
   const settings = {
     dots: true,
     infinite: false,
@@ -50,15 +49,17 @@ const ProductSlider = ({ images, handleImageClick }) => {
   };
 
   return (
-
     <Slider {...settings}>
-      {
-        images?.map((img, i) => (
-          <img key={i}
-            onClick={() => handleImageClick(img)}
-            className="pointer" style={{ paddingRight: "10px" }} src={img} alt="image" />
-        ))
-      }
+      {images?.map((img, i) => (
+        <img
+          key={i}
+          onClick={() => handleImageClick(img)}
+          className="pointer"
+          style={{ paddingRight: "10px" }}
+          src={img}
+          alt="image"
+        />
+      ))}
     </Slider>
   );
 };

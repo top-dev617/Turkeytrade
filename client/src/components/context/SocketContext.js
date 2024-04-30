@@ -1,19 +1,11 @@
 import { io } from "socket.io-client";
 import { socket_url } from "@/utils/auth/global";
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
 import {
   setChatUnseen,
   setInboxChatUnseen,
-  setInboxLastMessages,
   setInboxMessagePush,
-  setIsVisible,
   setLastActivity,
   setLastMessages,
   setMessagePush,
@@ -21,7 +13,7 @@ import {
   setNtfAlert,
   setOnline_users,
 } from "@/redux/features/conversation/conversationSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useTotalUnseenQuery } from "@/redux/features/conversation/conversationApi";
 
 export const SocketContext = createContext();
@@ -96,6 +88,7 @@ const SocketProvider = ({ children }) => {
     });
 
     socket.current.on("getMessage", (receiveMessage) => {
+      // console.log("receiveMessage: ", receiveMessage);
       refetch();
       dispatch(setNtfAlert({ ...receiveMessage, userId: user?._id }));
       const isVisible = handleVisibilityChange();

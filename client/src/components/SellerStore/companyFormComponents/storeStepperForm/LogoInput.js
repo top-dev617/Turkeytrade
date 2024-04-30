@@ -1,7 +1,13 @@
 import FileExtInfoDialog from "@/components/commons/dialogs/FileExtInfoDialog";
-import { ACCEPTABLE_IMAGE_FILE } from "@/lib/constants/globalConstant";
+import {
+  ACCEPTABLE_IMAGE_EXTENSIONS,
+  ACCEPTABLE_IMAGE_FILE,
+} from "@/lib/constants/globalConstant";
 import useViewImage from "@/lib/hooks/useViewImage";
-import { isValidImageForJpg } from "@/lib/services/globalService";
+import {
+  isAcceptableFile,
+  isValidImageForJpg,
+} from "@/lib/services/globalService";
 import { trash } from "@/utils/datas/icons";
 import { iUpload } from "@/utils/icons/icons";
 import Image from "next/image";
@@ -16,8 +22,12 @@ const LogoInput = ({ setLogo, logo }) => {
 
   const onLogo = useCallback(async (acceptedFiles) => {
     if (acceptedFiles) {
-      const isValidCheck = await isValidImageForJpg(acceptedFiles[0]);
-      if (!isValidCheck) {
+      const isTrue = await isAcceptableFile(
+        ACCEPTABLE_IMAGE_EXTENSIONS,
+        acceptedFiles[0]
+      );
+      if (!isTrue) {
+        setOpen("Please upload JPG, JPEG, PNG, or WEBP files only. Thank you!");
         return;
       } else {
         if (acceptedFiles[0]?.size > 10 * 1024 * 1024) {
@@ -34,7 +44,7 @@ const LogoInput = ({ setLogo, logo }) => {
     onDrop: onLogo,
     multiple: false,
     accept: {
-      "image/*": [".jpeg", ".png", ".jpg", ".gif", ".webp"],
+      "image/*": [".jpeg", ".png", ".jpg", ".webp"],
     },
   });
   return (

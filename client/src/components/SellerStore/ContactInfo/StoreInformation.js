@@ -4,6 +4,7 @@ import {
   usePatchStoreInfoByIdMutation,
   useStoreInfoUpdateMutation,
 } from "@/redux/features/stores/storeApi";
+import { business_types } from "@/utils/datas/globalData";
 import { Button, Spinner } from "@material-tailwind/react";
 import moment from "moment/moment";
 import React, { useEffect } from "react";
@@ -13,7 +14,13 @@ import { toast } from "react-toastify";
 
 const StoreInformation = ({ store, isAuthor, user }) => {
   const { handleNumber } = useInputPattern();
-  const { handleSubmit, register, reset, setValue } = useForm();
+  const {
+    handleSubmit,
+    register,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm();
   const [storeInfoUpdate, { isLoading }] = useStoreInfoUpdateMutation();
   const [isEdit, setIsEdit] = useState(false);
 
@@ -103,9 +110,10 @@ const StoreInformation = ({ store, isAuthor, user }) => {
             <div>
               <label>Number of employees</label>
               <input
-                {...register("number_of_employees", { required: false })}
+                {...register("number_of_employees", { required: true })}
                 type="number"
                 min={0}
+                required
                 name="number_of_employees"
                 placeholder="Number of employees"
                 defaultValue={store?.business_information?.number_of_employees}
@@ -114,22 +122,35 @@ const StoreInformation = ({ store, isAuthor, user }) => {
             </div>
             <div>
               <label>Business Type</label>
-              <input
-                {...register("business_type", { required: false })}
-                type="text"
-                name="business_type"
-                placeholder="Business Type"
-                defaultValue={store?.business_information?.business_type}
-                className=""
-              />
+              <select
+                {...register("business_type", { required: true })}
+                aria-label="Default select example"
+                className={`px-2 !py-[18px] input`}
+                required
+              >
+                <option value="" style={{ color: "#94959B" }}>
+                  Business Type
+                </option>
+                {business_types?.map((item) => (
+                  <option
+                    value={item}
+                    selected={
+                      store?.business_information?.business_type === item
+                    }
+                  >
+                    {item}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <label>Year Established</label>
               <input
-                {...register("year_established", { required: false })}
+                {...register("year_established", { required: true })}
                 type="text"
                 name="year_established"
                 onInput={handleNumber}
+                required
                 placeholder="Year Established"
                 defaultValue={store?.business_information?.year_established}
                 className=""

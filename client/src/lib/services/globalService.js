@@ -26,3 +26,8 @@ export const isValidImageForJpg = async (file) => {
     return true;
   }
 };
+
+export const isAcceptableFile = async (extensions, file) => {
+  const extensionName = file.name.split(".").pop();
+  return await extensions.some((ext) => ext === extensionName);
+};

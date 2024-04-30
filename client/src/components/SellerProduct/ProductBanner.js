@@ -61,9 +61,12 @@ const ProductBanner = ({ product }) => {
     }
   };
 
-  const images = product?.images?.map((img) => ({
-    src: `${base_url}/uploads/${img}`,
-  }));
+  const images =
+    product?.images?.length > 0
+      ? product?.images?.map((img) => ({
+          src: `${base_url}/uploads/${img}`,
+        }))
+      : [];
 
   const handleChat = async () => {
     if (!user?._id) {
@@ -97,7 +100,7 @@ const ProductBanner = ({ product }) => {
     }
   };
 
-  // console.log(storeInfo);
+  // console.log(product);
 
   return (
     <div className="product_banner md:p-2 md:mt-8">

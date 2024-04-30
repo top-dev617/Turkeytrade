@@ -81,7 +81,7 @@ const UserInfo = () => {
   const handleImageSet = async (file) => {
     const isValidCheck = await isValidImageForJpg(file);
     if (!isValidCheck) {
-      setOpen("Please Upload Valid Image file");
+      setOpen("Please upload JPG, JPEG, PNG, or WEBP files only. Thank you!");
       return;
     } else {
       setImage(file);

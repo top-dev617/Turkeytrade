@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import EmojiInput from "./EmojiInput";
-import { ACCEPTABLE_IMAGE_FILE } from "@/lib/constants/globalConstant";
+import { ACCEPTABLE_CHAT_IMAGE_FILE } from "@/lib/constants/globalConstant";
 import useViewImage from "@/lib/hooks/useViewImage";
 import { toast } from "react-toastify";
 import { isValidImageForJpg } from "@/lib/services/globalService";
@@ -135,7 +135,7 @@ const ImageInput = ({ sendMessage, pastImage, resetImage }) => {
         className="hidden"
         max={3}
         multiple={true}
-        accept={ACCEPTABLE_IMAGE_FILE}
+        accept={ACCEPTABLE_CHAT_IMAGE_FILE}
       />
     </>
   );
