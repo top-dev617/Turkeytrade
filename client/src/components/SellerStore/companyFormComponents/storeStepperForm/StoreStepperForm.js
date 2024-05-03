@@ -122,24 +122,42 @@ const StoreStepperForm = ({ store, refetch }) => {
             className="flex-grow w-full bg-white rounded-[10px] lg:max-h-[578px] px-[10px] md:px-[32px] lg:px-[58px]"
           >
             <div
-              className={`pt-3 md:pt-[62px] lg:!pt-[92px] ${
+              className={`pt-3 md:pt-[12px] lg:!pt-[32px] ${
                 step !== 1 && "hidden"
               }`}
             >
               <h1 className="font-inter text-[16px] md:text-[18px] lg:text-[23.72px] leading-[29px] text-[#000000]">
                 Share details about the products or services you provide.
               </h1>
-              <textarea
-                {...register("store_info")}
-                className="bg-[#FFFFFF] w-full h-[200px] md:h-[242px] lg:h-[279px] outline-none rounded-[9.12px] border border-[#000000] resize-none p-[10px] md:p-[27px] mt-2 md:mt-[27px]
+              <div className="mt-3">
+                <h1 className="text-[16px] font-inter font-semibold leading-[24px] text-[#021D00] mb-[6px]">
+                  Company Name
+                </h1>
+                <input
+                  {...register("store_name", { required: true })}
+                  type="text"
+                  placeholder="Write your company name"
+                  required
+                  className="!bg-white focus:!bg-white w-full h-[40px] md:h-[49px] rounded-[9.12px] border border-[#000000] resize-none p-[10px] md:p-[27px] mt-2 md:mt-[27px]
+                  text-sm md:text-[16px] placeholder:text-[#B2B2B2] leading-[20px]"
+                />
+              </div>
+              <div className="mt-2">
+                <h1 className="text-[16px] font-inter font-semibold leading-[24px] text-[#021D00] mb-[6px]">
+                  Description
+                </h1>
+                <textarea
+                  {...register("store_info")}
+                  className="bg-[#FFFFFF] w-full h-[200px] md:h-[180px] lg:h-[233px] outline-none rounded-[9.12px] border border-[#000000] resize-none p-[10px] md:p-[27px] mt-2 md:mt-[27px]
                  text-sm md:text-[16px] text-[#B2B2B2] leading-[20px]"
-                placeholder="Describe your company......."
-                required
-                minLength={150}
-              ></textarea>
-              <p className="text-[#074801] font-inter leading-[32px] font-medium text-xs md:text-sm mt-1 md:mt-[9px]">
-                Minimum 150 characters
-              </p>
+                  placeholder="Describe your company......."
+                  required
+                  minLength={150}
+                ></textarea>
+                <p className="text-[#074801] font-inter leading-[32px] font-medium text-xs md:text-sm mt-1 md:mt-[9px]">
+                  Minimum 150 characters
+                </p>
+              </div>
             </div>
 
             <div className={`pt-3 md:pt-[24px] ${step !== 2 && "hidden"}`}>
@@ -150,7 +168,7 @@ const StoreStepperForm = ({ store, refetch }) => {
             </div>
             <div className={`pt-3 md:pt-[24px] ${step !== 4 && "hidden"}`}>
               <StoreStepperOverview
-                register={register}
+                storeName={watch("store_name")}
                 logo={logo}
                 video={video}
                 description={watch("store_info")}

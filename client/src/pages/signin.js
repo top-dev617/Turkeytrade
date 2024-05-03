@@ -121,7 +121,7 @@ const Login = () => {
                   </small>
                 )}
               </div>
-              {/* <div
+              <div
                 style={{ marginBottom: "30px" }}
                 className="d-flex align-items-center justify-content-between mt-2"
               >
@@ -141,7 +141,7 @@ const Login = () => {
                   </div>
                 </div>
                 <Link href="/forgot-password">Forgot Password?</Link>
-              </div> */}
+              </div>
               <button
                 type="submit"
                 disabled={isLoading}

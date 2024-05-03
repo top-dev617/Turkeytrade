@@ -59,6 +59,10 @@ app.use("/api/v2/save-products", saveProductRoutes);
 
 // static file serving
 app.use("/api/v2/uploads", express.static(path.join(__dirname, "/")));
+app.use(
+  "/api/v2/notification",
+  express.static(path.join(__dirname, "/assets/audio/notification.mp3"))
+);
 
 // conversation
 app.use("/api/v2/chats/", chatRoutes);
@@ -160,36 +164,3 @@ app.get("/", (req, res) => {
 Server.listen(PORT, () => {
   console.log(`Server is Running PORT: ${PORT}`);
 });
-
-/*
-
-socket.on(
-    "sendMessage",
-    ({
-      senderId,
-      receiverId,
-      chatId,
-      message,
-      images,
-      video,
-      document,
-      createdAt,
-    }) => {
-      const currentUsers = getUsers(receiverId, senderId);
-      for (let i = 0; i < currentUsers?.length; i++) {
-        io.to(currentUsers[i]?.socketId).emit("getMessage", {
-          senderId,
-          receiverId,
-          chatId,
-          message,
-          images,
-          video,
-          document,
-          createdAt,
-          members: [receiverId, senderId],
-        });
-      }
-    }
-  );
-
-*/

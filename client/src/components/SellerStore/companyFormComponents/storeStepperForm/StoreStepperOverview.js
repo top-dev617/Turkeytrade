@@ -4,7 +4,7 @@ import useViewVideo from "@/lib/hooks/useViewVideo";
 import { iVerticalLine } from "@/utils/icons/icons";
 import React from "react";
 
-const StoreStepperOverview = ({ register, logo, video, description }) => {
+const StoreStepperOverview = ({ storeName, logo, video, description }) => {
   const { viewImg } = useViewImage();
   const { viewVideo } = useViewVideo();
   return (
@@ -43,9 +43,10 @@ const StoreStepperOverview = ({ register, logo, video, description }) => {
               Company Name
             </h1>
             <input
-              {...register("store_name", { required: true })}
               type="text"
               required
+              disabled
+              value={storeName}
               className="bg-[#F4F4F4] w-full h-[40px] md:h-[49px] rounded-md px-3 font-inter text-[#021D00]"
             />
             <h1 className="text-[16px] lg:text-[20px] font-inter font-semibold leading-[24px] text-[#021D00] mb-[10px] mt-3">

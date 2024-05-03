@@ -213,23 +213,9 @@ const CompanyForm = () => {
       <div className="company_form">
         <div className="container">
           <form onSubmit={handleSubmit(handleRegister)}>
-            <div className="grid md:grid-cols-2 gap-8 mx-auto">
-              <div className="w-full h-[320px]">
-                <label>Company Description</label>
-                <textarea
-                  {...register("store_info")}
-                  rows="7"
-                  className={`max-h-[270px] h-full ${!isEdit && "!bg-white"}`}
-                  name="store_info"
-                  disabled={isEdit ? false : true}
-                  defaultValue={
-                    store?.data?.store_info && store?.data?.store_info
-                  }
-                ></textarea>
-              </div>
-
-              <div className="w-full">
-                <label>Logo</label>
+            <div className="grid md:grid-cols-1 gap-8 mx-auto">
+              <div className="w-full max-w-[400px]">
+                <label className="!font-semibold !font-inter">Logo</label>
                 <CompanyLogoInput
                   register={register}
                   isEdit={isEdit}
@@ -241,9 +227,26 @@ const CompanyForm = () => {
                   removeLogo={removeLogo}
                 />
               </div>
+              <div className="w-full max-h-[320px] min-h-[200px] !h-fit mt-4">
+                <label className="!font-semibold !font-inter">
+                  Company Description
+                </label>
+                <textarea
+                  {...register("store_info")}
+                  rows="7"
+                  className={`max-h-[270px] min-h-[200px] !h-fit font-inter text-black ${
+                    !isEdit && "!bg-white p-0"
+                  }`}
+                  name="store_info"
+                  disabled={isEdit ? false : true}
+                  defaultValue={
+                    store?.data?.store_info && store?.data?.store_info
+                  }
+                ></textarea>
+              </div>
 
-              <div className="w-full">
-                <label>Add Certificates</label>
+              {/* <div className="w-full">
+                <label className="!font-semibold !font-inter">Add Certificates</label>
 
                 {isEdit ? (
                   <>
@@ -360,10 +363,12 @@ const CompanyForm = () => {
                     />
                   </div>
                 )}
-              </div>
+              </div> */}
 
-              <div className="w-full">
-                <label>Upload a video presentation of your company</label>
+              <div className="w-full max-w-[614px]">
+                <label className="!font-semibold !font-inter">
+                  Upload a video presentation of your company
+                </label>
                 <div className="w-full h-full max-h-[320px]">
                   <CompanyVideoInput
                     isEdit={isEdit}

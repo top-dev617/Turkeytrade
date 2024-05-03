@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { usePostChangePasswordMutation } from "@/redux/features/auth/authApi";
 import { toast } from "react-toastify";
 import { Spinner } from "@material-tailwind/react";
+import { iEyeHide, iEyeShow } from "@/utils/icons/icons";
 
 const schema = yup.object().shape({
   old_password: yup.string().required("Password is required"),
@@ -34,6 +35,12 @@ const ChangePassword = () => {
 
   const [postChangePassword, { isLoading }] = usePostChangePasswordMutation();
 
+  const [passwordShow, setPasswordShow] = useState({
+    old_password: false,
+    new_password: false,
+    repeat_password: false,
+  });
+
   const handleChangePassword = async (data) => {
     const options = { data: data };
     const result = await postChangePassword(options);
@@ -59,16 +66,29 @@ const ChangePassword = () => {
           <label for="exampleInputPassword1" className="form-label mb-1 label">
             Old Password<span className="text-red-600">*</span>
           </label>
-          <input
-            {...register("old_password", { required: true })}
-            type="password"
-            placeholder="Old Password "
-            className={`input px-4 mb-0 ${
-              errors.old_password ? "border !border-red-600" : "border-none"
-            }`}
-            autoComplete="off"
-            name="old_password"
-          />
+          <div className="relative">
+            <input
+              {...register("old_password", { required: true })}
+              type={passwordShow.old_password ? "text" : "password"}
+              placeholder="Old Password "
+              className={`input px-4 mb-0 ${
+                errors.old_password ? "border !border-red-600" : "border-none"
+              }`}
+              autoComplete="off"
+              name="old_password"
+            />
+            <div
+              onClick={() =>
+                setPasswordShow({
+                  ...passwordShow,
+                  old_password: !passwordShow.old_password,
+                })
+              }
+              className="absolute top-5 right-3 cursor-pointer"
+            >
+              {passwordShow.old_password ? iEyeShow : iEyeHide}
+            </div>
+          </div>
           {errors.old_password && (
             <i className="text-red-600 text-xs">
               {errors.old_password.message}
@@ -79,16 +99,29 @@ const ChangePassword = () => {
           <label for="exampleInputPassword1" className="form-label mb-1 label">
             New Password<span className="text-red-600">*</span>
           </label>
-          <input
-            {...register("new_password", { required: true })}
-            type="password"
-            placeholder="New Password "
-            className={`input px-4 mb-0 ${
-              errors.new_password ? "border !border-red-600" : "border-none"
-            }`}
-            autoComplete="off"
-            name="new_password"
-          />
+          <div className="relative">
+            <input
+              {...register("new_password", { required: true })}
+              type={passwordShow.new_password ? "text" : "password"}
+              placeholder="New Password "
+              className={`input px-4 mb-0 ${
+                errors.new_password ? "border !border-red-600" : "border-none"
+              }`}
+              autoComplete="off"
+              name="new_password"
+            />
+            <div
+              onClick={() =>
+                setPasswordShow({
+                  ...passwordShow,
+                  new_password: !passwordShow.new_password,
+                })
+              }
+              className="absolute top-5 right-3 cursor-pointer"
+            >
+              {passwordShow.new_password ? iEyeShow : iEyeHide}
+            </div>
+          </div>
           {errors.new_password && (
             <i className="text-red-600 text-xs">
               {errors.new_password.message}
@@ -100,16 +133,31 @@ const ChangePassword = () => {
           <label for="exampleInputPassword1" className="form-label mb-1 label">
             Repeat Password<span className="text-red-600">*</span>
           </label>
-          <input
-            {...register("repeat_password", { required: true })}
-            type="password"
-            placeholder="Repeat Password "
-            className={`input px-4 mb-0 ${
-              errors.repeat_password ? "border !border-red-600" : "border-none"
-            }`}
-            autoComplete="off"
-            name="repeat_password"
-          />
+          <div className="relative">
+            <input
+              {...register("repeat_password", { required: true })}
+              type={passwordShow.repeat_password ? "text" : "password"}
+              placeholder="Repeat Password "
+              className={`input px-4 mb-0 ${
+                errors.repeat_password
+                  ? "border !border-red-600"
+                  : "border-none"
+              }`}
+              autoComplete="off"
+              name="repeat_password"
+            />
+            <div
+              onClick={() =>
+                setPasswordShow({
+                  ...passwordShow,
+                  repeat_password: !passwordShow.repeat_password,
+                })
+              }
+              className="absolute top-5 right-3 cursor-pointer"
+            >
+              {passwordShow.repeat_password ? iEyeShow : iEyeHide}
+            </div>
+          </div>
           {errors.repeat_password && (
             <i className="text-red-600 text-xs">
               {errors.repeat_password.message}
