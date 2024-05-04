@@ -47,9 +47,7 @@ const CompanyVideoInput = ({
   return (
     <>
       <div
-        className={`input_box_video relative block w-full md:h-[320px] max-h-[320px] ${
-          !isEdit && "!bg-white"
-        }`}
+        className={`input_box_video relative block w-full md:h-[320px] max-h-[320px]`}
       >
         {isEdit && (
           <div

@@ -347,9 +347,8 @@ const sendWelcomeMail = async (data) => {
     <div
         style="max-width: 600px; width: 100%; margin: 0 auto; font-family: 'Cabin',sans-serif; text-align:center; background-color: #ffff;">
         <div style="width: 100%; background-color: #037d41; align-items: center; padding:30px 0px">
-            <p style=" color:#ffff; font-weight: 700;">T H A N K S <span style="margin-left: 10px;">F O R</span> <span
-                    style="margin-left: 10px;">REGISTERING
-                    !</span></p>
+        <p style=" color:#ffff; font-weight: 700;">THANKS FOR REGISTERING
+        !</span></p>
             <p style=" color:#ffff; margin: 0px;     line-height: 39.2px;
     font-size: 28px;">Welcome to Turkeytrademarket</p>
         </div>

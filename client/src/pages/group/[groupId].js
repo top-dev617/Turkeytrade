@@ -18,7 +18,7 @@ const GroupByProducts = () => {
   }, [query?.groupId]);
   return (
     <AuthRoute>
-      <div className="container">
+      <div className="container min-h-screen">
         <h3 className="text-center mt-5">
           {" "}
           {/* {products?.length > products.category?.cate_name} */}

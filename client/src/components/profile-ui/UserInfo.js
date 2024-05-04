@@ -9,8 +9,12 @@ import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { base_url } from "@/utils/auth/global";
 import styles from "@/styles/Register.module.css";
-import { isValidImageForJpg } from "@/lib/services/globalService";
+import {
+  isAcceptableFile,
+  isValidImageForJpg,
+} from "@/lib/services/globalService";
 import FileExtInfoDialog from "../commons/dialogs/FileExtInfoDialog";
+import { ACCEPTABLE_IMAGE_EXTENSIONS } from "@/lib/constants/globalConstant";
 
 const UserInfo = () => {
   const { user, setUser, uploadImg } = useContext(AuthContext);
@@ -79,12 +83,17 @@ const UserInfo = () => {
   };
 
   const handleImageSet = async (file) => {
-    const isValidCheck = await isValidImageForJpg(file);
-    if (!isValidCheck) {
+    const isTrue = await isAcceptableFile(ACCEPTABLE_IMAGE_EXTENSIONS, file);
+    if (!isTrue) {
       setOpen("Please upload JPG, JPEG, PNG, or WEBP files only. Thank you!");
       return;
     } else {
-      setImage(file);
+      if (file?.size > 10 * 1024 * 1024) {
+        setOpen("File size must be 10 MB or less.");
+        return;
+      } else {
+        setImage(file);
+      }
     }
   };
 

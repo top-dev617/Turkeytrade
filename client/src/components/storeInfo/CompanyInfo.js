@@ -8,9 +8,8 @@ const CompanyInfo = ({ store }) => {
   return (
     <div className="info">
       <div className="container grid md:grid-cols-1 gap-8">
-        <div className="max-w-[400px]">
-          <label className="!font-semibold !font-inter">Logo</label>
-          <div className="flex justify-center items-center max-h-[320px]">
+        {store?.logo && (
+          <div className="flex justify-start items-center max-h-[320px]">
             <img
               className="max-w-[180px] max-h-[180px] object-contain"
               loading="lazy"
@@ -18,30 +17,34 @@ const CompanyInfo = ({ store }) => {
               alt="store logo"
             />
           </div>
-        </div>
+        )}
 
-        <div className="h-[320px]">
-          <h3>Company Description</h3>
-          <textarea
-            className="max-h-[270px] h-full mt-2 p-0 bg-white resize-none"
-            name="store_info"
-            value={store?.store_info}
-            readOnly
-          ></textarea>
+        <div className="max-h-[530px] h-fit relative">
+          <h3 className="!font-inter">Company Description</h3>
+          <div className="max-h-[480px] h-fit mt-1 overflow-y-auto">
+            <p className="bg-white whitespace-pre-wrap !font-inter">
+              {store?.store_info}
+            </p>
+          </div>
         </div>
 
         {/* <div className="h-fit md:h-[320px]">
           <StoreCertificates saveCertificates={store?.certificates} />
         </div> */}
 
-        <div className="w-full h-full max-h-[320px] max-w-[600px]">
-          {store?.store_presentation_video && (
-            <VideoPlayer
-              url={`${base_url}/uploads/${store?.store_presentation_video}`}
-              className="object-contain w-full h-full block relative"
-            />
-          )}
-        </div>
+        {store?.store_presentation_video && (
+          <div className="mt-2">
+            <h3 className="!font-inter mb-3">
+              Upload a video presentation of your company
+            </h3>
+            <div className="w-full h-full max-h-[380px] max-w-[700px] overflow-hidden relative bg-gray-100">
+              <VideoPlayer
+                url={`${base_url}/uploads/${store?.store_presentation_video}`}
+                className="object-contain w-full h-full block relative"
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

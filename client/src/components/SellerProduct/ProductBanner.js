@@ -121,7 +121,7 @@ const ProductBanner = ({ product }) => {
                 {product?.price?.ladder_price?.length > 0 &&
                   product?.price?.ladder_price?.map(({ quantity, euro }, i) => (
                     <div className="flex flex-col gap-1">
-                      <h1 className="text-gray-700 font-thin">
+                      <h1 className="text-gray-800 font-semibold font-inter">
                         {quantity?.from} - {quantity?.to}{" "}
                         {product?.unit?.plural}
                       </h1>

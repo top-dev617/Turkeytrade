@@ -11,6 +11,7 @@ import {
   PopoverHandler,
 } from "@material-tailwind/react";
 import useAuth from "@/lib/useAuth";
+import StoreCategories from "./StoreCategories";
 
 const UploadProductMain = dynamic(
   () => import("./UploadProduct/UploadProductMain"),
@@ -26,33 +27,41 @@ const StoreTab = ({ store }) => {
 
   const [step, setStep] = useState(0);
   const [selectDrop, setSelectDrop] = useState("Upload New Product");
-  const [open, setOpen] = useState(false);
+  const [selectProductAndCate, setSelectProductAndCate] = useState("Products");
+  const [selectedTab, setSelectedTab] = useState(0);
 
   const handleStep = (index) => {
     if (index === 1) {
       dispatch(setEditProduct(null));
-      setOpen(!open);
       setStep(index);
     } else if (index === 2) {
       dispatch(setEditProduct(null));
       setStep(index);
-      setOpen(false);
     } else {
       setStep(index);
-      setOpen(false);
     }
   };
 
   const handleDropdown = (v) => {
-    // console.log(v);
-    setSelectDrop(v);
-    setOpen(false);
+    if (selectedTab === 1) {
+      setSelectProductAndCate(v);
+      setSelectedTab(0);
+    }
+    if (selectedTab === 2) {
+      setSelectDrop(v);
+      setSelectedTab(0);
+    }
   };
   const tabs = [
     {
-      name: "Store overview",
+      id: 1,
+      name: selectProductAndCate,
+      dropdowns: [
+        selectProductAndCate === "Products" ? "Categories" : "Products",
+      ],
     },
     {
+      id: 2,
       name: selectDrop,
       dropdowns: [
         selectDrop === "Continue On Draft"
@@ -61,9 +70,11 @@ const StoreTab = ({ store }) => {
       ],
     },
     {
+      id: 3,
       name: "Edit Product",
     },
     {
+      id: 4,
       name: "Profile",
     },
   ];
@@ -74,8 +85,8 @@ const StoreTab = ({ store }) => {
         <div className="flex justify-between items-center !w-full overflow-x-auto">
           {tabs.map((tab, index) => (
             <Popover
-              open={tab?.dropdowns && open}
-              handler={() => setOpen(false)}
+              open={tab?.dropdowns && tab.id === selectedTab}
+              handler={() => setSelectedTab(selectedTab ? 0 : tab.id)}
               placement="bottom"
             >
               <PopoverHandler onClick={() => handleStep(index)}>
@@ -89,9 +100,11 @@ const StoreTab = ({ store }) => {
                 </button>
               </PopoverHandler>
               <PopoverContent
-                className={`p-0 ${tab?.dropdowns && open ? "" : "opacity-0"}`}
+                className={`p-0 ${
+                  tab?.dropdowns && tab.id === selectedTab ? "" : "opacity-0"
+                }`}
               >
-                {tab?.dropdowns && open && (
+                {tab?.dropdowns && (
                   <div className="p-0 min-w-[200px] max-w-[200px] grid grid-cols-1 bg-white">
                     {tab?.dropdowns.map((v, i) => (
                       <button
@@ -114,7 +127,15 @@ const StoreTab = ({ store }) => {
         </div>
 
         <div className="py-3">
-          {step === 0 && <StoreOverview store={store} />}
+          {step === 0 && (
+            <>
+              {selectProductAndCate === "Products" ? (
+                <StoreOverview store={store} />
+              ) : (
+                <StoreCategories store={store} />
+              )}
+            </>
+          )}
           {step === 1 && (
             <UploadProductMain
               store={store}

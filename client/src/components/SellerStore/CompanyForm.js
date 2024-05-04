@@ -208,42 +208,69 @@ const CompanyForm = () => {
     },
   });
   // console.log(isEdit, video);
+
+  const isShowVideo = store?.data?.store_presentation_video || isEdit;
   return (
     <>
       <div className="company_form">
         <div className="container">
           <form onSubmit={handleSubmit(handleRegister)}>
             <div className="grid md:grid-cols-1 gap-8 mx-auto">
-              <div className="w-full max-w-[400px]">
-                <label className="!font-semibold !font-inter">Logo</label>
-                <CompanyLogoInput
-                  register={register}
-                  isEdit={isEdit}
-                  store={store}
-                  storeLogo={storeLogo}
-                  logo={logo}
-                  setLogo={setLogo}
-                  viewFile={viewFile}
-                  removeLogo={removeLogo}
-                />
-              </div>
-              <div className="w-full max-h-[320px] min-h-[200px] !h-fit mt-4">
-                <label className="!font-semibold !font-inter">
-                  Company Description
-                </label>
-                <textarea
-                  {...register("store_info")}
-                  rows="7"
-                  className={`max-h-[270px] min-h-[200px] !h-fit font-inter text-black ${
-                    !isEdit && "!bg-white p-0"
-                  }`}
-                  name="store_info"
-                  disabled={isEdit ? false : true}
-                  defaultValue={
-                    store?.data?.store_info && store?.data?.store_info
-                  }
-                ></textarea>
-              </div>
+              {isEdit ? (
+                <div className="w-full max-w-[400px]">
+                  <label className="!font-semibold !font-inter">Logo</label>
+                  <CompanyLogoInput
+                    register={register}
+                    isEdit={isEdit}
+                    store={store}
+                    storeLogo={storeLogo}
+                    logo={logo}
+                    setLogo={setLogo}
+                    viewFile={viewFile}
+                    removeLogo={removeLogo}
+                  />
+                </div>
+              ) : (
+                <>
+                  {store?.data?.logo && (
+                    <div className="flex justify-start items-center max-h-[320px]">
+                      <img
+                        className="max-w-[180px] max-h-[180px] object-contain"
+                        loading="lazy"
+                        src={`${base_url}/uploads/${store?.data?.logo}`}
+                        alt="store logo"
+                      />
+                    </div>
+                  )}
+                </>
+              )}
+
+              {isEdit ? (
+                <div className="w-full max-h-[400px] min-h-[400px] mt-4">
+                  <label className="!font-semibold !font-inter">
+                    Company Description
+                  </label>
+                  <textarea
+                    {...register("store_info")}
+                    className={`max-h-[380px] min-h-[380px] !font-inter text-black ${
+                      !isEdit && "!bg-white p-0"
+                    }`}
+                    disabled={isEdit ? false : true}
+                    defaultValue={
+                      store?.data?.store_info && store?.data?.store_info
+                    }
+                  ></textarea>
+                </div>
+              ) : (
+                <div className="max-h-[400px] h-fit relative">
+                  <label className="!font-inter">Company Description</label>
+                  <div className="max-h-[380px] h-fit mt-1 overflow-y-auto">
+                    <p className="bg-white whitespace-pre-wrap !font-inter">
+                      {store?.data?.store_info && store?.data?.store_info}
+                    </p>
+                  </div>
+                </div>
+              )}
 
               {/* <div className="w-full">
                 <label className="!font-semibold !font-inter">Add Certificates</label>
@@ -365,23 +392,25 @@ const CompanyForm = () => {
                 )}
               </div> */}
 
-              <div className="w-full max-w-[614px]">
-                <label className="!font-semibold !font-inter">
-                  Upload a video presentation of your company
-                </label>
-                <div className="w-full h-full max-h-[320px]">
-                  <CompanyVideoInput
-                    isEdit={isEdit}
-                    removeVideo={removeVideo}
-                    store={store}
-                    storeVideo={storeVideo}
-                    video={video}
-                    viewFile={viewFile}
-                    videoRef={videoRef}
-                    handleVideo={handleVideo}
-                  />
+              {isShowVideo && (
+                <div className="w-full max-w-[614px]">
+                  <label className="!font-semibold !font-inter !mb-1">
+                    Upload a video presentation of your company
+                  </label>
+                  <div className="w-full h-full max-h-[320px] bg-gray-100">
+                    <CompanyVideoInput
+                      isEdit={isEdit}
+                      removeVideo={removeVideo}
+                      store={store}
+                      storeVideo={storeVideo}
+                      video={video}
+                      viewFile={viewFile}
+                      videoRef={videoRef}
+                      handleVideo={handleVideo}
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <div className="d-flex gap-4 justify-content-end align-items-center mt-8">

@@ -10,7 +10,7 @@ const StoreCategories = ({ store }) => {
     store?._id
   );
   return (
-    <div className="md:px-8 pb-8">
+    <div className="md:px-8 pb-8 min-h-[400px]">
       {isLoading ? (
         <Loading />
       ) : (
