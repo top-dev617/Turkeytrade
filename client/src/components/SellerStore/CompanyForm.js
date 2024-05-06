@@ -265,7 +265,7 @@ const CompanyForm = () => {
                 <div className="max-h-[400px] h-fit relative">
                   <label className="!font-inter">Company Description</label>
                   <div className="max-h-[380px] h-fit mt-1 overflow-y-auto">
-                    <p className="bg-white whitespace-pre-wrap !font-inter">
+                    <p className="bg-white whitespace-pre-wrap all_break !font-inter">
                       {store?.data?.store_info && store?.data?.store_info}
                     </p>
                   </div>
@@ -394,10 +394,13 @@ const CompanyForm = () => {
 
               {isShowVideo && (
                 <div className="w-full max-w-[614px]">
-                  <label className="!font-semibold !font-inter !mb-1">
-                    Upload a video presentation of your company
-                  </label>
-                  <div className="w-full h-full max-h-[320px] bg-gray-100">
+                  {isEdit && (
+                    <label className="!font-semibold !font-inter !mb-1">
+                      Upload a video presentation of your company
+                    </label>
+                  )}
+
+                  <div className="w-full h-full max-h-[320px]">
                     <CompanyVideoInput
                       isEdit={isEdit}
                       removeVideo={removeVideo}

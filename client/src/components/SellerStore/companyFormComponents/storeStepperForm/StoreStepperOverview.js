@@ -8,57 +8,38 @@ const StoreStepperOverview = ({ storeName, logo, video, description }) => {
   const { viewImg } = useViewImage();
   const { viewVideo } = useViewVideo();
   return (
-    <div>
-      <div className="grid lg:grid-cols-2 mb-[20px] gap-x-[25px]">
-        <div>
-          <h1 className="text-[16px] lg:text-[20px] font-inter font-semibold leading-[24px] text-[#021D00] mb-[10px]">
-            Logo
+    <div className="pt-4 mb-4">
+      {logo && (
+        <img
+          className="max-w-[180px] md:max-w-[240px] max-h-[110px] object-contain"
+          loading="lazy"
+          src={viewImg(logo)}
+          alt="store logo"
+        />
+      )}
+
+      {description && (
+        <div className="max-h-[200px] h-fit relative">
+          <h1 className="text-[16px] lg:text-[20px] font-inter font-semibold leading-[24px] text-[#021D00] mb-[10px] mt-3">
+            Company Description
           </h1>
-          <img
-            src={viewImg(logo)}
-            alt=""
-            className="max-w-[200px] max-h-[120px] md:h-[80px] lg:h-[120px] object-contain"
-          />
-          <h1 className="text-[16px] lg:text-[20px] font-inter font-semibold leading-[24px] text-[#021D00] mt-[22px]">
-            Video Presentation
-          </h1>
-          {video ? (
-            <>
-              <div className="overflow-hidden">
-                <VideoPlayer
-                  url={viewVideo(video)}
-                  playing={false}
-                  className="object-contain w-full md:max-h-[120px] lg:max-h-[220px] block relative mt-[10px]"
-                />
-              </div>
-            </>
-          ) : (
-            <div className="object-contain w-full md:max-h-[120px] lg:max-h-[220px] block relative mt-[10px]"></div>
-          )}
-        </div>
-        <div className="flex items-center w-full h-full justify-between gap-x-[25px]">
-          <div className="w-fit hidden lg:block">{iVerticalLine}</div>
-          <div className="flex-grow">
-            <h1 className="text-[16px] lg:text-[20px] font-inter font-semibold leading-[24px] text-[#021D00] mb-[10px]">
-              Company Name
-            </h1>
-            <input
-              type="text"
-              required
-              disabled
-              value={storeName}
-              className="bg-[#F4F4F4] w-full h-[40px] md:h-[49px] rounded-md px-3 font-inter text-[#021D00]"
-            />
-            <h1 className="text-[16px] lg:text-[20px] font-inter font-semibold leading-[24px] text-[#021D00] mb-[10px] mt-3">
-              Company Description
-            </h1>
-            <textarea
-              value={description}
-              className="lg:max-h-[380px] h-[180px] lg:h-[300px] bg-white resize-none text-[#000000] text-[16px] font-inter p-0 placeholder:font-inter placeholder:text-[#000000]"
-            ></textarea>
+          <div className="max-h-[180px] h-fit mt-1 overflow-y-auto">
+            <p className="bg-white whitespace-pre-wrap all_break !text-black text-sm md:text-[16px] !font-inter">
+              {description}
+            </p>
           </div>
         </div>
-      </div>
+      )}
+
+      {video && (
+        <div className="w-full h-full max-h-[400px] max-w-[600px] overflow-hidden relative mt-4">
+          <VideoPlayer
+            url={viewVideo(video)}
+            playing={false}
+            className="object-contain w-full h-full block relative"
+          />
+        </div>
+      )}
     </div>
   );
 };

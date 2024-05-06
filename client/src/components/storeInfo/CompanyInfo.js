@@ -22,7 +22,7 @@ const CompanyInfo = ({ store }) => {
         <div className="max-h-[530px] h-fit relative">
           <h3 className="!font-inter">Company Description</h3>
           <div className="max-h-[480px] h-fit mt-1 overflow-y-auto">
-            <p className="bg-white whitespace-pre-wrap !font-inter">
+            <p className="bg-white whitespace-pre-wrap all_break !font-inter">
               {store?.store_info}
             </p>
           </div>
@@ -33,16 +33,11 @@ const CompanyInfo = ({ store }) => {
         </div> */}
 
         {store?.store_presentation_video && (
-          <div className="mt-2">
-            <h3 className="!font-inter mb-3">
-              Upload a video presentation of your company
-            </h3>
-            <div className="w-full h-full max-h-[380px] max-w-[700px] overflow-hidden relative bg-gray-100">
-              <VideoPlayer
-                url={`${base_url}/uploads/${store?.store_presentation_video}`}
-                className="object-contain w-full h-full block relative"
-              />
-            </div>
+          <div className="w-full h-full max-h-[380px] max-w-[700px] overflow-hidden relative mt-2">
+            <VideoPlayer
+              url={`${base_url}/uploads/${store?.store_presentation_video}`}
+              className="object-contain w-full h-full block relative"
+            />
           </div>
         )}
       </div>

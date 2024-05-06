@@ -54,37 +54,34 @@ const conversationSlice = createSlice({
       }
     },
     setLastMessages: (state, action) => {
-      let chats = JSON.parse(JSON.stringify(state.chats));
-
-      const existingIndex = chats.findIndex(
-        (chat) => chat._id === action.payload.chatId
-      );
+      const { chatId } = action.payload;
+      const chats = state.chats.map((chat) => ({ ...chat }));
+      const existingIndex = chats.findIndex((chat) => chat._id === chatId);
 
       if (existingIndex !== -1) {
-        // Update the existing chat's lastMessage
-        chats[existingIndex]["lastMessage"] = action.payload;
-        const sortByIsoDateDesc = (a, b) =>
-          new Date(b.lastMessage?.createdAt) -
-          new Date(a.lastMessage?.createdAt);
-
-        const sortedChats = [...chats].sort(sortByIsoDateDesc);
-        state.chats = sortedChats;
+        chats[existingIndex].lastMessage = action.payload;
+        const updatedChat = chats.splice(existingIndex, 1)[0];
+        chats.unshift(updatedChat);
+        state.chats = chats;
       }
     },
 
     setChats: (state, action) => {
       const chats = action.payload;
       if (Array.isArray(chats)) {
-        const sortByIsoDateDesc = (a, b) =>
-          new Date(b.lastMessage?.createdAt) -
-          new Date(a.lastMessage?.createdAt);
-        const sortedDateArrayDesc = [...chats].sort(sortByIsoDateDesc);
-        state.chats = sortedDateArrayDesc;
+        const sortedChats = chats.slice();
+        sortedChats.sort((a, b) => {
+          const dateA = new Date(b.lastMessage?.createdAt);
+          const dateB = new Date(a.lastMessage?.createdAt);
+          return dateA - dateB;
+        });
+        state.chats = sortedChats;
       } else {
         console.error("Invalid chats data:", chats);
       }
     },
     setChat: (state, action) => {
+      state.messages = [];
       state.chat = action.payload;
     },
     setChatSetting: (state, action) => {
@@ -186,6 +183,7 @@ const conversationSlice = createSlice({
       }
     },
     setInboxChat: (state, action) => {
+      state.inboxMessages = [];
       state.inboxChat = action.payload;
     },
 
@@ -228,7 +226,7 @@ const conversationSlice = createSlice({
 
     // globally for both
     setLastChat: (state, action) => {
-      console.log("action");
+      // console.log("action");
       const stateData = JSON.parse(JSON.stringify(state));
 
       let inboxChat = stateData?.inboxChat;

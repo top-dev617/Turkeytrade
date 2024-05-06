@@ -79,7 +79,7 @@ const StoreStepperForm = ({ store, refetch }) => {
 
         <div
           className="flex flex-col md:flex-row justify-between gap-y-[12px] gap-x-[12px] md:gap-x-[20px] lg:gap-x-[40px] mt-[55px] 
-        lg:max-h-[578px]"
+      "
         >
           <div className="flex justify-center items-center md:max-w-[311px] min-w-[50px] md:min-w-[250px] lg:min-w-[311px] lg:h-[578px] bg-white rounded-[10px]">
             <div className="max-w-[280px] mx-auto py-4 md:py-0">
@@ -119,7 +119,7 @@ const StoreStepperForm = ({ store, refetch }) => {
 
           <form
             onSubmit={handleSubmit(handleRegister)}
-            className="flex-grow w-full bg-white rounded-[10px] lg:max-h-[578px] px-[10px] md:px-[32px] lg:px-[58px]"
+            className="flex-grow w-full bg-white rounded-[10px] px-[10px] md:px-[32px] lg:px-[58px]"
           >
             <div
               className={`pt-3 md:pt-[12px] lg:!pt-[32px] ${
@@ -129,19 +129,7 @@ const StoreStepperForm = ({ store, refetch }) => {
               <h1 className="font-inter text-[16px] md:text-[18px] lg:text-[23.72px] leading-[29px] text-[#000000]">
                 Share details about the products or services you provide.
               </h1>
-              {/* <div className="mt-3">
-                <h1 className="text-[16px] font-inter font-semibold leading-[24px] text-[#021D00] mb-[6px]">
-                  Company Name
-                </h1>
-                <input
-                  {...register("store_name", { required: true })}
-                  type="text"
-                  placeholder="Write your company name"
-                  required
-                  className="!bg-white focus:!bg-white w-full h-[40px] md:h-[49px] rounded-[9.12px] border border-[#000000] resize-none p-[10px] md:p-[27px] mt-2 md:mt-[27px]
-                  text-sm md:text-[16px] placeholder:text-[#B2B2B2] leading-[20px]"
-                />
-              </div> */}
+
               <div className="mt-12">
                 <h1 className="text-[16px] font-inter font-semibold leading-[24px] text-[#021D00] mb-[6px]">
                   Description
