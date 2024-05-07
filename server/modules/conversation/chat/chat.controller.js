@@ -173,6 +173,12 @@ const inboxChats = async (req, res) => {
       };
       formattedChats.push(formattedChat);
     }
+
+    formattedChats.sort((a, b) => {
+      const dateA = new Date(b.lastMessage?.createdAt);
+      const dateB = new Date(a.lastMessage?.createdAt);
+      return dateA - dateB;
+    });
     res.status(200).json(formattedChats);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
@@ -221,6 +227,13 @@ const getGlobalChats = async (req, res) => {
 
       formattedChats.push(formattedChat);
     }
+
+    formattedChats.sort((a, b) => {
+      const dateA = new Date(b.lastMessage?.createdAt);
+      const dateB = new Date(a.lastMessage?.createdAt);
+      return dateA - dateB;
+    });
+
     res.status(200).json(formattedChats);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });

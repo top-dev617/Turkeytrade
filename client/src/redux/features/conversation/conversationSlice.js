@@ -67,19 +67,24 @@ const conversationSlice = createSlice({
     },
 
     setChats: (state, action) => {
-      const chats = action.payload;
-      if (Array.isArray(chats)) {
-        const sortedChats = chats.slice();
-        sortedChats.sort((a, b) => {
-          const dateA = new Date(b.lastMessage?.createdAt);
-          const dateB = new Date(a.lastMessage?.createdAt);
-          return dateA - dateB;
-        });
-        state.chats = sortedChats;
-      } else {
-        console.error("Invalid chats data:", chats);
+      if (Array.isArray(action.payload)) {
+        state.chats = action.payload;
       }
     },
+    // setChats: (state, action) => {
+    //   const chats = action.payload;
+    //   if (Array.isArray(chats)) {
+    //     const sortedChats = chats.slice();
+    //     sortedChats.sort((a, b) => {
+    //       const dateA = new Date(b.lastMessage?.createdAt);
+    //       const dateB = new Date(a.lastMessage?.createdAt);
+    //       return dateA - dateB;
+    //     });
+    //     state.chats = sortedChats;
+    //   } else {
+    //     console.error("Invalid chats data:", chats);
+    //   }
+    // },
     setChat: (state, action) => {
       state.messages = [];
       state.chat = action.payload;
@@ -171,17 +176,22 @@ const conversationSlice = createSlice({
     },
 
     setInboxChats: (state, action) => {
-      const chats = action.payload;
-      if (Array.isArray(chats)) {
-        const sortByIsoDateDesc = (a, b) =>
-          new Date(b.lastMessage?.createdAt) -
-          new Date(a.lastMessage?.createdAt);
-        const sortedDateArrayDesc = [...chats].sort(sortByIsoDateDesc);
-        state.inboxChats = sortedDateArrayDesc;
-      } else {
-        console.error("Invalid chats data:", chats);
+      if (Array.isArray(action.payload)) {
+        state.inboxChats = action.payload;
       }
     },
+    // setInboxChats: (state, action) => {
+    //   const chats = action.payload;
+    //   if (Array.isArray(chats)) {
+    //     const sortByIsoDateDesc = (a, b) =>
+    //       new Date(b.lastMessage?.createdAt) -
+    //       new Date(a.lastMessage?.createdAt);
+    //     const sortedDateArrayDesc = [...chats].sort(sortByIsoDateDesc);
+    //     state.inboxChats = sortedDateArrayDesc;
+    //   } else {
+    //     console.error("Invalid chats data:", chats);
+    //   }
+    // },
     setInboxChat: (state, action) => {
       state.inboxMessages = [];
       state.inboxChat = action.payload;

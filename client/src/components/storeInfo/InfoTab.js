@@ -59,7 +59,6 @@ const InfoTab = ({ store }) => {
         // console.log(result);
         if (result?.data?.access) {
           dispatch(setChat(result?.data?.data));
-          dispatch(setChats(result?.data?.data));
           if (result?.data?.receiver_Chat) {
             dispatch(setNewChat(result?.data?.data));
             socket.current.emit("addChat", {

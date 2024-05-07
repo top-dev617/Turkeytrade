@@ -11,7 +11,7 @@ const SellerStoreModal = () => {
         Welcome to My Store. Get started by setting up your <br /> "My Store" to
         showcase your business and products:
       </h3> */}
-      <div>
+      {/* <div>
         <p>1: Provide company information</p>
         <p>2: Add an engaging video or slideshow presentation </p>
         <p>3: Upload your company logo</p>
@@ -22,7 +22,7 @@ const SellerStoreModal = () => {
       <h5>
         Providing complete information boosts buyer trust and leads to better
         business outcomes.
-      </h5>
+      </h5> */}
     </div>
   );
 };
