@@ -76,7 +76,7 @@ const getProductById = async (req, res) => {
       status: true,
       message: "Product get successfully",
       data: result,
-      related_products: productsWithMinMaxPrices,
+      related_products: [],
     });
   } catch (error) {
     res.status(201).json({
@@ -587,7 +587,7 @@ const recentlyViewedProducts = async (req, res) => {
       status: true,
       success: true,
       message: "Product get successfully",
-      data: productsWithMinMaxPrices,
+      data: [],
     });
   } catch (error) {
     res.status(201).json({
@@ -647,7 +647,7 @@ const popularProducts = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Products Retrieve successfully",
-      data: productsWithMinMaxPrices,
+      data: [],
     });
   } catch (error) {
     res.status(201).json({
