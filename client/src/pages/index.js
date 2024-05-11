@@ -5,6 +5,7 @@ import Category from "@/components/Category";
 import { useEffect, useRef, useState } from "react";
 import WelcomeModal from "@/utils/modals/WelcomeModal";
 import { useGetLatestProductsQuery } from "@/redux/features/products/productApi";
+import PopularProducts from "@/components/home/PopularProducts";
 
 export default function Home() {
   const { data, isLoading } = useGetLatestProductsQuery();
@@ -41,6 +42,7 @@ export default function Home() {
         <div className="container mt-8">
           <h1 className="label mb-3">Recently Listed</h1>
           <Item items={data?.data} isLoading={isLoading} />
+          <PopularProducts />
         </div>
 
         <button

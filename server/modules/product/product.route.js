@@ -16,6 +16,8 @@ const {
   getDraftProductsByStoreId,
   getProductsByGroupId,
   getProductsBySubCateId,
+  recentlyViewedProducts,
+  popularProducts,
 } = require("./product.controller");
 const { upload, handleMulterError } = require("../../config/multerConfig");
 
@@ -39,6 +41,8 @@ router.get("/category/:cateSlug", getProductsByCateId);
 router.get("/category/:cateSlug/:subCateSlug", getProductsBySubCateId);
 router.get("/show/products", getShowProducts);
 router.get("/latest/products", getLatestProducts);
+router.post("/recent-view", recentlyViewedProducts);
+router.get("/popular/prods", popularProducts);
 router.patch(
   "/:id",
   upload.fields([

@@ -26,20 +26,14 @@ import AddGroup from "./AddGroup";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { base_url } from "@/utils/auth/global";
-import VideoPlayer from "@/components/commons/video-player/VideoPlayer";
-import { iInfo, trash } from "@/utils/datas/icons";
+import { trash } from "@/utils/datas/icons";
 import { useEffect } from "react";
 import { RotatingSquare } from "react-loader-spinner";
 import useInputPattern from "@/lib/hooks/useInputPattern";
 import InputLabelTooltip from "@/components/commons/tooltip/InputLabelTooltip";
 import { labelInfo } from "@/utils/datas/inputLabelInfo";
 import ProductVideoInput from "./ProductVideoInput";
-import { useDropzone } from "react-dropzone";
-import useAuth from "@/lib/useAuth";
-import {
-  isAcceptableFile,
-  isValidImageForJpg,
-} from "@/lib/services/globalService";
+import { isAcceptableFile } from "@/lib/services/globalService";
 import { ACCEPTABLE_IMAGE_EXTENSIONS } from "@/lib/constants/globalConstant";
 
 const modules = {
@@ -559,11 +553,11 @@ const UploadProduct = ({ store, setStep, user }) => {
         setLoading(false);
         dispatch(setEditProduct(null));
         setVideo(null);
-        setStep(0);
+        setStep(1);
       } else {
         toast.error("Product Update Unsuccessfully");
         setLoading(false);
-        setStep(0);
+        setStep(1);
       }
     } else {
       // -------------second part-------------

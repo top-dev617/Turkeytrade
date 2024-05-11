@@ -1,16 +1,11 @@
 import React, { useState } from "react";
-import Item from "../Item";
-import { storeItems } from "@/utils/datas/items";
 import ContactInfo from "../SellerStore/ContactInfo/ContactInfo";
 import StoreOverview from "../SellerStore/StoreOverview/StoreOverview";
 import StoreCategories from "../SellerStore/StoreCategories";
-import ChatMain from "../chatting/ChatMain";
 import { useDispatch, useSelector } from "react-redux";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { setPublicTab } from "@/redux/features/stores/storeSlice";
-import Chatting from "../chatting/Chatting";
-import StoreChat from "../SellerStore/StoreChat";
 import { usePostNewChatMutation } from "@/redux/features/conversation/conversationApi";
 import { useRouter } from "next/router";
 import {

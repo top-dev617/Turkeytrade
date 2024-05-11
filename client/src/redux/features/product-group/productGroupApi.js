@@ -30,6 +30,15 @@ const productGroupApi = api.injectEndpoints({
       invalidatesTags: ["product-groups", "products"],
     }),
 
+    updateGroupByIdAndStore: builder.mutation({
+      query: ({ data, id, storeId }) => ({
+        url: `/product-groups/${id}/${storeId}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["product-groups", "products"],
+    }),
+
     postIsExistGroup: builder.mutation({
       query: ({ id }) => ({
         url: `/product-groups/isexist/${id}`,
@@ -43,6 +52,7 @@ export const {
   usePostProductGroupMutation,
   useGetProductGroupByStoreIdQuery,
   useGetUniqueProductGroupByStoreIdQuery,
+  useUpdateGroupByIdAndStoreMutation,
 
   // check is exist group
   usePostIsExistGroupMutation,

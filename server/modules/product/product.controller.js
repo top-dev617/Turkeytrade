@@ -1,4 +1,5 @@
 const Category = require("../category/category.model");
+const SaveProduct = require("../saveProduct/saveProduct.model");
 const SubCategory = require("../subCategory/subCategory.model");
 const Product = require("./product.model");
 
@@ -35,15 +36,47 @@ const createProduct = async (req, res) => {
 
 const getProductById = async (req, res) => {
   try {
-    const result = await Product.findOne({ _id: req.params.id })
+    const result = await Product.findOne({
+      _id: req.params.id,
+      status: "Publish",
+    })
       .populate("store")
       .populate("category")
       .populate("sub_category")
       .populate("group");
+
+    if (result?.group) {
+      var groupProducts = await Product.find({
+        group: result.group._id,
+        _id: { $ne: result._id },
+        status: "Publish",
+      }).limit(4);
+    }
+
+    const productsWithMinMaxPrices = await Promise.all(
+      groupProducts.map(async (product) => {
+        if (product?.price?.price_type === "ladder_price") {
+          const prices = product?.price?.ladder_price?.map((price) =>
+            parseInt(price.euro)
+          );
+          const minPrice = Math.min(...prices);
+          const maxPrice = Math.max(...prices);
+          return {
+            ...product?.toObject(),
+            minPrice,
+            maxPrice,
+          };
+        } else {
+          return { ...product?.toObject() };
+        }
+      })
+    );
+
     res.status(200).json({
       status: true,
       message: "Product get successfully",
       data: result,
+      related_products: productsWithMinMaxPrices,
     });
   } catch (error) {
     res.status(201).json({
@@ -516,6 +549,115 @@ const getSearchProducts = async (req, res) => {
   }
 };
 
+// recently viewed products
+const recentlyViewedProducts = async (req, res) => {
+  try {
+    const query = {
+      _id: {
+        $in: req.body.ids,
+      },
+      status: "Publish",
+    };
+
+    if (req.query.id) {
+      query._id["$ne"] = req.query.id;
+    }
+
+    const result = await Product.find(query).limit(4);
+    const productsWithMinMaxPrices = await Promise.all(
+      result.map(async (product) => {
+        if (product?.price?.price_type === "ladder_price") {
+          const prices = product?.price?.ladder_price?.map((price) =>
+            parseInt(price.euro)
+          );
+          const minPrice = Math.min(...prices);
+          const maxPrice = Math.max(...prices);
+          return {
+            ...product?.toObject(),
+            minPrice,
+            maxPrice,
+          };
+        } else {
+          return { ...product?.toObject() };
+        }
+      })
+    );
+
+    res.status(200).json({
+      status: true,
+      success: true,
+      message: "Product get successfully",
+      data: productsWithMinMaxPrices,
+    });
+  } catch (error) {
+    res.status(201).json({
+      status: false,
+      message: "Product get unsuccessful",
+      error_message: error.message,
+    });
+  }
+};
+
+// popular products
+const popularProducts = async (req, res) => {
+  try {
+    const limit = 32;
+    const popularProductIds = await SaveProduct.aggregate([
+      {
+        $group: {
+          _id: "$product",
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $sort: { count: -1 },
+      },
+      {
+        $limit: limit,
+      },
+    ]);
+
+    // Extracting the product IDs from the result
+    const productIds = popularProductIds.map((item) => item._id);
+
+    // Fetching product details from the Product collection
+    const products = await Product.find({
+      _id: { $in: productIds },
+      status: "Publish",
+    });
+    const productsWithMinMaxPrices = await Promise.all(
+      products.map(async (product) => {
+        if (product?.price?.price_type === "ladder_price") {
+          const prices = product?.price?.ladder_price?.map((price) =>
+            parseInt(price.euro)
+          );
+          const minPrice = Math.min(...prices);
+          const maxPrice = Math.max(...prices);
+          return {
+            ...product?.toObject(),
+            minPrice,
+            maxPrice,
+          };
+        } else {
+          return { ...product?.toObject() };
+        }
+      })
+    );
+
+    res.status(201).json({
+      success: true,
+      message: "Products Retrieve successfully",
+      data: productsWithMinMaxPrices,
+    });
+  } catch (error) {
+    res.status(201).json({
+      success: false,
+      message: "Product get unsuccessful",
+      error_message: error.message,
+    });
+  }
+};
+
 module.exports = {
   createProduct,
   getProductById,
@@ -531,4 +673,6 @@ module.exports = {
   getSearchProducts,
   getDraftProductsByStoreId,
   getProductsByGroupId,
+  recentlyViewedProducts,
+  popularProducts,
 };

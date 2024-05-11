@@ -64,10 +64,10 @@ input[type="number"] {
   font-weight: normal;
 }
 
-.input:focus {
+/* .input:focus {
   outline: none;
   border: none;
-}
+} */
 
 /* common styles */
 
@@ -1284,6 +1284,14 @@ details[data-popover="right"] > summary + * {
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.twoLine {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 

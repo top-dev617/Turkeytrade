@@ -13,6 +13,7 @@ const {
   checkIsExistEmail,
   updateUserInfo,
   loginAdmin,
+  createSocialUser,
 } = require("../controller/userController");
 const { isAuth } = require("../utils/middleware");
 const { upload, handleMulterError } = require("../config/multerConfig");
@@ -20,6 +21,7 @@ const { upload, handleMulterError } = require("../config/multerConfig");
 const router = express.Router();
 
 router.post("/signup", registerUser);
+router.post("/login/social", createSocialUser);
 router.post("/login", loginUser);
 router.post("/admin-login", loginAdmin);
 router.post("/verifyEmail", emailVerification);

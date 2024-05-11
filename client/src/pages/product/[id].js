@@ -3,7 +3,7 @@ import ProductDescription from "@/components/SellerProduct/ProductDescription";
 import Loading from "@/components/commons/Loading";
 import { useGetProductByIdQuery } from "@/redux/features/products/productApi";
 import { useRouter } from "next/router";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 
 const Details = () => {
   const { query } = useRouter();
@@ -27,6 +27,27 @@ const Details = () => {
     };
   }, []);
 
+  const handleViewProduct = () => {
+    const products = localStorage.getItem("view-prods")
+      ? JSON.parse(localStorage.getItem("view-prods"))
+      : [];
+
+    const itemIndex = products.findIndex((item) => item === data?.data?._id);
+    if (itemIndex === -1) {
+      products.unshift(data?.data?._id);
+      const maxViewedProducts = 10;
+      const updatedProducts = products.slice(0, maxViewedProducts);
+      localStorage.setItem("view-prods", JSON.stringify(updatedProducts));
+      console.log("Updated viewed products:", updatedProducts);
+    }
+  };
+
+  useEffect(() => {
+    if (data?.data?._id) {
+      handleViewProduct();
+    }
+  }, [data?.data?._id]);
+
   return (
     <>
       {isLoading ? (
@@ -34,7 +55,11 @@ const Details = () => {
       ) : (
         <div className="container mb-12">
           <ProductBanner product={data?.data || null} />
-          <ProductDescription product={data?.data || null} />
+          <ProductDescription
+            product={data?.data || null}
+            relatedProducts={data?.related_products}
+            currentId={query?.id}
+          />
         </div>
       )}
     </>

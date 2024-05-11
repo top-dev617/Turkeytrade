@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Spinner } from "@material-tailwind/react";
 import { usePostLoginMutation } from "@/redux/features/auth/authApi";
+import GoogleLoginButton from "./auth/GoogleLoginButton";
 
 const Login = () => {
   const router = useRouter();
@@ -150,6 +151,8 @@ const Login = () => {
                 {isLoading ? <Spinner color="white" /> : "Login"}
               </button>
             </div>
+
+            <GoogleLoginButton />
           </form>
         </div>
       </div>

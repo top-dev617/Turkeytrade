@@ -68,6 +68,58 @@ const registerUser = async (req, res) => {
   }
 };
 
+const createSocialUser = async (req, res) => {
+  try {
+    const isExist = await User.findOne({ email: req.body.email });
+    if (isExist) {
+      if (isExist?.user_type !== "Social") {
+        if (isExist?.isVerified === false) {
+          const newUser = new User(req.body);
+          const result = await newUser.save();
+          const token = await generateToken(result);
+          res.status(200).send({
+            success: true,
+            message: "User Create Successfully",
+            access_token: token,
+            user: result,
+          });
+        } else {
+          res.status(200).send({
+            success: false,
+            isExist: true,
+            message: "Email Already in use",
+          });
+        }
+      }
+      if (isExist?.user_type === "Social") {
+        const token = await generateToken(isExist);
+        res.status(200).send({
+          success: true,
+          message: "User Login Successfully",
+          access_token: token,
+          user: isExist,
+        });
+      }
+    } else {
+      const newUser = new User(req.body);
+      const result = await newUser.save();
+      const token = await generateToken(result);
+      res.status(200).send({
+        success: true,
+        message: "User Create Successfully",
+        access_token: token,
+        user: result,
+      });
+    }
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      message: "User not found!",
+      error_message: error.message,
+    });
+  }
+};
+
 // get user info by token verified => email
 const getUserInfo = async (req, res) => {
   try {
@@ -444,6 +496,7 @@ const updateUserInfo = async (req, res) => {
 
 module.exports = {
   registerUser,
+  createSocialUser,
   loginUser,
   loginAdmin,
   getAllUsers,

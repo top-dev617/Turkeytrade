@@ -12,7 +12,6 @@ import { star } from "@/utils/icons/icons";
 import { useRouter } from "next/router";
 import {
   setChat,
-  setChats,
   setNewChat,
 } from "@/redux/features/conversation/conversationSlice";
 import {

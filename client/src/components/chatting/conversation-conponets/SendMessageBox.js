@@ -4,6 +4,7 @@ import ImageInput from "@/components/commons/conversations/ImageInput";
 import VideoInput from "@/components/commons/conversations/VideoInput";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 const SendMessageBox = ({ sendMessage }) => {
   const { handleSubmit, register, reset, setValue, watch, setFocus } =
@@ -32,6 +33,7 @@ const SendMessageBox = ({ sendMessage }) => {
       }
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit(handleMessage)}

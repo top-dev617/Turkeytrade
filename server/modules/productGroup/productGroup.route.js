@@ -19,7 +19,7 @@ router.get("/store/:storeId", getPGroupsByStoreId);
 router.get("/unique/store/:storeId", getUniquePGroupsByStoreId);
 router.get("/", getPGroups);
 router.get("/show/group", getShowPGroups);
-router.patch("/:id", updatePGroup);
+router.patch("/:id/:storeId", updatePGroup);
 router.delete("/:id", deletePGroupById);
 
 // check is exist

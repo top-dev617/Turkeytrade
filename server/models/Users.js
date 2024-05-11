@@ -18,7 +18,13 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: false,
+    },
+    user_type: {
+      type: String,
+      enum: ["Manual", "Social"],
+      default: "Manual",
+      required: false,
     },
     otp: {
       type: String,

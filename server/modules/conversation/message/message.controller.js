@@ -23,7 +23,6 @@ const createMessage = async (req, res) => {
       }
     }
 
-    console.log(messageData);
     const newMessage = new Message(messageData);
     const result = await newMessage.save();
     res.status(200).send(result);

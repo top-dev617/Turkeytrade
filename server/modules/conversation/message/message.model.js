@@ -30,6 +30,11 @@ const MessageSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    product: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "Product",
+      required: false,
+    },
     isSeen: {
       type: Boolean,
       enum: [true, false],

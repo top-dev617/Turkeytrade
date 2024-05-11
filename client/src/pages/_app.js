@@ -14,6 +14,8 @@ import "../styles/globals.css";
 import ChatMain from "@/components/chatting/ChatMain";
 import BottomBar from "@/components/shared/BottomBar";
 import SocketContext from "@/components/context/SocketContext";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { clientId } from "@/utils/auth/global";
 
 export default function App({ Component, pageProps }) {
   // const getLayout = Component.getLayout || ((page) => page);
@@ -29,32 +31,38 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <Provider store={store}>
-        <AuthProvider>
-          <SocketContext>
-            <ToastContainer
-              position="top-right"
-              autoClose={1500}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
-            />
-            <ThemeProvider value={customTheme}>
-              {pathname !== "/signin" && pathname !== "/register" && <Header />}
-              <Component {...pageProps} />
-              {pathname !== "/signin" && pathname !== "/register" && <Footer />}
-              <ChatMain />
-              <BottomBar />
-            </ThemeProvider>
-            <ToastContainer />
-          </SocketContext>
-        </AuthProvider>
-      </Provider>
+      <GoogleOAuthProvider clientId={clientId}>
+        <Provider store={store}>
+          <AuthProvider>
+            <SocketContext>
+              <ToastContainer
+                position="top-right"
+                autoClose={1500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+              />
+              <ThemeProvider value={customTheme}>
+                {pathname !== "/signin" && pathname !== "/register" && (
+                  <Header />
+                )}
+                <Component {...pageProps} />
+                {pathname !== "/signin" && pathname !== "/register" && (
+                  <Footer />
+                )}
+                <ChatMain />
+                <BottomBar />
+              </ThemeProvider>
+              <ToastContainer />
+            </SocketContext>
+          </AuthProvider>
+        </Provider>
+      </GoogleOAuthProvider>
     </>
   );
 }

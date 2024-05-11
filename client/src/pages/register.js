@@ -9,6 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useCheckEmailMutation } from "@/redux/features/auth/authApi";
 import { Spinner } from "@material-tailwind/react";
 import { iEyeHide, iEyeShow } from "@/utils/icons/icons";
+import GoogleLoginButton from "./auth/GoogleLoginButton";
 
 const schema = yup.object().shape({
   email: yup
@@ -222,6 +223,7 @@ const RegisterPage = () => {
                   </button>
                 </div>
               </div>
+              <GoogleLoginButton />
             </form>
           )}
           {registerForm === 2 && (

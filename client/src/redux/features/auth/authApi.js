@@ -20,6 +20,15 @@ const authApi = api.injectEndpoints({
       invalidatesTags: ["users"],
     }),
 
+    socialLogin: builder.mutation({
+      query: ({ data }) => ({
+        url: `/users/login/social`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
+
     postForgotPassword: builder.mutation({
       query: ({ data }) => ({
         url: `/users/forgot-password`,
@@ -101,6 +110,7 @@ const authApi = api.injectEndpoints({
 
 export const {
   usePostRegisterMutation,
+  useSocialLoginMutation,
   usePostLoginMutation,
   usePostForgotPasswordMutation,
   usePostChangePasswordMutation,

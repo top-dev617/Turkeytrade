@@ -139,17 +139,21 @@ const checkIsExist = async (req, res) => {
 
 const updatePGroup = async (req, res) => {
   try {
-    const isExist = await ProductGroup.findOne({ _id: req.params.id });
+    const isExist = await ProductGroup.findOne({
+      _id: req.params.id,
+      store: req.params.storeId,
+    });
     if (isExist) {
-      const result = await ProductGroup.findByIdAndUpdate(
-        { _id: req.params.id },
-        req.body,
+      const result = await ProductGroup.updateOne(
+        { _id: req.params.id, store: req.params.storeId },
+        { $set: req.body },
         {
           new: true,
         }
       );
       res.status(200).json({
         status: true,
+        success: true,
         message: "Group Update successfully",
         data: result,
       });

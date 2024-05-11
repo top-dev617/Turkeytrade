@@ -4,14 +4,9 @@ import ContactInfo from "./ContactInfo/ContactInfo";
 import dynamic from "next/dynamic";
 import { useDispatch } from "react-redux";
 import { setEditProduct } from "@/redux/features/products/productSlice";
-import {
-  Button,
-  Popover,
-  PopoverContent,
-  PopoverHandler,
-} from "@material-tailwind/react";
 import useAuth from "@/lib/useAuth";
 import StoreCategories from "./StoreCategories";
+import CustomCategories from "./CustomCategories";
 
 const UploadProductMain = dynamic(
   () => import("./UploadProduct/UploadProductMain"),
@@ -25,56 +20,40 @@ const StoreTab = ({ store }) => {
   const { user } = useAuth({ redirectTo: "/signin" });
   const dispatch = useDispatch();
 
-  const [step, setStep] = useState(0);
-  const [selectDrop, setSelectDrop] = useState("Upload New Product");
-  const [selectProductAndCate, setSelectProductAndCate] = useState("Products");
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [step, setStep] = useState(1);
 
-  const handleStep = (index) => {
-    if (index === 1) {
+  const handleStep = (id) => {
+    if (id === 3) {
       dispatch(setEditProduct(null));
-      setStep(index);
-    } else if (index === 2) {
+    } else if (id === 4) {
       dispatch(setEditProduct(null));
-      setStep(index);
-    } else {
-      setStep(index);
     }
+    setStep(id);
   };
 
-  const handleDropdown = (v) => {
-    if (selectedTab === 1) {
-      setSelectProductAndCate(v);
-      setSelectedTab(0);
-    }
-    if (selectedTab === 2) {
-      setSelectDrop(v);
-      setSelectedTab(0);
-    }
-  };
   const tabs = [
     {
       id: 1,
-      name: selectProductAndCate,
-      dropdowns: [
-        selectProductAndCate === "Products" ? "Categories" : "Products",
-      ],
+      name: "Products",
     },
     {
       id: 2,
-      name: selectDrop,
-      dropdowns: [
-        selectDrop === "Continue On Draft"
-          ? "Upload New Product"
-          : "Continue On Draft",
-      ],
+      name: "Custom Categories",
     },
     {
       id: 3,
-      name: "Edit Product",
+      name: "Upload New Product",
     },
     {
       id: 4,
+      name: "Continue On Draft",
+    },
+    {
+      id: 5,
+      name: "Edit Product",
+    },
+    {
+      id: 6,
       name: "Profile",
     },
   ];
@@ -84,68 +63,40 @@ const StoreTab = ({ store }) => {
       <div className="tab_container ">
         <div className="flex justify-between items-center !w-full overflow-x-auto">
           {tabs.map((tab, index) => (
-            <Popover
-              open={tab?.dropdowns && tab.id === selectedTab}
-              handler={() => setSelectedTab(selectedTab ? 0 : tab.id)}
-              placement="bottom"
+            <button
+              onClick={() => handleStep(tab.id)}
+              className={`${
+                step === tab.id && "active"
+              } tab !mb-0 !w-full relative min-w-[200px] !text-[16px]`}
+              key={index}
             >
-              <PopoverHandler onClick={() => handleStep(index)}>
-                <button
-                  className={`${
-                    step === index && "active"
-                  } tab !mb-0 !w-full relative min-w-[200px]`}
-                  key={index}
-                >
-                  {tab.name}
-                </button>
-              </PopoverHandler>
-              <PopoverContent
-                className={`p-0 ${
-                  tab?.dropdowns && tab.id === selectedTab ? "" : "opacity-0"
-                }`}
-              >
-                {tab?.dropdowns && (
-                  <div className="p-0 min-w-[200px] max-w-[200px] grid grid-cols-1 bg-white">
-                    {tab?.dropdowns.map((v, i) => (
-                      <button
-                        key={i}
-                        className={`cursor-pointer tab ${
-                          v === selectDrop
-                            ? "bg-pm text-white"
-                            : "bg-gray-100 text-gray-900"
-                        }  h-14`}
-                        onClick={() => handleDropdown(v)}
-                      >
-                        {v}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </PopoverContent>
-            </Popover>
+              {tab.name}
+            </button>
           ))}
         </div>
 
         <div className="py-3">
-          {step === 0 && (
-            <>
-              {selectProductAndCate === "Products" ? (
-                <StoreOverview store={store} />
-              ) : (
-                <StoreCategories store={store} />
-              )}
-            </>
-          )}
-          {step === 1 && (
+          {step === 1 && <StoreOverview store={store} />}
+          {step === 2 && <CustomCategories store={store} />}
+
+          {step === 3 && (
             <UploadProductMain
               store={store}
-              selectDrop={selectDrop}
+              step={step}
               setStep={setStep}
               user={user}
             />
           )}
-          {step === 2 && <EditProduct store={store} setStep={setStep} />}
-          {step === 3 && <ContactInfo />}
+          {step === 4 && (
+            <UploadProductMain
+              store={store}
+              step={step}
+              setStep={setStep}
+              user={user}
+            />
+          )}
+          {step === 5 && <EditProduct store={store} setStep={setStep} />}
+          {step === 6 && <ContactInfo />}
         </div>
       </div>
     </div>

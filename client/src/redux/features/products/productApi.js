@@ -133,6 +133,18 @@ const productApi = api.injectEndpoints({
     getSingleSaveProductById: builder.query({
       query: (id) => `/save-products/single/${id}`,
     }),
+    // get popular products
+    getPopularProducts: builder.query({
+      query: () => `/products/popular/prods`,
+    }),
+
+    recentViewProducts: builder.mutation({
+      query: ({ data, currentProId }) => ({
+        url: `/products/recent-view/?id=${currentProId}`,
+        method: "POST",
+        body: data,
+      }),
+    }),
 
     // delete save product
     removeSaveProduct: builder.mutation({
@@ -164,6 +176,12 @@ export const {
 
   // groups
   useGetProductsByGroupIdQuery,
+
+  // recently viewed products
+  useRecentViewProductsMutation,
+
+  // Popular products
+  useGetPopularProductsQuery,
 
   // draf products sections
   usePostDraftProductMutation,

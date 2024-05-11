@@ -85,6 +85,7 @@ const conversationSlice = createSlice({
     //     console.error("Invalid chats data:", chats);
     //   }
     // },
+
     setChat: (state, action) => {
       state.messages = [];
       state.chat = action.payload;
