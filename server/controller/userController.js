@@ -90,8 +90,7 @@ const createSocialUser = async (req, res) => {
             message: "Email Already in use",
           });
         }
-      }
-      if (isExist?.user_type === "Social") {
+      } else if (isExist?.user_type === "Social") {
         const token = await generateToken(isExist);
         res.status(200).send({
           success: true,
@@ -460,12 +459,97 @@ const checkIsExistEmail = async (req, res) => {
   }
 };
 
+const checkIsExistEmailForSocial = async (req, res) => {
+  try {
+    const isExist = await User.findOne({ email: req.body.email });
+    if (isExist) {
+      if (isExist?.user_type !== "Social") {
+        if (isExist?.isVerified === false) {
+          res.status(200).json({
+            success: true,
+            message: "Email is Unverified",
+          });
+        } else {
+          res.status(201).json({
+            success: false,
+            message: "Email Already in use",
+          });
+        }
+      } else {
+        const token = await generateToken(isExist);
+        res.status(200).send({
+          success: true,
+          login: true,
+          message: "User Login Successfully",
+          access_token: token,
+          user: isExist,
+        });
+      }
+    } else {
+      res.status(200).json({
+        success: true,
+        message: "Email is Unique",
+      });
+    }
+  } catch (error) {
+    res.status(200).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 const updateUserInfo = async (req, res) => {
   try {
     const isExist = await User.findOne({ _id: req.params.id });
     const newData = req.body;
     if (req.file) {
       newData["image"] = req.file.path;
+    }
+    if (isExist) {
+      const result = await User.findByIdAndUpdate(
+        { _id: req.params.id },
+        newData,
+        {
+          new: true,
+        }
+      );
+      res.status(200).json({
+        status: true,
+        message: "User Info Update successfully",
+        data: result,
+      });
+    } else {
+      res.status(201).json({
+        status: false,
+        message: "Update unsuccessful",
+      });
+    }
+  } catch (error) {
+    res.status(201).json({
+      status: false,
+      message: error.message,
+    });
+  }
+};
+
+// with email validation
+const updateUserInfoWithEmail = async (req, res) => {
+  try {
+    const isExist = await User.findOne({ _id: req.params.id });
+    const newData = req.body;
+    if (req.body.email) {
+      const emailExist = await User.findOne({
+        email: req.body.email,
+        _id: { $ne: req.params.id },
+      });
+      if (emailExist) {
+        return res.status(201).json({
+          status: true,
+          emailExist: true,
+          message: "User Info Update successfully",
+        });
+      }
     }
     if (isExist) {
       const result = await User.findByIdAndUpdate(
@@ -509,4 +593,6 @@ module.exports = {
   deleteUserAndCollections,
   checkIsExistEmail,
   updateUserInfo,
+  checkIsExistEmailForSocial,
+  updateUserInfoWithEmail,
 };

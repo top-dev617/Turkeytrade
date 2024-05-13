@@ -63,6 +63,7 @@ const getUniquePGroupsByStoreId = async (req, res) => {
   try {
     const uniqueGroups = await Product.distinct("group", {
       store: req.params.storeId,
+      status: "Publish",
     });
     const result = await ProductGroup.find({ _id: { $in: uniqueGroups } });
     res.status(200).json({

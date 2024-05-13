@@ -5,12 +5,10 @@ import StoreCategories from "../SellerStore/StoreCategories";
 import { useDispatch, useSelector } from "react-redux";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { setPublicTab } from "@/redux/features/stores/storeSlice";
 import { usePostNewChatMutation } from "@/redux/features/conversation/conversationApi";
 import { useRouter } from "next/router";
 import {
   setChat,
-  setChats,
   setNewChat,
 } from "@/redux/features/conversation/conversationSlice";
 import { SocketContext } from "../context/SocketContext";
@@ -25,15 +23,14 @@ const tabs = [
 const InfoTab = ({ store }) => {
   const { user, setMsgOpen } = useContext(AuthContext);
   const { socket } = useContext(SocketContext);
-  const { publicTab } = useSelector((state) => state.store);
   const [postNewChat] = usePostNewChatMutation();
   const dispatch = useDispatch();
-  const [chatId, setChatId] = useState("");
+  const [tabIndex, setTabIndex] = useState(0);
   const router = useRouter();
 
   const handleTab = async (index) => {
     if (index !== 3) {
-      dispatch(setPublicTab(index));
+      setTabIndex(index);
     }
     if (index === 3) {
       if (!user?._id) {
@@ -74,7 +71,7 @@ const InfoTab = ({ store }) => {
           {tabs.map((tab, index) => (
             <button
               className={`${
-                publicTab === index && "active"
+                tabIndex === index && "active"
               } tab !mb-0 !w-full relative min-w-[200px] ${
                 tab?.name === "Chat Now" &&
                 store?.user?._id === user?._id &&
@@ -88,9 +85,9 @@ const InfoTab = ({ store }) => {
           ))}
         </div>
         <div className="py-3">
-          {publicTab === 0 && <StoreOverview store={store} />}
-          {publicTab === 1 && <StoreCategories store={store} />}
-          {publicTab === 2 && <ContactInfo store={store} />}
+          {tabIndex === 0 && <StoreOverview store={store} />}
+          {tabIndex === 1 && <StoreCategories store={store} />}
+          {tabIndex === 2 && <ContactInfo store={store} />}
         </div>
       </div>
     </div>

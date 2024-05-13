@@ -1,9 +1,6 @@
 import useInputPattern from "@/lib/hooks/useInputPattern";
-import { usePatchUserInfoByIdMutation } from "@/redux/features/auth/authApi";
-import {
-  usePatchStoreInfoByIdMutation,
-  useStoreInfoUpdateMutation,
-} from "@/redux/features/stores/storeApi";
+import { useUpdateUserInfoWithEmailMutation } from "@/redux/features/auth/authApi";
+import { useStoreInfoUpdateMutation } from "@/redux/features/stores/storeApi";
 import { Button, Spinner } from "@material-tailwind/react";
 import React from "react";
 import { useState } from "react";
@@ -12,8 +9,9 @@ import { toast } from "react-toastify";
 
 const SellerStoreInfo = ({ store, isAuthor }) => {
   const { handleAlphabeticInput, handlePhoneNumberInput } = useInputPattern();
-  const { handleSubmit, register, reset } = useForm();
-  const [patchUserInfoById, { isLoading }] = usePatchUserInfoByIdMutation();
+  const { handleSubmit, register, reset, setValue } = useForm();
+  const [updateUserInfoWithEmail, { isLoading }] =
+    useUpdateUserInfoWithEmailMutation();
   const [storeInfoUpdate] = useStoreInfoUpdateMutation();
   const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -23,33 +21,51 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
       data: { email: data?.email, phoneNumber: data?.phoneNumber },
       id: store?.user?._id,
     };
-    await patchUserInfoById(options);
-    setLoading(false);
-    setIsEdit(false);
+    const result = await updateUserInfoWithEmail(options);
+    if (result?.data?.status) {
+      if (result?.data?.emailExist) {
+        setValue("email", store?.user?.email);
+        toast.error("Email already exists");
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      toast.error("info add unsuccessfully");
+      return false;
+    }
   };
+
+  // console.log(store);
 
   const handleEdit = async (data) => {
     setLoading(true);
-    handleUserUpdate(data);
-    const options = {
-      data: {
-        company_address: {
-          province: data?.province,
-          city: data?.city,
-          address: data?.address,
-          postal_code: data?.postal_code,
+    const isSuccess = await handleUserUpdate(data);
+    if (isSuccess) {
+      const options = {
+        data: {
+          company_address: {
+            province: data?.province || store?.company_address?.province,
+            city: data?.city || store?.company_address?.city,
+            address: data?.address || store?.company_address?.address,
+            postal_code:
+              data?.postal_code || store?.company_address?.postal_code,
+          },
         },
-      },
-      id: store?._id,
-    };
-    const result = await storeInfoUpdate(options);
-    setLoading(false);
-    if (result?.data?.status === true) {
-      reset();
-      toast.success("info Add Successfully");
-    } else {
-      toast.error("info add unsuccessfully");
+        id: store?._id,
+      };
+      const result = await storeInfoUpdate(options);
+      setLoading(false);
+      if (result?.data?.status === true) {
+        reset();
+        toast.success("info Add Successfully");
+      } else {
+        toast.error("info add unsuccessfully");
+      }
     }
+
+    setIsEdit(false);
+    setLoading(false);
   };
   return (
     <div className=" relative h-fit py-4">
@@ -82,9 +98,8 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
               <div className="col-12 col-md-6">
                 <label>Email Address</label>
                 <input
-                  {...register("email", { required: false })}
+                  {...register("email", { required: true })}
                   type="email"
-                  name="email"
                   placeholder="Email"
                   disabled={isEdit ? false : true}
                   readOnly={isEdit ? false : true}
@@ -95,7 +110,6 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
                 <label>Telephone No </label>
                 <input
                   {...register("phoneNumber", { required: false })}
-                  name="phoneNumber"
                   type="tel"
                   onInput={handlePhoneNumberInput}
                   placeholder="Phone Number"
@@ -110,7 +124,6 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
             <label>Province</label>
             <input
               {...register("province", { required: false })}
-              name="province"
               type="text"
               placeholder="Province"
               disabled={isEdit ? false : true}
@@ -122,7 +135,6 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
             <label>City</label>
             <input
               {...register("city", { required: false })}
-              name="city"
               type="text"
               onInput={handleAlphabeticInput}
               placeholder="City"
@@ -135,7 +147,6 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
             <label>Address</label>
             <input
               {...register("address", { required: false })}
-              name="address"
               type="text"
               placeholder="Address"
               disabled={isEdit ? false : true}
@@ -147,7 +158,6 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
             <label>Postal code</label>
             <input
               {...register("postal_code", { required: false })}
-              name="postal_code"
               type="text"
               placeholder="Postal code "
               disabled={isEdit ? false : true}

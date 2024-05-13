@@ -150,8 +150,8 @@ const UploadProduct = ({ store, setStep, user }) => {
   const [subCategories, setSubCategories] = useState([]);
   const [subCategory, setSubCategory] = useState(null);
 
-  const handleSubCategories = (items) => {
-    const sortedSubCategories = [...items].sort((a, b) => {
+  const handleSubCategories = async (items) => {
+    const sortedSubCategories = await [...items].sort((a, b) => {
       const numericPartA =
         parseInt(a.sub_cate_slug?.match(/\d+/)?.[0], 10) || 0;
       const numericPartB =
@@ -162,37 +162,44 @@ const UploadProduct = ({ store, setStep, user }) => {
     setSubCategories(sortedSubCategories);
   };
 
-  const handleCategory = (category) => {
+  const handleCategory = async (category) => {
     setSubCategory(null);
-    const isExist = data?.data.find((cate) => cate?._id === category?._id);
+    const isExist = await data?.data.find(
+      (cate) => cate?._id === category?._id
+    );
     if (isExist) {
       setCategory(category);
-      handleSubCategories(isExist?.subcategories);
+      await handleSubCategories(isExist?.subcategories);
     }
   };
+
+  const loadProduct = async () => {
+    const groupFind = await productGroups?.data?.find(
+      (g) => g?._id === editProduct?.group
+    );
+    if (groupFind) {
+      setValue("group", editProduct?.group);
+    } else {
+      setValue("group", "");
+    }
+    const isExist = await data?.data?.find(
+      (cate) => cate?._id === editProduct?.category?._id
+    );
+    setCategory({ _id: isExist?._id, cate_name: isExist?.cate_name });
+    if (isExist) {
+      await handleSubCategories(isExist?.subcategories);
+      setSubCategory({
+        sub_cate_name: editProduct?.sub_category?.sub_cate_name,
+        _id: editProduct?.sub_category?._id,
+      });
+    }
+    setIsDataLoading(false);
+  };
+
   useEffect(() => {
     if (editProduct) {
       setIsDataLoading(true);
-      const groupFind = productGroups?.data?.find(
-        (g) => g?._id === editProduct?.group
-      );
-      if (groupFind) {
-        setValue("group", editProduct?.group);
-      } else {
-        setValue("group", "");
-      }
-      const isExist = data?.data?.find(
-        (cate) => cate?._id === editProduct?.category?._id
-      );
-      setCategory({ _id: isExist?._id, cate_name: isExist?.cate_name });
-      if (isExist) {
-        handleSubCategories(isExist?.subcategories);
-        setSubCategory({
-          sub_cate_name: editProduct?.sub_category?.sub_cate_name,
-          _id: editProduct?.sub_category?._id,
-        });
-      }
-      setIsDataLoading(false);
+      loadProduct();
     }
   }, [editProduct, data?.data]);
 
@@ -609,7 +616,11 @@ const UploadProduct = ({ store, setStep, user }) => {
         setOnePriceFields(oneFields);
         setLoading(false);
         setVideo(null);
-        setStep(0);
+        if (saveDraft) {
+          setStep(4);
+        } else {
+          setStep(1);
+        }
       } else {
         toast.error(
           saveDraft
@@ -617,7 +628,11 @@ const UploadProduct = ({ store, setStep, user }) => {
             : "Product Publish Unsuccessfully"
         );
         setLoading(false);
-        setStep(0);
+        if (saveDraft) {
+          setStep(4);
+        } else {
+          setStep(1);
+        }
       }
     }
   };

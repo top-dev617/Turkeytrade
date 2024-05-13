@@ -213,11 +213,13 @@ const UploadProductMain = ({ store, step, setStep, user }) => {
             </tbody>
           </table>
 
-          <Pagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
+          {data?.data?.length > 0 && (
+            <Pagination
+              totalPages={totalPages}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
+          )}
         </div>
       )}
 

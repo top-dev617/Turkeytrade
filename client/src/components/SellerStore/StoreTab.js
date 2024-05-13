@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import { useDispatch } from "react-redux";
 import { setEditProduct } from "@/redux/features/products/productSlice";
 import useAuth from "@/lib/useAuth";
-import StoreCategories from "./StoreCategories";
 import CustomCategories from "./CustomCategories";
 
 const UploadProductMain = dynamic(
@@ -75,7 +74,7 @@ const StoreTab = ({ store }) => {
           ))}
         </div>
 
-        <div className="py-3">
+        <div className="py-3 min-h-[400px]">
           {step === 1 && <StoreOverview store={store} />}
           {step === 2 && <CustomCategories store={store} />}
 

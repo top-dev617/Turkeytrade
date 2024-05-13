@@ -92,9 +92,27 @@ const authApi = api.injectEndpoints({
       invalidatesTags: ["users"],
     }),
 
+    checkSocialEmail: builder.mutation({
+      query: ({ data }) => ({
+        url: `/users/check-email/social`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["users"],
+    }),
+
     patchUserInfoById: builder.mutation({
       query: ({ data, id }) => ({
         url: `/users/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["store", "users"],
+    }),
+
+    updateUserInfoWithEmail: builder.mutation({
+      query: ({ data, id }) => ({
+        url: `/users/with-email/${id}`,
         method: "PATCH",
         body: data,
       }),
@@ -119,6 +137,9 @@ export const {
   useHandleResendOtpMutation,
   useCheckEmailMutation,
   usePatchUserInfoByIdMutation,
+  useCheckSocialEmailMutation,
+
+  useUpdateUserInfoWithEmailMutation,
 
   // get user
   useGetUserQuery,

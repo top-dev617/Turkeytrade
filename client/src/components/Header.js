@@ -17,27 +17,11 @@ import {
 } from "@material-tailwind/react";
 import {
   handleClearConversations,
-  setChatUnseen,
   setChats,
-  setInboxChatUnseen,
-  setInboxLastMessages,
-  setInboxMessagePush,
-  setLastChat,
-  setLastMessages,
-  setMessagePush,
-  setNewChat,
-  setNtfAlert,
-  setOnline_users,
 } from "@/redux/features/conversation/conversationSlice";
-import { socket_url } from "@/utils/auth/global";
-import { io } from "socket.io-client";
 import { setStoreInfo } from "@/redux/features/stores/storeSlice";
-import {
-  useGetGlobalChatDataQuery,
-  useTotalUnseenQuery,
-} from "@/redux/features/conversation/conversationApi";
+import { useGetGlobalChatDataQuery } from "@/redux/features/conversation/conversationApi";
 import useAuth from "@/lib/useAuth";
-import { SocketContext } from "./context/SocketContext";
 
 const Header = () => {
   const { user } = useContext(AuthContext);

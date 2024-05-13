@@ -18,6 +18,7 @@ const DrafProductRow = ({
   setSelectedItems,
   handleDelete,
   deleteLoading,
+  setStep,
 }) => {
   const [patchProduct, { isLoading }] = usePatchProductMutation();
   const dispatch = useDispatch();
@@ -36,20 +37,25 @@ const DrafProductRow = ({
     await patchProduct(options);
   };
 
-  const isFulfilled =
-    (product?.title &&
-      product?.category &&
-      product?.sub_category &&
-      product?.images?.length > 0 &&
-      product?.price?.ladder_price[0]?.euro &&
-      product?.price?.ladder_price[0]?.quantity?.from &&
-      product?.price?.ladder_price[0]?.quantity?.to) ||
-    (product?.price?.one_price?.from &&
-      product?.price?.one_price?.to &&
-      product?.keyword &&
-      product?.moq &&
-      product?.lead_time &&
-      product?.lead_time.from);
+  const handleEditProduct = () => {
+    dispatch(setEditProduct(product));
+    setStep(5);
+  };
+
+  // const isFulfilled =
+  //   (product?.title &&
+  //     product?.category &&
+  //     product?.sub_category &&
+  //     product?.images?.length > 0 &&
+  //     product?.price?.ladder_price[0]?.euro &&
+  //     product?.price?.ladder_price[0]?.quantity?.from &&
+  //     product?.price?.ladder_price[0]?.quantity?.to) ||
+  //   (product?.price?.one_price?.from &&
+  //     product?.price?.one_price?.to &&
+  //     product?.keyword &&
+  //     product?.moq &&
+  //     product?.lead_time &&
+  //     product?.lead_time.from);
 
   return (
     <tr className="bg-white border-b hover:bg-pm hover:bg-opacity-50">
@@ -71,7 +77,7 @@ const DrafProductRow = ({
       >
         <div className="flex justify-center items-center gap-4">
           <h1
-            onClick={() => dispatch(setEditProduct(product))}
+            onClick={() => handleEditProduct()}
             className="text-sm hover:text-pmd cursor-pointer"
           >
             Edit
@@ -91,6 +97,9 @@ const DrafProductRow = ({
             </PopoverHandler>
             <PopoverContent className="w-44">
               <div className="max-w-[200px] text-center">
+                <p className="text-red-400">
+                  are you sure you want to delete this?
+                </p>
                 <Button
                   onClick={() => handleDelete([product])}
                   size="sm"

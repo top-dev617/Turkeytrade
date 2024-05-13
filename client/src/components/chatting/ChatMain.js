@@ -13,7 +13,7 @@ import { useTotalUnseenQuery } from "@/redux/features/conversation/conversationA
 
 const ChatMain = () => {
   const { data } = useTotalUnseenQuery();
-  const { user, msgOpen, setMsgOpen, msgRef } = useContext(AuthContext);
+  const { user, msgOpen, setMsgOpen } = useContext(AuthContext);
 
   const router = useRouter();
   const handleMsg = () => {

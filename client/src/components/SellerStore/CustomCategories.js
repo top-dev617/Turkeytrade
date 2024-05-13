@@ -5,13 +5,16 @@ import React, { useState } from "react";
 import Loading from "../commons/Loading";
 import {
   useGetProductGroupByStoreIdQuery,
+  useGetUniqueProductGroupByStoreIdQuery,
   useUpdateGroupByIdAndStoreMutation,
 } from "@/redux/features/product-group/productGroupApi";
 import { toast } from "react-toastify";
 import { Button, Dialog } from "@material-tailwind/react";
 
 const CustomCategories = ({ store }) => {
-  const { data, isLoading } = useGetProductGroupByStoreIdQuery(store?._id);
+  const { data, isLoading } = useGetUniqueProductGroupByStoreIdQuery(
+    store?._id
+  );
   const [updateGroupByIdAndStore] = useUpdateGroupByIdAndStoreMutation();
   const [editCate, setEditCate] = useState(null);
   const [cateName, setCateName] = useState("");
@@ -33,14 +36,6 @@ const CustomCategories = ({ store }) => {
     setCateName("");
   };
 
-  const handleCateControl = async () => {
-    if (editCate?.isExist) {
-      setOpen(true);
-    } else {
-      handleCate();
-    }
-  };
-
   const handleCancel = () => {
     setOpen(false);
   };
@@ -51,7 +46,7 @@ const CustomCategories = ({ store }) => {
         <Loading />
       ) : (
         <>
-          <h5 className="text-xl font-bold mb-2">Browse Categories</h5>
+          <h5 className="text-xl font-bold mb-2">My Custom Categories</h5>
 
           <div className="grid md:grid-cols-3 gap-2 md:gap-4 mx-auto">
             {data?.data?.map((group, index) => (
@@ -82,7 +77,7 @@ const CustomCategories = ({ store }) => {
                   <>
                     {cateName && editCate?.title !== cateName && (
                       <div
-                        onClick={() => handleCateControl()}
+                        onClick={() => setOpen(true)}
                         className="h-10 w-10 !bg-pm hover:!bg-pmd cursor-pointer text-white flex justify-center items-center"
                       >
                         <svg

@@ -1,7 +1,10 @@
 import { AuthContext } from "@/components/context/AuthContext";
 import { useGetStoreInfoBySellerIdQuery } from "@/redux/features/stores/storeApi";
 import React, { useContext } from "react";
-import { usePatchUserInfoByIdMutation } from "@/redux/features/auth/authApi";
+import {
+  usePatchUserInfoByIdMutation,
+  useUpdateUserInfoWithEmailMutation,
+} from "@/redux/features/auth/authApi";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Button, Spinner } from "@material-tailwind/react";
@@ -11,12 +14,13 @@ import useInputPattern from "@/lib/hooks/useInputPattern";
 import SteelManufacturer from "../SellerStore/ContactInfo/SteelManufacturer";
 
 const CompanyDetails = () => {
-  const { handleSubmit, register, reset } = useForm();
+  const { handleSubmit, register, reset, setValue } = useForm();
   const { setUser, user } = useContext(AuthContext);
   const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
   const { handlePhoneNumberInput } = useInputPattern();
 
-  const [patchUserInfoById, { isLoading }] = usePatchUserInfoByIdMutation();
+  const [updateUserInfoWithEmail, { isLoading }] =
+    useUpdateUserInfoWithEmailMutation();
   const [isEdit, setIsEdit] = useState(false);
 
   const handleEdit = async (data) => {
@@ -24,9 +28,14 @@ const CompanyDetails = () => {
       data: data,
       id: user?._id,
     };
-    const result = await patchUserInfoById(options);
+    const result = await updateUserInfoWithEmail(options);
     setIsEdit(false);
     if (result?.data?.status === true) {
+      if (result?.data?.emailExist) {
+        toast.error("Email already exists");
+        setValue("email", user?.email);
+        return;
+      }
       setUser(result?.data?.data);
       toast.success("info Add Successfully");
     } else {
@@ -71,11 +80,11 @@ const CompanyDetails = () => {
             <div className="col-12 col-md-6">
               <label>Email Address</label>
               <input
-                // {...register("email", { required: false })}
+                {...register("email", { required: true })}
                 type="email"
                 placeholder="Email"
-                disabled
-                readOnly
+                disabled={isEdit ? false : true}
+                readOnly={isEdit ? false : true}
                 defaultValue={user?.email}
               />
             </div>
@@ -84,7 +93,6 @@ const CompanyDetails = () => {
               <input
                 {...register("phoneNumber", { required: false })}
                 type="tel"
-                name="phoneNumber"
                 onInput={handlePhoneNumberInput}
                 placeholder="Phone Number"
                 readOnly={isEdit ? false : true}
@@ -96,7 +104,6 @@ const CompanyDetails = () => {
               <input
                 {...register("province", { required: false })}
                 type="text"
-                name="province"
                 placeholder="Province"
                 readOnly={isEdit ? false : true}
                 defaultValue={user?.province}
@@ -107,7 +114,6 @@ const CompanyDetails = () => {
               <input
                 {...register("city", { required: false })}
                 type="text"
-                name="city"
                 placeholder="City"
                 readOnly={isEdit ? false : true}
                 defaultValue={user?.city}
@@ -118,7 +124,6 @@ const CompanyDetails = () => {
               <input
                 {...register("companyAddress", { required: false })}
                 type="text"
-                name="companyAddress"
                 placeholder="Company Address"
                 readOnly={isEdit ? false : true}
                 defaultValue={user?.companyAddress}
@@ -129,7 +134,6 @@ const CompanyDetails = () => {
               <input
                 {...register("zipCode", { required: false })}
                 type="text"
-                name="zipCode"
                 placeholder="Zip Code / Postal Code"
                 readOnly={isEdit ? false : true}
                 defaultValue={user?.zipCode}
