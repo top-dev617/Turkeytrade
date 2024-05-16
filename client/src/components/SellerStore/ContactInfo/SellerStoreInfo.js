@@ -1,8 +1,11 @@
 import useInputPattern from "@/lib/hooks/useInputPattern";
-import { useUpdateUserInfoWithEmailMutation } from "@/redux/features/auth/authApi";
+import {
+  useUpdateUserInfoWithEmailMutation,
+  useUpdateUserStoreInfoMutation,
+} from "@/redux/features/auth/authApi";
 import { useStoreInfoUpdateMutation } from "@/redux/features/stores/storeApi";
 import { Button, Spinner } from "@material-tailwind/react";
-import React from "react";
+import React, { useMemo } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -10,40 +13,21 @@ import { toast } from "react-toastify";
 const SellerStoreInfo = ({ store, isAuthor }) => {
   const { handleAlphabeticInput, handlePhoneNumberInput } = useInputPattern();
   const { handleSubmit, register, reset, setValue } = useForm();
-  const [updateUserInfoWithEmail, { isLoading }] =
-    useUpdateUserInfoWithEmailMutation();
-  const [storeInfoUpdate] = useStoreInfoUpdateMutation();
+  const [updateUserStoreInfo] = useUpdateUserStoreInfoMutation();
   const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const handleUserUpdate = async (data) => {
-    const options = {
-      data: { email: data?.email, phoneNumber: data?.phoneNumber },
-      id: store?.user?._id,
-    };
-    const result = await updateUserInfoWithEmail(options);
-    if (result?.data?.status) {
-      if (result?.data?.emailExist) {
-        setValue("email", store?.user?.email);
-        toast.error("Email already exists");
-        return false;
-      } else {
-        return true;
-      }
-    } else {
-      toast.error("info add unsuccessfully");
-      return false;
-    }
-  };
 
   // console.log(store);
 
   const handleEdit = async (data) => {
     setLoading(true);
-    const isSuccess = await handleUserUpdate(data);
-    if (isSuccess) {
-      const options = {
-        data: {
+    const options = {
+      data: {
+        userData: {
+          email: data?.email || store?.user?.email,
+          phoneNumber: data?.phoneNumber || store?.user?.phoneNumber,
+        },
+        storeData: {
           company_address: {
             province: data?.province || store?.company_address?.province,
             city: data?.city || store?.company_address?.city,
@@ -52,21 +36,34 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
               data?.postal_code || store?.company_address?.postal_code,
           },
         },
-        id: store?._id,
-      };
-      const result = await storeInfoUpdate(options);
-      setLoading(false);
-      if (result?.data?.status === true) {
-        reset();
-        toast.success("info Add Successfully");
-      } else {
-        toast.error("info add unsuccessfully");
-      }
-    }
-
+      },
+      storeId: store?._id,
+    };
+    const result = await updateUserStoreInfo(options);
     setIsEdit(false);
     setLoading(false);
+    if (result?.data?.status === true) {
+      if (result?.data?.emailExist) {
+        setValue("email", store?.user?.email);
+        toast.error("Email already exists");
+        return;
+      }
+      toast.success("info Add Successfully");
+    } else {
+      toast.error("info add unsuccessfully");
+    }
   };
+
+  useMemo(() => {
+    if (store) {
+      setValue("email", store?.user?.email);
+      setValue("phoneNumber", store?.user?.phoneNumber);
+      setValue("province", store?.company_address?.province);
+      setValue("city", store?.company_address?.city);
+      setValue("address", store?.company_address?.address);
+      setValue("postal_code", store?.company_address?.postal_code);
+    }
+  }, [store]);
   return (
     <div className=" relative h-fit py-4">
       {isAuthor && (
@@ -103,7 +100,6 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
                   placeholder="Email"
                   disabled={isEdit ? false : true}
                   readOnly={isEdit ? false : true}
-                  defaultValue={store?.user?.email}
                 />
               </div>
               <div className="col-12 col-md-6">
@@ -115,7 +111,6 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
                   placeholder="Phone Number"
                   disabled={isEdit ? false : true}
                   readOnly={isEdit ? false : true}
-                  defaultValue={store?.user?.phoneNumber}
                 />
               </div>
             </>
@@ -128,7 +123,6 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
               placeholder="Province"
               disabled={isEdit ? false : true}
               readOnly={isEdit ? false : true}
-              defaultValue={store?.company_address?.province}
             />
           </div>
           <div className="col-12 col-md-6">
@@ -140,7 +134,6 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
               placeholder="City"
               disabled={isEdit ? false : true}
               readOnly={isEdit ? false : true}
-              defaultValue={store?.company_address?.city}
             />
           </div>
           <div className="col-12 col-md-6">
@@ -151,7 +144,6 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
               placeholder="Address"
               disabled={isEdit ? false : true}
               readOnly={isEdit ? false : true}
-              defaultValue={store?.company_address?.address}
             />
           </div>
           <div className="col-12 col-md-6">
@@ -162,7 +154,6 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
               placeholder="Postal code "
               disabled={isEdit ? false : true}
               readOnly={isEdit ? false : true}
-              defaultValue={store?.company_address?.postal_code}
             />
           </div>
         </div>

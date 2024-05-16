@@ -97,130 +97,138 @@ const UploadProductMain = ({ store, step, setStep, user }) => {
       )}
 
       {step === 4 && (
-        <div className="relative overflow-x-auto sm:rounded-lg">
-          <table className="w-full text-sm text-left text-gray-500">
-            {data?.data?.length < 1 && (
-              <div className="mt-6 flex justify-center items-center w-full">
-                <span>No Data</span>
-              </div>
-            )}
-            {isLoading && <Loading />}
-            {data?.data?.length > 0 && (
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-2 py-2 text-sm font-bold text-center"
-                  >
-                    <div
-                      onClick={() =>
-                        setSelectedItems(
-                          selectedItems?.length > 0 ? [] : data?.data
-                        )
-                      }
-                      className="flex items-center"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={
-                          data?.data?.length === selectedItems?.length
-                            ? true
-                            : false
-                        }
-                        className="w-4 h-4 text-p bg-gray-100 border-gray-300 rounded focus:ring-pm cursor-pointer"
-                      />
-                    </div>
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-2 text-sm font-bold text-center"
-                  >
-                    <div className="w-8 text-red-600 mx-auto">
-                      <Popover placement="bottom">
-                        <PopoverHandler>
-                          <div className="w-5 hover:text-pmd">{trash}</div>
-                        </PopoverHandler>
-                        <PopoverContent className="w-44">
-                          <div className="max-w-[200px] text-center">
-                            {selectedItems.length > 0 ? (
-                              <div>
-                                <p className="text-red-400">
-                                  are you sure you want to delete this?
-                                </p>
-                                <Button
-                                  onClick={() => handleDelete(selectedItems)}
-                                  size="sm"
-                                  className="bg-red-600 hover:bg-red-700 text-white mt-2"
-                                >
-                                  {deleteLoading ? <Spinner /> : "Delete"}
-                                </Button>
+        <>
+          {editProduct?._id ? (
+            <UploadProduct store={store} setStep={setStep} />
+          ) : (
+            <div className="relative overflow-x-auto sm:rounded-lg">
+              <table className="w-full text-sm text-left text-gray-500">
+                {data?.data?.length < 1 && (
+                  <div className="mt-6 flex justify-center items-center w-full">
+                    <span>No Data</span>
+                  </div>
+                )}
+                {isLoading && <Loading />}
+                {data?.data?.length > 0 && (
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700">
+                    <tr>
+                      <th
+                        scope="col"
+                        className="px-2 py-2 text-sm font-bold text-center"
+                      >
+                        <div
+                          onClick={() =>
+                            setSelectedItems(
+                              selectedItems?.length > 0 ? [] : data?.data
+                            )
+                          }
+                          className="flex items-center"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={
+                              data?.data?.length === selectedItems?.length
+                                ? true
+                                : false
+                            }
+                            className="w-4 h-4 text-p bg-gray-100 border-gray-300 rounded focus:ring-pm cursor-pointer"
+                          />
+                        </div>
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-2 py-2 text-sm font-bold text-center"
+                      >
+                        <div className="w-8 text-red-600 mx-auto">
+                          <Popover placement="bottom">
+                            <PopoverHandler>
+                              <div className="w-5 hover:text-pmd">{trash}</div>
+                            </PopoverHandler>
+                            <PopoverContent className="w-44">
+                              <div className="max-w-[200px] text-center">
+                                {selectedItems.length > 0 ? (
+                                  <div>
+                                    <p className="text-red-400">
+                                      are you sure you want to delete this?
+                                    </p>
+                                    <Button
+                                      onClick={() =>
+                                        handleDelete(selectedItems)
+                                      }
+                                      size="sm"
+                                      className="bg-red-600 hover:bg-red-700 text-white mt-2"
+                                    >
+                                      {deleteLoading ? <Spinner /> : "Delete"}
+                                    </Button>
+                                  </div>
+                                ) : (
+                                  <p className="text-red-400">
+                                    Please Select Checkbox
+                                  </p>
+                                )}
                               </div>
-                            ) : (
-                              <p className="text-red-400">
-                                Please Select Checkbox
-                              </p>
-                            )}
-                          </div>
-                        </PopoverContent>
-                      </Popover>
-                    </div>
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-2 text-sm font-bold text-center"
-                  >
-                    Photo
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-2 text-sm font-bold text-center"
-                  >
-                    Product name
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-2 text-sm font-bold text-center"
-                  >
-                    Current Price
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-2 text-sm font-bold text-center"
-                  >
-                    MOQ
-                  </th>
-                  {/* <th
-                  scope="col"
-                  className="px-2 py-2 text-sm font-bold text-center"
-                >
-                  Status
-                </th> */}
-                </tr>
-              </thead>
-            )}
-            <tbody>
-              {data?.data?.map((product, index) => (
-                <DrafProductRow
-                  key={index}
-                  product={product}
-                  selectedItems={selectedItems}
-                  setSelectedItems={handleSelect}
-                  handleDelete={handleDelete}
-                  deleteLoading={deleteLoading}
-                  setStep={setStep}
-                />
-              ))}
-            </tbody>
-          </table>
+                            </PopoverContent>
+                          </Popover>
+                        </div>
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-2 py-2 text-sm font-bold text-center"
+                      >
+                        Photo
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-2 py-2 text-sm font-bold text-center"
+                      >
+                        Product name
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-2 py-2 text-sm font-bold text-center"
+                      >
+                        Current Price
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-2 py-2 text-sm font-bold text-center"
+                      >
+                        MOQ
+                      </th>
+                      {/* <th
+              scope="col"
+              className="px-2 py-2 text-sm font-bold text-center"
+            >
+              Status
+            </th> */}
+                    </tr>
+                  </thead>
+                )}
+                <tbody>
+                  {data?.data?.map((product, index) => (
+                    <DrafProductRow
+                      key={index}
+                      product={product}
+                      selectedItems={selectedItems}
+                      setSelectedItems={handleSelect}
+                      handleDelete={handleDelete}
+                      deleteLoading={deleteLoading}
+                      setStep={setStep}
+                    />
+                  ))}
+                </tbody>
+              </table>
 
-          {data?.data?.length > 0 && (
-            <Pagination
-              totalPages={totalPages}
-              currentPage={currentPage}
-              onPageChange={handlePageChange}
-            />
+              {data?.data?.length > 0 && (
+                <Pagination
+                  totalPages={totalPages}
+                  currentPage={currentPage}
+                  onPageChange={handlePageChange}
+                />
+              )}
+            </div>
           )}
-        </div>
+        </>
       )}
 
       {/* 

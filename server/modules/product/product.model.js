@@ -55,6 +55,14 @@ const productSchema = new mongoose.Schema(
           required: false,
         },
       },
+      minPrice: {
+        type: Number,
+        required: false,
+      }, // Add minPrice field
+      maxPrice: {
+        type: Number,
+        required: false,
+      },
       required: false,
     },
     category: {
@@ -128,6 +136,38 @@ const productSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+productSchema.pre("save", function (next) {
+  if (
+    this.price?.price_type === "ladder_price" &&
+    Array.isArray(this.price.ladder_price)
+  ) {
+    const prices = this.price.ladder_price.map((price) => price.euro);
+    this.price["minPrice"] = Math.min(...prices);
+    this.price["maxPrice"] = Math.max(...prices);
+  } else {
+    this.price["minPrice"] = null;
+    this.price["maxPrice"] = null;
+  }
+  next();
+});
+
+// Pre-findOneAndUpdate middleware to calculate minPrice and maxPrice
+productSchema.pre("findOneAndUpdate", function (next) {
+  const update = this.getUpdate();
+  if (
+    update.price?.price_type === "ladder_price" &&
+    Array.isArray(update.price.ladder_price)
+  ) {
+    const prices = update.price.ladder_price.map((price) => price.euro);
+    update.price["minPrice"] = Math.min(...prices);
+    update.price["maxPrice"] = Math.max(...prices);
+  } else {
+    update.price["minPrice"] = null;
+    update.price["maxPrice"] = null;
+  }
+  next();
+});
 
 const Product = mongoose.model("Product", productSchema);
 

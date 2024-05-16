@@ -39,7 +39,7 @@ const DrafProductRow = ({
 
   const handleEditProduct = () => {
     dispatch(setEditProduct(product));
-    setStep(5);
+    setStep(4);
   };
 
   // const isFulfilled =

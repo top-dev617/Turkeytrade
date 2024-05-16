@@ -1,6 +1,6 @@
 import { AuthContext } from "@/components/context/AuthContext";
 import { useGetStoreInfoBySellerIdQuery } from "@/redux/features/stores/storeApi";
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import {
   usePatchUserInfoByIdMutation,
   useUpdateUserInfoWithEmailMutation,
@@ -42,6 +42,17 @@ const CompanyDetails = () => {
       toast.error("info add unsuccessfully");
     }
   };
+
+  useMemo(() => {
+    if (user) {
+      setValue("email", user?.email);
+      setValue("phoneNumber", user?.phoneNumber);
+      setValue("province", user?.province);
+      setValue("city", user?.city);
+      setValue("companyAddress", user?.companyAddress);
+      setValue("zipCode", user?.zipCode);
+    }
+  }, [user]);
 
   // console.log(user);
 
@@ -85,7 +96,6 @@ const CompanyDetails = () => {
                 placeholder="Email"
                 disabled={isEdit ? false : true}
                 readOnly={isEdit ? false : true}
-                defaultValue={user?.email}
               />
             </div>
             <div className="col-12 col-md-6">
@@ -96,7 +106,6 @@ const CompanyDetails = () => {
                 onInput={handlePhoneNumberInput}
                 placeholder="Phone Number"
                 readOnly={isEdit ? false : true}
-                defaultValue={user?.phoneNumber}
               />
             </div>
             <div className="col-12 col-md-6">
@@ -106,7 +115,6 @@ const CompanyDetails = () => {
                 type="text"
                 placeholder="Province"
                 readOnly={isEdit ? false : true}
-                defaultValue={user?.province}
               />
             </div>
             <div className="col-12 col-md-6">
@@ -116,7 +124,6 @@ const CompanyDetails = () => {
                 type="text"
                 placeholder="City"
                 readOnly={isEdit ? false : true}
-                defaultValue={user?.city}
               />
             </div>
             <div className="col-12 col-md-6">
@@ -126,7 +133,6 @@ const CompanyDetails = () => {
                 type="text"
                 placeholder="Company Address"
                 readOnly={isEdit ? false : true}
-                defaultValue={user?.companyAddress}
               />
             </div>
             <div className="col-12 col-md-6">
@@ -136,7 +142,6 @@ const CompanyDetails = () => {
                 type="text"
                 placeholder="Zip Code / Postal Code"
                 readOnly={isEdit ? false : true}
-                defaultValue={user?.zipCode}
               />
             </div>
           </div>

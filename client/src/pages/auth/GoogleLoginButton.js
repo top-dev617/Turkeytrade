@@ -198,7 +198,7 @@ const GoogleLoginButton = () => {
             <div className="flex flex-col justify-center items-center gap-2">
               <img className="w-[100px]" src={tickMark.src} alt="" />
               <h3 className="font-bold font-inter text-pm">
-                Login Successfully!
+                Logged in Successfully!
               </h3>
             </div>
 

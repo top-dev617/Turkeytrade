@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import {
   setChat,
   setNewChat,
+  setProductChat,
 } from "@/redux/features/conversation/conversationSlice";
 import {
   useCreateSaveProductMutation,
@@ -86,6 +87,7 @@ const ProductBanner = ({ product }) => {
       // console.log(result);
       if (result?.data?.access) {
         dispatch(setChat(result?.data?.data));
+        dispatch(setProductChat(product));
         if (result?.data?.receiver_Chat) {
           dispatch(setNewChat(result?.data?.data));
           socket.current.emit("addChat", {

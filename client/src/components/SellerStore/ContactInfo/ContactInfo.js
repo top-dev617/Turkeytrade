@@ -15,7 +15,7 @@ const ContactInfo = ({ store }) => {
   const { handleSubmit, register, reset } = useForm();
   const { pathname, asPath } = useRouter();
   const { user } = useContext(AuthContext);
-  const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
+  const { data, refetch } = useGetStoreInfoBySellerIdQuery(user?._id);
   const storeData = asPath === "/mystore" ? data?.data : store;
 
   const [patchUserInfoById, { isLoading }] = usePatchUserInfoByIdMutation();

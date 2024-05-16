@@ -12,6 +12,7 @@ import {
   setLastMessages,
   setMessagePush,
   setMessages,
+  setProductChat,
   setVideo,
 } from "@/redux/features/conversation/conversationSlice";
 import {
@@ -41,9 +42,8 @@ import { SocketContext } from "@/components/context/SocketContext";
 const MessageArea = ({ messageClassName }) => {
   const { user } = useContext(AuthContext);
   const { socket } = useContext(SocketContext);
-  const { chat, online_users, messages, images, video, document } = useSelector(
-    (state) => state.conversation
-  );
+  const { chat, online_users, messages, images, video, document, productChat } =
+    useSelector((state) => state.conversation);
   const [toggleAlert] = useToggleAlertMutation();
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
@@ -104,6 +104,7 @@ const MessageArea = ({ messageClassName }) => {
     dispatch(setImages([]));
     dispatch(setVideo(null));
     dispatch(setDocument(null));
+    dispatch(setProductChat(null));
   };
 
   const someAction = (msg) => {
@@ -120,6 +121,9 @@ const MessageArea = ({ messageClassName }) => {
       senderId: user?._id,
       members: [chat?.receiverInfo?._id, user?._id],
     };
+    if (productChat?._id) {
+      newMessage["product"] = productChat?._id;
+    }
 
     const newMessageFormData = new FormData();
     newMessageFormData.append(`message`, JSON.stringify(newMessage));
@@ -150,6 +154,7 @@ const MessageArea = ({ messageClassName }) => {
         images: result?.data?.images,
         video: result?.data?.video,
         document: result?.data?.document,
+        product: result?.data?.product,
         members: [chat?.receiverInfo?._id, user?._id],
       };
       someAction(sendMessage);

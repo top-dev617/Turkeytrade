@@ -26,6 +26,8 @@ const StoreTab = ({ store }) => {
       dispatch(setEditProduct(null));
     } else if (id === 4) {
       dispatch(setEditProduct(null));
+    } else if (id === 5) {
+      dispatch(setEditProduct(null));
     }
     setStep(id);
   };
@@ -94,7 +96,9 @@ const StoreTab = ({ store }) => {
               user={user}
             />
           )}
-          {step === 5 && <EditProduct store={store} setStep={setStep} />}
+          {step === 5 && (
+            <EditProduct store={store} setStep={setStep} step={step} />
+          )}
           {step === 6 && <ContactInfo />}
         </div>
       </div>

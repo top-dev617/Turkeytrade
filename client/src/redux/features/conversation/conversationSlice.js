@@ -15,6 +15,7 @@ const initialState = {
   chat: null,
   chats: [],
   chatData: [],
+  productChat: null,
 
   // inbox for store
   inboxMessages: [],
@@ -85,6 +86,24 @@ const conversationSlice = createSlice({
     //     console.error("Invalid chats data:", chats);
     //   }
     // },
+
+    setProductChat: (state, action) => {
+      const product = action.payload;
+      if (product?.price?.price_type === "ladder_price") {
+        const prices = product?.price?.ladder_price?.map((price) =>
+          parseInt(price.euro)
+        );
+        const minPrice = Math.min(...prices);
+        const maxPrice = Math.max(...prices);
+        state.productChat = {
+          ...product,
+          minPrice,
+          maxPrice,
+        };
+      } else {
+        state.productChat = product;
+      }
+    },
 
     setChat: (state, action) => {
       state.messages = [];
@@ -370,6 +389,7 @@ export const {
   setLastChat,
   setNewChat,
   setLastActivity,
+  setProductChat,
 
   // inbox
   setInboxMessages,

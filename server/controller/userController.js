@@ -578,6 +578,59 @@ const updateUserInfoWithEmail = async (req, res) => {
   }
 };
 
+// update user and store for contact info
+const updateUserStoreInfo = async (req, res) => {
+  try {
+    const isExist = await User.findOne({ _id: req.user._id });
+    const storeData = req.body.storeData;
+    const userData = req.body.userData;
+    if (userData.email) {
+      const emailExist = await User.findOne({
+        email: userData.email,
+        _id: { $ne: req.user._id },
+      });
+      if (emailExist) {
+        return res.status(201).json({
+          status: true,
+          emailExist: true,
+          message: "User Info Update successfully",
+        });
+      }
+    }
+    if (isExist) {
+      const result = await User.findByIdAndUpdate(
+        { _id: req.user._id },
+        userData,
+        {
+          new: true,
+        }
+      );
+      const storeUpdateResult = await Store.findByIdAndUpdate(
+        { _id: req.params.storeId },
+        storeData,
+        {
+          new: false,
+        }
+      );
+      res.status(200).json({
+        status: true,
+        message: "Info Update successfully",
+        data: result,
+      });
+    } else {
+      res.status(201).json({
+        status: false,
+        message: "Update unsuccessful",
+      });
+    }
+  } catch (error) {
+    res.status(201).json({
+      status: false,
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   registerUser,
   createSocialUser,
@@ -595,4 +648,5 @@ module.exports = {
   updateUserInfo,
   checkIsExistEmailForSocial,
   updateUserInfoWithEmail,
+  updateUserStoreInfo,
 };

@@ -9,6 +9,8 @@ import { base_url } from "@/utils/auth/global";
 import { iDownload } from "@/utils/icons/icons";
 import React, { useContext, useState } from "react";
 import SingleMessageImage from "./single-message/SingleMessageImage";
+import Link from "next/link";
+import SingleChatProduct from "./single-message/SingleChatProduct";
 
 const SingleMessage = ({ message, chat }) => {
   const { user } = useContext(AuthContext);
@@ -78,6 +80,9 @@ const SingleMessage = ({ message, chat }) => {
                     playing={false}
                   />
                 </div>
+              )}
+              {message?.product && (
+                <SingleChatProduct product={message?.product} />
               )}
               {message?.message && (
                 <div className="text-white p-0 mx-0 mt-1 relative w-fit">
@@ -160,6 +165,9 @@ const SingleMessage = ({ message, chat }) => {
                     playing={false}
                   />
                 </div>
+              )}
+              {message?.product && (
+                <SingleChatProduct product={message?.product} />
               )}
               {message?.message && (
                 <div className=" p-0 mx-0 mt-1 relative w-fit">

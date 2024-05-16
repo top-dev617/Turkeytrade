@@ -16,6 +16,7 @@ const {
   createSocialUser,
   checkIsExistEmailForSocial,
   updateUserInfoWithEmail,
+  updateUserStoreInfo,
 } = require("../controller/userController");
 const { isAuth } = require("../utils/middleware");
 const { upload, handleMulterError } = require("../config/multerConfig");
@@ -38,5 +39,8 @@ router.post("/password/change-password", isAuth, changePassword);
 router.post("/remove/all-data", isAuth, deleteUserAndCollections);
 router.post("/check-email", checkIsExistEmail);
 router.post("/check-email/social", checkIsExistEmailForSocial);
+
+// update user and store info for contact by user id and store id
+router.patch("/update-user-store/:storeId", isAuth, updateUserStoreInfo);
 
 module.exports = router;

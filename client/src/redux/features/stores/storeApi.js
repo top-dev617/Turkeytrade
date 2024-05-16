@@ -32,7 +32,7 @@ const storeApi = api.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: ["store"],
+      invalidatesTags: ["store", "users"],
     }),
     storeUpdateAfterVerify: builder.mutation({
       query: ({ data, id }) => ({
@@ -46,7 +46,7 @@ const storeApi = api.injectEndpoints({
     // get product by id
     getStoreInfoBySellerId: builder.query({
       query: (id) => `/stores/user/${id}`,
-      providesTags: ["store"],
+      providesTags: ["store", "users"],
     }),
     // get product by id
     getStoreInfo: builder.query({
