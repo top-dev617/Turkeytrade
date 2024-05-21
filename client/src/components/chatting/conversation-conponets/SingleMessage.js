@@ -42,55 +42,68 @@ const SingleMessage = ({ message, chat }) => {
               {message?.createdAt &&
                 inputTime(message?.createdAt, DATE_FORMATE)}
             </small>
-            <div className="flex flex-col items-end bg-pm text-white px-[6px] p-[6px] max-w-fit h-fit rounded-[3px]">
-              {message?.images?.length > 0 && (
-                <SingleMessageImage
-                  images={message?.images}
-                  setOpen={setOpen}
-                />
-              )}
-              {message?.document && (
-                <div className="bg-[#E1EEE8] rounded-[3px]">
-                  <div className="flex justify-between items-center gap-3 w-full h-[50px] border-pm rounded-[3px] overflow-hidden cursor-pointer">
-                    <div className="h-full min-w-[50px] flex justify-center items-center text-sm font-bold text-red-600 bg-pmd uppercase">
-                      {message?.document?.split(".").pop().toLowerCase()}
-                    </div>
-                    <div className="flex flex-col gap-1 flex-grow pr-2 w-full bg-[#E1EEE8]">
-                      <h1 className="oneLine text-black font-sm font-semibold">
-                        Document file
-                      </h1>
-                      <small className="text-xs text-gray-500">
-                        Document file
-                      </small>
-                    </div>
-                    <div
-                      onClick={() => handleDownload(message?.document)}
-                      className="h-full min-w-[50px] flex justify-center items-center text-base font-bold text-white cursor-pointer bg-pmd hover:bg-pmd uppercase"
-                    >
-                      {iDownload}
-                    </div>
-                  </div>
-                </div>
-              )}
-              {message?.video && (
-                <div className="max-h-fit h-fit max-w-[400px] w-full">
-                  <VideoPlayer
-                    url={viewVideo(message?.video)}
-                    className="object-contain w-full h-full"
-                    playing={false}
+            <div className="flex flex-col items-end gap-[2px] max-w-fit h-fit">
+              <div
+                className={`flex flex-col items-end bg-pm text-white px-[6px] p-[6px] max-w-fit h-fit rounded-[3px] ${
+                  message?.images?.length > 0 ||
+                  message?.document ||
+                  message?.video ||
+                  message?.product
+                    ? ""
+                    : "hidden"
+                }`}
+              >
+                {message?.images?.length > 0 && (
+                  <SingleMessageImage
+                    images={message?.images}
+                    setOpen={setOpen}
                   />
-                </div>
-              )}
-              {message?.product && (
-                <SingleChatProduct product={message?.product} />
-              )}
-              {message?.message && (
-                <div className="text-white p-0 mx-0 mt-1 relative w-fit">
-                  <div className="label-list text-white all_break !text-xs !font-medium">
-                    {message?.message}
+                )}
+                {message?.document && (
+                  <div className="bg-[#E1EEE8] rounded-[3px]">
+                    <div className="flex justify-between items-center gap-3 w-full h-[50px] border-pm rounded-[3px] overflow-hidden cursor-pointer">
+                      <div className="h-full min-w-[50px] flex justify-center items-center text-sm font-bold text-red-600 bg-pmd uppercase">
+                        {message?.document?.split(".").pop().toLowerCase()}
+                      </div>
+                      <div className="flex flex-col gap-1 flex-grow pr-2 w-full bg-[#E1EEE8]">
+                        <h1 className="oneLine text-black font-sm font-semibold">
+                          Document file
+                        </h1>
+                        <small className="text-xs text-gray-500">
+                          Document file
+                        </small>
+                      </div>
+                      <div
+                        onClick={() => handleDownload(message?.document)}
+                        className="h-full min-w-[50px] flex justify-center items-center text-base font-bold text-white cursor-pointer bg-pmd hover:bg-pmd uppercase"
+                      >
+                        {iDownload}
+                      </div>
+                    </div>
                   </div>
+                )}
+                {message?.video && (
+                  <div className="max-h-fit h-fit max-w-[400px] w-full">
+                    <VideoPlayer
+                      url={viewVideo(message?.video)}
+                      className="object-contain w-full h-full"
+                      playing={false}
+                    />
+                  </div>
+                )}
+                {message?.product && (
+                  <SingleChatProduct product={message?.product} />
+                )}
+              </div>
+              {message?.message && (
+                <div className="flex flex-col items-end bg-pm text-white px-[6px] p-[6px] max-w-fit h-fit rounded-[3px]">
+                  <div className="text-white p-0 mx-0 mt-1 relative w-fit">
+                    <div className="label-list text-white all_break !text-xs !font-medium">
+                      {message?.message}
+                    </div>
 
-                  <div className="absolute -right-3 bottom-[6px] transform -translate-x-1/2 rotate-45 w-2 h-2 bg-pm"></div>
+                    <div className="absolute -right-3 bottom-[6px] transform -translate-x-1/2 rotate-45 w-2 h-2 bg-pm"></div>
+                  </div>
                 </div>
               )}
               {/* <small
@@ -127,54 +140,67 @@ const SingleMessage = ({ message, chat }) => {
               {message?.createdAt &&
                 inputTime(message?.createdAt, DATE_FORMATE)}
             </small>
-            <div className=" flex flex-col items-start bg-[#d9eee4] text-white px-[6px] p-[6px] w-fit h-fit rounded-[3px]">
-              {message?.images?.length > 0 && (
-                <SingleMessageImage
-                  images={message?.images}
-                  setOpen={setOpen}
-                />
-              )}
-              {message?.document && (
-                <div className="bg-[#E1EEE8] rounded-[3px]">
-                  <div className="flex justify-between items-center gap-3 w-full h-[50px] border-pm rounded-[3px] overflow-hidden cursor-pointer">
-                    <div className="h-full min-w-[50px] flex justify-center items-center text-sm font-bold text-red-600 bg-pmd uppercase">
-                      {message?.document?.split(".").pop().toLowerCase()}
-                    </div>
-                    <div className="flex flex-col gap-1 flex-grow pr-2 w-full bg-[#E1EEE8]">
-                      <h1 className="oneLine text-black font-sm font-semibold">
-                        Document file
-                      </h1>
-                      <small className="text-xs text-gray-500">
-                        Document file
-                      </small>
-                    </div>
-                    <div
-                      onClick={() => handleDownload(message?.document)}
-                      className="h-full min-w-[50px] flex justify-center items-center text-base font-bold text-white cursor-pointer bg-pmd hover:bg-pmd uppercase"
-                    >
-                      {iDownload}
-                    </div>
-                  </div>
-                </div>
-              )}
-              {message?.video && (
-                <div className="max-h-fit max-w-[400px] w-full">
-                  <VideoPlayer
-                    url={viewVideo(message?.video)}
-                    className="object-contain w-full h-full"
-                    playing={false}
+            <div className="flex flex-col items-start gap-[2px] w-fit h-fit">
+              <div
+                className={`flex flex-col items-start bg-[#d9eee4] text-white px-[6px] p-[6px] w-fit h-fit rounded-[3px] ${
+                  message?.images?.length > 0 ||
+                  message?.document ||
+                  message?.video ||
+                  message?.product
+                    ? ""
+                    : "hidden"
+                }`}
+              >
+                {message?.images?.length > 0 && (
+                  <SingleMessageImage
+                    images={message?.images}
+                    setOpen={setOpen}
                   />
-                </div>
-              )}
-              {message?.product && (
-                <SingleChatProduct product={message?.product} />
-              )}
-              {message?.message && (
-                <div className=" p-0 mx-0 mt-1 relative w-fit">
-                  <div className="label-list all_break !text-xs !font-medium">
-                    {message?.message}
+                )}
+                {message?.document && (
+                  <div className="bg-[#E1EEE8] rounded-[3px]">
+                    <div className="flex justify-between items-center gap-3 w-full h-[50px] border-pm rounded-[3px] overflow-hidden cursor-pointer">
+                      <div className="h-full min-w-[50px] flex justify-center items-center text-sm font-bold text-red-600 bg-pmd uppercase">
+                        {message?.document?.split(".").pop().toLowerCase()}
+                      </div>
+                      <div className="flex flex-col gap-1 flex-grow pr-2 w-full bg-[#E1EEE8]">
+                        <h1 className="oneLine text-black font-sm font-semibold">
+                          Document file
+                        </h1>
+                        <small className="text-xs text-gray-500">
+                          Document file
+                        </small>
+                      </div>
+                      <div
+                        onClick={() => handleDownload(message?.document)}
+                        className="h-full min-w-[50px] flex justify-center items-center text-base font-bold text-white cursor-pointer bg-pmd hover:bg-pmd uppercase"
+                      >
+                        {iDownload}
+                      </div>
+                    </div>
                   </div>
-                  <div className="absolute -left-3 bottom-[6px] transform translate-x-1/2 rotate-45 w-2 h-2 bg-[#d9eee4]"></div>
+                )}
+                {message?.video && (
+                  <div className="max-h-fit max-w-[400px] w-full">
+                    <VideoPlayer
+                      url={viewVideo(message?.video)}
+                      className="object-contain w-full h-full"
+                      playing={false}
+                    />
+                  </div>
+                )}
+                {message?.product && (
+                  <SingleChatProduct product={message?.product} />
+                )}
+              </div>
+              {message?.message && (
+                <div className=" flex flex-col items-start bg-[#d9eee4] text-white px-[6px] p-[6px] w-fit h-fit rounded-[3px]">
+                  <div className=" p-0 mx-0 mt-1 relative w-fit">
+                    <div className="label-list all_break !text-xs !font-medium">
+                      {message?.message}
+                    </div>
+                    <div className="absolute -left-3 bottom-[6px] transform translate-x-1/2 rotate-45 w-2 h-2 bg-[#d9eee4]"></div>
+                  </div>
                 </div>
               )}
               {/* <small

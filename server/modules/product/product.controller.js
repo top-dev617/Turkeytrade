@@ -45,38 +45,21 @@ const getProductById = async (req, res) => {
       .populate("sub_category")
       .populate("group");
 
-    if (result?.group) {
-      var groupProducts = await Product.find({
-        group: result.group._id,
+    if (result?.category) {
+      var relatedProducts = await Product.find({
+        category: result?.category._id,
         _id: { $ne: result._id },
         status: "Publish",
-      }).limit(4);
-    }
-
-    const productsWithMinMaxPrices = await Promise.all(
-      groupProducts.map(async (product) => {
-        if (product?.price?.price_type === "ladder_price") {
-          const prices = product?.price?.ladder_price?.map((price) =>
-            parseInt(price.euro)
-          );
-          const minPrice = Math.min(...prices);
-          const maxPrice = Math.max(...prices);
-          return {
-            ...product?.toObject(),
-            minPrice,
-            maxPrice,
-          };
-        } else {
-          return { ...product?.toObject() };
-        }
       })
-    );
+        .limit(4)
+        .select("unit price title images");
+    }
 
     res.status(200).json({
       status: true,
       message: "Product get successfully",
       data: result,
-      related_products: productsWithMinMaxPrices,
+      related_products: relatedProducts,
     });
   } catch (error) {
     res.status(201).json({
@@ -559,35 +542,18 @@ const recentlyViewedProducts = async (req, res) => {
       status: "Publish",
     };
 
-    if (req.query.id) {
-      query._id["$ne"] = req.query.id;
-    }
+    // if (req.query.id) {
+    //   query._id["$ne"] = req.query.id;
+    // }
 
-    const result = await Product.find(query).limit(4);
-    const productsWithMinMaxPrices = await Promise.all(
-      result.map(async (product) => {
-        if (product?.price?.price_type === "ladder_price") {
-          const prices = product?.price?.ladder_price?.map((price) =>
-            parseInt(price.euro)
-          );
-          const minPrice = Math.min(...prices);
-          const maxPrice = Math.max(...prices);
-          return {
-            ...product?.toObject(),
-            minPrice,
-            maxPrice,
-          };
-        } else {
-          return { ...product?.toObject() };
-        }
-      })
-    );
-
+    const result = await Product.find(query)
+      .limit(4)
+      .select("unit price images title");
     res.status(200).json({
       status: true,
       success: true,
       message: "Product get successfully",
-      data: productsWithMinMaxPrices,
+      data: result,
     });
   } catch (error) {
     res.status(201).json({

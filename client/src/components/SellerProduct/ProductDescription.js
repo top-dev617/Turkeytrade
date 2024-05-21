@@ -77,15 +77,16 @@ const ProductDescription = ({ product, relatedProducts = [], currentId }) => {
                     <>
                       <div className="flex items-center flex-wrap gap-1">
                         {product?.price?.price_type === "ladder_price" ? (
-                          <h1 className="font-semibold !text-red-600 text-base">
-                            € {product.minPrice} - {product.maxPrice}
+                          <h1 className="font-semibold !text-[#00008B] text-base">
+                            € {product.price?.minPrice} -{" "}
+                            {product.price?.maxPrice}
                           </h1>
                         ) : (
                           <>
                             {parseInt(product?.price?.one_price?.from) ===
                             parseInt(product?.price?.one_price?.to) ? (
                               <h1 className="label-list ">
-                                <span className="text-base !font-bold">
+                                <span className="text-base !text-[#00008B] !font-bold">
                                   {product?.price?.one_price?.from}
                                 </span>{" "}
                                 <span className="!text-xs">
@@ -94,7 +95,7 @@ const ProductDescription = ({ product, relatedProducts = [], currentId }) => {
                                 </span>
                               </h1>
                             ) : (
-                              <h1 className="label-list !text-red-600">
+                              <h1 className="label-list !text-[#00008B]">
                                 <span className="text-base !font-bold">
                                   {product?.price?.one_price?.from} -{" "}
                                   {product?.price?.one_price?.to}
