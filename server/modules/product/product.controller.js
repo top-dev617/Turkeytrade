@@ -48,6 +48,7 @@ const getProductById = async (req, res) => {
     if (result?.category) {
       var relatedProducts = await Product.find({
         category: result?.category._id,
+        sub_category: result?.sub_category?._id,
         _id: { $ne: result._id },
         status: "Publish",
       })
@@ -537,7 +538,7 @@ const recentlyViewedProducts = async (req, res) => {
   try {
     const query = {
       _id: {
-        $in: req.body.ids,
+        $in: [...req.body.ids],
       },
       status: "Publish",
     };
@@ -549,11 +550,15 @@ const recentlyViewedProducts = async (req, res) => {
     const result = await Product.find(query)
       .limit(4)
       .select("unit price images title");
+    const sortedProducts = req.body.ids.map((id) =>
+      result.find((product) => product._id.toString() === id)
+    );
+
     res.status(200).json({
       status: true,
       success: true,
-      message: "Product get successfully",
-      data: result,
+      message: "Products retrieved successfully",
+      data: sortedProducts,
     });
   } catch (error) {
     res.status(201).json({
@@ -568,6 +573,8 @@ const recentlyViewedProducts = async (req, res) => {
 const popularProducts = async (req, res) => {
   try {
     const limit = 32;
+
+    // Aggregate to find the product IDs with their save counts
     const popularProductIds = await SaveProduct.aggregate([
       {
         $group: {
@@ -576,10 +583,15 @@ const popularProducts = async (req, res) => {
         },
       },
       {
-        $sort: { count: -1 },
+        $match: {
+          count: { $gte: 2 }, // Only include products with at least 2 saves
+        },
       },
       {
-        $limit: limit,
+        $sort: { count: -1 }, // Sort by save count in descending order
+      },
+      {
+        $limit: limit, // Limit the results
       },
     ]);
 
@@ -591,34 +603,43 @@ const popularProducts = async (req, res) => {
       _id: { $in: productIds },
       status: "Publish",
     });
+
+    // Creating a map to associate product IDs with their save counts
+    const productIdToCountMap = new Map(
+      popularProductIds.map((item) => [item._id.toString(), item.count])
+    );
+
+    // Fetching product details and adding min and max prices if necessary
     const productsWithMinMaxPrices = await Promise.all(
       products.map(async (product) => {
+        let productObj = product.toObject();
         if (product?.price?.price_type === "ladder_price") {
           const prices = product?.price?.ladder_price?.map((price) =>
             parseInt(price.euro)
           );
-          const minPrice = Math.min(...prices);
-          const maxPrice = Math.max(...prices);
-          return {
-            ...product?.toObject(),
-            minPrice,
-            maxPrice,
-          };
-        } else {
-          return { ...product?.toObject() };
+          productObj.minPrice = Math.min(...prices);
+          productObj.maxPrice = Math.max(...prices);
         }
+
+        // Add the save count to the product object
+        productObj.saveCount = productIdToCountMap.get(product._id.toString());
+
+        return productObj;
       })
     );
 
+    // Sorting products with min-max prices by their save count again to ensure correct order
+    productsWithMinMaxPrices.sort((a, b) => b.saveCount - a.saveCount);
+
     res.status(201).json({
       success: true,
-      message: "Products Retrieve successfully",
+      message: "Products retrieved successfully",
       data: productsWithMinMaxPrices,
     });
   } catch (error) {
-    res.status(201).json({
+    res.status(500).json({
       success: false,
-      message: "Product get unsuccessful",
+      message: "Product retrieval unsuccessful",
       error_message: error.message,
     });
   }

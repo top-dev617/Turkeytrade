@@ -28,18 +28,16 @@ const Details = () => {
   }, []);
 
   const handleViewProduct = () => {
-    const products = localStorage.getItem("view-prods")
+    const maxViewedProducts = 4;
+    let products = localStorage.getItem("view-prods")
       ? JSON.parse(localStorage.getItem("view-prods"))
       : [];
 
-    const itemIndex = products.findIndex((item) => item === data?.data?._id);
-    if (itemIndex === -1) {
-      products.unshift(data?.data?._id);
-      const maxViewedProducts = 10;
-      const updatedProducts = products.slice(0, maxViewedProducts);
-      localStorage.setItem("view-prods", JSON.stringify(updatedProducts));
-      console.log("Updated viewed products:", updatedProducts);
-    }
+    const productId = data?.data?._id;
+    products = products.filter((item) => item !== productId);
+    products.unshift(productId);
+    products = products.slice(0, maxViewedProducts);
+    localStorage.setItem("view-prods", JSON.stringify(products));
   };
 
   useEffect(() => {
