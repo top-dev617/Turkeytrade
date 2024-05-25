@@ -69,11 +69,11 @@ const ProductDescription = ({ product, relatedProducts = [], currentId }) => {
                     />
                   </div>
                   <div className="flex-grow w-full">
-                    <Link href={`/product/${product?._id}`}>
+                    <a href={`/product/${product?._id}`}>
                       <h1 className="text-black font-semibold mb-2 text-sm pt-0 mt-0 font-inter twoLine all_break hover:!text-pm">
                         {product?.title}
                       </h1>
-                    </Link>
+                    </a>
                     <>
                       <div className="flex items-center flex-wrap gap-1">
                         {product?.price?.price_type === "ladder_price" ? (

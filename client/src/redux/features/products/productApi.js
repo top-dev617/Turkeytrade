@@ -136,6 +136,7 @@ const productApi = api.injectEndpoints({
     // get popular products
     getPopularProducts: builder.query({
       query: () => `/products/popular/prods`,
+      providesTags: ["save-products"],
     }),
 
     recentViewProducts: builder.mutation({
