@@ -45,7 +45,11 @@ const CompanyDetails = () => {
 
   useMemo(() => {
     if (user) {
-      setValue("email", user?.email);
+      if (user?.user_type === "Social") {
+        setValue("email", user?.secondaryEmail);
+      } else {
+        setValue("email", user?.email);
+      }
       setValue("phoneNumber", user?.phoneNumber);
       setValue("province", user?.province);
       setValue("city", user?.city);

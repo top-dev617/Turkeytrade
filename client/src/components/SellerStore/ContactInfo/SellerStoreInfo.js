@@ -56,7 +56,11 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
 
   useMemo(() => {
     if (store) {
-      setValue("email", store?.user?.email);
+      if (store?.user?.user_type === "Social") {
+        setValue("email", store?.user?.secondaryEmail);
+      } else {
+        setValue("email", store?.user?.email);
+      }
       setValue("phoneNumber", store?.user?.phoneNumber);
       setValue("province", store?.company_address?.province);
       setValue("city", store?.company_address?.city);

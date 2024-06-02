@@ -71,6 +71,9 @@ const registerUser = async (req, res) => {
 const createSocialUser = async (req, res) => {
   try {
     const isExist = await User.findOne({ email: req.body.email });
+    if (req.body.email) {
+      req.body["secondaryEmail"] = req.body.email;
+    }
     if (isExist) {
       if (isExist?.user_type !== "Social") {
         if (isExist?.isVerified === false) {
@@ -439,7 +442,9 @@ const deleteUserAndCollections = async (req, res) => {
 
 const checkIsExistEmail = async (req, res) => {
   try {
-    const isExist = await User.findOne({ email: req.body.email });
+    const isExist = await User.findOne({
+      $or: [{ email: req.body.email }, { secondaryEmail: req.body.email }],
+    });
     if (isExist) {
       res.status(201).json({
         success: false,
@@ -461,7 +466,9 @@ const checkIsExistEmail = async (req, res) => {
 
 const checkIsExistEmailForSocial = async (req, res) => {
   try {
-    const isExist = await User.findOne({ email: req.body.email });
+    const isExist = await User.findOne({
+      $or: [{ email: req.body.email }, { secondaryEmail: req.body.email }],
+    });
     if (isExist) {
       if (isExist?.user_type !== "Social") {
         if (isExist?.isVerified === false) {
@@ -537,10 +544,15 @@ const updateUserInfo = async (req, res) => {
 const updateUserInfoWithEmail = async (req, res) => {
   try {
     const isExist = await User.findOne({ _id: req.params.id });
-    const newData = req.body;
-    if (req.body.email) {
+    const newData = { ...req.body };
+    const email = req.body?.email;
+    if (isExist?.user_type === "Social") {
+      newData["email"] = isExist?.email;
+      newData["secondaryEmail"] = req.body.email;
+    }
+    if (email) {
       const emailExist = await User.findOne({
-        email: req.body.email,
+        $or: [{ secondaryEmail: email }, { email: email }],
         _id: { $ne: req.params.id },
       });
       if (emailExist) {
@@ -583,10 +595,15 @@ const updateUserStoreInfo = async (req, res) => {
   try {
     const isExist = await User.findOne({ _id: req.user._id });
     const storeData = req.body.storeData;
-    const userData = req.body.userData;
-    if (userData.email) {
+    const userData = { ...req.body.userData };
+    const email = req.body?.userData?.email;
+    if (isExist?.user_type === "Social" && userData?.email) {
+      userData["email"] = isExist?.email;
+      userData["secondaryEmail"] = req.body.userData.email;
+    }
+    if (email) {
       const emailExist = await User.findOne({
-        email: userData.email,
+        $or: [{ secondaryEmail: email }, { email: email }],
         _id: { $ne: req.user._id },
       });
       if (emailExist) {

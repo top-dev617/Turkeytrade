@@ -45,15 +45,27 @@ const getProductById = async (req, res) => {
       .populate("sub_category")
       .populate("group");
 
+    let relatedProducts = [];
+
     if (result?.category) {
-      var relatedProducts = await Product.find({
-        category: result?.category._id,
-        sub_category: result?.sub_category?._id,
+      const potentialRelatedProducts = await Product.find({
+        category: result.category._id,
+        sub_category: result.sub_category?._id,
         _id: { $ne: result._id },
         status: "Publish",
       })
-        .limit(4)
+        .sort({ _id: -1 })
         .select("unit price title images");
+
+      // Shuffle the array of potential related products
+      for (let i = potentialRelatedProducts.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [potentialRelatedProducts[i], potentialRelatedProducts[j]] = [
+          potentialRelatedProducts[j],
+          potentialRelatedProducts[i],
+        ];
+      }
+      relatedProducts = potentialRelatedProducts.slice(0, 4);
     }
 
     res.status(200).json({
@@ -63,7 +75,7 @@ const getProductById = async (req, res) => {
       related_products: relatedProducts,
     });
   } catch (error) {
-    res.status(201).json({
+    res.status(500).json({
       status: false,
       message: "Product get unsuccessful",
       error_message: error.message,
@@ -543,9 +555,9 @@ const recentlyViewedProducts = async (req, res) => {
       status: "Publish",
     };
 
-    // if (req.query.id) {
-    //   query._id["$ne"] = req.query.id;
-    // }
+    if (req.query.id) {
+      query._id["$ne"] = req.query.id;
+    }
 
     const result = await Product.find(query)
       .limit(4)
