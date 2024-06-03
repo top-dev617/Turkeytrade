@@ -328,27 +328,34 @@ const getUser = async (req, res) => {
 
 const forgetPassword = async (req, res) => {
   try {
-    const isExist = await User.findOne({ email: req.body.email });
+    console.log(req.body);
+    const isExist = await User.findOne({
+      $or: [{ email: req.body.email }, { secondaryEmail: req.body.email }],
+    });
     if (req.body.email && !req.body.otp && !req.body.password) {
-      if (isExist && isExist.isVerified === true) {
-        const otp = randomstring.generate({ length: 5, charset: "numeric" });
-        isExist.otp = otp;
-        const updatedUser = await isExist.save();
-        const data = await sendForgotOTPMail(updatedUser, otp);
-        console.log(data);
-        res.status(200).send({
-          message:
-            "We have sent you verification code. Please check your email!",
-          status: true,
-        });
-      } else if (isExist) {
-        res.status(200).send({
-          message: "Account Not Found",
-          status: false,
-        });
+      if (isExist) {
+        if (isExist.isVerified === true) {
+          const otp = randomstring.generate({ length: 5, charset: "numeric" });
+          isExist.otp = otp;
+          const updatedUser = await isExist.save();
+          if (updatedUser?.user_type === "Social") {
+            updatedUser["email"] = updatedUser?.secondaryEmail;
+          }
+          const data = await sendForgotOTPMail(updatedUser, otp);
+          res.status(200).send({
+            message:
+              "We have sent you verification code. Please check your email!",
+            status: true,
+          });
+        } else {
+          res.status(200).send({
+            message: "Email Not Verified",
+            status: false,
+          });
+        }
       } else {
         res.status(200).send({
-          message: "Email Not Verified",
+          message: "Account Not Found",
           status: false,
         });
       }
@@ -648,6 +655,24 @@ const updateUserStoreInfo = async (req, res) => {
   }
 };
 
+const opertion = async (req, res) => {
+  const users = await User.find({ user_type: "Social" });
+  console.log(users);
+  for (let i = 0; i < users?.length; i++) {
+    const user = users[i];
+    const result = await User.updateOne(
+      { _id: user?._id.toString() },
+      {
+        $set: { secondaryEmail: user?.email },
+      },
+      { new: true }
+    );
+  }
+  const result = await User.find({ user_type: "Social" });
+
+  res.status(200).json(result);
+};
+
 module.exports = {
   registerUser,
   createSocialUser,
@@ -666,4 +691,5 @@ module.exports = {
   checkIsExistEmailForSocial,
   updateUserInfoWithEmail,
   updateUserStoreInfo,
+  opertion,
 };

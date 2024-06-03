@@ -230,9 +230,17 @@ const updateStoreStatus = async (req, res) => {
         }
       ).populate("user");
       if (result?.status === "accept") {
-        await sendStoreApprovedMail(result?.user?.email, result);
+        if (result?.user?.user_type === "Social") {
+          await sendStoreApprovedMail(result?.user?.secondaryEmail, result);
+        } else {
+          await sendStoreApprovedMail(result?.user?.email, result);
+        }
       } else if (result?.status === "decline") {
-        await sendStoreDeclineMail(result?.user?.email, result);
+        if (result?.user?.user_type === "Social") {
+          await sendStoreDeclineMail(result?.user?.secondaryEmail, result);
+        } else {
+          await sendStoreDeclineMail(result?.user?.email, result);
+        }
       }
       res.status(200).json({
         status: true,
