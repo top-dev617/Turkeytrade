@@ -15,6 +15,7 @@ import {
 } from "@/redux/features/conversation/conversationSlice";
 import { useDispatch } from "react-redux";
 import { useTotalUnseenQuery } from "@/redux/features/conversation/conversationApi";
+import { useGetStoreInfoBySellerIdQuery } from "@/redux/features/stores/storeApi";
 
 export const SocketContext = createContext();
 
@@ -23,6 +24,7 @@ export const socket = io.connect(socket_url, {
 });
 const SocketProvider = ({ children }) => {
   const { user } = useContext(AuthContext);
+  const { refetch: storeRefetch } = useGetStoreInfoBySellerIdQuery(user?._id);
   const dispatch = useDispatch();
   const { refetch } = useTotalUnseenQuery();
 
@@ -106,6 +108,12 @@ const SocketProvider = ({ children }) => {
 
     socket.current.on("getChat", (receiveChat) => {
       dispatch(setNewChat(receiveChat));
+    });
+
+    socket.current.on("storeStatus", (response) => {
+      if (response?.new) {
+        storeRefetch();
+      }
     });
 
     return () => {

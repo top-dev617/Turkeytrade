@@ -1,33 +1,37 @@
 import Item from "@/components/Item";
-import Loading from "@/components/commons/Loading";
+import { useGetSearchProductsQuery } from "@/redux/features/products/productApi";
+import Pagination from "@/utils/Pagination";
 import { base_url } from "@/utils/auth/global";
-import { noProducts } from "@/utils/icons/icons";
+import { Router, useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-const Search = ({ products }) => {
-  const [isLoading, setIsLoading] = useState(true);
+const Search = () => {
+  const router = useRouter();
+  const { search } = router.query;
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data, refetch, isLoading } = useGetSearchProductsQuery({
+    search: search,
+    page: currentPage,
+  });
 
-  setTimeout(() => {
-    setIsLoading(false);
-  }, 2000);
+  const totalPages = data?.meta?.totalPages || 0;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [search]);
+
   return (
     <div className="container mx-auto !my-8 min-h-screen">
-      {!isLoading ? (
-        <>
-          {products?.length > 0 ? (
-            <Item items={products} />
-          ) : (
-            <div className="flex flex-col items-center justify-center">
-              <div className="w-60 mx-auto">{noProducts}</div>
-              <h4 className="label" style={{ color: "rgb(3,125,65)" }}>
-                No Products
-              </h4>
-            </div>
-          )}
-        </>
-      ) : (
-        <Loading />
-      )}
+      <Item items={data?.data} isLoading={isLoading} />
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };

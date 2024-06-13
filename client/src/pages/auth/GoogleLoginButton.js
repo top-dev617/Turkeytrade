@@ -447,7 +447,7 @@ const GoogleLoginButton = () => {
                   required={true}
                   enableAreaCodes={true}
                   country={countryValue && countryValue}
-                  className="input mb-0"
+                  className="input mb-0 z-[9999999]"
                   buttonStyle={{
                     border: "none",
                     backgroundColor: "#f6f6f6",
@@ -459,7 +459,10 @@ const GoogleLoginButton = () => {
                     backgroundColor: "#f6f6f6",
                     fontSize: "16px",
                   }}
-                  containerStyle={{ border: "none", boxShadow: "none" }}
+                  containerStyle={{
+                    border: "none",
+                    boxShadow: "none",
+                  }}
                 />
                 {errors.phoneNumber && (
                   <small className="text-red-600 text-sm">

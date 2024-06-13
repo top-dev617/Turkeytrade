@@ -7,7 +7,10 @@ const Product = require("../modules/product/product.model");
 const {
   sendForgotOTPMail,
   sendWelcomeMail,
+  sendNewEmailVerificationCode,
 } = require("../utils/sendEmailHelpers");
+const SaveProduct = require("../modules/saveProduct/saveProduct.model");
+const ProductGroup = require("../modules/productGroup/productGroup.model");
 
 const registerUser = async (req, res) => {
   // console.log(req.body);
@@ -182,7 +185,9 @@ const emailVerification = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({
+      $or: [{ email: req.body.email }, { secondaryEmail: req.body.email }],
+    });
     if (!user) {
       return res.status(401).send({
         success: false,
@@ -196,6 +201,18 @@ const loginUser = async (req, res) => {
         success: false,
         type: "email",
         message: "Email is not Verified",
+      });
+    }
+
+    if (
+      user?.isVerified === true &&
+      user?.user_type === "Social" &&
+      !user?.password
+    ) {
+      return res.status(401).send({
+        success: false,
+        type: "password",
+        message: "Please Login with Google",
       });
     }
     if (
@@ -328,7 +345,6 @@ const getUser = async (req, res) => {
 
 const forgetPassword = async (req, res) => {
   try {
-    console.log(req.body);
     const isExist = await User.findOne({
       $or: [{ email: req.body.email }, { secondaryEmail: req.body.email }],
     });
@@ -436,7 +452,18 @@ const deleteUserAndCollections = async (req, res) => {
     }
     const isStore = await Store.findOne({ user: userId });
     await Product.deleteMany({ store: isStore?._id });
+    await ProductGroup.deleteMany({ store: isStore?._id });
     await Store.deleteMany({ user: userId });
+    await SaveProduct.deleteMany({ user: userId });
+    const updateData = { email: "Unknown" };
+    if (user?.user_type === "Social") {
+      updateData["secondaryEmail"] = "Unknown";
+    }
+    await User.findByIdAndUpdate(
+      { _id: userId },
+      { $set: updateData },
+      { new: false }
+    );
 
     return res.status(200).json({
       success: true,
@@ -655,23 +682,109 @@ const updateUserStoreInfo = async (req, res) => {
   }
 };
 
-const opertion = async (req, res) => {
-  const users = await User.find({ user_type: "Social" });
-  console.log(users);
-  for (let i = 0; i < users?.length; i++) {
-    const user = users[i];
-    const result = await User.updateOne(
-      { _id: user?._id.toString() },
-      {
-        $set: { secondaryEmail: user?.email },
-      },
-      { new: true }
-    );
-  }
-  const result = await User.find({ user_type: "Social" });
+// update user and store for contact info
+const changeEmailWithVerification = async (req, res) => {
+  try {
+    const isExist = await User.findOne({ _id: req.user._id });
+    const userData = { email: req.body.email };
+    const email = req.body?.email;
+    if (isExist?.user_type === "Social" && userData?.email) {
+      userData["email"] = isExist?.email;
+      userData["secondaryEmail"] = req.body?.email;
+    }
+    if (email) {
+      const emailExist = await User.findOne({
+        $or: [{ secondaryEmail: email }, { email: email }],
+      });
+      if (emailExist) {
+        return res.status(201).json({
+          status: true,
+          success: false,
+          emailExist: true,
+          message: "Email already exists",
+        });
+      }
+    }
+    if (req.body.step === 1 && req.body.email) {
+      if (isExist) {
+        const otp = randomstring.generate({ length: 5, charset: "numeric" });
+        const result = await User.findByIdAndUpdate(
+          { _id: req.user._id },
+          { $set: { otp: otp } },
+          {
+            new: true,
+          }
+        );
+        await sendNewEmailVerificationCode(
+          { email: req.body?.email, name: isExist?.name },
+          otp
+        );
 
-  res.status(200).json(result);
+        res.status(200).json({
+          status: true,
+          sendMail: true,
+          message:
+            "We have sent you verification code. Please check your email!",
+          data: result,
+        });
+      } else {
+        res.status(201).json({
+          status: false,
+          success: false,
+          message: "Verification mail sending failed",
+        });
+      }
+    }
+    if (req.body.step === 2 && req.body.otp) {
+      if (isExist?.otp !== req.body.otp) {
+        return res.status(201).json({
+          status: false,
+          success: false,
+          otp: false,
+          message: "OTP not matching",
+        });
+      } else {
+        const result = await User.findByIdAndUpdate(
+          { _id: isExist?._id?.toString() },
+          { $set: userData },
+          {
+            new: true,
+          }
+        );
+        res.status(200).json({
+          status: true,
+          success: true,
+          new: true,
+          message: "New email has been added successfully",
+          data: result,
+        });
+      }
+    }
+  } catch (error) {
+    res.status(201).json({
+      status: false,
+      message: error.message,
+    });
+  }
 };
+
+// const opertion = async (req, res) => {
+//   const users = await User.find({ user_type: "Social" });
+//   console.log(users);
+//   for (let i = 0; i < users?.length; i++) {
+//     const user = users[i];
+//     const result = await User.updateOne(
+//       { _id: user?._id.toString() },
+//       {
+//         $set: { secondaryEmail: user?.email },
+//       },
+//       { new: true }
+//     );
+//   }
+//   const result = await User.find({ user_type: "Social" });
+
+//   res.status(200).json(result);
+// };
 
 module.exports = {
   registerUser,
@@ -691,5 +804,6 @@ module.exports = {
   checkIsExistEmailForSocial,
   updateUserInfoWithEmail,
   updateUserStoreInfo,
-  opertion,
+  changeEmailWithVerification,
+  // opertion,
 };

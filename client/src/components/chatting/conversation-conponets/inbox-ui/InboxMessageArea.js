@@ -220,7 +220,7 @@ const InboxMessageArea = () => {
                       alt=""
                     />
                   ) : (
-                    <span className="uppercase">
+                    <span className="uppercase oneLine">
                       {inboxChat?.storeInfo?.store_name?.slice(0, 1) ||
                         inboxChat?.receiverInfo?.name?.slice(0, 1)}{" "}
                     </span>
@@ -228,24 +228,20 @@ const InboxMessageArea = () => {
                 </button>
 
                 <div className="pl-2 cursor-pointer">
-                  <small className="font-semibold text-[14px] p-0 m-0 block leading-[10px]">
-                    {firstLatterUp(
-                      inboxChat?.receiverInfo?.name?.length > 15
-                        ? inboxChat?.receiverInfo?.name?.slice(0, 15) + "..."
-                        : inboxChat?.receiverInfo?.name
-                    )}
+                  <small className="font-semibold text-[14px] p-0 m-0 block leading-[10px] oneLine mb-1">
+                    {firstLatterUp(inboxChat?.receiverInfo?.name)}
                   </small>
                   <>
-                    {inboxChat?.storeInfo ? (
+                    {inboxChat?.storeInfo?.store_name ? (
                       <Link
-                        className="text-[11px] p-0 m-0"
+                        className="text-[11px] p-0 m-0 text-pm underline oneLine"
                         href={`/store/${inboxChat?.storeInfo?._id}`}
                       >
                         {firstLatterUp(inboxChat?.storeInfo?.store_name)}
                       </Link>
                     ) : (
                       <Link
-                        className="text-[11px] p-0 m-0"
+                        className="text-[11px] p-0 m-0 text-pm underline oneLine"
                         href={`/profile/${inboxChat?.receiverInfo?._id}`}
                       >
                         {firstLatterUp(inboxChat?.receiverInfo?.company_name)}

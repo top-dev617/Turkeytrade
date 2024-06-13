@@ -165,6 +165,7 @@ const MessageArea = ({ messageClassName }) => {
 
   const handleBack = () => {
     dispatch(setChat(null));
+    dispatch(setProductChat(null));
   };
 
   // console.log(messages);
@@ -226,29 +227,25 @@ const MessageArea = ({ messageClassName }) => {
                   ) : (
                     <span className="uppercase">
                       {chat?.storeInfo?.store_name?.slice(0, 1) ||
-                        chat?.receiverInfo?.name?.slice(0, 1)}{" "}
+                        chat?.receiverInfo?.name?.slice(0, 1)}
                     </span>
                   )}
                 </button>
                 <div className="pl-2 cursor-pointer">
-                  <small className="font-semibold p-0 m-0 block leading-[10px]">
-                    {firstLatterUp(
-                      chat?.receiverInfo?.name?.length > 15
-                        ? chat?.receiverInfo?.name?.slice(0, 15) + "..."
-                        : chat?.receiverInfo?.name
-                    )}
+                  <small className="font-semibold p-0 m-0 block leading-[10px] oneLine mb-1">
+                    {firstLatterUp(chat?.receiverInfo?.name)}
                   </small>
                   <>
-                    {chat?.storeInfo ? (
+                    {chat?.storeInfo?.store_name ? (
                       <Link
-                        className="text-[10px] p-0 m-0"
+                        className="text-[10px] p-0 m-0 text-pm underline oneLine"
                         href={`/store/${chat?.storeInfo?._id}`}
                       >
                         {chat?.storeInfo?.store_name}
                       </Link>
                     ) : (
                       <Link
-                        className="text-[10px] p-0 m-0"
+                        className="text-[10px] p-0 m-0 text-pm underline oneLine"
                         href={`/profile/${chat?.receiverInfo?._id}`}
                       >
                         {chat?.receiverInfo?.company_name}

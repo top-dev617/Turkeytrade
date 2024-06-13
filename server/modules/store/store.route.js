@@ -10,6 +10,7 @@ const {
   getStores,
   updateStoreInfo,
   updateStoreInfoAfterVerification,
+  updateHighlight,
 } = require("./store.controller");
 const { upload, handleMulterError } = require("../../config/multerConfig");
 
@@ -48,6 +49,7 @@ router.patch(
   updateStoreInfoAfterVerification
 );
 router.patch("/status/:id", updateStoreStatus);
+router.patch("/isHighlight/:storeId", updateHighlight);
 router.patch("/info/:id", updateStoreInfo);
 router.get("/store/:storeId/categories", getStoreCategoriesByStore);
 

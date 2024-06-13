@@ -2,6 +2,7 @@ import React from "react";
 import BrowseCategory from "./BrowseCategory";
 import CategorySlider from "./CategorySlider";
 import { useGetHomeCategoriesQuery } from "@/redux/features/products/productApi";
+import banner from "../../public/assets/banner.jpg";
 
 const Category = () => {
   const { data, isLoading } = useGetHomeCategoriesQuery();
@@ -16,7 +17,8 @@ const Category = () => {
             />
           </div>
           <div className="col-span-12 lg:col-span-8 mt-8 md:mt-0">
-            <CategorySlider />
+            {/* <CategorySlider /> */}
+            <img src={banner.src} className="d-block w-100" alt="..." />
           </div>
         </div>
       </div>

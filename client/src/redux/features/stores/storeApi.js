@@ -18,14 +18,7 @@ const storeApi = api.injectEndpoints({
       }),
       invalidatesTags: ["store"],
     }),
-    statusUpdate: builder.mutation({
-      query: ({ data, id }) => ({
-        url: `/stores/status/${id}`,
-        method: "PATCH",
-        body: data,
-      }),
-      invalidatesTags: ["store"],
-    }),
+
     storeInfoUpdate: builder.mutation({
       query: ({ data, id }) => ({
         url: `/stores/info/${id}`,
@@ -37,6 +30,14 @@ const storeApi = api.injectEndpoints({
     storeUpdateAfterVerify: builder.mutation({
       query: ({ data, id }) => ({
         url: `/stores/info/after-verify/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["store"],
+    }),
+    isHighlightOff: builder.mutation({
+      query: ({ data, id }) => ({
+        url: `/stores/isHighlight/${id}`,
         method: "PATCH",
         body: data,
       }),
@@ -67,9 +68,9 @@ export const {
   useGetStoreInfoBySellerIdQuery,
   usePatchStoreInfoByIdMutation,
   useGetStoreInfoQuery,
-  useStatusUpdateMutation,
   useStoreInfoUpdateMutation,
 
   useGetStoreCategoriesQuery,
   useStoreUpdateAfterVerifyMutation,
+  useIsHighlightOffMutation,
 } = storeApi;

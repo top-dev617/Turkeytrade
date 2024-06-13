@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import StoreInformation from "../SellerStore/ContactInfo/StoreInformation";
 import useInputPattern from "@/lib/hooks/useInputPattern";
 import SteelManufacturer from "../SellerStore/ContactInfo/SteelManufacturer";
+import EmailChangeModal from "./EmailChangeModal";
 
 const CompanyDetails = () => {
   const { handleSubmit, register, reset, setValue } = useForm();
@@ -22,6 +23,7 @@ const CompanyDetails = () => {
   const [updateUserInfoWithEmail, { isLoading }] =
     useUpdateUserInfoWithEmailMutation();
   const [isEdit, setIsEdit] = useState(false);
+  const [editEmail, setEditEmail] = useState(false);
 
   const handleEdit = async (data) => {
     const options = {
@@ -37,9 +39,9 @@ const CompanyDetails = () => {
         return;
       }
       setUser(result?.data?.data);
-      toast.success("info Add Successfully");
+      toast.success("Info added successfully");
     } else {
-      toast.error("info add unsuccessfully");
+      toast.error("Info added Unsuccessfully");
     }
   };
 
@@ -72,8 +74,7 @@ const CompanyDetails = () => {
       <div className=" relative h-fit py-4">
         <button
           onClick={() => setIsEdit(!isEdit)}
-          className="rounded-full p-2 bg-white hover:bg-pm border text-black 
-            hover:text-pm absolute top-3 right-3 cursor-pointer w-fit"
+          className="rounded-full p-2 bg-white hover:!bg-pm border hover:!text-white text-black absolute top-3 right-3 cursor-pointer w-fit"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -94,13 +95,31 @@ const CompanyDetails = () => {
           <div className="row">
             <div className="col-12 col-md-6">
               <label>Email Address</label>
-              <input
-                {...register("email", { required: true })}
-                type="email"
-                placeholder="Email"
-                disabled={isEdit ? false : true}
-                readOnly={isEdit ? false : true}
-              />
+              <div className="relative">
+                <input
+                  {...register("email", { required: true })}
+                  type="email"
+                  placeholder="Email"
+                  disabled={isEdit ? false : true}
+                  readOnly={isEdit ? false : true}
+                  className="flex-grow w-full !max-h-[61px]"
+                />
+
+                <div
+                  onClick={() => setEditEmail(!editEmail)}
+                  className="absolute top-2.5 right-2 h-10 w-10 rounded border !bg-white hover:!bg-pmd cursor-pointer text-black hover:!text-white flex justify-center items-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="32"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                  >
+                    <path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM192,108.68,147.31,64l24-24L216,84.68Z"></path>
+                  </svg>
+                </div>
+              </div>
             </div>
             <div className="col-12 col-md-6">
               <label>Telephone No </label>
@@ -174,6 +193,7 @@ const CompanyDetails = () => {
         </form>
       </div>
       <StoreInformation store={data?.data} isAuthor={true} user={user} />
+      <EmailChangeModal open={editEmail} onClose={setEditEmail} />
     </div>
   );
 };

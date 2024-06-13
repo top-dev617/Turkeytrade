@@ -119,6 +119,15 @@ const authApi = api.injectEndpoints({
       invalidatesTags: ["store", "users"],
     }),
 
+    addNewEmail: builder.mutation({
+      query: ({ data }) => ({
+        url: `/users/new-email/otp`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["store", "users"],
+    }),
+
     updateUserStoreInfo: builder.mutation({
       query: ({ data, storeId }) => ({
         url: `/users/update-user-store/${storeId}`,
@@ -150,6 +159,9 @@ export const {
 
   useUpdateUserInfoWithEmailMutation,
   useUpdateUserStoreInfoMutation,
+
+  // patch
+  useAddNewEmailMutation,
 
   // get user
   useGetUserQuery,

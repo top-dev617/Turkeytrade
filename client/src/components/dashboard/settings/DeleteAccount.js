@@ -6,16 +6,15 @@ import React from "react";
 import { useContext } from "react";
 
 const DeleteAccount = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, signOut } = useContext(AuthContext);
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
-  const [deleteUser, isLoading] = useDeleteUserMutation();
+  const [deleteUser, { isLoading }] = useDeleteUserMutation();
 
   const handleDelete = async () => {
     const result = await deleteUser();
     if (result?.data?.success) {
-      localStorage.removeItem("turkey-trade-market");
-      setUser(null);
+      signOut();
       router.push("/sigin");
     }
   };
@@ -84,7 +83,7 @@ const DeleteAccount = () => {
                   ></path>
                 </svg>
                 <p className="mb-4 text-gray-500 dark:text-gray-300">
-                  Are you sure you want to delete this item?
+                  Are you sure you want to delete your account?
                 </p>
                 <div className="flex justify-center items-center space-x-4">
                   <button

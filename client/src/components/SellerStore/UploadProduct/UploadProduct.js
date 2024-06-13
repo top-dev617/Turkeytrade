@@ -550,7 +550,7 @@ const UploadProduct = ({ store, setStep, user }) => {
       // console.log(result);
       setLoading(false);
       if (result?.data?.status === true) {
-        toast.success("Product Update Successfully");
+        toast.success("Product updated successfully");
         reset();
         setKeywords([]);
         setContent("");
@@ -562,7 +562,7 @@ const UploadProduct = ({ store, setStep, user }) => {
         setVideo(null);
         setStep(1);
       } else {
-        toast.error("Product Update Unsuccessfully");
+        toast.error("Product updated Unsuccessfully");
         setLoading(false);
         setStep(1);
       }
@@ -598,8 +598,8 @@ const UploadProduct = ({ store, setStep, user }) => {
       if (result?.data?.status === true) {
         toast.success(
           saveDraft
-            ? "Saved As Draft Successfully"
-            : "Product Publish Successfully"
+            ? "Saved as draft successfully"
+            : "Product publish successfully"
         );
         localStorage.removeItem("productInfo");
         setCategory(null);
@@ -808,9 +808,10 @@ const UploadProduct = ({ store, setStep, user }) => {
                   placeholder="Product name"
                   defaultValue={editProduct?.title}
                 />
-                {errors.title && (
+                {(errors.title || watch("title")?.length > 100) && (
                   <p className="text-red-600 text-xs italic">
-                    {errors.title.message}
+                    {errors.title?.message ||
+                      "Title must be less than 100 characters"}
                   </p>
                 )}
               </div>
@@ -1042,6 +1043,7 @@ const UploadProduct = ({ store, setStep, user }) => {
                       storeId={store?._id}
                       setValue={setValue}
                       groupValue={watch("group")}
+                      setStep={setStep}
                     />
                   </Popover>
                 </div>

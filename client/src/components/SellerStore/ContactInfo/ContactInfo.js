@@ -42,9 +42,9 @@ const ContactInfo = ({ store }) => {
     if (result?.data?.status === true) {
       reset();
       setIsEdit(false);
-      toast.success("info Add Successfully");
+      toast.success("Info added successfully");
     } else {
-      toast.error("info add unsuccessfully");
+      toast.error("Info added Unsuccessfully");
     }
   };
   return (
@@ -52,17 +52,14 @@ const ContactInfo = ({ store }) => {
       <div className="w-full">
         <SteelManufacturer
           store={storeData}
-          isAuthor={user?._id === storeData?.user?._id ? true : false}
+          isAuthor={false}
           company={storeData?.store_name}
           holderName={storeData?.user?.name}
           joined_date={storeData?.user?.createdAt}
         />
-
-        <SellerStoreInfo
-          store={storeData}
-          isAuthor={user?._id === storeData?.user?._id ? true : false}
-        />
-        <div
+        <SellerStoreInfo store={storeData} isAuthor={false} />
+        <StoreInformation store={storeData} isAuthor={false} />
+        {/* <div
           className={`social_media relative
         ${
           user?._id !== storeData?.user?._id && storeData?.user?.social
@@ -180,12 +177,7 @@ const ContactInfo = ({ store }) => {
               </p>
             </div>
           )}
-        </div>
-
-        <StoreInformation
-          store={storeData}
-          isAuthor={user?._id === storeData?.user?._id ? true : false}
-        />
+        </div> */}
       </div>
     </div>
   );

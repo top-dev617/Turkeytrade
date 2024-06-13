@@ -1285,6 +1285,7 @@ details[data-popover="right"] > summary + * {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+  text-align: left;
 }
 
 .twoLine {
@@ -1293,8 +1294,13 @@ details[data-popover="right"] > summary + * {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  text-align: left;
 }
 
 .all_break {
   word-break: break-word !important;
+}
+
+.tdisabled {
+  pointer-events: none;
 }

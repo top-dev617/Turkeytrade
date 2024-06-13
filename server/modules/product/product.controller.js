@@ -87,12 +87,17 @@ const getProductsByCateId = async (req, res) => {
   try {
     const isExist = await Category.findOne({ cate_slug: req.params.cateSlug });
     // console.log(isExist);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 48;
+    const skip = (page - 1) * limit;
     if (isExist) {
       const products = await Product.find({
         category: isExist._id,
         status: "Publish",
       })
         .sort({ _id: -1 })
+        .skip(skip)
+        .limit(limit)
         .populate("category")
         .populate("sub_category")
         .populate("group");
@@ -117,10 +122,21 @@ const getProductsByCateId = async (req, res) => {
         })
       );
 
+      const total = await Product.countDocuments({
+        category: isExist._id,
+        status: "Publish",
+      });
+      const totalPages = Math.ceil(total / limit);
       res.status(200).json({
         status: true,
         message: "Products fetched successfully",
         data: productsWithMinMaxPrices,
+        meta: {
+          page,
+          limit,
+          total,
+          totalPages,
+        },
       });
     } else {
       res.status(404).json({
@@ -136,6 +152,7 @@ const getProductsByCateId = async (req, res) => {
     });
   }
 };
+
 const getProductsBySubCateId = async (req, res) => {
   try {
     // const isExist = await Category.findOne({ cate_slug: req.params.cateSlug });
@@ -143,12 +160,17 @@ const getProductsBySubCateId = async (req, res) => {
       sub_cate_slug: req.params.subCateSlug,
     });
     // console.log("sub cate:", isExistSubCate);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 48;
+    const skip = (page - 1) * limit;
     if (isExistSubCate) {
       const products = await Product.find({
         sub_category: isExistSubCate._id,
         status: "Publish",
       })
         .sort({ _id: -1 })
+        .skip(skip)
+        .limit(limit)
         .populate("category")
         .populate("sub_category")
         .populate("group");
@@ -170,10 +192,23 @@ const getProductsBySubCateId = async (req, res) => {
           }
         })
       );
+
+      const total = await Product.countDocuments({
+        sub_category: isExistSubCate._id,
+        status: "Publish",
+      });
+
+      const totalPages = Math.ceil(total / limit);
       res.status(200).json({
         status: true,
         message: "Products fetched successfully",
         data: productsWithMinMaxPrices,
+        meta: {
+          page,
+          limit,
+          total,
+          totalPages,
+        },
       });
     } else {
       res.status(201).json({
@@ -352,7 +387,7 @@ const getLatestProducts = async (req, res) => {
   try {
     const result = await Product.find({ status: "Publish" })
       .sort({ _id: -1 })
-      .limit(40)
+      .limit(20)
       .select("title images");
     res.status(200).json({
       status: true,
@@ -499,6 +534,10 @@ const deleteProductsByIds = async (req, res) => {
 const getSearchProducts = async (req, res) => {
   try {
     const { search } = req.query;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 48;
+    const skip = (page - 1) * limit;
+
     const searchRegex = new RegExp(search, "i");
 
     const products = await Product.find({
@@ -511,7 +550,9 @@ const getSearchProducts = async (req, res) => {
       status: "Publish",
     })
       .populate("group")
-      .sort({ _id: -1 });
+      .sort({ _id: -1 })
+      .skip(skip)
+      .limit(limit);
 
     const productsWithMinMaxPrices = await Promise.all(
       products.map(async (product) => {
@@ -532,10 +573,28 @@ const getSearchProducts = async (req, res) => {
       })
     );
 
+    const total = await Product.countDocuments({
+      $or: [
+        { title: searchRegex },
+        { keyword: searchRegex },
+        { group: searchRegex },
+        { description: searchRegex },
+      ],
+      status: "Publish",
+    });
+
+    const totalPages = Math.ceil(total / limit);
+
     res.status(200).json({
       status: true,
       message: "Products get successfully",
       data: productsWithMinMaxPrices,
+      meta: {
+        page,
+        limit,
+        total,
+        totalPages,
+      },
     });
   } catch (error) {
     res.status(201).json({
@@ -584,7 +643,7 @@ const recentlyViewedProducts = async (req, res) => {
 // popular products
 const popularProducts = async (req, res) => {
   try {
-    const limit = 32;
+    const limit = 20;
 
     // Aggregate to find the product IDs with their save counts
     const popularProductIds = await SaveProduct.aggregate([

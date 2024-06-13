@@ -6,8 +6,8 @@ const Banner = () => {
       <div className="container">
         <p>
           <span className="font-semibold">
-            Start Selling on Turkeytrademarket, the exciting new platform
-            connecting buyers around the world with sellers in Turkey.
+            Start Selling on Turkeytrademarket, the trusted platform connecting
+            Turkish Sellers with buyers globally
           </span>
           {/* As we
           embark on this journey, we are delighted to offer a special

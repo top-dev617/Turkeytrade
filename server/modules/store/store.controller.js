@@ -1,3 +1,4 @@
+const { storeSendUpdateToSocket } = require("../../config/socket/socketEvents");
 const {
   sendStoreApprovedMail,
   sendStoreDeclineMail,
@@ -218,10 +219,14 @@ const updateStoreInfoAfterVerification = async (req, res) => {
     });
   }
 };
+
 const updateStoreStatus = async (req, res) => {
   try {
     const isExist = await Store.findOne({ _id: req.params.id });
     if (isExist) {
+      if (req.body.status === "accept") {
+        req.body["isHighlight"] = true;
+      }
       const result = await Store.findByIdAndUpdate(
         { _id: req.params.id },
         req.body,
@@ -242,6 +247,41 @@ const updateStoreStatus = async (req, res) => {
           await sendStoreDeclineMail(result?.user?.email, result);
         }
       }
+      await storeSendUpdateToSocket(result?.user?._id.toString(), {
+        status: true,
+        message: "Store status Update successful",
+        new: true,
+      });
+      res.status(200).json({
+        status: true,
+        message: "Store status Update successful",
+        data: result,
+      });
+    } else {
+      res.status(201).json({
+        status: false,
+        message: "Something went wrong",
+      });
+    }
+  } catch (error) {
+    res.status(201).json({
+      status: false,
+      message: "Info Add Not Successful",
+    });
+  }
+};
+
+const updateHighlight = async (req, res) => {
+  try {
+    const isExist = await Store.findOne({ _id: req.params.storeId });
+    if (isExist) {
+      const result = await Store.findByIdAndUpdate(
+        { _id: req.params.storeId },
+        { isHighlight: false },
+        {
+          new: false,
+        }
+      );
       res.status(200).json({
         status: true,
         message: "Store status Update successful",
@@ -311,4 +351,5 @@ module.exports = {
   updateStoreStatus,
   updateStoreInfo,
   updateStoreInfoAfterVerification,
+  updateHighlight,
 };

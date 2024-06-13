@@ -44,7 +44,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
     if (totalPages <= maxVisiblePages) {
       for (let i = 1; i <= totalPages; i++) {
         pageNumbers.push(
-          <IconButton key={i} {...getItemProps(i)}>
+          <IconButton key={i} {...getItemProps(i)} className="bg-pm">
             {i}
           </IconButton>
         );
@@ -59,7 +59,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
 
       for (let i = start; i <= end; i++) {
         pageNumbers.push(
-          <IconButton key={i} {...getItemProps(i)}>
+          <IconButton key={i} {...getItemProps(i)} className="bg-pm">
             {i}
           </IconButton>
         );
@@ -87,7 +87,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
 
   return (
     <div
-      className="flex items-center justify-center gap-4 py-4"
+      className={`flex items-center justify-center gap-4 py-4`}
       ref={containerRef}
     >
       <Button

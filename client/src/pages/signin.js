@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import login from "../../public/assets/login-banner.png";
+// import login from "../../public/assets/login-banner.png";
 import checkbox from "../../public/assets/checkbox.png";
 import checked from "../../public/assets/checked.png";
 import Link from "next/link";
@@ -10,6 +10,8 @@ import { toast } from "react-toastify";
 import { Spinner } from "@material-tailwind/react";
 import { usePostLoginMutation } from "@/redux/features/auth/authApi";
 import GoogleLoginButton from "./auth/GoogleLoginButton";
+import login from "../assets/images/login/bg.jpg";
+import logoup from "../assets/images/login/logoup.png";
 
 const Login = () => {
   const router = useRouter();
@@ -56,15 +58,21 @@ const Login = () => {
   return (
     <div className="login">
       <div className="row m-0">
-        <div className="col-12 col-lg-6 p-0 mb-5 mb-lg-0">
+        <div className="col-12 col-lg-6 p-0 mb-5 mb-lg-0 relative hidden lg:block">
           <img
-            style={{ height: "100vh" }}
-            className="img-fluid w-100"
+            className="img-fluid w-100 max-h-screen"
             src={login.src}
             alt=""
           />
+          <div className="absolute z-50 top-0 left-0 right-0 bottom-0 w-full h-full flex justify-center items-center">
+            <img
+              className="object-contain rounded-[12px]"
+              src={logoup.src}
+              alt=""
+            />
+          </div>
         </div>
-        <div className="col-12 col-lg-6 my-auto">
+        <div className="col-12 col-lg-6 my-auto pt-[44px] lg:pt-0">
           <form onSubmit={handleSubmit(handleLogin)}>
             <div>
               <h6>Login</h6>

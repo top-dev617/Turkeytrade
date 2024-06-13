@@ -19,6 +19,7 @@ const StoreOverview = ({ store }) => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
   useEffect(() => {
     if (typeof currentPage !== "undefined") {
       const refetchWithNewPage = async () => {

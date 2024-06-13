@@ -1,5 +1,3 @@
-import { Button } from "@material-tailwind/react";
-
 const Test = () => {
   // async function downloadImage(url) {
   //   // Extract filename from URL

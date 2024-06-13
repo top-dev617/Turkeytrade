@@ -7,7 +7,10 @@ import verification from "../../public/assets/verification.png";
 import { AuthContext } from "./context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { setSaveProducts } from "@/redux/features/products/productSlice";
-import { useGetStoreInfoBySellerIdQuery } from "@/redux/features/stores/storeApi";
+import {
+  useGetStoreInfoBySellerIdQuery,
+  useIsHighlightOffMutation,
+} from "@/redux/features/stores/storeApi";
 import { useRouter } from "next/router";
 import {
   Button,
@@ -22,12 +25,19 @@ import {
 import { setStoreInfo } from "@/redux/features/stores/storeSlice";
 import { useGetGlobalChatDataQuery } from "@/redux/features/conversation/conversationApi";
 import useAuth from "@/lib/useAuth";
+import dynamic from "next/dynamic";
+
+const MyStoreHighlight = dynamic(
+  () => import("@/components/commons/global/MyStoreHighlight"),
+  { ssr: false }
+);
 
 const Header = () => {
   const { user } = useContext(AuthContext);
   const { logout } = useAuth({ redirectTo: false });
   const { data } = useGetStoreInfoBySellerIdQuery(user?._id);
   const { data: chatData } = useGetGlobalChatDataQuery();
+  const [isHighlightOff] = useIsHighlightOffMutation();
 
   const profileRef = useRef();
 
@@ -59,7 +69,16 @@ const Header = () => {
     dispatch(setSaveProducts(newProducts));
   }, []);
 
+  const handleHighlightOff = () => {
+    const options = { data: {}, id: data?.data?._id };
+    isHighlightOff(options);
+  };
+
   const handleNavigate = () => {
+    if (isHighlight) {
+      handleHighlightOff();
+      setIsHighlight(false);
+    }
     if (user?.role === "Seller" && !data?.data) {
       router.push("/seller-register");
     } else if (data?.data?.status) {
@@ -68,6 +87,14 @@ const Header = () => {
   };
 
   const [sellerReg, setSellerReg] = useState(false);
+  const [isHighlight, setIsHighlight] = useState(false);
+
+  useMemo(() => {
+    if (data?.data?.isHighlight) {
+      setIsHighlight(true);
+    }
+    return () => {};
+  }, [data?.data]);
 
   useEffect(() => {
     if (user?.role === "Seller" && data?.status && !data?.data?._id) {
@@ -108,7 +135,7 @@ const Header = () => {
             {data?.data ? (
               <div
                 style={{ color: "#E61C2B", fontWeight: "600" }}
-                className="md:flex items-center gap-1 hidden md:block text-xs md:!text-[14px]"
+                className="md:flex items-center gap-1 hidden md:block text-xs md:!text-[14px] relative"
                 onClick={() => handleNavigate()}
               >
                 {data?.data?.status !== "accept" && (
@@ -117,9 +144,20 @@ const Header = () => {
                 {data?.data?.status === "pending" &&
                   "Verification in progress!"}
                 {data?.data?.status === "accept" && (
-                  <Button size="sm" className="bg-pm rounded-md shadow-none">
-                    My Store
-                  </Button>
+                  <div className="min-w-[115px] max-w-[115px] min-h-[32px] max-h-[32px] relative">
+                    <Button
+                      size="sm"
+                      className="bg-pm rounded-md w-full shadow-none py-0 min-h-[32px] hover:shadow-none absolute top-0 left-0 z-[9999999]"
+                    >
+                      My Store
+                    </Button>
+                    {isHighlight && (
+                      <>
+                        <div className="bg-white bg-opacity-50 w-full h-full fixed left-0 right-0 top-0 z-[999] tdisabled overflow-hidden"></div>
+                        <MyStoreHighlight open={true} />
+                      </>
+                    )}
+                  </div>
                 )}
               </div>
             ) : (
@@ -220,7 +258,7 @@ const Header = () => {
                       Settings
                     </Button>
                   </Link>
-                  <Link href="/orders">
+                  {/* <Link href="/orders">
                     <Button className="w-full py-0 h-8 rounded shadow-none bg-pm hover:bg-pmd">
                       Orders
                     </Button>
@@ -229,7 +267,7 @@ const Header = () => {
                     <Button className="w-full py-0 h-8 rounded shadow-none bg-pm hover:bg-pmd">
                       Transactions
                     </Button>
-                  </Link>
+                  </Link> */}
                   <Button
                     onClick={() => handleSignout()}
                     className="w-full py-0 h-8 rounded shadow-none bg-red-600 hover:bg-red-700 mt-2"

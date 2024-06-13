@@ -65,7 +65,9 @@ const getUniquePGroupsByStoreId = async (req, res) => {
       store: req.params.storeId,
       status: "Publish",
     });
-    const result = await ProductGroup.find({ _id: { $in: uniqueGroups } });
+    const result = await ProductGroup.find({ _id: { $in: uniqueGroups } }).sort(
+      { _id: -1 }
+    );
     res.status(200).json({
       status: true,
       message: "Group get successfully",

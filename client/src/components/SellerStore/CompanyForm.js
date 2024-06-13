@@ -144,9 +144,9 @@ const CompanyForm = () => {
       setVideo(null);
       setStoreVideo(true);
       reset();
-      toast.success("Store info Add Successfully");
+      toast.success("Store info added successfully");
     } else {
-      toast.error("Store info add unsuccessfully");
+      toast.error("Store info added Unsuccessfully");
     }
   };
 

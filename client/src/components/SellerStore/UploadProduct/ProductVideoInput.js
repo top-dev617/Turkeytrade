@@ -55,7 +55,7 @@ const ProductVideoInput = ({
             />
           ) : (
             <>
-              {editProduct?._id ? (
+              {editProduct?.video ? (
                 <VideoPlayer
                   url={`${base_url}/uploads/${editProduct?.video}`}
                   className="object-contain w-100 h-100"

@@ -18,7 +18,7 @@ import { useRef } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-const AddGroup = ({ groups, storeId, setValue, groupValue }) => {
+const AddGroup = ({ groups, storeId, setValue, groupValue, setStep }) => {
   const [postProductGroup, { isLoading }] = usePostProductGroupMutation();
   const [postIsExistGroup] = usePostIsExistGroupMutation();
   const [removeGroupById, { deleteLoading }] = useRemoveGroupByIdMutation();
@@ -74,6 +74,16 @@ const AddGroup = ({ groups, storeId, setValue, groupValue }) => {
       e.preventDefault();
       handleAddNewGroup({ title: watch("title") });
     }
+  };
+
+  const handleGotoEditPro = () => {
+    setOpen(null);
+    setStep(5);
+  };
+
+  const handleGotoCustomCate = () => {
+    setOpen(null);
+    setStep(2);
   };
 
   return (
@@ -166,16 +176,49 @@ const AddGroup = ({ groups, storeId, setValue, groupValue }) => {
       >
         <div className="bg-white pb-4">
           <p className="text-black font-medium leading-[18px] text-sm">
-            This custom category cannot be removed as it has products linked to
-            it. To modify the Custom category for your products, please go to
-            'Edit Product' on your{" "}
-            <Link
+            <p className="font-bold text-[14px] font-inter">
+              This custom category cannot be removed because it currently has
+              products linked to it.
+            </p>{" "}
+            <p className="font-bold text-[14px] font-inter pt-2">
+              If you wish to change the custom category for a specific product:
+            </p>
+            <ul className="ml-12 mt-2 list-disc">
+              <li>
+                You can do so by adding a new or existing custom category for
+                your product in the '
+                <span
+                  onClick={() => handleGotoEditPro()}
+                  className="text-pm underline inline cursor-pointer"
+                >
+                  Edit Product
+                </span>
+                ' section under 'Custom Category.'
+              </li>
+            </ul>
+            <p className="font-bold text-[14px] font-inter mt-3">
+              If you wish to rename a custom category for multiple products at
+              the same time:
+            </p>
+            <ul className="ml-12 mt-2 list-disc">
+              <li>
+                Go to the '
+                <span
+                  onClick={() => handleGotoCustomCate()}
+                  className="text-pm underline inline cursor-pointer"
+                >
+                  Custom Categories
+                </span>
+                ' section.
+              </li>
+            </ul>
+            {/* <Link
               className="text-pm underline"
               href="/mystore"
               onClick={() => setOpen(null)}
             >
               My store
-            </Link>
+            </Link> */}
           </p>
         </div>
         <div className="flex items-center justify-end">

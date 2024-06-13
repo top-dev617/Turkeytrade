@@ -40,6 +40,11 @@ const ProductBanner = ({ product }) => {
   const [postNewChat] = usePostNewChatMutation();
 
   const handleSaveProduct = async (id) => {
+    console.log(user);
+    if (!user?._id) {
+      router.push("/signin");
+      return;
+    }
     if (data?.data) {
       const options = { id: id };
       const result = await removeSaveProduct(options);

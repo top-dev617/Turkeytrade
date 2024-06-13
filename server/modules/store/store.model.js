@@ -129,6 +129,11 @@ const storeSchema = new Schema(
       ],
       required: false,
     },
+    isHighlight: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
   },
   {
     timestamps: true,

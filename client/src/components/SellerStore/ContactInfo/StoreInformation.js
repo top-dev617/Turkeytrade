@@ -37,9 +37,9 @@ const StoreInformation = ({ store, isAuthor, user }) => {
     setIsEdit(false);
     if (result?.data?.status === true) {
       reset();
-      toast.success("info Add Successfully");
+      toast.success("info added successfully");
     } else {
-      toast.error("info add unsuccessfully");
+      toast.error("Info added Unsuccessfully");
     }
   };
 
@@ -69,8 +69,7 @@ const StoreInformation = ({ store, isAuthor, user }) => {
       {isAuthor && (
         <button
           onClick={() => setIsEdit(true)}
-          className="rounded-full p-2 hover:bg-pm border text-black 
-            hover:text-pm absolute top-3 right-3 cursor-pointer"
+          className="rounded-full p-2 bg-white hover:!bg-pm border hover:!text-white text-black absolute top-3 right-3 cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

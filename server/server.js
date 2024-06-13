@@ -3,6 +3,7 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const PORT = process.env.PORT || 8000;
 const path = require("path");
+require("dotenv").config();
 
 // helpers
 const helperRoutes = require("./modules/helper/helper.route");
@@ -13,7 +14,6 @@ const categoryRoutes = require("./modules/category/category.route");
 const subCategoryRoutes = require("./modules/subCategory/subCategory.route");
 const productRoutes = require("./modules/product/product.route");
 const storeInfoRoutes = require("./modules/storeInfo/storeInfo.route");
-const tokenRoutes = require("./modules/token/token.route");
 const groupRoutes = require("./modules/productGroup/productGroup.route");
 const saveProductRoutes = require("./modules/saveProduct/saveProductRoute");
 
@@ -24,15 +24,11 @@ const notificationRoutes = require("./modules/conversation/notification/notifica
 
 // conversations
 const helpCenterChatRoutes = require("./modules/help-center/help-center-chat/helpCenterChat.route");
-// const messageRoutes = require("./modules/conversation/message/message.route");
 
 const app = express();
 const http = require("http");
+const { initializeSocket } = require("./config/socket/socketServer");
 const Server = http.createServer(app);
-const socketIo = require("socket.io");
-const {
-  updateLastActivity,
-} = require("./modules/conversation/chat/chat.service");
 
 // middleware
 app.use(cors());
@@ -53,7 +49,6 @@ app.use("/api/v2/categories", categoryRoutes);
 app.use("/api/v2/sub-categories", subCategoryRoutes);
 app.use("/api/v2/products", productRoutes);
 app.use("/api/v2/store-info", storeInfoRoutes);
-app.use("/api/v2/token", tokenRoutes);
 app.use("/api/v2/product-groups", groupRoutes);
 app.use("/api/v2/save-products", saveProductRoutes);
 
@@ -71,90 +66,9 @@ app.use("/api/v2/notifications", notificationRoutes);
 
 // Help Center
 app.use("/api/v2/help-center/", helpCenterChatRoutes);
-// app.use("/api/v2/messages/", messageRoutes);
 
-// -----------------socket server-----------------
-const io = socketIo(Server, {
-  cors: {
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-  },
-});
-
-let users = [];
-
-const addUser = (userInfo, socketId) => {
-  !users.some(
-    (user) => user.userId === userInfo.id && user?.type === userInfo?.type
-  ) &&
-    users.push({
-      userId: userInfo?.id,
-      type: userInfo?.type,
-      socketId: socketId,
-    });
-};
-
-const getUser = (userId) => {
-  return users.find((user) => user.userId === userId);
-};
-
-const getUserBySocketId = async (socketId) => {
-  return users.find((user) => user.socketId === socketId);
-};
-
-const removeUser = async (socketId) => {
-  const user = getUserBySocketId(socketId);
-  users = users.filter((user) => user.socketId !== socketId);
-  return user;
-};
-
-const getUsers = (userId) => {
-  return users.filter((user) => user.userId === userId);
-};
-
-io.on("connection", (socket) => {
-  // console.log("connected. 🟢");
-
-  //take userId and socketId from user
-  socket.on("addUser", (user) => {
-    addUser(user, socket.id);
-    console.log("🟢 Connected total: ", users?.length, "  ", "user: ", user);
-    io.emit("getUsers", users);
-  });
-
-  socket.on("addChat", (chat) => {
-    const user = getUser(chat?.rcId);
-    io.to(user?.socketId).emit("getChat", chat);
-  });
-
-  //send and get message
-
-  socket.on("sendMessage", (newMessage) => {
-    const currentUsers = getUsers(newMessage?.receiverId);
-    console.log("users", currentUsers);
-    for (let i = 0; i < currentUsers.length; i++) {
-      io.to(currentUsers[i]?.socketId).emit("getMessage", newMessage);
-    }
-  });
-
-  //when disconnect
-  socket.on("disconnect", async () => {
-    const user = await removeUser(socket.id);
-    io.emit("getUsers", users);
-    if (user?.userId) {
-      const timestamp = Date.now(); // Get the current timestamp in milliseconds
-      const time = new Date(timestamp);
-      updateLastActivity(user?.userId, time.toISOString());
-      io.emit("last-activity", {
-        id: user?.userId,
-        time: time.toISOString(),
-      });
-    }
-    console.log("disconnected! 🔴");
-  });
-});
-
-// -----------------socket server-----------------
+// Initialize Socket.IO
+initializeSocket(Server);
 
 // testing api
 app.get("/", (req, res) => {

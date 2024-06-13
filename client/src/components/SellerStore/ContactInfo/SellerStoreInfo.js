@@ -48,9 +48,9 @@ const SellerStoreInfo = ({ store, isAuthor }) => {
         toast.error("Email already exists");
         return;
       }
-      toast.success("info Add Successfully");
+      toast.success("Info added successfully");
     } else {
-      toast.error("info add unsuccessfully");
+      toast.error("Info added Unsuccessfully");
     }
   };
 

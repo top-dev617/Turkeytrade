@@ -288,7 +288,7 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
               required={true}
               enableAreaCodes={true}
               country={countryValue && countryValue}
-              className="input mb-0"
+              className="input mb-0 z-[999999]"
               buttonStyle={{
                 border: "none",
                 backgroundColor: "#f6f6f6",

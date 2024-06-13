@@ -44,12 +44,12 @@ const UserInfo = () => {
       const result = await patchUserInfoById(options);
       if (result?.data?.status === true) {
         setUser(result?.data?.data);
-        toast.success("Profile Info Update Successfully");
+        toast.success("Profile info updated successfully");
       } else {
-        toast.error("Profile Info Update Unsuccessfully");
+        toast.error("Profile info updated Unsuccessfully");
       }
     } else {
-      toast.error("Something went wrong, Try again");
+      toast.error("Something went wrong, try again");
     }
   };
 
@@ -73,12 +73,12 @@ const UserInfo = () => {
       if (result?.data?.status === true) {
         setUser(result?.data?.data);
         setImage(null);
-        toast.success("Profile Picture Changed Successfully");
+        toast.success("Profile picture changed successfully");
       } else {
-        toast.error("Profile Picture Changed Unsuccessfully");
+        toast.error("Profile picture changed Unsuccessfully");
       }
     } else {
-      toast.error("Something went wrong, Try again");
+      toast.error("Something went wrong, try again");
     }
   };
 

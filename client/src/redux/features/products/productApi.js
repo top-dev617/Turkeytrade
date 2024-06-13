@@ -44,14 +44,21 @@ const productApi = api.injectEndpoints({
       providesTags: ["products"],
     }),
 
+    // search products
+    getSearchProducts: builder.query({
+      query: ({ search, page }) =>
+        `/products/search/products?search=${search}&page=${page}`,
+      providesTags: ["products"],
+    }),
+
     // get all products by category
     getProductsByCate: builder.query({
-      query: (cateSlug) => `/products/category/${cateSlug}`,
+      query: ({ slug, page }) => `/products/category/${slug}?page=${page}`,
       providesTags: ["products"],
     }),
     getProductsBySubCate: builder.query({
-      query: ({ cateSlug, subCateSlug }) =>
-        `/products/category/${cateSlug}/${subCateSlug}`,
+      query: ({ cateSlug, subCateSlug, page }) =>
+        `/products/category/${cateSlug}/${subCateSlug}?page=${page}`,
       providesTags: ["products"],
     }),
 
@@ -172,6 +179,7 @@ export const {
   useGetProductsBySubCateQuery,
   useGetProductsByStoreQuery,
   useGetProductByIdQuery,
+  useGetSearchProductsQuery,
 
   useDeleteProductMutation,
 

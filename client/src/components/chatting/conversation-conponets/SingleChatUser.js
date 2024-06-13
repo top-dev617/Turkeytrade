@@ -1,4 +1,5 @@
 import { AuthContext } from "@/components/context/AuthContext";
+import { DATE_FORMATE } from "@/lib/constants/globalConstant";
 import useGlobal from "@/lib/hooks/useGlobal";
 import useLocalTime from "@/lib/hooks/useLocalTime";
 import useViewImage from "@/lib/hooks/useViewImage";
@@ -50,25 +51,21 @@ const SingleChatUser = ({ chatData, handleSetData, chat }) => {
       </button>
 
       <div className="w-full flex flex-col h-full items-start ml-2">
-        <div className="flex items-center justify-between w-full">
-          <span className="font-semibold text-black flex items-center gap-1">
+        <div className="flex items-center justify-between w-full gap-x-[4px]">
+          <span className="font-semibold text-black flex items-center gap-1 oneLine">
             {chatData?.receiver === user?._id
               ? chatData?.settings?.receiver?.isMute && iMute
               : chatData?.settings?.sender?.isMute && iMute}
-            {chatData?.receiverInfo?.name?.length > 15
-              ? firstLatterUp(
-                  chatData?.receiverInfo?.name?.slice(0, 15) + "..."
-                )
-              : firstLatterUp(chatData?.receiverInfo?.name)}
+            {firstLatterUp(chatData?.receiverInfo?.name)}
           </span>
-          <span className="block text-[10px] text-pm">
+          <span className="block text-[10px] text-pm text-nowrap">
             {chatData?.lastMessage &&
-              inputTime(chatData?.lastMessage?.createdAt)}
+              inputTime(chatData?.lastMessage?.createdAt, DATE_FORMATE)}
           </span>
         </div>
 
         <div className="flex justify-between items-start w-full">
-          <small className="text-[10px]">
+          <small className="text-[10px] oneLine">
             {firstLatterUp(
               chatData?.storeInfo?.store_name ||
                 chatData?.receiverInfo?.company_name

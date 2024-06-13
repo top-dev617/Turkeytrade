@@ -21,6 +21,7 @@ const useLocalTime = () => {
   };
 
   const fromNow = (createdAt, timeZone) => {
+    if (createdAt === undefined) return null;
     const detectedTimeZone = timeZone || moment.tz.guess();
     const formattedFromNow = moment(createdAt).tz(detectedTimeZone).fromNow();
     return formattedFromNow;

@@ -1,6 +1,4 @@
 import { usePatchUserInfoByIdMutation } from "@/redux/features/auth/authApi";
-import { usePatchStoreInfoByIdMutation } from "@/redux/features/stores/storeApi";
-import { Button, Spinner } from "@material-tailwind/react";
 import moment from "moment/moment";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -26,9 +24,9 @@ const SteelManufacturer = ({
     setIsEdit(false);
     if (result?.data?.status === true) {
       reset();
-      toast.success("info Add Successfully");
+      toast.success("Info added successfully");
     } else {
-      toast.error("info add unsuccessfully");
+      toast.error("Info added Unsuccessfully");
     }
   };
 
