@@ -44,6 +44,8 @@ const InboxChatSidebar = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const isLength = chats?.some((c) => !!c.lastMessage);
   return (
     <div
       className={`border-x min-w-[300px] max-w-[300px] h-full bg-gray-100 ${
@@ -65,7 +67,7 @@ const InboxChatSidebar = () => {
         </div>
       ) : (
         <>
-          {chats?.length > 0 && (
+          {chats?.length > 0 && isLength && (
             <ul className={`overflow-y-auto h-full`}>
               <li>
                 {chats &&
@@ -83,7 +85,7 @@ const InboxChatSidebar = () => {
         </>
       )}
 
-      {!isLoading && chats?.length < 1 && (
+      {!isLoading && !isLength && (
         <div className="flex flex-col justify-center items-center h-full">
           <Image src={emptyChats} className="max-w-[200px] object-contain" />
           <h1 className="font-semibold text-[#1E2024]">

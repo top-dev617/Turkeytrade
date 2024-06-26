@@ -599,7 +599,7 @@ const UploadProduct = ({ store, setStep, user }) => {
         toast.success(
           saveDraft
             ? "Saved as draft successfully"
-            : "Product publish successfully"
+            : "Product published successfully"
         );
         localStorage.removeItem("productInfo");
         setCategory(null);

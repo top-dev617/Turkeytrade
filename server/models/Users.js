@@ -99,6 +99,12 @@ const userSchema = new mongoose.Schema(
       twitter: String,
       required: false,
     },
+    emailChatNotification: {
+      type: Boolean,
+      enum: [true, false],
+      default: true,
+      required: false,
+    },
   },
   {
     timestamps: true,

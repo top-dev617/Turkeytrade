@@ -20,6 +20,8 @@ const {
   popularProducts,
 } = require("./product.controller");
 const { upload, handleMulterError } = require("../../config/multerConfig");
+const Chat = require("../conversation/chat/chat.model");
+const User = require("../../models/Users");
 
 const router = express.Router();
 
@@ -55,5 +57,27 @@ router.patch(
 router.delete("/delete/:id", deleteProductById);
 router.delete("/delete/many/ids", isAuth, deleteProductsByIds);
 router.get("/search/products", getSearchProducts);
+
+// router.get("/a/b", async (req, res) => {
+//   const result = await Chat.updateMany(
+//     {},
+//     {
+//       $set: {
+//         sendMailAction: true,
+//         responseMailAction: false,
+//       },
+//     }
+//   );
+//   const users = await User.updateMany(
+//     {},
+//     {
+//       $set: {
+//         emailChatNotification: true,
+//       },
+//     }
+//   );
+
+//   res.send({ result, users });
+// });
 
 module.exports = router;

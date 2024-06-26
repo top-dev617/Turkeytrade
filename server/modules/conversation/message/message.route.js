@@ -16,6 +16,7 @@ router.post(
     { name: "video", maxCount: 1 },
     { name: "document", maxCount: 1 },
   ]),
+  isAuth,
   handleMulterError,
   createMessage
 );

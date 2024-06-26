@@ -60,7 +60,11 @@ const SingleChatUser = ({ chatData, handleSetData, chat }) => {
           </span>
           <span className="block text-[10px] text-pm text-nowrap">
             {chatData?.lastMessage &&
-              inputTime(chatData?.lastMessage?.createdAt, DATE_FORMATE)}
+            new Date(chatData.lastMessage.createdAt)
+              .toISOString()
+              .split("T")[0] !== new Date().toISOString().split("T")[0]
+              ? inputTime(chatData?.lastMessage?.createdAt, DATE_FORMATE)
+              : inputTime(chatData?.lastMessage?.createdAt)}
           </span>
         </div>
 

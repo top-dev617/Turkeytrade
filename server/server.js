@@ -4,6 +4,7 @@ const connectDB = require("./config/db");
 const PORT = process.env.PORT || 8000;
 const path = require("path");
 require("dotenv").config();
+const cron = require("node-cron");
 
 // helpers
 const helperRoutes = require("./modules/helper/helper.route");
@@ -28,6 +29,9 @@ const helpCenterChatRoutes = require("./modules/help-center/help-center-chat/hel
 const app = express();
 const http = require("http");
 const { initializeSocket } = require("./config/socket/socketServer");
+const {
+  getUnreadMessagesOlderThan24Hours,
+} = require("./modules/conversation/message/message.service");
 const Server = http.createServer(app);
 
 // middleware
@@ -69,6 +73,11 @@ app.use("/api/v2/help-center/", helpCenterChatRoutes);
 
 // Initialize Socket.IO
 initializeSocket(Server);
+
+// Schedule the task to run every hour
+cron.schedule("0 * * * *", () => {
+  getUnreadMessagesOlderThan24Hours();
+});
 
 // testing api
 app.get("/", (req, res) => {

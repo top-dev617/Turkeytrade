@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 
 const sendStoreApprovedMail = async (email, store) => {
   const transporter = nodemailer.createTransport({
-    host: "mail.turkeytrademarket.com",
+    host: process.env.PRIMARY_MAIL,
     port: 465,
     secure: true,
     auth: {
@@ -104,7 +104,7 @@ const sendStoreApprovedMail = async (email, store) => {
 
 const sendStoreDeclineMail = async (email, store) => {
   const transporter = nodemailer.createTransport({
-    host: "mail.turkeytrademarket.com",
+    host: process.env.PRIMARY_MAIL,
     port: 465,
     secure: true,
     auth: {
@@ -178,7 +178,7 @@ const sendStoreDeclineMail = async (email, store) => {
 
 const sendForgotOTPMail = async (user, otp) => {
   const transporter = nodemailer.createTransport({
-    host: "mail.turkeytrademarket.com",
+    host: process.env.PRIMARY_MAIL,
     port: 465,
     secure: true,
     auth: {
@@ -252,7 +252,7 @@ const sendForgotOTPMail = async (user, otp) => {
 };
 const sendContactMessage = async (data) => {
   const transporter = nodemailer.createTransport({
-    host: "mail.turkeytrademarket.com",
+    host: process.env.PRIMARY_MAIL,
     port: 465,
     secure: true,
     auth: {
@@ -329,7 +329,7 @@ const sendContactMessage = async (data) => {
 
 const sendWelcomeMail = async (data) => {
   const transporter = nodemailer.createTransport({
-    host: "mail.turkeytrademarket.com",
+    host: process.env.PRIMARY_MAIL,
     port: 465,
     secure: true,
     auth: {
@@ -423,7 +423,7 @@ const sendWelcomeMail = async (data) => {
 // Add new email verification
 const sendNewEmailVerificationCode = async (user, otp) => {
   const transporter = nodemailer.createTransport({
-    host: "mail.turkeytrademarket.com",
+    host: process.env.PRIMARY_MAIL,
     port: 465, // STARTTLS port
     secure: true,
     auth: {

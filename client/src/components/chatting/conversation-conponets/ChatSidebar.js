@@ -13,6 +13,9 @@ const ChatSidebar = ({ chatData, isLoading }) => {
   const handleSetData = (inputChat) => {
     dispatch(setChat(inputChat));
   };
+
+  const isLength = chatData?.some((c) => !!c.lastMessage === true);
+  // console.log(isLength);
   return (
     <div className={`w-full bg-white h-screen ${chat && "hidden"}`}>
       {isLoading ? (
@@ -30,7 +33,7 @@ const ChatSidebar = ({ chatData, isLoading }) => {
         </div>
       ) : (
         <>
-          {chatData?.length > 0 && (
+          {chatData?.length > 0 && isLength && (
             <ul className={`overflow-auto h-[32rem] ${chat && "hidden"}`}>
               <li>
                 {chatData &&
@@ -48,7 +51,7 @@ const ChatSidebar = ({ chatData, isLoading }) => {
         </>
       )}
 
-      {!isLoading && chatData?.length < 1 && (
+      {!isLoading && !isLength && (
         <div className="flex flex-col justify-center items-center h-full">
           <Image src={emptyChats} className="max-w-[200px] object-contain" />
           <h1 className="font-semibold text-[#1E2024]">

@@ -28,14 +28,20 @@ const UserInfo = () => {
   const [patchUserInfoById, { isLoading }] = usePatchUserInfoByIdMutation();
 
   const [time_format, setTime_format] = useState("");
+  const [emailChatNotification, setEmailChatNotification] = useState(true);
 
   const [open, setOpen] = useState("");
 
-  const handleUserUpdate = async (data) => {
+  const handleUserUpdate = async (name, value) => {
     const newData = new FormData();
-    if (data) {
-      newData.append("time_format", data);
+
+    if (name === "time_format") {
+      newData.append("time_format", value);
     }
+    if (name === "emailChatNotification") {
+      newData.append("emailChatNotification", value);
+    }
+
     if (time_format) {
       const options = {
         id: user?._id,
@@ -56,6 +62,9 @@ const UserInfo = () => {
   useMemo(() => {
     if (user?.time_format) {
       setTime_format(user?.time_format);
+    }
+    if (user) {
+      setEmailChatNotification(user?.emailChatNotification);
     }
   }, [user]);
 
@@ -167,7 +176,7 @@ const UserInfo = () => {
                 type="checkbox"
                 className="mb-0 cursor-pointer"
                 checked={time_format === "12h"}
-                onClick={() => handleUserUpdate("12h")}
+                onClick={() => handleUserUpdate("time_format", "12h")}
               />
               <p
                 className={`mb-0 ${styles.agreementText} text-black font-bold`}
@@ -180,7 +189,7 @@ const UserInfo = () => {
                 type="checkbox"
                 className="mb-0 cursor-pointer"
                 checked={time_format === "24h"}
-                onClick={() => handleUserUpdate("24h")}
+                onClick={() => handleUserUpdate("time_format", "24h")}
               />
               <p
                 className={`mb-0 ${styles.agreementText} text-black font-bold`}
@@ -190,7 +199,47 @@ const UserInfo = () => {
             </div>
           </div>
         </div>
-        <form onSubmit={handleSubmit(handleUserUpdate)}></form>
+
+        <div className="w-100 h-fit mt-8">
+          <label for="exampleInputPassword1" className="form-label font-bold">
+            Email Notifications for chat<span>*</span>
+          </label>
+          <div className="flex items-center gap-4 relative">
+            <div className="grid grid-cols-6 w-8 absolute -top-10 left-12 opacity-0 z-10">
+              <input
+                type="text"
+                required={!emailChatNotification}
+                className="opacity-0"
+              />
+            </div>
+            <div className="d-flex gap-2 align-items-center mb-3 z-50">
+              <input
+                type="checkbox"
+                className="mb-0 cursor-pointer"
+                checked={emailChatNotification === true}
+                onClick={() => handleUserUpdate("emailChatNotification", true)}
+              />
+              <p
+                className={`mb-0 ${styles.agreementText} text-black font-bold`}
+              >
+                ON
+              </p>
+            </div>
+            <div className="d-flex gap-2 align-items-center mb-3 z-50">
+              <input
+                type="checkbox"
+                className="mb-0 cursor-pointer"
+                checked={emailChatNotification === false}
+                onClick={() => handleUserUpdate("emailChatNotification", false)}
+              />
+              <p
+                className={`mb-0 ${styles.agreementText} text-black font-bold`}
+              >
+                OFF
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <FileExtInfoDialog open={open} setOpen={setOpen} />

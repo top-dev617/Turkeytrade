@@ -1,6 +1,7 @@
 const User = require("../../../models/Users");
 const Chat = require("../chat/chat.model");
 const Message = require("./message.model");
+const { firstMessage } = require("./message.service");
 
 const createMessage = async (req, res) => {
   try {
@@ -29,7 +30,8 @@ const createMessage = async (req, res) => {
       select: "title images price unit",
       match: { status: "Publish" },
     });
-    console.log(result);
+    firstMessage(req.user, result);
+    // console.log(result);
     res.status(200).send(result);
   } catch (error) {
     res.status(500).send(error);

@@ -50,6 +50,16 @@ const chatSchema = new mongoose.Schema(
         receiver: { isMute: false },
       },
     },
+    sendMailAction: {
+      type: Boolean,
+      enum: [true, false],
+      default: true,
+    },
+    responseMailAction: {
+      type: Boolean,
+      enum: [true, false],
+      default: false,
+    },
   },
   {
     timestamps: true,

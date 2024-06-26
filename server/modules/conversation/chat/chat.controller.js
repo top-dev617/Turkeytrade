@@ -56,6 +56,7 @@ const createChat = async (req, res) => {
         receiverInfo?._id?.toString(),
         result?._id.toString()
       );
+
       res.status(200).json({
         status: true,
         access: true,

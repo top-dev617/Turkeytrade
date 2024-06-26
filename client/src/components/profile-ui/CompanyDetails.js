@@ -72,25 +72,39 @@ const CompanyDetails = () => {
         joined_date={user?.createdAt}
       />
       <div className=" relative h-fit py-4">
-        <button
-          onClick={() => setIsEdit(!isEdit)}
-          className="rounded-full p-2 bg-white hover:!bg-pm border hover:!text-white text-black absolute top-3 right-3 cursor-pointer w-fit"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            className="w-6 h-6"
+        {isEdit ? (
+          <button
+            onClick={() => setIsEdit(!isEdit)}
+            className="h-10 w-10 rounded border !bg-red-600 hover:!bg-red-700 text-white flex justify-center items-center absolute top-3 right-3 cursor-pointer"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-            />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="22"
+              stroke="3"
+              fill="currentColor"
+              viewBox="0 0 256 256"
+            >
+              <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+            </svg>
+          </button>
+        ) : (
+          <button
+            onClick={() => setIsEdit(!isEdit)}
+            className="h-10 w-10 rounded border !bg-white hover:!bg-pmd text-black hover:!text-white flex justify-center items-center absolute top-3 right-3 cursor-pointer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="32"
+              fill="currentColor"
+              viewBox="0 0 256 256"
+            >
+              <path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM192,108.68,147.31,64l24-24L216,84.68Z"></path>
+            </svg>
+          </button>
+        )}
+
         <form onSubmit={handleSubmit(handleEdit)}>
           <div className="row">
             <div className="col-12 col-md-6">
@@ -100,8 +114,7 @@ const CompanyDetails = () => {
                   {...register("email", { required: true })}
                   type="email"
                   placeholder="Email"
-                  disabled={isEdit ? false : true}
-                  readOnly={isEdit ? false : true}
+                  disabled
                   className="flex-grow w-full !max-h-[61px]"
                 />
 
