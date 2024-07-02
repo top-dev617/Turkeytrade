@@ -42,6 +42,12 @@ const MessageSchema = new mongoose.Schema(
       default: false,
       required: false,
     },
+    crtNotify: {
+      type: String,
+      enum: ["None", "24h", "48h"],
+      default: "None",
+      required: false,
+    },
   },
   {
     timestamps: true,

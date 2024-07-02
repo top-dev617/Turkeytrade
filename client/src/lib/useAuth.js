@@ -1,4 +1,5 @@
-import { base_url } from "@/utils/auth/global";
+import { TURKEY_TOKEN, TURKEY_TOKEN_NAME, base_url } from "@/utils/auth/global";
+import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
 
 const useAuth = ({ redirectTo }) => {
@@ -9,9 +10,7 @@ const useAuth = ({ redirectTo }) => {
     try {
       fetch(`${base_url}/users/user-info/me`, {
         headers: {
-          authorization: `Bearer ${localStorage.getItem(
-            "turkey-trade-market"
-          )}`,
+          authorization: `Bearer ${TURKEY_TOKEN}`,
         },
       })
         .then((res) => res.json())
@@ -40,7 +39,7 @@ const useAuth = ({ redirectTo }) => {
 
   const logout = () => {
     setIsLoading(true);
-    localStorage.removeItem("turkey-trade-market");
+    Cookies.remove(TURKEY_TOKEN_NAME);
     setUser(null);
   };
 

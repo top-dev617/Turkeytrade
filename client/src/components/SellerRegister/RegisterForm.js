@@ -340,7 +340,10 @@ const RegisterForm = ({ user, store }) => {
                   className="agree cursor-pointer"
                 >
                   I agree to Turkeytrademarket{" "}
-                  <Link href="#"> Terms and conditions</Link>{" "}
+                  <Link target="_blank" href="/help/seller-agreement">
+                    {" "}
+                    Seller Agreement
+                  </Link>{" "}
                 </p>
               </div>
             )}

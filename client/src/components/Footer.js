@@ -26,7 +26,7 @@ const Footer = () => {
           <div className="footer_route">
             {/* <Link href="/">Shopping Cart</Link>
             <Link href="/">Messages</Link> */}
-            <Link href="/">Terms & Service</Link>
+            <Link href="/help">Terms & Service</Link>
           </div>
         </div>
 

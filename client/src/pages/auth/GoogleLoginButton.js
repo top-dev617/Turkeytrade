@@ -26,6 +26,7 @@ import tickMark from "/public/assets/tickMark.png";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import filled from "../../assets/icons/failed.png";
+import { setTurkeyToken } from "@/utils/auth/global";
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -75,7 +76,7 @@ const GoogleLoginButton = () => {
     }
     if (result?.data?.success) {
       if (result?.data?.login) {
-        localStorage.setItem("turkey-trade-market", result?.data?.access_token);
+        await setTurkeyToken(result?.data?.access_token);
         setUser(result?.data?.user);
         setSocialUser(null);
         setSuccess(true);
@@ -97,7 +98,6 @@ const GoogleLoginButton = () => {
   };
 
   const handleSocialLogin = async (data) => {
-    console.log(data);
     if (!time_format) {
       return;
     }
@@ -122,7 +122,7 @@ const GoogleLoginButton = () => {
     };
     const result = await socialLogin(options);
     if (result?.data?.success) {
-      localStorage.setItem("turkey-trade-market", result?.data?.access_token);
+      await setTurkeyToken(result?.data?.access_token);
       setUser(result?.data?.user);
       setSocialUser(null);
       setSuccess(true);

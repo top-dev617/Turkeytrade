@@ -288,7 +288,7 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
               required={true}
               enableAreaCodes={true}
               country={countryValue && countryValue}
-              className="input mb-0 z-[999999]"
+              className="input mb-0"
               buttonStyle={{
                 border: "none",
                 backgroundColor: "#f6f6f6",
@@ -343,7 +343,7 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
           </div>
 
           {error && <small className="text-red-600 text-sm">{error}</small>}
-          <div className="d-flex gap-2 align-items-center mb-3">
+          <div className="d-flex gap-2 items-start mb-3">
             <input
               type="checkbox"
               className="mb-0"
@@ -351,8 +351,14 @@ const RegistrationFromSecond = ({ userData, setRegisterForm }) => {
               onClick={() => setUserAgreement(!userAgreement)}
             />
             <p className={`mb-0 ${styles.agreementText}`}>
-              I agree to the <Link href="#">User agreement</Link> and{" "}
-              <Link href="#">Privacy policy</Link>
+              I agree to the{" "}
+              <Link target="_blank" href="/help/terms-and-conditions">
+                Terms and Conditions
+              </Link>{" "}
+              and{" "}
+              <Link target="_blank" href="/help/privacy-policy">
+                Privacy policy
+              </Link>
             </p>
           </div>
           <div className="d-flex gap-5">

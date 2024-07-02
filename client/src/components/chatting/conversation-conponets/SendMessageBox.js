@@ -97,7 +97,7 @@ const SendMessageBox = ({ sendMessage }) => {
               <>
                 <div className="flex items-center flex-wrap gap-1">
                   {productChat?.price?.price_type === "ladder_price" ? (
-                    <h1 className="font-semibold !text-red-600 text-base">
+                    <h1 className="font-semibold !text-pmd text-base">
                       € {productChat.minPrice} - {productChat.maxPrice}
                     </h1>
                   ) : (
@@ -114,7 +114,7 @@ const SendMessageBox = ({ sendMessage }) => {
                           </span>
                         </h1>
                       ) : (
-                        <h1 className="label-list !text-red-600">
+                        <h1 className="label-list !text-pmd">
                           <span className="text-base !font-bold">
                             {productChat?.price?.one_price?.from} -{" "}
                             {productChat?.price?.one_price?.to}

@@ -1,4 +1,4 @@
-import { base_url } from "@/utils/auth/global";
+import { TURKEY_TOKEN, base_url } from "@/utils/auth/global";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
@@ -6,7 +6,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: base_url,
     prepareHeaders: (headers) => {
-      const token = `Bearer ${localStorage.getItem("turkey-trade-market")}`;
+      const token = `Bearer ${TURKEY_TOKEN}`;
       if (token) {
         headers.set("Authorization", token);
       }

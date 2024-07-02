@@ -22,7 +22,6 @@ const sendFirstMessage = async (user = null, data, email) => {
     <div
         style="max-width: 600px; width: 100%; margin: 0 auto; font-family: 'Cabin',sans-serif; text-align:center; background-color: #ffff;">
         <div style="width: 100%; background-color: #037d41; align-items: center; padding:30px 0px">
-            <small style=" color:#ffff;">Your Verified Seller Status on Turkeytrademarket </small>
             <p style=" color:#ffff; margin: 0px;     line-height: 39.2px;
     font-size: 28px;">Welcome to Turkeytrademarket</p>
         </div>
@@ -88,7 +87,6 @@ const sendFirstRespondMessage = async (user = null, data, email) => {
     <div
         style="max-width: 600px; width: 100%; margin: 0 auto; font-family: 'Cabin',sans-serif; text-align:center; background-color: #ffff;">
         <div style="width: 100%; background-color: #037d41; align-items: center; padding:30px 0px">
-            <small style=" color:#ffff;">Your Verified Seller Status on Turkeytrademarket </small>
             <p style=" color:#ffff; margin: 0px;     line-height: 39.2px;
     font-size: 28px;">Welcome to Turkeytrademarket</p>
         </div>
@@ -154,7 +152,6 @@ const sendMailForUnseenMsg = async (data) => {
     <div
         style="max-width: 600px; width: 100%; margin: 0 auto; font-family: 'Cabin',sans-serif; text-align:center; background-color: #ffff;">
         <div style="width: 100%; background-color: #037d41; align-items: center; padding:30px 0px">
-            <small style=" color:#ffff;">Your Verified Seller Status on Turkeytrademarket </small>
             <p style=" color:#ffff; margin: 0px;     line-height: 39.2px;
     font-size: 28px;">Welcome to Turkeytrademarket</p>
         </div>

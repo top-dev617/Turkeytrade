@@ -14,7 +14,6 @@ export const business_types = [
   "Wholesaler",
   "Trading Company",
   "Distributor",
-  "Service Provider",
 ];
 
 export const store_stepper_data = [

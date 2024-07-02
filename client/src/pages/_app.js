@@ -1,9 +1,8 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import "@/styles/globals.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { AuthProvider } from "@/components/context/AuthContext";
-import Chatting from "@/components/chatting/Chatting";
 import { usePathname } from "next/navigation";
 import { Provider } from "react-redux";
 import store from "@/redux/store";
@@ -16,6 +15,7 @@ import BottomBar from "@/components/shared/BottomBar";
 import SocketContext from "@/components/context/SocketContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { clientId } from "@/utils/auth/global";
+import CookieConsent from "@/components/commons/CookieConsent";
 
 export default function App({ Component, pageProps }) {
   // const getLayout = Component.getLayout || ((page) => page);
@@ -57,6 +57,9 @@ export default function App({ Component, pageProps }) {
                 )}
                 <ChatMain />
                 <BottomBar />
+                {!pathname.includes("/help/privacy-policy") && (
+                  <CookieConsent />
+                )}
               </ThemeProvider>
               <ToastContainer />
             </SocketContext>

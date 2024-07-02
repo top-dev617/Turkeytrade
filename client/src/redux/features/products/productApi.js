@@ -92,9 +92,7 @@ const productApi = api.injectEndpoints({
         method: "DELETE",
         body: ids,
         headers: {
-          authorization: `Bearer ${localStorage.getItem(
-            "turkey-trade-market"
-          )}`,
+          authorization: `Bearer ${TURKEY_TOKEN}`,
         },
       }),
       invalidatesTags: ["products", "product-groups"],

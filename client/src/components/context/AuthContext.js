@@ -1,4 +1,5 @@
-import { base_url } from "@/utils/auth/global";
+import { TURKEY_TOKEN, TURKEY_TOKEN_NAME, base_url } from "@/utils/auth/global";
+import Cookies from "js-cookie";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
@@ -20,7 +21,7 @@ export function AuthProvider({ children }) {
     setIsLoading(true);
     fetch(`${base_url}/users/user-info/me`, {
       headers: {
-        authorization: `Bearer ${localStorage.getItem("turkey-trade-market")}`,
+        authorization: `Bearer ${TURKEY_TOKEN}`,
       },
     })
       .then((res) => res.json())
@@ -31,7 +32,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const signOut = () => {
-    localStorage.removeItem("turkey-trade-market");
+    Cookies.remove(TURKEY_TOKEN_NAME);
     setUser(null);
   };
 

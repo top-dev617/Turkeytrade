@@ -9,6 +9,7 @@ import {
   useHandleResendOtpMutation,
 } from "@/redux/features/auth/authApi";
 import { Spinner } from "@material-tailwind/react";
+import { setTurkeyToken } from "../auth/global";
 
 const RegistrationVerificationModal = ({ userRegistrationInfo }) => {
   const { user, setUser, setIsSignedIn } = useContext(AuthContext);
@@ -61,7 +62,7 @@ const RegistrationVerificationModal = ({ userRegistrationInfo }) => {
       setIsResend(result?.error?.data.message);
     }
     if (result?.data?.accessToken) {
-      localStorage.setItem("turkey-trade-market", result?.data?.accessToken);
+      await setTurkeyToken(result?.data?.accessToken);
       setIsResend("");
       setUser(result?.data?.user);
       setCompleteStep((prev) => prev + 1);

@@ -28,7 +28,7 @@ const SingleChatProduct = ({ product }) => {
           <>
             <div className="flex items-center flex-wrap gap-1">
               {product?.price?.price_type === "ladder_price" ? (
-                <h1 className="font-semibold !text-red-600 text-base">
+                <h1 className="font-semibold !text-pmd  text-base">
                   € {product.price?.minPrice} - {product?.price?.maxPrice}
                 </h1>
               ) : (
@@ -45,7 +45,7 @@ const SingleChatProduct = ({ product }) => {
                       </span>
                     </h1>
                   ) : (
-                    <h1 className="label-list !text-red-600">
+                    <h1 className="label-list !text-pmd ">
                       <span className="text-base !font-bold">
                         {product?.price?.one_price?.from} -{" "}
                         {product?.price?.one_price?.to}

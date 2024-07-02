@@ -144,20 +144,25 @@ const Header = () => {
                 {data?.data?.status === "pending" &&
                   "Verification in progress!"}
                 {data?.data?.status === "accept" && (
-                  <div className="min-w-[115px] max-w-[115px] min-h-[32px] max-h-[32px] relative">
-                    <Button
-                      size="sm"
-                      className="bg-pm rounded-md w-full shadow-none py-0 min-h-[32px] hover:shadow-none absolute top-0 left-0 z-[9999999]"
-                    >
-                      My Store
-                    </Button>
+                  <Popover open={isHighlight} placement="bottom-end">
+                    <PopoverHandler>
+                      <Button
+                        size="sm"
+                        className="bg-pm rounded-md w-full shadow-none py-0 min-h-[32px] hover:shadow-none"
+                      >
+                        My Store
+                      </Button>
+                    </PopoverHandler>
                     {isHighlight && (
-                      <>
-                        <div className="bg-white bg-opacity-50 w-full h-full fixed left-0 right-0 top-0 z-[999] tdisabled overflow-hidden"></div>
-                        <MyStoreHighlight open={true} />
-                      </>
+                      <PopoverContent className="w-[200px] min-h-[150px] relative mt-3">
+                        <div className="bg-white -z-0 border w-[25px] h-[35px] rotate-45 absolute -top-[10px] right-[16px]"></div>
+
+                        <div className="bg-white absolute top-0 right-0 left-0 bottom-0 w-full h-full rounded-sm">
+                          <MyStoreHighlight open={true} />
+                        </div>
+                      </PopoverContent>
                     )}
-                  </div>
+                  </Popover>
                 )}
               </div>
             ) : (

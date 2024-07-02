@@ -1302,5 +1302,6 @@ details[data-popover="right"] > summary + * {
 }
 
 .tdisabled {
-  pointer-events: none;
+  pointer-events: none !important;
+  cursor: none !important;
 }

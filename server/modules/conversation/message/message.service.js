@@ -75,19 +75,30 @@ const firstMessage = async (user, data) => {
 const getUnreadMessagesOlderThan24Hours = async () => {
   const now = new Date();
   const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000); //* 24h
+  const fourthEightHoursAgo = new Date(now.getTime() - 48 * 60 * 60 * 1000); //* 48h
   // const twentyFourHoursAgo = new Date(now.getTime() - 1 * 60 * 1000); //* for 1 hour
 
   const chats = await Chat.find({}).exec();
   for (let i = 0; i < chats.length; i++) {
     const element = chats[i];
     await Message.findOne({
-      chatId: element?._id.toString(),
-      isSeen: false,
-      createdAt: { $lt: twentyFourHoursAgo },
-      members: { $exists: true },
+      $and: [
+        { createdAt: { $lt: twentyFourHoursAgo } },
+        { chatId: element?._id.toString() },
+        { isSeen: false },
+        { members: { $exists: true } },
+        { crtNotify: { $ne: "48h" } },
+      ],
+      $or: [
+        { crtNotify: "None" },
+        {
+          $and: [
+            { crtNotify: "24h" },
+            { createdAt: { $lt: fourthEightHoursAgo } },
+          ],
+        },
+      ],
     })
-      .sort({ _id: -1 })
-      .limit(1)
       .populate(
         "members",
         "email secondaryEmail name user_type emailChatNotification"
@@ -112,7 +123,22 @@ const getUnreadMessagesOlderThan24Hours = async () => {
             buyerName: buyerName,
             message: currentItem?.message,
           };
+          const updateData = {};
+          if (currentItem?.crtNotify === "None") {
+            updateData["crtNotify"] = "24h";
+          } else if (currentItem?.crtNotify === "24h") {
+            updateData["crtNotify"] = "48h";
+          }
           if (userData?.emailChatNotification) {
+            if (updateData) {
+              await Message.updateOne(
+                { _id: currentItem?._id, chatId: currentItem?.chatId },
+                {
+                  $set: updateData,
+                },
+                { new: false }
+              );
+            }
             await sendMailForUnseenMsg(data);
           }
           return data;

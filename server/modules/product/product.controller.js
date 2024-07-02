@@ -621,9 +621,17 @@ const recentlyViewedProducts = async (req, res) => {
     const result = await Product.find(query)
       .limit(4)
       .select("unit price images title");
-    const sortedProducts = req.body.ids.map((id) =>
-      result.find((product) => product._id.toString() === id)
-    );
+
+    const sortedProducts = [];
+    for (let i = 0; i < req.body.ids.length; i++) {
+      const id = req.body.ids[i];
+      const findPro = await result.find(
+        (product) => product._id.toString() === id
+      );
+      if (findPro) {
+        sortedProducts.push(findPro);
+      }
+    }
 
     res.status(200).json({
       status: true,

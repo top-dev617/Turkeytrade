@@ -79,6 +79,10 @@ cron.schedule("0 * * * *", () => {
   getUnreadMessagesOlderThan24Hours();
 });
 
+// setTimeout(() => {
+//   getUnreadMessagesOlderThan24Hours();
+// }, 500);
+
 // testing api
 app.get("/", (req, res) => {
   res.send("Server is running");

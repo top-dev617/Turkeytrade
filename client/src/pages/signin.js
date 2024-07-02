@@ -12,6 +12,7 @@ import { usePostLoginMutation } from "@/redux/features/auth/authApi";
 import GoogleLoginButton from "./auth/GoogleLoginButton";
 import login from "../assets/images/login/bg.jpg";
 import logoup from "../assets/images/login/logoup.png";
+import { setTurkeyToken } from "@/utils/auth/global";
 
 const Login = () => {
   const router = useRouter();
@@ -30,7 +31,7 @@ const Login = () => {
     const options = { data: data };
     const result = await postLogin(options);
     if (result?.data?.success) {
-      localStorage.setItem("turkey-trade-market", result?.data?.accessToken);
+      await setTurkeyToken(result?.data?.accessToken);
       toast.success("User Login Successful");
       setUser(result?.data?.user);
       router.push("/");
