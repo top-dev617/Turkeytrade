@@ -57,7 +57,7 @@ export default function App({ Component, pageProps }) {
                 )}
                 <ChatMain />
                 <BottomBar />
-                {!pathname.includes("/help/privacy-policy") && (
+                {!pathname?.includes("/help/privacy-policy") && (
                   <CookieConsent />
                 )}
               </ThemeProvider>
