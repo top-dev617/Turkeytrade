@@ -11,6 +11,8 @@ import store from "@/redux/store";
 import StoreStepperForm from "@/components/SellerStore/companyFormComponents/storeStepperForm/StoreStepperForm";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import { TURKEY_STORE_MODAL } from "@/utils/auth/global";
 
 const sellerStore = () => {
   const {
@@ -30,7 +32,7 @@ const sellerStore = () => {
 
   const openModalRef = useRef(null);
   useEffect(() => {
-    const storeModal = localStorage.getItem("storeModal");
+    const storeModal = Cookies.get(TURKEY_STORE_MODAL);
     if (
       storeModal &&
       data?.data?.status === "accept" &&
@@ -38,7 +40,7 @@ const sellerStore = () => {
     ) {
       openModalRef.current.click();
       setTimeout(() => {
-        localStorage.removeItem("storeModal");
+        Cookies.remove(TURKEY_STORE_MODAL);
       }, 5000);
     }
   }, [data, user]);

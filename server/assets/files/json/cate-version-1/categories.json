@@ -1,0 +1,154 @@
+[
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa35"
+    },
+    "cate_name": "Furniture, Bedding, and Lighting",
+    "cate_slug": "furniture-bedding-and-lighting-2",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa34"
+    },
+    "cate_name": "Textiles Home and Industrial Textiles",
+    "cate_slug": "textiles-home-and-industrial-textiles-1",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa37"
+    },
+    "cate_name": "Electronics",
+    "cate_slug": "electronics-4",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa3c"
+    },
+    "cate_name": "Machinery and Equipment",
+    "cate_slug": "machinery-and-equipment-9",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa36"
+    },
+    "cate_name": "Clothing and Apparel",
+    "cate_slug": "clothing-and-apparel-3",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa38"
+    },
+    "cate_name": "Food and Agriculture",
+    "cate_slug": "food-and-agriculture-5",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa3d"
+    },
+    "cate_name": "Iron, Steel & Aluminium",
+    "cate_slug": "iron-steel-and-aluminium-10",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa41"
+    },
+    "cate_name": "Rubber and Rubber Products",
+    "cate_slug": "rubber-and-rubber-products-14",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa42"
+    },
+    "cate_name": "Ceramics and Glassware",
+    "cate_slug": "ceramics-and-glassware-15",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa39"
+    },
+    "cate_name": "Beverages and Vinegar",
+    "cate_slug": "beverages-and-vinegar-6",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa3b"
+    },
+    "cate_name": "Vehicles and Mechanics",
+    "cate_slug": "vehicles-and-mechanics-8",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa40"
+    },
+    "cate_name": "Paper and Paper Products",
+    "cate_slug": "paper-and-paper-products-13",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa43"
+    },
+    "cate_name": "Mining, Stones, and Minerals",
+    "cate_slug": "mining-stones-and-minerals-16",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa44"
+    },
+    "cate_name": "Refined Oil and Fuel Products",
+    "cate_slug": "refined-oil-and-fuel-products-17",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa45"
+    },
+    "cate_name": "Chemical Products",
+    "cate_slug": "chemical-products-18",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa3e"
+    },
+    "cate_name": "Building Materials",
+    "cate_slug": "building-materials-11",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa3f"
+    },
+    "cate_name": "Plastics and Plastic Products",
+    "cate_slug": "plastics-and-plastic-products-12",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa46"
+    },
+    "cate_name": "Optical, Photographic, and Medical Instruments",
+    "cate_slug": "optical-photographic-and-medical-instruments-19",
+    "status": true
+  },
+  {
+    "_id": {
+      "$oid": "6564963fa6c5fc3ea0e6fa3a"
+    },
+    "cate_name": "Health and Beauty Products",
+    "cate_slug": "health-and-beauty-products-7",
+    "status": true
+  }
+]

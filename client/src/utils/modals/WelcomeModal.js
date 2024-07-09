@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "@/styles/WelcomeModal.module.css";
+import { TURKEY_WELCOME_MODAL } from "../auth/global";
+import Cookies from "js-cookie";
 
 const WelcomeModal = () => {
   const handleClose = () => {
-    localStorage.removeItem("welcomeModal");
+    Cookies.remove(TURKEY_WELCOME_MODAL);
   };
   return (
     <div>

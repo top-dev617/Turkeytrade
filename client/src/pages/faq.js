@@ -16,6 +16,7 @@ const FaqPage = () => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
+        fill-rule="evenodd"
         viewBox="0 0 24 24"
         strokeWidth={2}
         stroke="currentColor"
@@ -49,6 +50,7 @@ const FaqPage = () => {
       <div className="mt-8">
         {faqs.map((item, index) => (
           <Accordion
+            key={index}
             open={open === item.id}
             icon={<Icon id={item.id} open={open} />}
           >
@@ -61,81 +63,6 @@ const FaqPage = () => {
             <AccordionBody className="label-list">{item?.answer}</AccordionBody>
           </Accordion>
         ))}
-        {/* <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
-          <AccordionHeader
-            className="hover:text-pm label"
-            onClick={() => handleOpen(1)}
-          >
-            What payment methods do you accept?
-          </AccordionHeader>
-          <AccordionBody className="label-list">
-            We accept major credit cards, including Visa, MasterCard, American
-            Express, as well as PayPal and Apple Pay.
-          </AccordionBody>
-        </Accordion> */}
-        <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
-          <AccordionHeader
-            className="hover:text-pm label"
-            onClick={() => handleOpen(2)}
-          >
-            How do I track my order?
-          </AccordionHeader>
-          <AccordionBody className="label-list">
-            To track your order, log in to your account and go to the "Order
-            History" section. You'll find real-time updates and tracking
-            information there.
-          </AccordionBody>
-        </Accordion>
-        <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
-          <AccordionHeader
-            className="hover:text-pm label"
-            onClick={() => handleOpen(3)}
-          >
-            What is your return policy?
-          </AccordionHeader>
-          <AccordionBody className="label-list">
-            Our return policy allows you to return items within 30 days of
-            purchase. Please visit our Returns page for detailed instructions.
-          </AccordionBody>
-        </Accordion>
-        <Accordion open={open === 4} icon={<Icon id={4} open={open} />}>
-          <AccordionHeader
-            className="hover:text-pm label"
-            onClick={() => handleOpen(4)}
-          >
-            Are there any shipping charges?
-          </AccordionHeader>
-          <AccordionBody className="label-list">
-            Shipping charges vary depending on your location and the shipping
-            method selected during checkout. You can view the shipping cost at
-            the checkout page before placing your order.
-          </AccordionBody>
-        </Accordion>
-        <Accordion open={open === 5} icon={<Icon id={5} open={open} />}>
-          <AccordionHeader
-            className="hover:text-pm label"
-            onClick={() => handleOpen(5)}
-          >
-            Can I change my shipping address after placing an order?
-          </AccordionHeader>
-          <AccordionBody className="label-list">
-            You can change your shipping address within the first 24 hours of
-            placing your order. Contact our customer support team for
-            assistance.
-          </AccordionBody>
-        </Accordion>
-        <Accordion open={open === 6} icon={<Icon id={6} open={open} />}>
-          <AccordionHeader
-            className="hover:text-pm label"
-            onClick={() => handleOpen(6)}
-          >
-            How can I contact customer support?
-          </AccordionHeader>
-          <AccordionBody className="label-list">
-            You can reach our customer support team via email at
-            support@example.com
-          </AccordionBody>
-        </Accordion>
       </div>
     </div>
   );

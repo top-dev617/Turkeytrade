@@ -91,9 +91,6 @@ const productApi = api.injectEndpoints({
         url: `/products/delete/many/ids`,
         method: "DELETE",
         body: ids,
-        headers: {
-          authorization: `Bearer ${TURKEY_TOKEN}`,
-        },
       }),
       invalidatesTags: ["products", "product-groups"],
     }),

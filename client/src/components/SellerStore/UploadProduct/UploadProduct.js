@@ -25,7 +25,7 @@ import { useGetProductGroupByStoreIdQuery } from "@/redux/features/product-group
 import AddGroup from "./AddGroup";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { base_url } from "@/utils/auth/global";
+import { base_url, TURKEY_PRODUCT_INFO } from "@/utils/auth/global";
 import { trash } from "@/utils/datas/icons";
 import { useEffect } from "react";
 import { RotatingSquare } from "react-loader-spinner";
@@ -35,6 +35,7 @@ import { labelInfo } from "@/utils/datas/inputLabelInfo";
 import ProductVideoInput from "./ProductVideoInput";
 import { isAcceptableFile } from "@/lib/services/globalService";
 import { ACCEPTABLE_IMAGE_EXTENSIONS } from "@/lib/constants/globalConstant";
+import Cookies from "js-cookie";
 
 const modules = {
   toolbar: [
@@ -601,7 +602,7 @@ const UploadProduct = ({ store, setStep, user }) => {
             ? "Saved as draft successfully"
             : "Product published successfully"
         );
-        localStorage.removeItem("productInfo");
+        Cookies.remove(TURKEY_PRODUCT_INFO);
         setCategory(null);
         setSubCategory(null);
         setUnit({
@@ -678,7 +679,9 @@ const UploadProduct = ({ store, setStep, user }) => {
 
   useEffect(() => {
     setIsDataLoading(true);
-    const pInfo = JSON.parse(localStorage.getItem("productInfo")) || null;
+    const pInfo = Cookies.get(TURKEY_PRODUCT_INFO)
+      ? JSON.parse(Cookies.get(TURKEY_PRODUCT_INFO))
+      : null;
 
     if (!editProduct && pInfo?.userId === user?._id) {
       setIsDataLoading(true);
@@ -770,7 +773,7 @@ const UploadProduct = ({ store, setStep, user }) => {
         time: time,
         userId: user?._id,
       };
-      localStorage.setItem("productInfo", JSON.stringify(productInfo));
+      Cookies.set(TURKEY_PRODUCT_INFO, JSON.stringify(productInfo));
     }
   };
 

@@ -1,6 +1,6 @@
 import RegistrationSuccess from "@/utils/modals/RegistrationSuccess";
 import Link from "next/link";
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { usePostStoreRequestMutation } from "@/redux/features/stores/storeApi";
 import { useRouter } from "next/navigation";
@@ -9,6 +9,8 @@ import { Spinner } from "@material-tailwind/react";
 import { countries } from "@/utils/datas/countries";
 import { business_types } from "@/utils/datas/globalData";
 import useInputPattern from "@/lib/hooks/useInputPattern";
+import { TURKEY_STORE_MODAL } from "@/utils/auth/global";
+import Cookies from "js-cookie";
 
 const RegisterForm = ({ user, store }) => {
   const {
@@ -64,7 +66,7 @@ const RegisterForm = ({ user, store }) => {
     // console.log(result)
     setLoading(false);
     if (result?.data?.status === true) {
-      localStorage.setItem("storeModal", JSON.stringify("on"));
+      Cookies.set(TURKEY_STORE_MODAL, JSON.stringify("on"));
       toast.success("Selling Request Successfully");
       router.push("/mystore");
     } else {

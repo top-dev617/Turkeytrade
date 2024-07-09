@@ -1,4 +1,4 @@
-import { TURKEY_TOKEN, TURKEY_TOKEN_NAME, base_url } from "@/utils/auth/global";
+import { TURKEY_TOKEN_NAME, base_url } from "@/utils/auth/global";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
 
@@ -10,7 +10,7 @@ const useAuth = ({ redirectTo }) => {
     try {
       fetch(`${base_url}/users/user-info/me`, {
         headers: {
-          authorization: `Bearer ${TURKEY_TOKEN}`,
+          authorization: `Bearer ${Cookies.get(TURKEY_TOKEN_NAME)}`,
         },
       })
         .then((res) => res.json())

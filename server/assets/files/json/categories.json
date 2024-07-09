@@ -1,0 +1,187 @@
+[
+    {
+        "cate_name": "Textiles Home and Industrial Textiles",
+        "cate_slug": "textiles-home-and-industrial-textiles-1",
+        "status": true
+    },
+    {
+        "cate_name": "Furniture, Bedding, and Lighting",
+        "cate_slug": "furniture-bedding-and-lighting-2",
+        "status": true
+    },
+    {
+        "cate_name": "Clothing and Apparel",
+        "cate_slug": "clothing-and-apparel-3",
+        "status": true
+    },
+    {
+        "cate_name": "Electronics and Electrical Supplies",
+        "cate_slug": "clectronics-and-electrical-supplies-4",
+        "status": true
+    },
+    {
+        "cate_name": "Food Supplies",
+        "cate_slug": "food-supplies-5",
+        "status": true
+    },
+    {
+        "cate_name": "Gift and Entertainment",
+        "cate_slug": "gift-and-entertainment-6",
+        "status": true
+    },
+    {
+        "cate_name": "Health and Beauty Products",
+        "cate_slug": "health-and-beauty-products-7",
+        "status": true
+    },
+    {
+        "cate_name": "Jewelry, Mining, Stones, and Minerals",
+        "cate_slug": "jewelry-mining-stones-and-minerals-8",
+        "status": true
+    },
+    {
+        "cate_name": "Sports and Fitness Supplies",
+        "cate_slug": "sports-and-fitness-supplies-9",
+        "status": true
+    },
+    {
+        "cate_name": "Kitchen and Dining Essentials",
+        "cate_slug": "kitchen-and-dining-essentials-10",
+        "status": true
+    },
+    {
+        "cate_name": "Restaurant and Hotel Equipment",
+        "cate_slug": "restaurant-and-hotel-equipment-11",
+        "status": true
+    },
+    {
+        "cate_name": "Agricultural Supplies",
+        "cate_slug": "agricultural-supplies-12",
+        "status": true
+    },
+    {
+        "cate_name": "Agricultural Machinery",
+        "cate_slug": "agricultural-machinery-13",
+        "status": true
+    },
+    {
+        "cate_name": "Beverages and Vinegar",
+        "cate_slug": "beverages-and-vinegar-14",
+        "status": true
+    },
+    {
+        "cate_name": "Office Supplies",
+        "cate_slug": "office-supplies-15",
+        "status": true
+    },
+    {
+        "cate_name": "Household and Cleaning Supplies",
+        "cate_slug": "household-and-cleaning-supplies-16",
+        "status": true
+    },
+    {
+        "cate_name": "Baby and Kids Supplies",
+        "cate_slug": "baby-and-kids-supplies-17",
+        "status": true
+    },
+    {
+        "cate_name": "Vehicles and Mechanics",
+        "cate_slug": "vehicles-and-mechanics-18",
+        "status": true
+    },
+    {
+        "cate_name": "Heating and Cooling Systems",
+        "cate_slug": "heating-and-cooling-systems-19",
+        "status": true
+    },
+    {
+        "cate_name": "Machinery and Equipment",
+        "cate_slug": "machinery-and-equipment-20",
+        "status": true
+    },
+    {
+        "cate_name": "Industrial Supplies",
+        "cate_slug": "industrial-supplies-21",
+        "status": true
+    },
+    {
+        "cate_name": "Iron, Steel & Aluminium",
+        "cate_slug": "iron-steel-&-aluminium-22",
+        "status": true
+    },
+    {
+        "cate_name": "Construction And Building Materials",
+        "cate_slug": "construction-and-building-materials-23",
+        "status": true
+    },
+    {
+        "cate_name": "Plastics and Plastic Products",
+        "cate_slug": "plastics-and-plastic-products-24",
+        "status": true
+    },
+    {
+        "cate_name": "Paper and Paper Products",
+        "cate_slug": "paper-and-paper-products-25",
+        "status": true
+    },
+    {
+        "cate_name": "Rubber and Rubber Products",
+        "cate_slug": "rubber-and-rubber-products-26",
+        "status": true
+    },
+    {
+        "cate_name": "Leather Products",
+        "cate_slug": "leather-products-27",
+        "status": true
+    },
+    {
+        "cate_name": "Ceramics and Glassware",
+        "cate_slug": "ceramics-and-glassware-28",
+        "status": true
+    },
+    {
+        "cate_name": "Energy Products and Renewable Resources",
+        "cate_slug": "energy-products-and-renewable-resources-29",
+        "status": true
+    },
+    {
+        "cate_name": "Protective and Surveillance Solutions",
+        "cate_slug": "protective-and-surveillance-solutions-30",
+        "status": true
+    },
+    {
+        "cate_name": "Chemical Products",
+        "cate_slug": "chemical-products-31",
+        "status": true
+    },
+    {
+        "cate_name": "Medical, Optical and Photographic Instruments",
+        "cate_slug": "medical-optical-and-photographic-instruments-32",
+        "status": true
+    },
+    {
+        "cate_name": "Husbandry Supplies",
+        "cate_slug": "husbandry-supplies-33",
+        "status": true
+    },
+    {
+        "cate_name": "Wood and Timber Products",
+        "cate_slug": "wood-and-timber-products-34",
+        "status": true
+    },
+    {
+        "cate_name": "Recycling and Environment",
+        "cate_slug": "recycling-and-environment-35",
+        "status": true
+    },
+    {
+        "cate_name": "Outdoor, Leisure, and Hobby Supplies",
+        "cate_slug": "outdoor-leisure-and-hobby-supplies-36",
+        "status": true
+    },
+    {
+        "cate_name": "Technology and Communication",
+        "cate_slug": "technology-and-communication-37",
+        "status": true
+    }
+]

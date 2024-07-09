@@ -1,27 +1,23 @@
-import { TURKEY_TOKEN, TURKEY_TOKEN_NAME, base_url } from "@/utils/auth/global";
+import { TURKEY_TOKEN_NAME, base_url } from "@/utils/auth/global";
 import Cookies from "js-cookie";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [sellerStatus, setSellerStatus] = useState(true);
   const [msgOpen, setMsgOpen] = useState(false);
 
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const isLoggedIn = () => {
-    const isLog = localStorage.getItem("isSignedIn", true);
-    return isLog;
-  };
-
   useEffect(() => {
     setIsLoading(true);
     fetch(`${base_url}/users/user-info/me`, {
       headers: {
-        authorization: `Bearer ${TURKEY_TOKEN}`,
+        authorization: `Bearer ${
+          Cookies.get(TURKEY_TOKEN_NAME) ? Cookies.get(TURKEY_TOKEN_NAME) : ""
+        }`,
       },
     })
       .then((res) => res.json())
@@ -34,11 +30,6 @@ export function AuthProvider({ children }) {
   const signOut = () => {
     Cookies.remove(TURKEY_TOKEN_NAME);
     setUser(null);
-  };
-
-  const sellerStatusAdd = () => {
-    setSellerStatus(false);
-    localStorage.setItem("sellerStatus", false);
   };
 
   const uploadImg = async (files) => {
@@ -67,9 +58,6 @@ export function AuthProvider({ children }) {
     isSignedIn,
     setIsSignedIn,
     signOut,
-    isLoggedIn,
-    sellerStatus,
-    sellerStatusAdd,
     user,
     setUser,
     isLoading,

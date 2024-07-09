@@ -1,6 +1,6 @@
 import { useRecentViewProductsMutation } from "@/redux/features/products/productApi";
-import { base_url } from "@/utils/auth/global";
-import Link from "next/link";
+import { base_url, TURKEY_VIEW_PRODUCTS_NAME } from "@/utils/auth/global";
+import Cookies from "js-cookie";
 import React, { useMemo, useState } from "react";
 
 const RecentlyViewedProducts = ({ currentId }) => {
@@ -8,8 +8,8 @@ const RecentlyViewedProducts = ({ currentId }) => {
   const [products, setProducts] = useState([]);
 
   const handleFetch = async () => {
-    const ids = localStorage.getItem("view-prods")
-      ? JSON.parse(localStorage.getItem("view-prods"))
+    const ids = Cookies.get(TURKEY_VIEW_PRODUCTS_NAME)
+      ? JSON.parse(Cookies.get(TURKEY_VIEW_PRODUCTS_NAME))
       : [];
 
     if (currentId && ids.length > 0) {

@@ -1,0 +1,3770 @@
+[
+    {
+        "parent_cate_id": "1",
+        "sub_cate_name": "Home Textiles",
+        "sub_cate_slug": "home-textiles-1",
+        "status": true
+    },
+    {
+        "parent_cate_id": "1",
+        "sub_cate_name": "Technical Textiles",
+        "sub_cate_slug": "technical-textiles-2",
+        "status": true
+    },
+    {
+        "parent_cate_id": "1",
+        "sub_cate_name": "Yarn and Threads",
+        "sub_cate_slug": "yarn-and-threads-3",
+        "status": true
+    },
+    {
+        "parent_cate_id": "1",
+        "sub_cate_name": "Textile Accessories and Supplies",
+        "sub_cate_slug": "textile-accessories-and-supplies-4",
+        "status": true
+    },
+    {
+        "parent_cate_id": "1",
+        "sub_cate_name": "Automotive Textiles",
+        "sub_cate_slug": "automotive-textiles-5",
+        "status": true
+    },
+    {
+        "parent_cate_id": "1",
+        "sub_cate_name": "Carpets and Rugs",
+        "sub_cate_slug": "carpets-and-rugs-6",
+        "status": true
+    },
+    {
+        "parent_cate_id": "1",
+        "sub_cate_name": "Towels, Bathrobes, and Pestemals",
+        "sub_cate_slug": "towels-bathrobes-and-pestemals-7",
+        "status": true
+    },
+    {
+        "parent_cate_id": "1",
+        "sub_cate_name": "Upholstery",
+        "sub_cate_slug": "upholstery-8",
+        "status": true
+    },
+    {
+        "parent_cate_id": "1",
+        "sub_cate_name": "Fabrics",
+        "sub_cate_slug": "fabrics-9",
+        "status": true
+    },
+    {
+        "parent_cate_id": "1",
+        "sub_cate_name": "Prayer Rugs, Skullcaps, and Rosaries",
+        "sub_cate_slug": "prayer-rugs-skullcaps-and-rosaries-10",
+        "status": true
+    },
+    {
+        "parent_cate_id": "1",
+        "sub_cate_name": "Curtains and Drapes",
+        "sub_cate_slug": "curtains-and-drapes-11",
+        "status": true
+    },
+    {
+        "parent_cate_id": "1",
+        "sub_cate_name": "Outdoor Textiles",
+        "sub_cate_slug": "outdoor-textiles-12",
+        "status": true
+    },
+    {
+        "parent_cate_id": "1",
+        "sub_cate_name": "Textile Art and Crafts",
+        "sub_cate_slug": "textile-art-and-crafts-13",
+        "status": true
+    },
+    {
+        "parent_cate_id": "1",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-14",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Wooden Furniture",
+        "sub_cate_slug": "wooden-furniture-15",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Metal Furniture",
+        "sub_cate_slug": "metal-furniture-16",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Marble Furniture",
+        "sub_cate_slug": "marble-furniture-17",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Plastic Furniture",
+        "sub_cate_slug": "plastic-furniture-18",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Epoxy Furniture",
+        "sub_cate_slug": "epoxy-furniture-19",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Office Furniture",
+        "sub_cate_slug": "office-furniture-20",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Kitchen Furniture",
+        "sub_cate_slug": "kitchen-furniture-21",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Handmade Furniture",
+        "sub_cate_slug": "handmade-furniture-22",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Outdoor Furniture",
+        "sub_cate_slug": "outdoor-furniture-23",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Children's Furniture",
+        "sub_cate_slug": "childrens-furniture-24",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Hospital Furniture",
+        "sub_cate_slug": "hospital-furniture-25",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Garden Sets",
+        "sub_cate_slug": "garden-sets-26",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "SPA and Wellness Furniture",
+        "sub_cate_slug": "spa-and-wellness-furniture-27",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Salon and Barber Equipment",
+        "sub_cate_slug": "salon-and-barber-equipment-28",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Outdoor Pergolas",
+        "sub_cate_slug": "outdoor-pergolas-29",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Urban Outdoor Furniture",
+        "sub_cate_slug": "urban-outdoor-furniture-30",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Cafe and Restaurant Seating",
+        "sub_cate_slug": "cafe-and-restaurant-seating-31",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Educational Furniture",
+        "sub_cate_slug": "educational-furniture-32",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Hotel Furniture",
+        "sub_cate_slug": "hotel-furniture-33",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Medical Facility Furniture",
+        "sub_cate_slug": "medical-facility-furniture-34",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Seats (e.g., Chairs, Sofas)",
+        "sub_cate_slug": "seats-chairs-sofas-35",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Bed Frames",
+        "sub_cate_slug": "bed-frames-36",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Cabinetry",
+        "sub_cate_slug": "cabinetry-37",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Decorative Items",
+        "sub_cate_slug": "decorative-items-38",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Bedding Articles (e.g., Mattresses, Pillows)",
+        "sub_cate_slug": "bedding-articles-mattresses-pillows-39",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Lighting Fixtures",
+        "sub_cate_slug": "lighting-fixtures-40",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Lamps and Lampshades",
+        "sub_cate_slug": "lamps-and-lampshades-41",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Chandeliers",
+        "sub_cate_slug": "chandeliers-42",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Illuminated Signs",
+        "sub_cate_slug": "illuminated-signs-43",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Ceiling Lights",
+        "sub_cate_slug": "ceiling-lights-44",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Table Lamps",
+        "sub_cate_slug": "table-lamps-45",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Floor Lamps",
+        "sub_cate_slug": "floor-lamps-46",
+        "status": true
+    },
+    {
+        "parent_cate_id": "2",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-47",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Men's Clothing",
+        "sub_cate_slug": "mens-clothing-48",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Women's Clothing",
+        "sub_cate_slug": "womens-clothing-49",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Children's Clothing",
+        "sub_cate_slug": "childrens-clothing-50",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Unisex Clothing",
+        "sub_cate_slug": "unisex-clothing-51",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "T-Shirts",
+        "sub_cate_slug": "t-shirts-52",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Hoodies and Sweatshirts",
+        "sub_cate_slug": "hoodies-and-sweatshirts-53",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Sportswear",
+        "sub_cate_slug": "sportswear-54",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Outerwear",
+        "sub_cate_slug": "outerwear-55",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Underwear",
+        "sub_cate_slug": "underwear-56",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Sleepwear",
+        "sub_cate_slug": "sleepwear-57",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Footwear",
+        "sub_cate_slug": "footwear-58",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Accessories (e.g., Hats, Gloves, Scarves)",
+        "sub_cate_slug": "accessories-hats-gloves-scarves-59",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Workwear and Uniforms",
+        "sub_cate_slug": "workwear-and-uniforms-60",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Special Occasion Clothing",
+        "sub_cate_slug": "special-occasion-clothing-61",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Swimwear",
+        "sub_cate_slug": "swimwear-62",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Socks and Hosiery",
+        "sub_cate_slug": "socks-and-hosiery-63",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Denim and Jeans",
+        "sub_cate_slug": "denim-and-jeans-64",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Casual Wear",
+        "sub_cate_slug": "casual-wear-65",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Formal Wear",
+        "sub_cate_slug": "formal-wear-66",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Jackets and Coats",
+        "sub_cate_slug": "jackets-and-coats-67",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Dresses and Skirts",
+        "sub_cate_slug": "dresses-and-skirts-68",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Suits and Blazers",
+        "sub_cate_slug": "suits-and-blazers-69",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Bags and Backpacks",
+        "sub_cate_slug": "bags-and-backpacks-70",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Maternity Wear",
+        "sub_cate_slug": "maternity-wear-71",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Plus Size Clothing",
+        "sub_cate_slug": "plus-size-clothing-72",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Loungewear",
+        "sub_cate_slug": "loungewear-73",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Beachwear",
+        "sub_cate_slug": "beachwear-74",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Costumes and Fancy Dress",
+        "sub_cate_slug": "costumes-and-fancy-dress-75",
+        "status": true
+    },
+    {
+        "parent_cate_id": "3",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-76",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Consumer Electronics",
+        "sub_cate_slug": "consumer-electronics-77",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Electronic Components",
+        "sub_cate_slug": "electronic-components-78",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Telecommunications Equipment",
+        "sub_cate_slug": "telecommunications-equipment-79",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Computer Hardware",
+        "sub_cate_slug": "computer-hardware-80",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Batteries and Power Supplies",
+        "sub_cate_slug": "batteries-and-power-supplies-81",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Lighting Products",
+        "sub_cate_slug": "lighting-products-82",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Electric Motors and Generators",
+        "sub_cate_slug": "electric-motors-and-generators-83",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Wiring and Cables",
+        "sub_cate_slug": "wiring-and-cables-84",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Microprocessors and Computing Components",
+        "sub_cate_slug": "microprocessors-and-computing-components-85",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Sensors and Measurement Devices",
+        "sub_cate_slug": "sensors-and-measurement-devices-86",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Power Distribution Systems",
+        "sub_cate_slug": "power-distribution-systems-87",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Industrial Electric and Electronic Equipment",
+        "sub_cate_slug": "industrial-electric-and-electronic-equipment-88",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Transformers",
+        "sub_cate_slug": "transformers-89",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "UPS (Uninterruptible Power Supply)",
+        "sub_cate_slug": "ups-uninterruptible-power-supply-90",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Electrical Panels and Switchboards",
+        "sub_cate_slug": "electrical-panels-and-switchboards-91",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Instruments and Meters",
+        "sub_cate_slug": "instruments-and-meters-92",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Lighting Systems and Bulbs",
+        "sub_cate_slug": "lighting-systems-and-bulbs-93",
+        "status": true
+    },
+    {
+        "parent_cate_id": "4",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-94",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Dairy Items",
+        "sub_cate_slug": "dairy-items-95",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Fresh Fruits and Vegetables",
+        "sub_cate_slug": "fresh-fruits-and-vegetables-96",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Canned Food",
+        "sub_cate_slug": "canned-food-97",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Nuts and Dried Foods",
+        "sub_cate_slug": "nuts-and-dried-foods-98",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Grains – Pulses",
+        "sub_cate_slug": "grains-pulses-99",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Fish and Seafood",
+        "sub_cate_slug": "fish-and-seafood-100",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Red and White Meats",
+        "sub_cate_slug": "red-and-white-meats-101",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Food Preservatives",
+        "sub_cate_slug": "food-preservatives-102",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Frozen and Prepared Foods",
+        "sub_cate_slug": "frozen-and-prepared-foods-103",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Sweets – Confectioneries",
+        "sub_cate_slug": "sweets-confectioneries-104",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Chewing Gum – Chips – Snacks",
+        "sub_cate_slug": "chewing-gum-chips-snacks-105",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Biscuits, Cookies, and Chocolate",
+        "sub_cate_slug": "biscuits-cookies-and-chocolate-106",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Edible Oils",
+        "sub_cate_slug": "edible-oils-107",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "General Groceries",
+        "sub_cate_slug": "general-groceries-108",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Turkish Delight",
+        "sub_cate_slug": "turkish-delight-109",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Infant Food",
+        "sub_cate_slug": "infant-food-110",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Pasta - Macaroni",
+        "sub_cate_slug": "pasta-macaroni-111",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Bakery Goods",
+        "sub_cate_slug": "bakery-goods-112",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Pastries",
+        "sub_cate_slug": "pastries-113",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Desserts and Sweets",
+        "sub_cate_slug": "desserts-and-sweets-114",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Spices – Herbs – Blends",
+        "sub_cate_slug": "spices-herbs-blends-115",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Jams – Marmalades – Syrups",
+        "sub_cate_slug": "jams-marmalades-syrups-116",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Flour",
+        "sub_cate_slug": "flour-117",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Sauces – Ketchup – Mayonnaise",
+        "sub_cate_slug": "sauces-ketchup-mayonnaise-118",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Eggs",
+        "sub_cate_slug": "eggs-119",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Herbal Items",
+        "sub_cate_slug": "herbal-items-120",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Breakfast Foods – Cereals",
+        "sub_cate_slug": "breakfast-foods-cereals-121",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Fermented Foods",
+        "sub_cate_slug": "fermented-foods-122",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Sugar",
+        "sub_cate_slug": "sugar-123",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Salt",
+        "sub_cate_slug": "salt-124",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Honey",
+        "sub_cate_slug": "honey-125",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Halva – Tahina",
+        "sub_cate_slug": "halva-tahina-126",
+        "status": true
+    },
+    {
+        "parent_cate_id": "5",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-127",
+        "status": true
+    },
+    {
+        "parent_cate_id": "6",
+        "sub_cate_name": "Playground Equipment",
+        "sub_cate_slug": "playground-equipment-128",
+        "status": true
+    },
+    {
+        "parent_cate_id": "6",
+        "sub_cate_name": "Toys and Games",
+        "sub_cate_slug": "toys-and-games-129",
+        "status": true
+    },
+    {
+        "parent_cate_id": "6",
+        "sub_cate_name": "Arts and Crafts",
+        "sub_cate_slug": "arts-and-crafts-130",
+        "status": true
+    },
+    {
+        "parent_cate_id": "6",
+        "sub_cate_name": "Musical Instruments",
+        "sub_cate_slug": "musical-instruments-131",
+        "status": true
+    },
+    {
+        "parent_cate_id": "6",
+        "sub_cate_name": "Decorative Items",
+        "sub_cate_slug": "decorative-items-132",
+        "status": true
+    },
+    {
+        "parent_cate_id": "6",
+        "sub_cate_name": "Entertainment Products",
+        "sub_cate_slug": "entertainment-products-133",
+        "status": true
+    },
+    {
+        "parent_cate_id": "6",
+        "sub_cate_name": "Giftware",
+        "sub_cate_slug": "giftware-134",
+        "status": true
+    },
+    {
+        "parent_cate_id": "6",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-135",
+        "status": true
+    },
+    {
+        "parent_cate_id": "7",
+        "sub_cate_name": "Skincare",
+        "sub_cate_slug": "skincare-136",
+        "status": true
+    },
+    {
+        "parent_cate_id": "7",
+        "sub_cate_name": "Cosmetics",
+        "sub_cate_slug": "cosmetics-137",
+        "status": true
+    },
+    {
+        "parent_cate_id": "7",
+        "sub_cate_name": "Haircare",
+        "sub_cate_slug": "haircare-138",
+        "status": true
+    },
+    {
+        "parent_cate_id": "7",
+        "sub_cate_name": "Dental Care",
+        "sub_cate_slug": "dental-care-139",
+        "status": true
+    },
+    {
+        "parent_cate_id": "7",
+        "sub_cate_name": "Perfumes and Fragrances",
+        "sub_cate_slug": "perfumes-and-fragrances-140",
+        "status": true
+    },
+    {
+        "parent_cate_id": "7",
+        "sub_cate_name": "Vitamins and Supplements",
+        "sub_cate_slug": "vitamins-and-supplements-141",
+        "status": true
+    },
+    {
+        "parent_cate_id": "7",
+        "sub_cate_name": "Personal Care Appliances",
+        "sub_cate_slug": "personal-care-appliances-142",
+        "status": true
+    },
+    {
+        "parent_cate_id": "7",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-143",
+        "status": true
+    },
+    {
+        "parent_cate_id": "8",
+        "sub_cate_name": "Jewelry",
+        "sub_cate_slug": "jewelry-144",
+        "status": true
+    },
+    {
+        "parent_cate_id": "8",
+        "sub_cate_name": "Gold Jewelry",
+        "sub_cate_slug": "gold-jewelry-145",
+        "status": true
+    },
+    {
+        "parent_cate_id": "8",
+        "sub_cate_name": "Silver Jewelry",
+        "sub_cate_slug": "silver-jewelry-146",
+        "status": true
+    },
+    {
+        "parent_cate_id": "8",
+        "sub_cate_name": "Watches",
+        "sub_cate_slug": "watches-147",
+        "status": true
+    },
+    {
+        "parent_cate_id": "8",
+        "sub_cate_name": "Ornaments Accessories",
+        "sub_cate_slug": "ornaments-accessories-148",
+        "status": true
+    },
+    {
+        "parent_cate_id": "8",
+        "sub_cate_name": "Industrial Minerals (e.g., Limestone, Marble)",
+        "sub_cate_slug": "industrial-minerals-limestone-marble-149",
+        "status": true
+    },
+    {
+        "parent_cate_id": "8",
+        "sub_cate_name": "Precious Metals (e.g., Gold, Silver)",
+        "sub_cate_slug": "precious-metals-gold-silver-150",
+        "status": true
+    },
+    {
+        "parent_cate_id": "8",
+        "sub_cate_name": "Precious Stones (e.g., Diamonds, Rubies, Pearls)",
+        "sub_cate_slug": "precious-stones-diamonds-rubies-pearls-151",
+        "status": true
+    },
+    {
+        "parent_cate_id": "8",
+        "sub_cate_name": "Base Metals (e.g., Copper, Zinc)",
+        "sub_cate_slug": "base-metals-copper-zinc-152",
+        "status": true
+    },
+    {
+        "parent_cate_id": "8",
+        "sub_cate_name": "Coal and Coke",
+        "sub_cate_slug": "coal-and-coke-153",
+        "status": true
+    },
+    {
+        "parent_cate_id": "8",
+        "sub_cate_name": "Rare Earth Elements",
+        "sub_cate_slug": "rare-earth-elements-154",
+        "status": true
+    },
+    {
+        "parent_cate_id": "8",
+        "sub_cate_name": "Non-Metallic Minerals (e.g., Silica, Clay)",
+        "sub_cate_slug": "non-metallic-minerals-silica-clay-155",
+        "status": true
+    },
+    {
+        "parent_cate_id": "8",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-156",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Athletic Footwear",
+        "sub_cate_slug": "athletic-footwear-157",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Exercise Equipment",
+        "sub_cate_slug": "exercise-equipment-158",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Sportswear",
+        "sub_cate_slug": "sportswear-159",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Nutrition and Supplements",
+        "sub_cate_slug": "nutrition-and-supplements-160",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Fitness Accessories",
+        "sub_cate_slug": "fitness-accessories-161",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Outdoor Sports Gear",
+        "sub_cate_slug": "outdoor-sports-gear-162",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Team Sports Equipment",
+        "sub_cate_slug": "team-sports-equipment-163",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Yoga and Pilates Gear",
+        "sub_cate_slug": "yoga-and-pilates-gear-164",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Water Sports Equipment",
+        "sub_cate_slug": "water-sports-equipment-165",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Winter Sports Gear",
+        "sub_cate_slug": "winter-sports-gear-166",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Climbing and Hiking Gear",
+        "sub_cate_slug": "climbing-and-hiking-gear-167",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Camping Equipment",
+        "sub_cate_slug": "camping-equipment-168",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Fitness Trackers and Monitors",
+        "sub_cate_slug": "fitness-trackers-and- monitors-169",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Home Gym Equipment",
+        "sub_cate_slug": "home-gym-equipment-170",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Training and Recovery Tools",
+        "sub_cate_slug": "training-and-recovery-tools-171",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Bicycles and Cycling Gear",
+        "sub_cate_slug": "bicycles-and-cycling-gear-172",
+        "status": true
+    },
+    {
+        "parent_cate_id": "9",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-173",
+        "status": true
+    },
+    {
+        "parent_cate_id": "10",
+        "sub_cate_name": "Commercial Refrigerators and Freezers",
+        "sub_cate_slug": "commercial-refrigerators-and-freezers-174",
+        "status": true
+    },
+    {
+        "parent_cate_id": "10",
+        "sub_cate_name": "Cooking Pots and Pans",
+        "sub_cate_slug": "cooking-pots-and-pans-175",
+        "status": true
+    },
+    {
+        "parent_cate_id": "10",
+        "sub_cate_name": "Cutlery (Forks, Spoons, Knives)",
+        "sub_cate_slug": "cutlery-forks-spoons-knives-176",
+        "status": true
+    },
+    {
+        "parent_cate_id": "10",
+        "sub_cate_name": "Glassware and Dinnerware",
+        "sub_cate_slug": "glassware-and-dinnerware-177",
+        "status": true
+    },
+    {
+        "parent_cate_id": "10",
+        "sub_cate_name": "Bakery and Pastry Equipment",
+        "sub_cate_slug": "bakery-and-pastry-equipment-178",
+        "status": true
+    },
+    {
+        "parent_cate_id": "10",
+        "sub_cate_name": "Porcelain Plates and Bowls",
+        "sub_cate_slug": "porcelain-plates-and-bowls-179",
+        "status": true
+    },
+    {
+        "parent_cate_id": "10",
+        "sub_cate_name": "Cooking Appliances",
+        "sub_cate_slug": "cooking-appliances-180",
+        "status": true
+    },
+    {
+        "parent_cate_id": "10",
+        "sub_cate_name": "Dough Kneaders",
+        "sub_cate_slug": "dough-kneaders-181",
+        "status": true
+    },
+    {
+        "parent_cate_id": "10",
+        "sub_cate_name": "Plastic Kitchen Utensils",
+        "sub_cate_slug": "plastic-kitchen-utensils-182",
+        "status": true
+    },
+    {
+        "parent_cate_id": "10",
+        "sub_cate_name": "Professional Kitchen Devices",
+        "sub_cate_slug": "professional-kitchen-devices-183",
+        "status": true
+    },
+    {
+        "parent_cate_id": "10",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-184",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Restaurant Furniture",
+        "sub_cate_slug": "restaurant-furniture-185",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Restaurant Tableware",
+        "sub_cate_slug": "restaurant-tableware-186",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Kitchen Equipment for Restaurants",
+        "sub_cate_slug": "kitchen-equipment-for-restaurants-187",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Restaurant Appliances",
+        "sub_cate_slug": "restaurant-appliances-188",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Cleaning Supplies for Restaurants",
+        "sub_cate_slug": "cleaning-supplies-for-restaurants-189",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Cooking Utensils",
+        "sub_cate_slug": "cooking-utensils-190",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Food Storage Solutions",
+        "sub_cate_slug": "food-storage-solutions-191",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Bar Equipment",
+        "sub_cate_slug": "bar-equipment-192",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Refrigeration Units",
+        "sub_cate_slug": "refrigeration-units-193",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Restaurant Linens",
+        "sub_cate_slug": "restaurant-linens-194",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Serving Equipment",
+        "sub_cate_slug": "serving-equipment-195",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Safety and Sanitation Supplies",
+        "sub_cate_slug": "safety-and-sanitation-supplies-196",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "POS Systems",
+        "sub_cate_slug": "pos-systems-197",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Menu Boards",
+        "sub_cate_slug": "menu-boards-198",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Hotel Bedsets",
+        "sub_cate_slug": "hotel-bedsets-199",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Bath Towels for Hotels",
+        "sub_cate_slug": "bath-towels-for-hotels-200",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Hotel Duvets",
+        "sub_cate_slug": "hotel-duvets-201",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Bed Sheets for Hotels",
+        "sub_cate_slug": "bed-sheets-for-hotels-202",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Hotel Coaches and Shuttles",
+        "sub_cate_slug": "hotel-coaches-and-shuttles-203",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Hospitality Amenities",
+        "sub_cate_slug": "hospitality-amenities-204",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Hotel Napkins",
+        "sub_cate_slug": "hotel-napkins-205",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Hotel Washcloths",
+        "sub_cate_slug": "hotel-washcloths-206",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "TV Stands for Hotels",
+        "sub_cate_slug": "tv-stands-for-hotels-207",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Hotel Rugs",
+        "sub_cate_slug": "hotel-rugs-208",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Bedclothes for Hotels",
+        "sub_cate_slug": "bedclothes-for-hotels-209",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Hotel Room Accessories",
+        "sub_cate_slug": "hotel-room-accessories-210",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Cleaning Supplies for Hospitality",
+        "sub_cate_slug": "cleaning-supplies-for-hospitality-211",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Conference Room Equipment",
+        "sub_cate_slug": "conference-room-equipment-212",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Hospitality Textiles",
+        "sub_cate_slug": "hospitality-textiles-213",
+        "status": true
+    },
+    {
+        "parent_cate_id": "11",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-214",
+        "status": true
+    },
+    {
+        "parent_cate_id": "12",
+        "sub_cate_name": "Greenhouse Equipment",
+        "sub_cate_slug": "greenhouse-equipment-215",
+        "status": true
+    },
+    {
+        "parent_cate_id": "12",
+        "sub_cate_name": "Fertilizers and Agrochemicals",
+        "sub_cate_slug": "fertilizers-and-agrochemicals-216",
+        "status": true
+    },
+    {
+        "parent_cate_id": "12",
+        "sub_cate_name": "Insecticides and Pesticides",
+        "sub_cate_slug": "insecticides-and-pesticides-217",
+        "status": true
+    },
+    {
+        "parent_cate_id": "12",
+        "sub_cate_name": "Irrigation and Hydroponic Systems",
+        "sub_cate_slug": "irrigation-and-hydroponic-systems-218",
+        "status": true
+    },
+    {
+        "parent_cate_id": "12",
+        "sub_cate_name": "Agricultural Pumps",
+        "sub_cate_slug": "agricultural-pumps-219",
+        "status": true
+    },
+    {
+        "parent_cate_id": "12",
+        "sub_cate_name": "Seeds, Seedlings, and Saplings",
+        "sub_cate_slug": "seeds-seedlings-and-saplings-220",
+        "status": true
+    },
+    {
+        "parent_cate_id": "12",
+        "sub_cate_name": "Ornamental and Landscaping Plants",
+        "sub_cate_slug": "ornamental-and-landscaping-plants-221",
+        "status": true
+    },
+    {
+        "parent_cate_id": "12",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-222",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Tractors and Trailers",
+        "sub_cate_slug": "tractors-and-trailers-223",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Harvesters and Threshers",
+        "sub_cate_slug": "harvesters-and-threshers-224",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Sowing and Planting Machines",
+        "sub_cate_slug": "sowing-and-planting-machines-225",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Fertilizer Spreaders",
+        "sub_cate_slug": "fertilizer-spreaders-226",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Balers",
+        "sub_cate_slug": "balers-227",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Silage Equipment",
+        "sub_cate_slug": "silage-equipment-228",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Root Crop Harvesters",
+        "sub_cate_slug": "root-crop-harvesters-229",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Land Development Machines",
+        "sub_cate_slug": "land-development-machines-230",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Pulverizers",
+        "sub_cate_slug": "pulverizers-231",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Farming Tools",
+        "sub_cate_slug": "farming-tools-232",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Crop Transport Equipment",
+        "sub_cate_slug": "crop-transport-equipment-233",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Crop Storage and Silos",
+        "sub_cate_slug": "crop-storage-and-silos-234",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Animal Feed Machines",
+        "sub_cate_slug": "animal-feed-machines-235",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Forestry Equipment",
+        "sub_cate_slug": "forestry-equipment-236",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Spare Parts",
+        "sub_cate_slug": "spare-parts-237",
+        "status": true
+    },
+    {
+        "parent_cate_id": "13",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-238",
+        "status": true
+    },
+    {
+        "parent_cate_id": "14",
+        "sub_cate_name": "Tea and Coffee Beverages",
+        "sub_cate_slug": "tea-and-coffee-beverages-239",
+        "status": true
+    },
+    {
+        "parent_cate_id": "14",
+        "sub_cate_name": "Non-Alcoholic Beers",
+        "sub_cate_slug": "non-alcoholic-beers-240",
+        "status": true
+    },
+    {
+        "parent_cate_id": "14",
+        "sub_cate_name": "Soft Drinks",
+        "sub_cate_slug": "soft-drinks-241",
+        "status": true
+    },
+    {
+        "parent_cate_id": "14",
+        "sub_cate_name": "Fruit Juices",
+        "sub_cate_slug": "fruit-juices-242",
+        "status": true
+    },
+    {
+        "parent_cate_id": "14",
+        "sub_cate_name": "Vegetable Juices",
+        "sub_cate_slug": "vegetable-juices-243",
+        "status": true
+    },
+    {
+        "parent_cate_id": "14",
+        "sub_cate_name": "Mineral and Aerated Waters",
+        "sub_cate_slug": "mineral-and-aerated-waters-244",
+        "status": true
+    },
+    {
+        "parent_cate_id": "14",
+        "sub_cate_name": "Vinegar and Substitutes",
+        "sub_cate_slug": "vinegar-and-substitutes-245",
+        "status": true
+    },
+    {
+        "parent_cate_id": "14",
+        "sub_cate_name": "Beverage Concentrates and Syrups",
+        "sub_cate_slug": "beverage-concentrates-and-syrups-246",
+        "status": true
+    },
+    {
+        "parent_cate_id": "14",
+        "sub_cate_name": "Cocktail Mixes",
+        "sub_cate_slug": "cocktail-mixes-247",
+        "status": true
+    },
+    {
+        "parent_cate_id": "14",
+        "sub_cate_name": "Flavored Waters",
+        "sub_cate_slug": "flavored-waters-248",
+        "status": true
+    },
+    {
+        "parent_cate_id": "14",
+        "sub_cate_name": "Energy Drinks",
+        "sub_cate_slug": "energy-drinks-249",
+        "status": true
+    },
+    {
+        "parent_cate_id": "14",
+        "sub_cate_name": "Malt Beverages",
+        "sub_cate_slug": "malt-beverages-250",
+        "status": true
+    },
+    {
+        "parent_cate_id": "14",
+        "sub_cate_name": "Drink Powders and Crystals",
+        "sub_cate_slug": "drink-powders-and-crystals-251",
+        "status": true
+    },
+    {
+        "parent_cate_id": "14",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-252",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Office Furniture",
+        "sub_cate_slug": "office-furniture-253",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Printed Paper Goods",
+        "sub_cate_slug": "printed-paper-goods-254",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Stationery Items",
+        "sub_cate_slug": "stationery-items-255",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Office Equipment",
+        "sub_cate_slug": "office-equipment-256",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Office Devices",
+        "sub_cate_slug": "office-devices-257",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Filing and Storage Solutions",
+        "sub_cate_slug": "filing-and-storage-solutions-258",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Writing Instruments",
+        "sub_cate_slug": "writing-instruments-259",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Notebooks and Pads",
+        "sub_cate_slug": "notebooks-and-pads-260",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Desk Accessories",
+        "sub_cate_slug": "desk-accessories-261",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Presentation Supplies",
+        "sub_cate_slug": "presentation-supplies-262",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Mailing and Shipping Supplies",
+        "sub_cate_slug": "mailing-and-shipping-supplies-263",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Printers and Scanners",
+        "sub_cate_slug": "printers-and-scanners-264",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Computer Accessories",
+        "sub_cate_slug": "computer-accessories-265",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Office Decor",
+        "sub_cate_slug": "office-decor-266",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Calendars and Planners",
+        "sub_cate_slug": "calendars-and-planners-267",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Organizational Tools",
+        "sub_cate_slug": "organizational-tools-268",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Breakroom Supplies",
+        "sub_cate_slug": "breakroom-supplies-269",
+        "status": true
+    },
+    {
+        "parent_cate_id": "15",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-270",
+        "status": true
+    },
+    {
+        "parent_cate_id": "16",
+        "sub_cate_name": "Industrial Cleaning Products",
+        "sub_cate_slug": "industrial-cleaning-products-271",
+        "status": true
+    },
+    {
+        "parent_cate_id": "16",
+        "sub_cate_name": "Baby and Adult Diapers",
+        "sub_cate_slug": "baby-and-adult-diapers-272",
+        "status": true
+    },
+    {
+        "parent_cate_id": "16",
+        "sub_cate_name": "Cleaning Cloths and Papers",
+        "sub_cate_slug": "cleaning-cloths-and-papers-273",
+        "status": true
+    },
+    {
+        "parent_cate_id": "16",
+        "sub_cate_name": "General Cleaning Supplies",
+        "sub_cate_slug": "general-cleaning-supplies-274",
+        "status": true
+    },
+    {
+        "parent_cate_id": "16",
+        "sub_cate_name": "Detergents and Household Chemicals",
+        "sub_cate_slug": "detergents-and-household-chemicals-275",
+        "status": true
+    },
+    {
+        "parent_cate_id": "16",
+        "sub_cate_name": "Shampoo",
+        "sub_cate_slug": "shampoo-276",
+        "status": true
+    },
+    {
+        "parent_cate_id": "16",
+        "sub_cate_name": "Disinfectants",
+        "sub_cate_slug": "disinfectants-277",
+        "status": true
+    },
+    {
+        "parent_cate_id": "16",
+        "sub_cate_name": "Soaps",
+        "sub_cate_slug": "soaps-278",
+        "status": true
+    },
+    {
+        "parent_cate_id": "16",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-279",
+        "status": true
+    },
+    {
+        "parent_cate_id": "17",
+        "sub_cate_name": "Baby Gear",
+        "sub_cate_slug": "baby-gear-280",
+        "status": true
+    },
+    {
+        "parent_cate_id": "17",
+        "sub_cate_name": "Baby Safety Gear",
+        "sub_cate_slug": "baby-safety-gear-281",
+        "status": true
+    },
+    {
+        "parent_cate_id": "17",
+        "sub_cate_name": "Baby Strollers",
+        "sub_cate_slug": "baby-strollers-282",
+        "status": true
+    },
+    {
+        "parent_cate_id": "17",
+        "sub_cate_name": "Baby Food",
+        "sub_cate_slug": "baby-food-283",
+        "status": true
+    },
+    {
+        "parent_cate_id": "17",
+        "sub_cate_name": "Baby Care Items",
+        "sub_cate_slug": "baby-care-items-284",
+        "status": true
+    },
+    {
+        "parent_cate_id": "17",
+        "sub_cate_name": "Kids and Baby Clothing",
+        "sub_cate_slug": "kids-and-baby-clothing-285",
+        "status": true
+    },
+    {
+        "parent_cate_id": "17",
+        "sub_cate_name": "Baby Skin Care",
+        "sub_cate_slug": "baby-skin-care-286",
+        "status": true
+    },
+    {
+        "parent_cate_id": "17",
+        "sub_cate_name": "Baby Toys",
+        "sub_cate_slug": "baby-toys-287",
+        "status": true
+    },
+    {
+        "parent_cate_id": "17",
+        "sub_cate_name": "Baby Feeding Accessories",
+        "sub_cate_slug": "baby-feeding-accessories-288",
+        "status": true
+    },
+    {
+        "parent_cate_id": "17",
+        "sub_cate_name": "Kids and Baby Shoes",
+        "sub_cate_slug": "kids-and-baby-shoes-289",
+        "status": true
+    },
+    {
+        "parent_cate_id": "17",
+        "sub_cate_name": "Baby Textiles",
+        "sub_cate_slug": "baby-textiles-290",
+        "status": true
+    },
+    {
+        "parent_cate_id": "17",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-291",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Car Parts and Accessories",
+        "sub_cate_slug": "car-parts-and-accessories-292",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Truck Parts",
+        "sub_cate_slug": "truck-parts-293",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Motorcycle Parts",
+        "sub_cate_slug": "motorcycle-parts-294",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Other Spare Parts",
+        "sub_cate_slug": "other-spare-parts-295",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Brake Systems",
+        "sub_cate_slug": "brake-systems-296",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Engine Oils and Lubricants",
+        "sub_cate_slug": "engine-oils-and-lubricants-297",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Automotive Batteries",
+        "sub_cate_slug": "automotive-batteries-298",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Automotive Electronics",
+        "sub_cate_slug": "automotive-electronics-299",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Automotive Filters",
+        "sub_cate_slug": "automotive-filters-300",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Vehicle Glass",
+        "sub_cate_slug": "vehicle-glass-301",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Car Care Products",
+        "sub_cate_slug": "car-care-products-302",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Electric Vehicles",
+        "sub_cate_slug": "electric-vehicles-303",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Cars",
+        "sub_cate_slug": "cars-304",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Trucks",
+        "sub_cate_slug": "trucks-305",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Motorcycles",
+        "sub_cate_slug": "motorcycles-306",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Buses",
+        "sub_cate_slug": "buses-307",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Trailers",
+        "sub_cate_slug": "trailers-308",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Tractors",
+        "sub_cate_slug": "tractors-309",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Tires – Wheels",
+        "sub_cate_slug": "tires-wheels-310",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Garage Equipment",
+        "sub_cate_slug": "garage-equipment-311",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Ships and Boats",
+        "sub_cate_slug": "ships-and-boats-312",
+        "status": true
+    },
+    {
+        "parent_cate_id": "18",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-213",
+        "status": true
+    },
+    {
+        "parent_cate_id": "19",
+        "sub_cate_name": "Ventilation Systems",
+        "sub_cate_slug": "ventilation-systems-214",
+        "status": true
+    },
+    {
+        "parent_cate_id": "19",
+        "sub_cate_name": "Heat Exchangers",
+        "sub_cate_slug": "heat-exchangers-215",
+        "status": true
+    },
+    {
+        "parent_cate_id": "19",
+        "sub_cate_name": "Air Conditioning Units",
+        "sub_cate_slug": "air-conditioning-units-216",
+        "status": true
+    },
+    {
+        "parent_cate_id": "19",
+        "sub_cate_name": "Heating Systems",
+        "sub_cate_slug": "heating-systems-217",
+        "status": true
+    },
+    {
+        "parent_cate_id": "19",
+        "sub_cate_name": "Cooling Equipment",
+        "sub_cate_slug": "cooling-equipment-218",
+        "status": true
+    },
+    {
+        "parent_cate_id": "19",
+        "sub_cate_name": "Boilers",
+        "sub_cate_slug": "boilers-219",
+        "status": true
+    },
+    {
+        "parent_cate_id": "19",
+        "sub_cate_name": "Burners",
+        "sub_cate_slug": "burners-220",
+        "status": true
+    },
+    {
+        "parent_cate_id": "19",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-221",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Boilers",
+        "sub_cate_slug": "boilers-222",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Machinery",
+        "sub_cate_slug": "machinery-223",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Construction Machinery",
+        "sub_cate_slug": "construction-machinery-224",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Agricultural Machinery",
+        "sub_cate_slug": "agricultural-machinery-225",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Packaging Machinery",
+        "sub_اجة_slug": "packaging-machinery-226",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Textile Machinery",
+        "sub_cate_slug": "textile-machinery-227",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Food Processing Machinery",
+        "sub_cate_slug": "food-processing-machinery-228",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Mining Machinery",
+        "sub_cate_slug": "mining-machinery-229",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Printing Machinery",
+        "sub_cate_slug": "printing-machinery-230",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Plastic Processing Machinery",
+        "sub_cate_slug": "plastic-processing-machinery-231",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Forestry Machinery",
+        "sub_cate_slug": "forestry-machinery-232",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Metalworking Machinery",
+        "sub_cate_slug": "metalworking-machinery-233",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Electronics Manufacturing Machinery",
+        "sub_cate_slug": "electronics-manufacturing-machinery-234",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Paper Processing Machinery",
+        "sub_cate_slug": "paper-processing-machinery-235",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Woodworking Machinery",
+        "sub_cate_slug": "woodworking-machinery-236",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Chemical Processing Machinery",
+        "sub_cate_slug": "chemical-processing-machinery-237",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Industrial Robots",
+        "sub_cate_slug": "industrial-robots-238",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Pumps and Compressors",
+        "sub_cate_slug": "pumps-and-compressors-239",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "HVAC Equipment",
+        "sub_cate_slug": "hvac-equipment-240",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Power Generation Machinery",
+        "sub_cate_slug": "power-generation-machinery-241",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Elevators and Escalators",
+        "sub_cate_slug": "elevators-and-escalators-242",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Welding Machinery",
+        "sub_cate_slug": "welding-machinery-243",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Robotic Systems",
+        "sub_cate_slug": "robotic-systems-244",
+        "status": true
+    },
+    {
+        "parent_cate_id": "20",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-245",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Machine Equipment",
+        "sub_cate_slug": "machine-equipment-246",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Roller Bearings",
+        "sub_cate_slug": "roller-bearings-247",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Industrial Valves",
+        "sub_cate_slug": "industrial-valves-248",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Handheld Tools",
+        "sub_cate_slug": "handheld-tools-249",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Compressors and Pressure Vessels",
+        "sub_cate_slug": "compressors-and-pressure-vessels-250",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Lubricants and Oils",
+        "sub_cate_slug": "lubricants-and-oils-251",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Workshop Machines and Gear",
+        "sub_cate_slug": "workshop-machines-and-gear-252",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Liquid Storage Containers",
+        "sub_cate_slug": "liquid-storage-containers-253",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Fasteners and Connectors",
+        "sub_cate_slug": "fasteners-and-connectors-254",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Industrial Gas Cylinders",
+        "sub_cate_slug": "industrial-gas-cylinders-255",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Transfer Systems and Conveyors",
+        "sub_cate_slug": "transfer-systems-and-conveyors-256",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Industrial Belts and Straps",
+        "sub_cate_slug": "industrial-belts-and-straps-257",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Hardware Supplies",
+        "sub_cate_slug": "hardware-supplies-258",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Electric Motors",
+        "sub_cate_slug": "electric-motors-259",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Industrial Pumps",
+        "sub_cate_slug": "industrial-pumps-260",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Shelving and Storage Units",
+        "sub_cate_slug": "shelving-and-storage-units-261",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Automation Systems",
+        "sub_cate_slug": "automation-systems-262",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Adhesives and Sealants",
+        "sub_cate_slug": "adhesives-and-sealants-263",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Industrial Glass Products",
+        "sub_cate_slug": "industrial-glass-products-264",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Seals and Gaskets",
+        "sub_cate_slug": "seals-and-gaskets-265",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Supermarket Display Equipment",
+        "sub_cate_slug": "supermarket-display-equipment-266",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Garden Implements",
+        "sub_cate_slug": "garden-implements-267",
+        "status": true
+    },
+    {
+        "parent_cate_id": "21",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-268",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Metal Products",
+        "sub_cate_slug": "metal-products-269",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Billets and Ingots",
+        "sub_cate_slug": "billets-and-ingots-270",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Casting Items",
+        "sub_cate_slug": "casting-items-271",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Cast Iron Products (Iron)",
+        "sub_cate_slug": "cast-iron-products-iron-272",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Ferroalloys (Iron/Steel)",
+        "sub_cate_slug": "ferroalloys-iron-steel-273",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Flat-Rolled Products (Iron/Steel/Aluminium)",
+        "sub_cate_slug": "flat-rolled-products-iron-steel-aluminium-274",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Forgings (Iron/Steel/Aluminium)",
+        "sub_cate_slug": "forgings-iron-steel-aluminium-275",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Fittings and Flanges (Iron/Steel/Aluminium)",
+        "sub_cate_slug": "fittings-and-flanges-iron-steel-aluminium-276",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Bars and Rods (Iron/Steel/Aluminium)",
+        "sub_cate_slug": "bars-and-rods-iron-steel-aluminium-277",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Structural Shapes (Iron/Steel/Aluminium)",
+        "sub_cate_slug": "structural-shapes-iron-steel-aluminium-278",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Tubes and Pipes (Iron/Steel/Aluminium)",
+        "sub_cate_slug": "tubes-and-pipes-iron-steel-aluminium-279",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Wire (Iron/Steel/Aluminium)",
+        "sub_cate_slug": "wire-iron-steel-aluminium-280",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Plate (Iron/Steel/Aluminium)",
+        "sub_cate_slug": "plate-iron-steel-aluminium-281",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Coils (Iron/Steel/Aluminium)",
+        "sub_cate_slug": "coils-iron-steel-aluminium-282",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Sheet (Iron/Steel/Aluminium)",
+        "sub_cate_slug": "sheet-iron-steel-aluminium-283",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Welded Articles (Iron/Steel/Aluminium)",
+        "sub_cate_slug": "welded-articles-iron-steel-aluminium-284",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Powdered Metals (Iron/Steel/Aluminium)",
+        "sub_cate_slug": "powdered-metals-iron-steel-aluminium-285",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Cold-Rolled Products (Iron/Steel/Aluminium)",
+        "sub_cate_slug": "cold-rolled-products-iron-steel-aluminium-286",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Hot-Rolled Products (Iron/Steel/Aluminium)",
+        "sub_cate_slug": "hot-rolled-products-iron-steel-aluminium-287",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Aluminum Profiles and Sheets",
+        "sub_cate_slug": "aluminum-profiles-and-sheets-288",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Copper Profiles and Sheets",
+        "sub_cate_slug": "copper-profiles-and-sheets-289",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Steel Profiles and Sheets",
+        "sub_cate_slug": "steel-profiles-and-sheets-290",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Steel Wool (Steel)",
+        "sub_cate_slug": "steel-wool-steel-291",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Stainless Steel Products (Steel)",
+        "sub_cate_slug": "stainless-steel-products-steel-292",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Steel Cables (Steel)",
+        "sub_cate_slug": "steel-cables-steel-293",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Steel Strips (Steel)",
+        "sub_cate_slug": "steel-strips-steel-294",
+        "status": true
+    },
+    {
+        "parent_cate_id": "22",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-295",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Cement and Concrete",
+        "sub_cate_slug": "cement-and-concrete-296",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Bricks and Blocks",
+        "sub_cate_slug": "bricks-and-blocks-297",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Marble Building Materials",
+        "sub_cate_slug": "marble-building-materials-298",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Timber",
+        "sub_cate_slug": "timber-299",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Insulation",
+        "sub_cate_slug": "insulation-300",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Drywall and Plasterboard",
+        "sub_cate_slug": "drywall-and-plasterboard-301",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Paints and Varnishes",
+        "sub_cate_slug": "paints-and-varnishes-302",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Pipes and Pipe Fittings",
+        "sub_cate_slug": "pipes-and-pipe-fittings-303",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Electrical Components",
+        "sub_cate_slug": "electrical-components-304",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Roofing Materials",
+        "sub_cate_slug": "roofing-materials-305",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Windows and Doors",
+        "sub_cate_slug": "windows-and-doors-306",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Flooring",
+        "sub_cate_slug": "flooring-307",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Wall Panels",
+        "sub_cate_slug": "wall-panels-308",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Tools and Fasteners",
+        "sub_cate_slug": "tools-and-fasteners-309",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Adhesives and Sealants",
+        "sub_cate_slug": "adhesives-and-sealants-310",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Heating and Cooling Systems",
+        "sub_cate_slug": "heating-and-cooling-systems-311",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Sanitary Ware (Faucets, Toilets, etc.)",
+        "sub_cate_slug": "sanitary-ware-faucets-toilets-etc-312",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Construction Lighting",
+        "sub_cate_slug": "construction-lighting-313",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Fire Safety Materials",
+        "sub_cate_slug": "fire-safety-materials-314",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Prefabricated Buildings",
+        "sub_cate_slug": "prefabricated-buildings-315",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Reinforcement Bars",
+        "sub_cate_slug": "reinforcement-bars-316",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Construction Chemicals",
+        "sub_cate_slug": "construction-chemicals-317",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Scaffolding and Formwork",
+        "sub_cate_slug": "scaffolding-and-formwork-318",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Work Machinery",
+        "sub_cate_slug": "work-machinery-319",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Structural Steels and Rebars",
+        "sub_cate_slug": "structural-steels-and-rebars-320",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Pool Systems",
+        "sub_cate_slug": "pool-systems-321",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Artificial Turf",
+        "sub_cate_slug": "artificial-turf-322",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Elevators and Escalators",
+        "sub_cate_slug": "elevators-and-escalators-323",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Interior Decoration and Design",
+        "sub_cate_slug": "interior-decoration-and-design-324",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Construction Glass",
+        "sub_cate_slug": "construction-glass-325",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Blinds and Shutters",
+        "sub_cate_slug": "blinds-and-shutters-326",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Steel Doors",
+        "sub_cate_slug": "steel-doors-327",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Stairs and Railings",
+        "sub_cate_slug": "stairs-and-railings-328",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Tents and Awnings",
+        "sub_cate_slug": "tents-and-awnings-329",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Fence Systems",
+        "sub_cate_slug": "fence-systems-330",
+        "status": true
+    },
+    {
+        "parent_cate_id": "23",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-331",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Packaging Materials",
+        "sub_cate_slug": "packaging-materials-332",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Plastic Bags and Sacks",
+        "sub_cate_slug": "plastic-bags-and-sacks-333",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Plastic Containers",
+        "sub_cate_slug": "plastic-containers-334",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Plastic Pipes, Profiles, and Connectors",
+        "sub_cate_slug": "plastic-pipes-profiles-and-connectors-335",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Polyethylene",
+        "sub_cate_slug": "polyethylene-336",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Polypropylene",
+        "sub_cate_slug": "polypropylene-337",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "PVC Products",
+        "sub_cate_slug": "pvc-products-338",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Polystyrene Products",
+        "sub_cate_slug": "polystyrene-products-339",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Plastic Tubes, Pipes, and Hoses",
+        "sub_cate_slug": "plastic-tubes-pipes-and- hoses-340",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Plastic Sheets, Films, and Plates",
+        "sub_cate_slug": "plastic-sheets-films-and-plates-341",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Plastic Fittings",
+        "sub_cate_slug": "plastic-fittings-342",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Plastic Floor Coverings",
+        "sub_cate_slug": "plastic-floor-coverings-343",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Insulating Fittings",
+        "sub_cate_slug": "insulating-fittings-344",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Plastic Apparel",
+        "sub_cate_slug": "plastic-apparel-345",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Plastic Furniture",
+        "sub_cate_slug": "plastic-furniture-346",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Plastic Household Items",
+        "sub_cate_slug": "plastic-household-items-347",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Plastic Toys",
+        "sub_cate_slug": "plastic-toys-348",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Plastic Additives",
+        "sub_cate_slug": "plastic-additives-349",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Single-use Items",
+        "sub_cate_slug": "single-use-items-350",
+        "status": true
+    },
+    {
+        "parent_cate_id": "24",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-351",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Newsprint",
+        "sub_cate_slug": "newsprint-352",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Writing and Printing Paper",
+        "sub_cate_slug": "writing-and-printing-paper-353",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Packaging Paper and Board",
+        "sub_cate_slug": "packaging-paper-and-board-354",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Tissue Paper",
+        "sub_cate_slug": "tissue-paper-355",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Toilet Paper and Similar Products",
+        "sub_cate_slug": "toilet-paper-and-similar-products-356",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Paper Bags and Sacks",
+        "sub_cate_slug": "paper-bags-and-sacks-357",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Cartons, Boxes, and Cases",
+        "sub_cate_slug": "cartons-boxes-and-cases-358",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Envelopes and Letter Cards",
+        "sub_cate_slug": "envelopes-and-letter-cards-359",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Notebooks and Writing Pads",
+        "sub_cate_slug": "notebooks-and-writing-pads-360",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Books and Booklets",
+        "sub_cate_slug": "books-and-booklets-361",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Wallpaper and Wallcoverings",
+        "sub_cate_slug": "wallpaper-and-wallcoverings-362",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Paper Tableware and Cookware",
+        "sub_cate_slug": "paper-tableware-and-cookware-363",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Labels, Badges, and Similar Articles",
+        "sub_cate_slug": "labels-badges-and-similar-articles-364",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Cigarette Paper",
+        "sub_cate_slug": "cigarette-paper-365",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Filter Paper",
+        "sub_cate_slug": "filter-paper-366",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Paper and Paperboard Articles for Packaging",
+        "sub_cate_slug": "paper-and-paperboard-articles-for-packaging-367",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Corrugated Paper and Paperboard",
+        "sub_cate_slug": "corrugated-paper-and-paperboard-368",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Pulp",
+        "sub_cate_slug": "pulp-369",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Paper Waste and Scrap",
+        "sub_cate_slug": "paper-waste-and-scrap-370",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Paper Decorations",
+        "sub_cate_slug": "paper-decorations-371",
+        "status": true
+    },
+    {
+        "parent_cate_id": "25",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-372",
+        "status": true
+    },
+    {
+        "parent_cate_id": "26",
+        "sub_cate_name": "Natural Rubber",
+        "sub_cate_slug": "natural-rubber-373",
+        "status": true
+    },
+    {
+        "parent_cate_id": "26",
+        "sub_cate_name": "Synthetic Rubber",
+        "sub_cate_slug": "synthetic-rubber-374",
+        "status": true
+    },
+    {
+        "parent_cate_id": "26",
+        "sub_cate_name": "Rubber Sheets and Mats",
+        "sub_cate_slug": "rubber-sheets-and-mats-375",
+        "status": true
+    },
+    {
+        "parent_cate_id": "26",
+        "sub_cate_name": "Rubber Hoses and Belting",
+        "sub_cate_slug": "rubber-hoses-and-belting-376",
+        "status": true
+    },
+    {
+        "parent_cate_id": "26",
+        "sub_cate_name": "Rubber Footwear",
+        "sub_cate_slug": "rubber-footwear-377",
+        "status": true
+    },
+    {
+        "parent_cate_id": "26",
+        "sub_cate_name": "Rubber Gaskets, Seals, and O-Rings",
+        "sub_cate_slug": "rubber-gaskets-seals-and-o-rings-378",
+        "status": true
+    },
+    {
+        "parent_cate_id": "26",
+        "sub_cate_name": "Rubberized Fabrics and Clothing",
+        "sub_cate_slug": "rubberized-fabrics-and-clothing-379",
+        "status": true
+    },
+    {
+        "parent_cate_id": "26",
+        "sub_cate_name": "Rubber Medical Products (e.g., Gloves, Tubing)",
+        "sub_cate_slug": "rubber-medical-products-e-g-gloves-tubing-380",
+        "status": true
+    },
+    {
+        "parent_cate_id": "26",
+        "sub_cate_name": "Rubber Molded Goods",
+        "sub_cate_slug": "rubber-molded-goods-381",
+        "status": true
+    },
+    {
+        "parent_cate_id": "26",
+        "sub_cate_name": "Rubber Foam and Sponge Products",
+        "sub_cate_slug": "rubber-foam-and-sponge-products-382",
+        "status": true
+    },
+    {
+        "parent_cate_id": "26",
+        "sub_cate_name": "Rubber Adhesives and Sealants",
+        "sub_cate_slug": "rubber-adhesives-and-sealants-383",
+        "status": true
+    },
+    {
+        "parent_cate_id": "26",
+        "sub_cate_name": "Industrial Rubber Products",
+        "sub_cate_slug": "industrial-rubber-products-384",
+        "status": true
+    },
+    {
+        "parent_cate_id": "26",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-385",
+        "status": true
+    },
+    {
+        "parent_cate_id": "27",
+        "sub_cate_name": "Leather Clothing",
+        "sub_cate_slug": "leather-clothing-386",
+        "status": true
+    },
+    {
+        "parent_cate_id": "27",
+        "sub_cate_name": "Bags and Luggage",
+        "sub_cate_slug": "bags-and-luggage-387",
+        "status": true
+    },
+    {
+        "parent_cate_id": "27",
+        "sub_cate_name": "Leather Accessories (Belts, Wallets, Hats)",
+        "sub_cate_slug": "leather-accessories-belts-wallets-hats-388",
+        "status": true
+    },
+    {
+        "parent_cate_id": "27",
+        "sub_cate_name": "Shoes, Sandals, and Slippers",
+        "sub_cate_slug": "shoes-sandals-and-slippers-389",
+        "status": true
+    },
+    {
+        "parent_cate_id": "27",
+        "sub_cate_name": "Raw and Tanned Leather",
+        "sub_cate_slug": "raw-and-tanned-leather-390",
+        "status": true
+    },
+    {
+        "parent_cate_id": "27",
+        "sub_cate_name": "Artificial Leather",
+        "sub_cate_slug": "artificial-leather-391",
+        "status": true
+    },
+    {
+        "parent_cate_id": "27",
+        "sub_cate_name": "Shoe Supplies and Care",
+        "sub_cate_slug": "shoe-supplies-and-care-392",
+        "status": true
+    },
+    {
+        "parent_cate_id": "27",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-393",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Tiles and Flooring",
+        "sub_cate_slug": "tiles-and-flooring-394",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Sanitary Ware",
+        "sub_cate_slug": "sanitary-ware-395",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Tableware and Kitchenware",
+        "sub_cate_slug": "tableware-and-kitchenware-396",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Statuettes and Ornaments",
+        "sub_cate_slug": "statuettes-and-ornaments-397",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Ceramic Refractory Products",
+        "sub_cate_slug": "ceramic-refractory-products-398",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Ceramic Electrical Insulators",
+        "sub_cate_slug": "ceramic-electrical-insulators-399",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Ceramic Pipes and Tubes",
+        "sub_cate_slug": "ceramic-pipes-and-tubes-400",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Ceramic Construction Materials",
+        "sub_cate_slug": "ceramic-construction-materials-401",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Porcelain Products",
+        "sub_cate_slug": "porcelain-products-402",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Earthenware Products",
+        "sub_cate_slug": "earthenware-products-403",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Glass Bottles and Jars",
+        "sub_cate_slug": "glass-bottles-and-jars-404",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Glass Fibers",
+        "sub_cate_slug": "glass-fibers-405",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Glass Mirrors",
+        "sub_cate_slug": "glass-mirrors-406",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Laboratory Glassware",
+        "sub_cate_slug": "laboratory-glassware-407",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Insulating Glass Units",
+        "sub_cate_slug": "insulating-glass-units-408",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Glass Beads and Microspheres",
+        "sub_cate_slug": "glass-beads-and-microspheres-409",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Glass Bulbs for Lighting",
+        "sub_cate_slug": "glass-bulbs-for-lighting-410",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Glassware for Scientific Purposes",
+        "sub_cate_slug": "glassware-for-scientific-purposes-411",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Optical Glass",
+        "sub_cate_slug": "optical-glass-412",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Safety Glass",
+        "sub_cate_slug": "safety-glass-413",
+        "status": true
+    },
+    {
+        "parent_cate_id": "28",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-414",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "Refined Petroleum Products",
+        "sub_cate_slug": "refined-petroleum-products-415",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "Petroleum Jelly",
+        "sub_cate_slug": "petroleum-jelly-416",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "Bituminous Substances",
+        "sub_cate_slug": "bituminous-substances-417",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "Paraffin Wax",
+        "sub_cate_slug": "paraffin-wax-418",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "Petroleum Coke",
+        "sub_cate_slug": "petroleum-coke-419",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "Petroleum Residues",
+        "sub_cate_slug": "petroleum-residues-420",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "Biofuels",
+        "sub_cate_slug": "biofuels-421",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "Lubricating Oils",
+        "sub_cate_slug": "lubricating-oils-422",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "Kerosene",
+        "sub_cate_slug": "kerosene-423",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "Fuel Oils",
+        "sub_cate_slug": "fuel-oils-424",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "Gas Oils",
+        "sub_cate_slug": "gas-oils-425",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "Shale Oil",
+        "sub_cate_slug": "shale-oil-426",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "Peat",
+        "sub_cate_slug": "peat-427",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "AdBlue",
+        "sub_cate_slug": "adblue-428",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "Renewable Energy",
+        "sub_cate_slug": "renewable-energy-429",
+        "status": true
+    },
+    {
+        "parent_cate_id": "29",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-430",
+        "status": true
+    },
+    {
+        "parent_cate_id": "30",
+        "sub_cate_name": "Protective Gear (PPE)",
+        "sub_cate_slug": "protective-gear-ppe-431",
+        "status": true
+    },
+    {
+        "parent_cate_id": "30",
+        "sub_cate_name": "CCTV Surveillance Cameras",
+        "sub_cate_slug": "cctv-surveillance-cameras-432",
+        "status": true
+    },
+    {
+        "parent_cate_id": "30",
+        "sub_cate_name": "Security Devices and Systems",
+        "sub_cate_slug": "security-devices-and-systems-433",
+        "status": true
+    },
+    {
+        "parent_cate_id": "30",
+        "sub_cate_name": "Road and Traffic Safety Equipment",
+        "sub_cate_slug": "road-and-traffic-safety-equipment-434",
+        "status": true
+    },
+    {
+        "parent_cate_id": "30",
+        "sub_cate_name": "Access Control and Monitoring",
+        "sub_cate_slug": "access-control-and-monitoring-435",
+        "status": true
+    },
+    {
+        "parent_cate_id": "30",
+        "sub_cate_name": "Emergency Response Equipment",
+        "sub_cate_slug": "emergency-response-equipment-436",
+        "status": true
+    },
+    {
+        "parent_cate_id": "30",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-437",
+        "status": true
+    },
+    {
+        "parent_cate_id": "31",
+        "sub_cate_name": "Organic Chemicals",
+        "sub_cate_slug": "organic-chemicals-438",
+        "status": true
+    },
+    {
+        "parent_cate_id": "31",
+        "sub_cate_name": "Inorganic Chemicals",
+        "sub_cate_slug": "inorganic-chemicals-439",
+        "status": true
+    },
+    {
+        "parent_cate_id": "31",
+        "sub_cate_name": "Industrial Chemicals",
+        "sub_cate_slug": "industrial-chemicals-440",
+        "status": true
+    },
+    {
+        "parent_cate_id": "31",
+        "sub_cate_name": "Textile Chemicals",
+        "sub_cate_slug": "textile-chemicals-441",
+        "status": true
+    },
+    {
+        "parent_cate_id": "31",
+        "parent_cate_name": "Polymers",
+        "sub_cate_slug": "polymers-442",
+        "status": true
+    },
+    {
+        "parent_cate_id": "31",
+        "sub_cate_name": "Petrochemicals",
+        "sub_cate_slug": "petrochemicals-443",
+        "status": true
+    },
+    {
+        "parent_cate_id": "31",
+        "sub_cate_name": "Agrochemicals",
+        "sub_cate_slug": "agrochemicals-444",
+        "status": true
+    },
+    {
+        "parent_cate_id": "31",
+        "sub_cate_name": "Pharmaceutical Chemicals",
+        "sub_cate_slug": "pharmaceutical-chemicals-445",
+        "status": true
+    },
+    {
+        "parent_cate_id": "31",
+        "sub_cate_name": "Food Grade Chemicals",
+        "sub_cate_slug": "food-grade-chemicals-446",
+        "status": true
+    },
+    {
+        "parent_cate_id": "31",
+        "sub_cate_name": "Cleaning Chemicals",
+        "sub_cate_slug": "cleaning-chemicals-447",
+        "status": true
+    },
+    {
+        "parent_cate_id": "31",
+        "sub_cate_name": "Coatings and Paints",
+        "sub_cate_slug": "coatings-and-paints-448",
+        "status": true
+    },
+    {
+        "parent_cate_id": "31",
+        "sub_cate_name": "Specialty Chemicals",
+        "sub_cate_slug": "specialty-chemicals-449",
+        "status": true
+    },
+    {
+        "parent_cate_id": "31",
+        "sub_cate_name": "Analytical and Laboratory Chemicals",
+        "sub_cate_slug": "analytical-and-laboratory-chemicals-450",
+        "status": true
+    },
+    {
+        "parent_cate_id": "31",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-451",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Hospital Equipment",
+        "sub_cate_slug": "hospital-equipment-452",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Eyeglasses and Contact Lenses",
+        "sub_cate_slug": "eyeglasses-and-contact-lenses-453",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Photographic Cameras and Accessories",
+        "sub_cate_slug": "photographic-cameras-and-accessories-454",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Microscopes",
+        "sub_cate_slug": "microscopes-455",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Spectacles and Spectacle Frames",
+        "sub_cate_slug": "spectacles-and-spectacle-frames-456",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Binoculars and Telescopes",
+        "sub_cate_slug": "binoculars-and-telescopes-457",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Medical Imaging Devices",
+        "sub_cate_slug": "medical-imaging-devices-458",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Surgical Instruments",
+        "sub_cate_slug": "surgical-instruments-459",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Dental Instruments",
+        "sub_cate_slug": "dental-instruments-460",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Orthopedic Devices",
+        "sub_cate_slug": "orthopedic-devices-461",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Ophthalmic Instruments",
+        "sub_cate_slug": "ophthalmic-instruments-462",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Optical Fibers and Cables",
+        "sub_cate_slug": "optical-fibers-and-cables-463",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Lenses and Prisms",
+        "sub_cate_slug": "lenses-and-prisms-464",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Measuring or Checking Instruments",
+        "sub_cate_slug": "measuring-or-checking-instruments-465",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Laboratory Equipment",
+        "sub_cate_slug": "laboratory-equipment-466",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "X-Ray Apparatus",
+        "sub_cate_slug": "x-ray-apparatus-467",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Testing Equipment",
+        "sub_cate_slug": "testing-equipment-468",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Optical Sensors",
+        "sub_cate_slug": "optical-sensors-469",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Medical Consumables",
+        "sub_cate_slug": "medical-consumables-470",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Diagnostic Apparatus",
+        "sub_cate_slug": "diagnostic-apparatus-471",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Therapeutic Appliances",
+        "sub_cate_slug": "therapeutic-appliances-472",
+        "status": true
+    },
+    {
+        "parent_cate_id": "32",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-473",
+        "status": true
+    },
+    {
+        "parent_cate_id": "33",
+        "sub_cate_name": "Animal Feed and Forage",
+        "sub_cate_slug": "animal-feed-and-forage-474",
+        "status": true
+    },
+    {
+        "parent_cate_id": "33",
+        "sub_cate_name": "Beekeeping Equipment",
+        "sub_cate_slug": "beekeeping-equipment-475",
+        "status": true
+    },
+    {
+        "parent_cate_id": "33",
+        "sub_cate_name": "Fishing and Aquaculture Gear",
+        "sub_cate_slug": "fishing-and-aquaculture-gear-476",
+        "status": true
+    },
+    {
+        "parent_cate_id": "33",
+        "sub_cate_name": "Milking Machines and Equipment",
+        "sub_cate_slug": "milking-machines-and-equipment-477",
+        "status": true
+    },
+    {
+        "parent_cate_id": "33",
+        "sub_cate_name": "Poultry and Farm Equipment",
+        "sub_cate_slug": "poultry-and-farm-equipment-478",
+        "status": true
+    },
+    {
+        "parent_cate_id": "33",
+        "sub_cate_name": "Veterinary Supplies",
+        "sub_cate_slug": "veterinary-supplies-479",
+        "status": true
+    },
+    {
+        "parent_cate_id": "33",
+        "sub_cate_name": "Slaughtering Tools",
+        "sub_cate_slug": "slaughtering-tools-480",
+        "status": true
+    },
+    {
+        "parent_cate_id": "33",
+        "sub_cate_name": "Livestock",
+        "sub_cate_slug": "livestock-481",
+        "status": true
+    },
+    {
+        "parent_cate_id": "33",
+        "sub_cate_name": "Seafood",
+        "sub_cate_slug": "seafood-482",
+        "status": true
+    },
+    {
+        "parent_cate_id": "33",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-483",
+        "status": true
+    },
+    {
+        "parent_cate_id": "34",
+        "sub_cate_name": "Wood Panels and Profiles",
+        "sub_cate_slug": "wood-panels-and-profiles-484",
+        "status": true
+    },
+    {
+        "parent_cate_id": "34",
+        "sub_cate_name": "Furniture Construction Materials",
+        "sub_cate_slug": "furniture-construction-materials-485",
+        "status": true
+    },
+    {
+        "parent_cate_id": "34",
+        "sub_cate_name": "Processed Timber Goods",
+        "sub_cate_slug": "processed-timber-goods-486",
+        "status": true
+    },
+    {
+        "parent_cate_id": "34",
+        "sub_cate_name": "MDF, LAM, and Plywood Sheets",
+        "sub_cate_slug": "mdf-lam-and-plywood-sheets-487",
+        "status": true
+    },
+    {
+        "parent_cate_id": "34",
+        "sub_cate_name": "Wood Panel",
+        "sub_cate_slug": "wood-panel-488",
+        "status": true
+    },
+    {
+        "parent_cate_id": "34",
+        "sub_cate_name": "Decorative Wood Profiles",
+        "sub_cate_slug": "decorative-wood-profiles-489",
+        "status": true
+    },
+    {
+        "parent_cate_id": "34",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-490",
+        "status": true
+    },
+    {
+        "parent_cate_id": "35",
+        "sub_cate_name": "Ferrous and Non-Ferrous Metal Recycling",
+        "sub_cate_slug": "ferrous-and-non-ferrous-metal-recycling-491",
+        "status": true
+    },
+    {
+        "parent_cate_id": "35",
+        "sub_cate_name": "Plastic Waste Recycling",
+        "sub_cate_slug": "plastic-waste-recycling-492",
+        "status": true
+    },
+    {
+        "parent_cate_id": "35",
+        "sub_cate_name": "Water Purification Systems",
+        "sub_cate_slug": "water-purification-systems-493",
+        "status": true
+    },
+    {
+        "parent_cate_id": "35",
+        "sub_cate_name": "Hazardous Material Disposal",
+        "sub_cate_slug": "hazardous-material-disposal-494",
+        "status": true
+    },
+    {
+        "parent_cate_id": "35",
+        "sub_cate_name": "Electronic Waste Recycling",
+        "sub_cate_slug": "electronic-waste-recycling-495",
+        "status": true
+    },
+    {
+        "parent_cate_id": "35",
+        "parent_cate_name": "Waste Containers",
+        "sub_cate_slug": "waste-containers-496",
+        "status": true
+    },
+    {
+        "parent_cate_id": "35",
+        "sub_cate_name": "Glass Waste Recycling",
+        "sub_cate_slug": "glass-waste-recycling-497",
+        "status": true
+    },
+    {
+        "parent_cate_id": "35",
+        "sub_cate_name": "Integrated Recycling Systems",
+        "sub_cate_slug": "integrated-recycling-systems-498",
+        "status": true
+    },
+    {
+        "parent_cate_id": "35",
+        "sub_cate_name": "Paper and Cardboard Recycling",
+        "sub_cate_slug": "paper-and-cardboard-recycling-499",
+        "status": true
+    },
+    {
+        "parent_cate_id": "35",
+        "sub_cate_name": "Non-Hazardous Waste Management",
+        "sub_cate_slug": "non-hazardous-waste-management-500",
+        "status": true
+    },
+    {
+        "parent_cate_id": "35",
+        "sub_cate_name": "Composting and Organic Waste Recycling",
+        "sub_cate_slug": "composting-and-organic-waste-recycling-501",
+        "status": true
+    },
+    {
+        "parent_cate_id": "35",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-502",
+        "status": true
+    },
+    {
+        "parent_cate_id": "36",
+        "sub_cate_name": "Camping and Trekking Gear",
+        "sub_cate_slug": "camping-and-trekking-gear-503",
+        "status": true
+    },
+    {
+        "parent_cate_id": "36",
+        "sub_cate_name": "Hunting Equipment",
+        "sub_cate_slug": "hunting-equipment-504",
+        "status": true
+    },
+    {
+        "parent_cate_id": "36",
+        "sub_cate_name": "Arts, Crafts, and DIY Supplies",
+        "sub_cate_slug": "arts-crafts-and-diy-supplies-505",
+        "status": true
+    },
+    {
+        "parent_cate_id": "36",
+        "sub_cate_name": "Musical Instruments and Accessories",
+        "sub_cate_slug": "musical-instruments-and-accessories-506",
+        "status": true
+    },
+    {
+        "parent_cate_id": "36",
+        "sub_cate_name": "Playground and Recreational Equipment",
+        "sub_cate_slug": "playground-and-recreational-equipment-507",
+        "status": true
+    },
+    {
+        "parent_cate_id": "36",
+        "sub_cate_name": "Party and Event Supplies",
+        "sub_cate_slug": "party-and-event-supplies-508",
+        "status": true
+    },
+    {
+        "parent_cate_id": "36",
+        "sub_cate_name": "Home Decor and Ornaments",
+        "sub_cate_slug": "home-decor-and-ornaments-509",
+        "status": true
+    },
+    {
+        "parent_cate_id": "36",
+        "sub_cate_name": "Pet Care Products",
+        "sub_cate_slug": "pet-care-products-510",
+        "status": true
+    },
+    {
+        "parent_cate_id": "36",
+        "sub_cate_name": "Children's Toys",
+        "sub_cate_slug": "childrens-toys-511",
+        "status": true
+    },
+    {
+        "parent_cate_id": "36",
+        "sub_cate_name": "Board Games and Puzzles",
+        "sub_cate_slug": "board-games-and-puzzles-512",
+        "status": true
+    },
+    {
+        "parent_cate_id": "36",
+        "sub_cate_name": "Hookah and Shisha Accessories",
+        "sub_cate_slug": "hookah-and-shisha-accessories-513",
+        "status": true
+    },
+    {
+        "parent_cate_id": "36",
+        "sub_cate_name": "Fitness and Exercise Equipment",
+        "sub_cate_slug": "fitness-and-exercise-equipment-514",
+        "status": true
+    },
+    {
+        "parent_cate_id": "36",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-515",
+        "status": true
+    },
+    {
+        "parent_cate_id": "37",
+        "sub_cate_name": "Telecommunication Devices",
+        "sub_cate_slug": "telecommunication-devices-516",
+        "status": true
+    },
+    {
+        "parent_cate_id": "37",
+        "sub_cate_name": "Software Development Tools",
+        "sub_cate_slug": "software-development-tools-517",
+        "status": true
+    },
+    {
+        "parent_cate_id": "37",
+        "sub_cate_name": "Computer Systems and Peripherals",
+        "sub_cate_slug": "computer-systems-and-peripherals-518",
+        "status": true
+    },
+    {
+        "parent_cate_id": "37",
+        "sub_cate_name": "Internet and Networking Technologies",
+        "sub_cate_slug": "internet-and-networking-technologies-519",
+        "status": true
+    },
+    {
+        "parent_cate_id": "37",
+        "sub_cate_name": "Data Analytics and Processing",
+        "sub_cate_slug": "data-analytics-and-processing-520",
+        "status": true
+    },
+    {
+        "parent_cate_id": "37",
+        "sub_cate_name": "Audio-Visual Equipment",
+        "sub_cate_slug": "audio-visual-equipment-521",
+        "status": true
+    },
+    {
+        "parent_cate_id": "37",
+        "sub_cate_name": "Satellite Communication Systems",
+        "sub_cate_slug": "satellite-communication-systems-522",
+        "status": true
+    },
+    {
+        "parent_cate_id": "37",
+        "sub_cate_name": "Cloud Computing Services",
+        "sub_cate_slug": "cloud-computing-services-523",
+        "status": true
+    },
+    {
+        "parent_cate_id": "37",
+        "sub_cate_name": "Cybersecurity Solutions",
+        "sub_cate_slug": "cybersecurity-solutions-524",
+        "status": true
+    },
+    {
+        "parent_cate_id": "37",
+        "sub_cate_name": "Smart Home Devices",
+        "sub_cate_slug": "smart-home-devices-525",
+        "status": true
+    },
+    {
+        "parent_cate_id": "37",
+        "sub_cate_name": "IT Infrastructure",
+        "sub_cate_slug": "it-infrastructure-526",
+        "status": true
+    },
+    {
+        "parent_cate_id": "37",
+        "sub_cate_name": "Emerging Technologies",
+        "sub_cate_slug": "emerging-technologies-527",
+        "status": true
+    },
+    {
+        "parent_cate_id": "37",
+        "sub_cate_name": "Other",
+        "sub_cate_slug": "other-528",
+        "status": true
+    }
+]

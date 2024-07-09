@@ -1,4 +1,3 @@
-import { TURKEY_TOKEN } from "@/utils/auth/global";
 import { api } from "../../api/apiSlice";
 
 const authApi = api.injectEndpoints({
@@ -43,9 +42,6 @@ const authApi = api.injectEndpoints({
       query: ({ data }) => ({
         url: `/users/password/change-password`,
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${TURKEY_TOKEN}`,
-        },
         body: data,
       }),
       invalidatesTags: ["users"],
@@ -55,9 +51,6 @@ const authApi = api.injectEndpoints({
       query: () => ({
         url: `/users/remove/all-data`,
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${TURKEY_TOKEN}`,
-        },
       }),
       invalidatesTags: ["users"],
     }),

@@ -2,6 +2,8 @@ import ProductBanner from "@/components/SellerProduct/ProductBanner";
 import ProductDescription from "@/components/SellerProduct/ProductDescription";
 import Loading from "@/components/commons/Loading";
 import { useGetProductByIdQuery } from "@/redux/features/products/productApi";
+import { TURKEY_VIEW_PRODUCTS_NAME } from "@/utils/auth/global";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
@@ -29,15 +31,15 @@ const Details = () => {
 
   const handleViewProduct = () => {
     const maxViewedProducts = 4;
-    let products = localStorage.getItem("view-prods")
-      ? JSON.parse(localStorage.getItem("view-prods"))
+    let products = Cookies.get(TURKEY_VIEW_PRODUCTS_NAME)
+      ? JSON.parse(Cookies.get(TURKEY_VIEW_PRODUCTS_NAME))
       : [];
 
     const productId = data?.data?._id;
     products = products.filter((item) => item !== productId);
     products.unshift(productId);
     products = products.slice(0, maxViewedProducts);
-    localStorage.setItem("view-prods", JSON.stringify(products));
+    Cookies.set(TURKEY_VIEW_PRODUCTS_NAME, JSON.stringify(products));
   };
 
   useEffect(() => {

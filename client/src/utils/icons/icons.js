@@ -19,6 +19,7 @@ export const noProducts = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill-rule="evenodd"
+    fillRule="evenodd"
     stroke-linecap="round"
     stroke-miterlimit="3"
     clip-rule="evenodd"

@@ -1,0 +1,2736 @@
+[{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a4b"
+  },
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa34",
+  "sub_cate_name": "Home Textiles",
+  "sub_cate_slug": "home-textiles-1",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a4c"
+  },
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa34",
+  "sub_cate_name": "Technical Textiles",
+  "sub_cate_slug": "technical-textiles-2",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a4d"
+  },
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa34",
+  "sub_cate_name": "Automotive Textiles",
+  "sub_cate_slug": "automotive-textiles-3",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a4e"
+  },
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa34",
+  "sub_cate_name": "Carpets and Rugs",
+  "sub_cate_slug": "carpets-and-rugs-4",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a4f"
+  },
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa34",
+  "sub_cate_name": "Upholstery",
+  "sub_cate_slug": "upholstery-5",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a50"
+  },
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa34",
+  "sub_cate_name": "Outdoor Textiles",
+  "sub_cate_slug": "outdoor-textiles-6",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a51"
+  },
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa34",
+  "sub_cate_name": "Textile Art and Crafts",
+  "sub_cate_slug": "textile-art-and-crafts-7",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a52"
+  },
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa34",
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-8",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a53"
+  },
+  "sub_cate_name": "Wooden furniture",
+  "sub_cate_slug": "wooden-furniture-9",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a54"
+  },
+  "sub_cate_name": "Metal furniture",
+  "sub_cate_slug": "metal-furniture-10",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a55"
+  },
+  "sub_cate_name": "Marble furniture",
+  "sub_cate_slug": "marble-furniture-11",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a56"
+  },
+  "sub_cate_name": "Plastic furniture",
+  "sub_cate_slug": "plastic-furniture-12",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a57"
+  },
+  "sub_cate_name": "Office furniture",
+  "sub_cate_slug": "office-furniture-13",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a58"
+  },
+  "sub_cate_name": "Kitchen furniture",
+  "sub_cate_slug": "kitchen-furniture-14",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a59"
+  },
+  "sub_cate_name": "Handmade Furniture",
+  "sub_cate_slug": "handmade-furniture-15",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a5a"
+  },
+  "sub_cate_name": "Bedding articles (e.g., mattresses, pillows)",
+  "sub_cate_slug": "bedding-articles-16",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a5b"
+  },
+  "sub_cate_name": "Seats (e.g., chairs, sofas)",
+  "sub_cate_slug": "seats-17",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a5c"
+  },
+  "sub_cate_name": "Lighting fixtures",
+  "sub_cate_slug": "lighting-fixtures-18",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a5d"
+  },
+  "sub_cate_name": "Lamps and lampshades",
+  "sub_cate_slug": "lamps-and-lampshades-19",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a5e"
+  },
+  "sub_cate_name": "Chandeliers",
+  "sub_cate_slug": "chandeliers-20",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a5f"
+  },
+  "sub_cate_name": "Outdoor furniture",
+  "sub_cate_slug": "outdoor-furniture-21",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a60"
+  },
+  "sub_cate_name": "Children’s furniture",
+  "sub_cate_slug": "childrens-furniture-22",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a61"
+  },
+  "sub_cate_name": "Hospital furniture",
+  "sub_cate_slug": "hospital-furniture-23",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a62"
+  },
+  "sub_cate_name": "Illuminated signs",
+  "sub_cate_slug": "illuminated-signs-24",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a63"
+  },
+  "sub_cate_name": "Ceiling lights",
+  "sub_cate_slug": "ceiling-lights-25",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a64"
+  },
+  "sub_cate_name": "Table lamps",
+  "sub_cate_slug": "table-lamps-26",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a65"
+  },
+  "sub_cate_name": "Floor lamps",
+  "sub_cate_slug": "floor-lamps-27",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a66"
+  },
+  "sub_cate_name": "Bed frames",
+  "sub_cate_slug": "bed-frames-28",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a67"
+  },
+  "sub_cate_name": "Cabinetry",
+  "sub_cate_slug": "cabinetry-29",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a68"
+  },
+  "sub_cate_name": "Decorative items",
+  "sub_cate_slug": "decorative-items-30",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a69"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-31",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa35",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a6a"
+  },
+  "sub_cate_name": "Men's Clothing",
+  "sub_cate_slug": "mens-clothing-32",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa36",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a6b"
+  },
+  "sub_cate_name": "Women's Clothing",
+  "sub_cate_slug": "womens-clothing-33",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa36",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a6c"
+  },
+  "sub_cate_name": "Children's Clothing",
+  "sub_cate_slug": "childrens-clothing-34",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa36",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a6d"
+  },
+  "sub_cate_name": "Unisex",
+  "sub_cate_slug": "unisex-35",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa36",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a6e"
+  },
+  "sub_cate_name": "Sportswear",
+  "sub_cate_slug": "sportswear-36",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa36",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a6f"
+  },
+  "sub_cate_name": "Outerwear",
+  "sub_cate_slug": "outerwear-37",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa36",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a70"
+  },
+  "sub_cate_name": "Underwear",
+  "sub_cate_slug": "underwear-38",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa36",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a71"
+  },
+  "sub_cate_name": "Sleepwear",
+  "sub_cate_slug": "sleepwear-39",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa36",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a72"
+  },
+  "sub_cate_name": "Footwear",
+  "sub_cate_slug": "footwear-40",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa36",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a73"
+  },
+  "sub_cate_name": "Accessories (e.g., hats, gloves, scarves)",
+  "sub_cate_slug": "accessories-41",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa36",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a74"
+  },
+  "sub_cate_name": "Workwear and Uniforms",
+  "sub_cate_slug": "workwear-and-uniforms-42",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa36",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a75"
+  },
+  "sub_cate_name": "Special Occasion Clothing",
+  "sub_cate_slug": "special-occasion-clothing-43",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa36",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a76"
+  },
+  "sub_cate_name": "Swimwear",
+  "sub_cate_slug": "swimwear-44",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa36",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a77"
+  },
+  "sub_cate_name": "Socks and Hosiery",
+  "sub_cate_slug": "socks-and-hosiery-45",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa36",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a78"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-46",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa36",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a79"
+  },
+  "sub_cate_name": "Consumer Electronics",
+  "sub_cate_slug": "consumer-electronics-47",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa37",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a7a"
+  },
+  "sub_cate_name": "Electronic Components",
+  "sub_cate_slug": "electronic-components-48",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa37",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a7b"
+  },
+  "sub_cate_name": "Telecommunications Equipment",
+  "sub_cate_slug": "telecommunications-equipment-49",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa37",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a7c"
+  },
+  "sub_cate_name": "Computer Hardware",
+  "sub_cate_slug": "computer-hardware-50",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa37",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a7d"
+  },
+  "sub_cate_name": "Batteries and Power Supplies",
+  "sub_cate_slug": "batteries-and-power-supplies-51",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa37",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a7e"
+  },
+  "sub_cate_name": "Lighting Products",
+  "sub_cate_slug": "lighting-products-52",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa37",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a7f"
+  },
+  "sub_cate_name": "Electric Motors and Generators",
+  "sub_cate_slug": "electric-motors-and-generators-53",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa37",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a80"
+  },
+  "sub_cate_name": "Wiring and Cables",
+  "sub_cate_slug": "wiring-and-cables-54",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa37",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a81"
+  },
+  "sub_cate_name": "Microprocessors and Computing Components",
+  "sub_cate_slug": "microprocessors-and-computing-components-55",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa37",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a82"
+  },
+  "sub_cate_name": "Sensors and Measurement Devices",
+  "sub_cate_slug": "sensors-and-measurement-devices-56",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa37",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a83"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-57",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa37",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a84"
+  },
+  "sub_cate_name": "Nuts",
+  "sub_cate_slug": "nuts-58",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a85"
+  },
+  "sub_cate_name": "Fresh Fruits and Vegetables",
+  "sub_cate_slug": "fresh-fruits-and-vegetables-59",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a86"
+  },
+  "sub_cate_name": "Grains and Cereals",
+  "sub_cate_slug": "grains-and-cereals-60",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a87"
+  },
+  "sub_cate_name": "Bakery Products",
+  "sub_cate_slug": "bakery-products-61",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a88"
+  },
+  "sub_cate_name": "Meat and Poultry",
+  "sub_cate_slug": "meat-and-poultry-62",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a89"
+  },
+  "sub_cate_name": "Seafood",
+  "sub_cate_slug": "seafood-63",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a8a"
+  },
+  "sub_cate_name": "Dairy Products",
+  "sub_cate_slug": "dairy-products-64",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a8b"
+  },
+  "sub_cate_name": "Spices and Herbs",
+  "sub_cate_slug": "spices-and-herbs-65",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a8c"
+  },
+  "sub_cate_name": "Beverages",
+  "sub_cate_slug": "beverages-66",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a8d"
+  },
+  "sub_cate_name": "Processed Foods",
+  "sub_cate_slug": "processed-foods-67",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a8e"
+  },
+  "sub_cate_name": "Snacks",
+  "sub_cate_slug": "snacks-68",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a8f"
+  },
+  "sub_cate_name": "Organic Products",
+  "sub_cate_slug": "organic-products-69",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a90"
+  },
+  "sub_cate_name": "Food Additives and Ingredients",
+  "sub_cate_slug": "food-additives-and-ingredients-70",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a91"
+  },
+  "sub_cate_name": "Agricultural Equipment",
+  "sub_cate_slug": "agricultural-equipment-71",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a92"
+  },
+  "sub_cate_name": "Fertilizers and Pesticides",
+  "sub_cate_slug": "fertilizers-and-pesticides-72",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a93"
+  },
+  "sub_cate_name": "Animal Feed",
+  "sub_cate_slug": "animal-feed-73",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a94"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-74",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa38",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a95"
+  },
+  "sub_cate_name": "Tea and coffee beverages",
+  "sub_cate_slug": "tea-and-coffee-beverages-75",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa39",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a96"
+  },
+  "sub_cate_name": "Non-alcoholic beers",
+  "sub_cate_slug": "non-alcoholic-beers-76",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa39",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a97"
+  },
+  "sub_cate_name": "Soft drinks",
+  "sub_cate_slug": "soft-drinks-77",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa39",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a98"
+  },
+  "sub_cate_name": "Fruit juices",
+  "sub_cate_slug": "fruit-juices-78",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa39",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a99"
+  },
+  "sub_cate_name": "Vegetable juices",
+  "sub_cate_slug": "vegetable-juices-79",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa39",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a9a"
+  },
+  "sub_cate_name": "Mineral and aerated waters",
+  "sub_cate_slug": "mineral-and-aerated-waters-80",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa39",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a9b"
+  },
+  "sub_cate_name": "Vinegar and substitutes",
+  "sub_cate_slug": "vinegar-and-substitutes-81",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa39",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a9c"
+  },
+  "sub_cate_name": "Beverage concentrates and syrups",
+  "sub_cate_slug": "beverage-concentrates-and-syrups-82",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa39",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a9d"
+  },
+  "sub_cate_name": "Cocktail mixes",
+  "sub_cate_slug": "cocktail-mixes-83",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa39",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a9e"
+  },
+  "sub_cate_name": "Flavored waters",
+  "sub_cate_slug": "flavored-waters-84",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa39",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25a9f"
+  },
+  "sub_cate_name": "Energy drinks",
+  "sub_cate_slug": "energy-drinks-85",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa39",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25aa0"
+  },
+  "sub_cate_name": "Sports drinks",
+  "sub_cate_slug": "sports-drinks-86",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa39",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25aa1"
+  },
+  "sub_cate_name": "Malt beverages",
+  "sub_cate_slug": "malt-beverages-87",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa39",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25aa2"
+  },
+  "sub_cate_name": "Drink powders and crystals",
+  "sub_cate_slug": "drink-powders-and-crystals-88",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa39",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6111237d47f437b25aa3"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-89",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa39",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f61ce237d47f437b25aa5"
+  },
+  "sub_cate_name": "Skincare",
+  "sub_cate_slug": "skincare-90",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3a",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f61ce237d47f437b25aa6"
+  },
+  "sub_cate_name": "Cosmetics",
+  "sub_cate_slug": "cosmetics-91",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3a",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f61ce237d47f437b25aa7"
+  },
+  "sub_cate_name": "Haircare",
+  "sub_cate_slug": "haircare-92",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3a",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f61ce237d47f437b25aa8"
+  },
+  "sub_cate_name": "Dental Care",
+  "sub_cate_slug": "dental-care-93",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3a",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f61ce237d47f437b25aa9"
+  },
+  "sub_cate_name": "Perfumes and Fragrances",
+  "sub_cate_slug": "perfumes-and-fragrances-94",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3a",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f61ce237d47f437b25aaa"
+  },
+  "sub_cate_name": "Vitamins and Supplements",
+  "sub_cate_slug": "vitamins-and-supplements-95",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3a",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f61ce237d47f437b25aab"
+  },
+  "sub_cate_name": "Personal Care Appliances",
+  "sub_cate_slug": "personal-care-appliances-96",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3a",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f61ce237d47f437b25aac"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-97",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3a",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f624e237d47f437b25aae"
+  },
+  "sub_cate_name": "Car parts and accessories",
+  "sub_cate_slug": "car-parts-and-accessories-98",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3b",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f624e237d47f437b25aaf"
+  },
+  "sub_cate_name": "Sedans",
+  "sub_cate_slug": "sedans-99",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3b",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f624e237d47f437b25ab0"
+  },
+  "sub_cate_name": "SUVs",
+  "sub_cate_slug": "suvs-100",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3b",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f624e237d47f437b25ab1"
+  },
+  "sub_cate_name": "Electric vehicles",
+  "sub_cate_slug": "electric-vehicles-101",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3b",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f624e237d47f437b25ab2"
+  },
+  "sub_cate_name": "Trucks",
+  "sub_cate_slug": "trucks-102",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3b",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f624e237d47f437b25ab3"
+  },
+  "sub_cate_name": "Motorcycles",
+  "sub_cate_slug": "motorcycles-103",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3b",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f624e237d47f437b25ab4"
+  },
+  "sub_cate_name": "Buses",
+  "sub_cate_slug": "buses-104",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3b",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f624e237d47f437b25ab5"
+  },
+  "sub_cate_name": "Trailers",
+  "sub_cate_slug": "trailers-105",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3b",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f624e237d47f437b25ab6"
+  },
+  "sub_cate_name": "Tractors",
+  "sub_cate_slug": "tractors-106",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3b",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f624e237d47f437b25ab7"
+  },
+  "sub_cate_name": "Ships and boats",
+  "sub_cate_slug": "ships-and-boats-107",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3b",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f624e237d47f437b25ab8"
+  },
+  "sub_cate_name": "Classic cars",
+  "sub_cate_slug": "classic-cars-108",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3b",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f624e237d47f437b25ab9"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-109",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3b",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25abb"
+  },
+  "sub_cate_name": "Boilers, Machinery",
+  "sub_cate_slug": "boilers-machinery-110",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25abc"
+  },
+  "sub_cate_name": "Construction machinery",
+  "sub_cate_slug": "construction-machinery-111",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25abd"
+  },
+  "sub_cate_name": "Agricultural machinery",
+  "sub_cate_slug": "agricultural-machinery-112",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25abe"
+  },
+  "sub_cate_name": "Packaging machinery",
+  "sub_cate_slug": "packaging-machinery-113",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25abf"
+  },
+  "sub_cate_name": "Textile machinery",
+  "sub_cate_slug": "textile-machinery-114",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25ac0"
+  },
+  "sub_cate_name": "Food processing machinery",
+  "sub_cate_slug": "food-processing-machinery-115",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25ac1"
+  },
+  "sub_cate_name": "Mining machinery",
+  "sub_cate_slug": "mining-machinery-116",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25ac2"
+  },
+  "sub_cate_name": "Printing machinery",
+  "sub_cate_slug": "printing-machinery-117",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25ac3"
+  },
+  "sub_cate_name": "Plastic processing machinery",
+  "sub_cate_slug": "plastic-processing-machinery-118",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25ac4"
+  },
+  "sub_cate_name": "Forestry machinery",
+  "sub_cate_slug": "forestry-machinery-119",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25ac5"
+  },
+  "sub_cate_name": "Metalworking machinery",
+  "sub_cate_slug": "metalworking-machinery-120",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25ac6"
+  },
+  "sub_cate_name": "Electronics manufacturing machinery",
+  "sub_cate_slug": "electronics-manufacturing-machinery-121",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25ac7"
+  },
+  "sub_cate_name": "Paper processing machinery",
+  "sub_cate_slug": "paper-processing-machinery-122",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25ac8"
+  },
+  "sub_cate_name": "Woodworking machinery",
+  "sub_cate_slug": "woodworking-machinery-123",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25ac9"
+  },
+  "sub_cate_name": "Chemical processing machinery",
+  "sub_cate_slug": "chemical-processing-machinery-124",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25aca"
+  },
+  "sub_cate_name": "Industrial robots",
+  "sub_cate_slug": "industrial-robots-125",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25acb"
+  },
+  "sub_cate_name": "Pumps and compressors",
+  "sub_cate_slug": "pumps-and-compressors-126",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25acc"
+  },
+  "sub_cate_name": "HVAC equipment",
+  "sub_cate_slug": "hvac-equipment-127",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25acd"
+  },
+  "sub_cate_name": "Power generation machinery",
+  "sub_cate_slug": "power-generation-machinery-128",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25ace"
+  },
+  "sub_cate_name": "Elevators and escalators",
+  "sub_cate_slug": "elevators-and-escalators-129",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25acf"
+  },
+  "sub_cate_name": "Welding machinery",
+  "sub_cate_slug": "welding-machinery-130",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f62d9237d47f437b25ad0"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-131",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3c",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ad2"
+  },
+  "sub_cate_name": "Cast iron products (Iron)",
+  "sub_cate_slug": "cast-iron-products-iron-132",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ad3"
+  },
+  "sub_cate_name": "Ferroalloys (Iron/Steel)",
+  "sub_cate_slug": "ferroalloys-iron-steel-133",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ad4"
+  },
+  "sub_cate_name": "Flat-rolled products (Iron/Steel/Aluminium)",
+  "sub_cate_slug": "flat-rolled-products-iron-steel-aluminium-134",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ad5"
+  },
+  "sub_cate_name": "Forgings (Iron/Steel/Aluminium)",
+  "sub_cate_slug": "forgings-iron-steel-aluminium-135",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ad6"
+  },
+  "sub_cate_name": "Fittings and flanges (Iron/Steel/Aluminium)",
+  "sub_cate_slug": "fittings-and-flanges-iron-steel-aluminium-136",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ad7"
+  },
+  "sub_cate_name": "Bars and rods (Iron/Steel/Aluminium)",
+  "sub_cate_slug": "bars-and-rods-iron-steel-aluminium-137",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ad8"
+  },
+  "sub_cate_name": "Structural shapes (Iron/Steel/Aluminium)",
+  "sub_cate_slug": "structural-shapes-iron-steel-aluminium-138",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ad9"
+  },
+  "sub_cate_name": "Tubes and pipes (Iron/Steel/Aluminium)",
+  "sub_cate_slug": "tubes-and-pipes-iron-steel-aluminium-139",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ada"
+  },
+  "sub_cate_name": "Wire (Iron/Steel/Aluminium)",
+  "sub_cate_slug": "wire-iron-steel-aluminium-140",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25adb"
+  },
+  "sub_cate_name": "Plate (Iron/Steel/Aluminium)",
+  "sub_cate_slug": "plate-iron-steel-aluminium-141",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25adc"
+  },
+  "sub_cate_name": "Coils (Iron/Steel/Aluminium)",
+  "sub_cate_slug": "coils-iron-steel-aluminium-142",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25add"
+  },
+  "sub_cate_name": "Sheet (Iron/Steel/Aluminium)",
+  "sub_cate_slug": "sheet-iron-steel-aluminium-143",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ade"
+  },
+  "sub_cate_name": "Welded articles (Iron/Steel/Aluminium)",
+  "sub_cate_slug": "welded-articles-iron-steel-aluminium-144",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25adf"
+  },
+  "sub_cate_name": "Powdered metals (Iron/Steel/Aluminium)",
+  "sub_cate_slug": "powdered-metals-iron-steel-aluminium-145",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ae0"
+  },
+  "sub_cate_name": "Cold-rolled products (Iron/Steel/Aluminium)",
+  "sub_cate_slug": "cold-rolled-products-iron-steel-aluminium-146",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ae1"
+  },
+  "sub_cate_name": "Hot-rolled products (Iron/Steel/Aluminium)",
+  "sub_cate_slug": "hot-rolled-products-iron-steel-aluminium-147",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ae2"
+  },
+  "sub_cate_name": "Steel wool (Steel)",
+  "sub_cate_slug": "steel-wool-steel-148",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ae3"
+  },
+  "sub_cate_name": "Stainless steel products (Steel)",
+  "sub_cate_slug": "stainless-steel-products-steel-149",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ae4"
+  },
+  "sub_cate_name": "Steel cables (Steel)",
+  "sub_cate_slug": "steel-cables-steel-150",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ae5"
+  },
+  "sub_cate_name": "Steel strips (Steel)",
+  "sub_cate_slug": "steel-strips-steel-151",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6363237d47f437b25ae6"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-152",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3d",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25ae8"
+  },
+  "sub_cate_name": "Cement and Concrete",
+  "sub_cate_slug": "cement-and-concrete-153",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25ae9"
+  },
+  "sub_cate_name": "Bricks and Blocks",
+  "sub_cate_slug": "bricks-and-blocks-154",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25aea"
+  },
+  "sub_cate_name": "Marble Building Materials",
+  "sub_cate_slug": "marble-building-materials-155",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25aeb"
+  },
+  "sub_cate_name": "Timber",
+  "sub_cate_slug": "timber-156",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25aec"
+  },
+  "sub_cate_name": "Insulation",
+  "sub_cate_slug": "insulation-157",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25aed"
+  },
+  "sub_cate_name": "Drywall and Plasterboard",
+  "sub_cate_slug": "drywall-and-plasterboard-158",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25aee"
+  },
+  "sub_cate_name": "Paints and Varnishes",
+  "sub_cate_slug": "paints-and-varnishes-159",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25aef"
+  },
+  "sub_cate_name": "Pipes and Pipe Fittings",
+  "sub_cate_slug": "pipes-and-pipe-fittings-160",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25af0"
+  },
+  "sub_cate_name": "Electrical Components",
+  "sub_cate_slug": "electrical-components-161",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25af1"
+  },
+  "sub_cate_name": "Roofing Materials",
+  "sub_cate_slug": "roofing-materials-162",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25af2"
+  },
+  "sub_cate_name": "Windows and Doors",
+  "sub_cate_slug": "windows-and-doors-163",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25af3"
+  },
+  "sub_cate_name": "Flooring",
+  "sub_cate_slug": "flooring-164",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25af4"
+  },
+  "sub_cate_name": "Wall Panels",
+  "sub_cate_slug": "wall-panels-165",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25af5"
+  },
+  "sub_cate_name": "Tools and Fasteners",
+  "sub_cate_slug": "tools-and-fasteners-166",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25af6"
+  },
+  "sub_cate_name": "Adhesives and Sealants",
+  "sub_cate_slug": "adhesives-and-sealants-167",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25af7"
+  },
+  "sub_cate_name": "Heating and Cooling Systems",
+  "sub_cate_slug": "heating-and-cooling-systems-168",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25af8"
+  },
+  "sub_cate_name": "Sanitary Ware (faucets, toilets, etc.)",
+  "sub_cate_slug": "sanitary-ware-169",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25af9"
+  },
+  "sub_cate_name": "Construction Lighting",
+  "sub_cate_slug": "construction-lighting-170",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25afa"
+  },
+  "sub_cate_name": "Fire Safety Materials",
+  "sub_cate_slug": "fire-safety-materials-171",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f63ed237d47f437b25afb"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-172",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3e",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25afd"
+  },
+  "sub_cate_name": "Packaging materials",
+  "sub_cate_slug": "packaging-materials-173",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25afe"
+  },
+  "sub_cate_name": "Plastic bags and sacks",
+  "sub_cate_slug": "plastic-bags-and-sacks-174",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25aff"
+  },
+  "sub_cate_name": "Plastic containers",
+  "sub_cate_slug": "plastic-containers-175",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b00"
+  },
+  "sub_cate_name": "Polyethylene",
+  "sub_cate_slug": "polyethylene-176",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b01"
+  },
+  "sub_cate_name": "Polypropylene",
+  "sub_cate_slug": "polypropylene-177",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b02"
+  },
+  "sub_cate_name": "PVC products",
+  "sub_cate_slug": "pvc-products-178",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b03"
+  },
+  "sub_cate_name": "Polystyrene products",
+  "sub_cate_slug": "polystyrene-products-179",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b04"
+  },
+  "sub_cate_name": "Plastic tubes, pipes, and hoses",
+  "sub_cate_slug": "plastic-tubes-pipes-and-hoses-180",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b05"
+  },
+  "sub_cate_name": "Plastic sheets, films, and plates",
+  "sub_cate_slug": "plastic-sheets-films-and-plates-181",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b06"
+  },
+  "sub_cate_name": "Plastic fittings",
+  "sub_cate_slug": "plastic-fittings-182",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b07"
+  },
+  "sub_cate_name": "Synthetic rubber",
+  "sub_cate_slug": "synthetic-rubber-183",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b08"
+  },
+  "sub_cate_name": "Plastic floor coverings",
+  "sub_cate_slug": "plastic-floor-coverings-184",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b09"
+  },
+  "sub_cate_name": "Insulating fittings",
+  "sub_cate_slug": "insulating-fittings-185",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b0a"
+  },
+  "sub_cate_name": "Plastic apparel",
+  "sub_cate_slug": "plastic-apparel-186",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b0b"
+  },
+  "sub_cate_name": "Plastic furniture",
+  "sub_cate_slug": "plastic-furniture-187",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b0c"
+  },
+  "sub_cate_name": "Plastic household items",
+  "sub_cate_slug": "plastic-household-items-188",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b0d"
+  },
+  "sub_cate_name": "Plastic toys",
+  "sub_cate_slug": "plastic-toys-189",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b0e"
+  },
+  "sub_cate_name": "Plastic building materials",
+  "sub_cate_slug": "plastic-building-materials-190",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b0f"
+  },
+  "sub_cate_name": "Plastic medical devices",
+  "sub_cate_slug": "plastic-medical-devices-191",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f648e237d47f437b25b10"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-192",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa3f",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b12"
+  },
+  "sub_cate_name": "Newsprint",
+  "sub_cate_slug": "newsprint-193",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b13"
+  },
+  "sub_cate_name": "Writing and printing paper",
+  "sub_cate_slug": "writing-and-printing-paper-194",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b14"
+  },
+  "sub_cate_name": "Packaging paper and board",
+  "sub_cate_slug": "packaging-paper-and-board-195",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b15"
+  },
+  "sub_cate_name": "Tissue paper",
+  "sub_cate_slug": "tissue-paper-196",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b16"
+  },
+  "sub_cate_name": "Toilet paper and similar products",
+  "sub_cate_slug": "toilet-paper-and-similar-products-197",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b17"
+  },
+  "sub_cate_name": "Paper bags and sacks",
+  "sub_cate_slug": "paper-bags-and-sacks-198",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b18"
+  },
+  "sub_cate_name": "Cartons, boxes, and cases",
+  "sub_cate_slug": "cartons-boxes-and-cases-199",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b19"
+  },
+  "sub_cate_name": "Envelopes and letter cards",
+  "sub_cate_slug": "envelopes-and-letter-cards-200",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b1a"
+  },
+  "sub_cate_name": "Notebooks and writing pads",
+  "sub_cate_slug": "notebooks-and-writing-pads-201",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b1b"
+  },
+  "sub_cate_name": "Books and booklets",
+  "sub_cate_slug": "books-and-booklets-202",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b1c"
+  },
+  "sub_cate_name": "Wallpaper and wallcoverings",
+  "sub_cate_slug": "wallpaper-and-wallcoverings-203",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b1d"
+  },
+  "sub_cate_name": "Paper tableware and cookware",
+  "sub_cate_slug": "paper-tableware-and-cookware-204",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b1e"
+  },
+  "sub_cate_name": "Labels, badges, and similar articles",
+  "sub_cate_slug": "labels-badges-and-similar-articles-205",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b1f"
+  },
+  "sub_cate_name": "Cigarette paper",
+  "sub_cate_slug": "cigarette-paper-206",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b20"
+  },
+  "sub_cate_name": "Filter paper",
+  "sub_cate_slug": "filter-paper-207",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b21"
+  },
+  "sub_cate_name": "Paper and paperboard articles for packaging",
+  "sub_cate_slug": "paper-and-paperboard-articles-for-packaging-208",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b22"
+  },
+  "sub_cate_name": "Corrugated paper and paperboard",
+  "sub_cate_slug": "corrugated-paper-and-paperboard-209",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b23"
+  },
+  "sub_cate_name": "Pulp",
+  "sub_cate_slug": "pulp-210",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b24"
+  },
+  "sub_cate_name": "Paper waste and scrap",
+  "sub_cate_slug": "paper-waste-and-scrap-211",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b25"
+  },
+  "sub_cate_name": "Paper decorations",
+  "sub_cate_slug": "paper-decorations-212",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f651a237d47f437b25b26"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-213",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa40",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f65ac237d47f437b25b28"
+  },
+  "sub_cate_name": "Natural Rubber",
+  "sub_cate_slug": "natural-rubber-214",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa41",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f65ac237d47f437b25b29"
+  },
+  "sub_cate_name": "Synthetic Rubber",
+  "sub_cate_slug": "synthetic-rubber-215",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa41",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f65ac237d47f437b25b2a"
+  },
+  "sub_cate_name": "Rubber Sheets and Mats",
+  "sub_cate_slug": "rubber-sheets-and-mats-216",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa41",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f65ac237d47f437b25b2b"
+  },
+  "sub_cate_name": "Rubber Hoses and Belting",
+  "sub_cate_slug": "rubber-hoses-and-belting-217",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa41",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f65ac237d47f437b25b2c"
+  },
+  "sub_cate_name": "Rubber Footwear",
+  "sub_cate_slug": "rubber-footwear-218",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa41",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f65ac237d47f437b25b2d"
+  },
+  "sub_cate_name": "Rubber Gaskets, Seals, and O-rings",
+  "sub_cate_slug": "rubber-gaskets-seals-and-o-rings-219",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa41",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f65ac237d47f437b25b2e"
+  },
+  "sub_cate_name": "Rubberized Fabrics and Clothing",
+  "sub_cate_slug": "rubberized-fabrics-and-clothing-220",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa41",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f65ac237d47f437b25b2f"
+  },
+  "sub_cate_name": "Rubber Automotive Parts (e.g., tires, bushings)",
+  "sub_cate_slug": "rubber-automotive-parts-221",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa41",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f65ac237d47f437b25b30"
+  },
+  "sub_cate_name": "Rubber Medical Products (e.g., gloves, tubing)",
+  "sub_cate_slug": "rubber-medical-products-222",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa41",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f65ac237d47f437b25b31"
+  },
+  "sub_cate_name": "Rubber Molded Goods",
+  "sub_cate_slug": "rubber-molded-goods-223",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa41",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f65ac237d47f437b25b32"
+  },
+  "sub_cate_name": "Rubber Foam and Sponge Products",
+  "sub_cate_slug": "rubber-foam-and-sponge-products-224",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa41",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f65ac237d47f437b25b33"
+  },
+  "sub_cate_name": "Rubber Adhesives and Sealants",
+  "sub_cate_slug": "rubber-adhesives-and-sealants-225",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa41",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f65ac237d47f437b25b34"
+  },
+  "sub_cate_name": "Industrial Rubber Products",
+  "sub_cate_slug": "industrial-rubber-products-226",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa41",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f65ac237d47f437b25b35"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-227",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa41",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b37"
+  },
+  "sub_cate_name": "Tiles and Flooring",
+  "sub_cate_slug": "tiles-and-flooring-228",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b38"
+  },
+  "sub_cate_name": "Sanitary Ware",
+  "sub_cate_slug": "sanitary-ware-229",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b39"
+  },
+  "sub_cate_name": "Tableware and Kitchenware",
+  "sub_cate_slug": "tableware-and-kitchenware-230",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b3a"
+  },
+  "sub_cate_name": "Statuettes and Ornaments",
+  "sub_cate_slug": "statuettes-and-ornaments-231",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b3b"
+  },
+  "sub_cate_name": "Ceramic Refractory Products",
+  "sub_cate_slug": "ceramic-refractory-products-232",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b3c"
+  },
+  "sub_cate_name": "Ceramic Electrical Insulators",
+  "sub_cate_slug": "ceramic-electrical-insulators-233",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b3d"
+  },
+  "sub_cate_name": "Ceramic Pipes and Tubes",
+  "sub_cate_slug": "ceramic-pipes-and-tubes-234",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b3e"
+  },
+  "sub_cate_name": "Ceramic Construction Materials",
+  "sub_cate_slug": "ceramic-construction-materials-235",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b3f"
+  },
+  "sub_cate_name": "Porcelain Products",
+  "sub_cate_slug": "porcelain-products-236",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b40"
+  },
+  "sub_cate_name": "Earthenware Products",
+  "sub_cate_slug": "earthenware-products-237",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b41"
+  },
+  "sub_cate_name": "Glass Bottles and Jars",
+  "sub_cate_slug": "glass-bottles-and-jars-238",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b42"
+  },
+  "sub_cate_name": "Glass Fibers",
+  "sub_cate_slug": "glass-fibers-239",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b43"
+  },
+  "sub_cate_name": "Glass Mirrors",
+  "sub_cate_slug": "glass-mirrors-240",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b44"
+  },
+  "sub_cate_name": "Laboratory Glassware",
+  "sub_cate_slug": "laboratory-glassware-241",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b45"
+  },
+  "sub_cate_name": "Insulating Glass Units",
+  "sub_cate_slug": "insulating-glass-units-242",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b46"
+  },
+  "sub_cate_name": "Glass Beads and Microspheres",
+  "sub_cate_slug": "glass-beads-and-microspheres-243",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b47"
+  },
+  "sub_cate_name": "Glass Bulbs for Lighting",
+  "sub_cate_slug": "glass-bulbs-for-lighting-244",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b48"
+  },
+  "sub_cate_name": "Glassware for Scientific Purposes",
+  "sub_cate_slug": "glassware-for-scientific-purposes-245",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b49"
+  },
+  "sub_cate_name": "Optical Glass",
+  "sub_cate_slug": "optical-glass-246",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b4a"
+  },
+  "sub_cate_name": "Safety Glass",
+  "sub_cate_slug": "safety-glass-247",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6646237d47f437b25b4b"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-248",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa42",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f66d1237d47f437b25b4d"
+  },
+  "sub_cate_name": "Industrial Minerals (e.g., limestone, marble)",
+  "sub_cate_slug": "industrial-minerals-249",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa43",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f66d1237d47f437b25b4e"
+  },
+  "sub_cate_name": "Precious Metals (e.g., gold, silver)",
+  "sub_cate_slug": "precious-metals-250",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa43",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f66d1237d47f437b25b4f"
+  },
+  "sub_cate_name": "Precious Stones (e.g., diamonds, rubies, pearls)",
+  "sub_cate_slug": "precious-stones-251",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa43",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f66d1237d47f437b25b50"
+  },
+  "sub_cate_name": "Base Metals (e.g., copper, zinc)",
+  "sub_cate_slug": "base-metals-252",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa43",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f66d1237d47f437b25b51"
+  },
+  "sub_cate_name": "Coal and Coke",
+  "sub_cate_slug": "coal-and-coke-253",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa43",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f66d1237d47f437b25b52"
+  },
+  "sub_cate_name": "Rare Earth Elements",
+  "sub_cate_slug": "rare-earth-elements-254",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa43",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f66d1237d47f437b25b53"
+  },
+  "sub_cate_name": "Non-metallic Minerals (e.g., silica, clay)",
+  "sub_cate_slug": "non-metallic-minerals-255",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa43",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f66d1237d47f437b25b54"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-256",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa43",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6748237d47f437b25b56"
+  },
+  "sub_cate_name": "Refined petroleum products",
+  "sub_cate_slug": "refined-petroleum-products-257",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa44",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6748237d47f437b25b57"
+  },
+  "sub_cate_name": "Petroleum jelly",
+  "sub_cate_slug": "petroleum-jelly-258",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa44",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6748237d47f437b25b58"
+  },
+  "sub_cate_name": "Bituminous substances",
+  "sub_cate_slug": "bituminous-substances-259",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa44",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6748237d47f437b25b59"
+  },
+  "sub_cate_name": "Paraffin wax",
+  "sub_cate_slug": "paraffin-wax-260",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa44",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6748237d47f437b25b5a"
+  },
+  "sub_cate_name": "Petroleum coke",
+  "sub_cate_slug": "petroleum-coke-261",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa44",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6748237d47f437b25b5b"
+  },
+  "sub_cate_name": "Petroleum residues",
+  "sub_cate_slug": "petroleum-residues-262",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa44",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6748237d47f437b25b5c"
+  },
+  "sub_cate_name": "Biofuels",
+  "sub_cate_slug": "biofuels-263",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa44",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6748237d47f437b25b5d"
+  },
+  "sub_cate_name": "Lubricating oils",
+  "sub_cate_slug": "lubricating-oils-264",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa44",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6748237d47f437b25b5e"
+  },
+  "sub_cate_name": "Kerosene",
+  "sub_cate_slug": "kerosene-265",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa44",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6748237d47f437b25b5f"
+  },
+  "sub_cate_name": "Fuel oils",
+  "sub_cate_slug": "fuel-oils-266",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa44",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6748237d47f437b25b60"
+  },
+  "sub_cate_name": "Gas oils",
+  "sub_cate_slug": "gas-oils-267",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa44",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6748237d47f437b25b61"
+  },
+  "sub_cate_name": "Shale oil",
+  "sub_cate_slug": "shale-oil-268",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa44",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6748237d47f437b25b62"
+  },
+  "sub_cate_name": "Peat",
+  "sub_cate_slug": "peat-269",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa44",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f6748237d47f437b25b63"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-270",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa44",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f67c8237d47f437b25b65"
+  },
+  "sub_cate_name": "Organic Chemicals",
+  "sub_cate_slug": "organic-chemicals-271",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa45",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f67c8237d47f437b25b66"
+  },
+  "sub_cate_name": "Inorganic Chemicals",
+  "sub_cate_slug": "inorganic-chemicals-272",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa45",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f67c8237d47f437b25b67"
+  },
+  "sub_cate_name": "Industrial Chemicals",
+  "sub_cate_slug": "industrial-chemicals-273",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa45",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f67c8237d47f437b25b68"
+  },
+  "sub_cate_name": "Polymers",
+  "sub_cate_slug": "polymers-274",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa45",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f67c8237d47f437b25b69"
+  },
+  "sub_cate_name": "Petrochemicals",
+  "sub_cate_slug": "petrochemicals-275",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa45",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f67c8237d47f437b25b6a"
+  },
+  "sub_cate_name": "Agrochemicals",
+  "sub_cate_slug": "agrochemicals-276",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa45",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f67c8237d47f437b25b6b"
+  },
+  "sub_cate_name": "Pharmaceutical Chemicals",
+  "sub_cate_slug": "pharmaceutical-chemicals-277",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa45",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f67c8237d47f437b25b6c"
+  },
+  "sub_cate_name": "Food Grade Chemicals",
+  "sub_cate_slug": "food-grade-chemicals-278",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa45",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f67c8237d47f437b25b6d"
+  },
+  "sub_cate_name": "Cleaning Chemicals",
+  "sub_cate_slug": "cleaning-chemicals-279",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa45",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f67c8237d47f437b25b6e"
+  },
+  "sub_cate_name": "Coatings and Paints",
+  "sub_cate_slug": "coatings-and-paints-280",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa45",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f67c8237d47f437b25b6f"
+  },
+  "sub_cate_name": "Specialty Chemicals",
+  "sub_cate_slug": "specialty-chemicals-281",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa45",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f67c8237d47f437b25b70"
+  },
+  "sub_cate_name": "Analytical and Laboratory Chemicals",
+  "sub_cate_slug": "analytical-and-laboratory-chemicals-282",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa45",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f67c8237d47f437b25b71"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-283",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa45",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b73"
+  },
+  "sub_cate_name": "Eyeglasses and contact lenses",
+  "sub_cate_slug": "eyeglasses-and-contact-lenses-284",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b74"
+  },
+  "sub_cate_name": "Photographic cameras and accessories",
+  "sub_cate_slug": "photographic-cameras-and-accessories-285",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b75"
+  },
+  "sub_cate_name": "Microscopes",
+  "sub_cate_slug": "microscopes-286",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b76"
+  },
+  "sub_cate_name": "Spectacles and spectacle frames",
+  "sub_cate_slug": "spectacles-and-spectacle-frames-287",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b77"
+  },
+  "sub_cate_name": "Binoculars and telescopes",
+  "sub_cate_slug": "binoculars-and-telescopes-288",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b78"
+  },
+  "sub_cate_name": "Medical imaging devices",
+  "sub_cate_slug": "medical-imaging-devices-289",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b79"
+  },
+  "sub_cate_name": "Surgical instruments",
+  "sub_cate_slug": "surgical-instruments-290",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b7a"
+  },
+  "sub_cate_name": "Dental instruments",
+  "sub_cate_slug": "dental-instruments-291",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b7b"
+  },
+  "sub_cate_name": "Orthopedic devices",
+  "sub_cate_slug": "orthopedic-devices-292",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b7c"
+  },
+  "sub_cate_name": "Ophthalmic instruments",
+  "sub_cate_slug": "ophthalmic-instruments-293",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b7d"
+  },
+  "sub_cate_name": "Optical fibers and cables",
+  "sub_cate_slug": "optical-fibers-and-cables-294",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b7e"
+  },
+  "sub_cate_name": "Lenses and prisms",
+  "sub_cate_slug": "lenses-and-prisms-295",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b7f"
+  },
+  "sub_cate_name": "Measuring or checking instruments",
+  "sub_cate_slug": "measuring-or-checking-instruments-296",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b80"
+  },
+  "sub_cate_name": "Laboratory equipment",
+  "sub_cate_slug": "laboratory-equipment-297",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b81"
+  },
+  "sub_cate_name": "X-ray apparatus",
+  "sub_cate_slug": "x-ray-apparatus-298",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b82"
+  },
+  "sub_cate_name": "Testing equipment",
+  "sub_cate_slug": "testing-equipment-299",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b83"
+  },
+  "sub_cate_name": "Optical sensors",
+  "sub_cate_slug": "optical-sensors-300",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b84"
+  },
+  "sub_cate_name": "Medical consumables",
+  "sub_cate_slug": "medical-consumables-301",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b85"
+  },
+  "sub_cate_name": "Diagnostic apparatus",
+  "sub_cate_slug": "diagnostic-apparatus-302",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b86"
+  },
+  "sub_cate_name": "Therapeutic appliances",
+  "sub_cate_slug": "therapeutic-appliances-303",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+},
+{
+  "_id": {
+    "$oid": "656f686b237d47f437b25b87"
+  },
+  "sub_cate_name": "Other",
+  "sub_cate_slug": "other-304",
+  "parent_cate_id": "6564963fa6c5fc3ea0e6fa46",
+  "status": true
+}]

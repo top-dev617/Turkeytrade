@@ -9,7 +9,8 @@ import {
   useHandleResendOtpMutation,
 } from "@/redux/features/auth/authApi";
 import { Spinner } from "@material-tailwind/react";
-import { setTurkeyToken } from "../auth/global";
+import { setTurkeyToken, TURKEY_WELCOME_MODAL } from "../auth/global";
+import Cookies from "js-cookie";
 
 const RegistrationVerificationModal = ({ userRegistrationInfo }) => {
   const { user, setUser, setIsSignedIn } = useContext(AuthContext);
@@ -46,7 +47,7 @@ const RegistrationVerificationModal = ({ userRegistrationInfo }) => {
 
   const handleGoTradeMarket = () => {
     closeModalRef.current.click();
-    localStorage.setItem("welcomeModal", JSON.stringify("on"));
+    Cookies.set(TURKEY_WELCOME_MODAL, JSON.stringify("on"));
     router.push("/");
   };
 

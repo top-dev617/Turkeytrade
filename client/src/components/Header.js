@@ -5,7 +5,7 @@ import star from "../../public/assets/star1.png";
 import man from "../../public/assets/profile.png";
 import verification from "../../public/assets/verification.png";
 import { AuthContext } from "./context/AuthContext";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setSaveProducts } from "@/redux/features/products/productSlice";
 import {
   useGetStoreInfoBySellerIdQuery,
@@ -26,6 +26,8 @@ import { setStoreInfo } from "@/redux/features/stores/storeSlice";
 import { useGetGlobalChatDataQuery } from "@/redux/features/conversation/conversationApi";
 import useAuth from "@/lib/useAuth";
 import dynamic from "next/dynamic";
+import Cookies from "js-cookie";
+import { TURKEY_SAVE_PRODUCTS_NAME } from "@/utils/auth/global";
 
 const MyStoreHighlight = dynamic(
   () => import("@/components/commons/global/MyStoreHighlight"),
@@ -65,7 +67,9 @@ const Header = () => {
   };
 
   useEffect(() => {
-    const newProducts = JSON.parse(localStorage.getItem("save-products")) || [];
+    const newProducts = Cookies.get(TURKEY_SAVE_PRODUCTS_NAME)
+      ? JSON.parse(Cookies.get(TURKEY_SAVE_PRODUCTS_NAME))
+      : [];
     dispatch(setSaveProducts(newProducts));
   }, []);
 

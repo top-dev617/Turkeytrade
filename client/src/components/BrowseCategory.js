@@ -36,7 +36,7 @@ const BrowseCategory = ({ isLoading, categories }) => {
       ) : (
         <div className="grid grid-cols-1 gap-1 max-h-[585px] overflow-y-auto relative">
           {categories?.map((category, index) => (
-            <div className="relative">
+            <div key={index} className="relative">
               <Link
                 href={`/category/${category?.cate_slug}`}
                 className="!w-full outline-none"
@@ -44,7 +44,6 @@ const BrowseCategory = ({ isLoading, categories }) => {
                 <Button
                   onMouseEnter={() => mEnter(category)}
                   className="outline-none flex items-center justify-between bg-white shadow-none hover:!bg-gray-200 rounded-sm duration-150 gap-5 h-10 w-full px-1 hover:text-gray-800 normal-case"
-                  key={index}
                 >
                   <p
                     className="break-all md:break-normal category_title"

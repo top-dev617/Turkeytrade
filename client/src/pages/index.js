@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import WelcomeModal from "@/utils/modals/WelcomeModal";
 import { useGetLatestProductsQuery } from "@/redux/features/products/productApi";
 import PopularProducts from "@/components/home/PopularProducts";
+import Cookies from "js-cookie";
+import { TURKEY_WELCOME_MODAL } from "@/utils/auth/global";
 
 export default function Home() {
   const { data, isLoading } = useGetLatestProductsQuery();
@@ -20,7 +22,9 @@ export default function Home() {
   // }, []);
 
   useEffect(() => {
-    const data = localStorage.getItem("welcomeModal");
+    const data = Cookies.get(TURKEY_WELCOME_MODAL)
+      ? Cookies.get(TURKEY_WELCOME_MODAL)
+      : "";
     if (data) {
       setIsWelcomeModal(JSON.parse(data));
       welcomeModal.current.click();
